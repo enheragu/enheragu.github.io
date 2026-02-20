@@ -2,14 +2,20 @@
 content_path: _cv_sections
 
 items:
-- id: detail-contact
 - id: detail-presentation
-- id: detail-education
-- id: detail-work
 - id: detail-electronicsdeg
+- id: detail-mscrobotics
 - id: detail-bq
 - id: detail-gmv
+- id: detail-umh
 - id: detail-projects
-- id: detail-publications
+- id: detail-pub-journals
+- id: detail-pub-chapters
+- id: detail-pub-conferences
+- id: detail-pub-presentations
+- id: detail-pub-posters
 - id: detail-courses
 - id: detail-skills
+- id: detail-dfki-2025
+- id: detail-umh-intern
+- id: detail-phd

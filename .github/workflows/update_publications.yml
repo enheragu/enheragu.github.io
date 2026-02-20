@@ -1,0 +1,32 @@
+name: Update Publications YAML
+
+on:
+  push:
+    paths:
+      - '_data/publications.bib'
+
+permissions:
+  contents: write
+
+jobs:
+  convert-bib:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Convert BibTeX to YAML
+        run: python _scripts/bib_to_yaml.py
+
+      - name: Commit updated YAML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _data/publications.yml
+          git diff --cached --quiet || git commit -m "Auto-update publications.yml from .bib"
+          git push

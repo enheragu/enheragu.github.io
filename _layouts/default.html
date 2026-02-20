@@ -3,33 +3,17 @@
 
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{{ page.title }} | {{ site.title }}</title>
         <link id="favicon" rel="shortcut icon" type="image/svg" href={{ "/img/robot.svg" | absolute_url }} />
         <link rel="stylesheet" type="text/css" href={{ "/css/index.css" | absolute_url }} />
         {% for stylesheet in page.custom_css %}
         <link rel="stylesheet" type="text/css" href={{ stylesheet | absolute_url }} />
         {% endfor %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     </head>
-
-    <header>
-        <a href={{ "/index#top" | absolute_url }}>
-            <img src="./img/robot.svg" alt="cool robot logo" align="left" class="logoimage"/>
-        </a>
-
-        <a href={{ "/index#top" | absolute_url }}>
-            <h1 style="margin-left:15.5%;">
-                <font color="#0A0A0A" style="font-weight:bold;">Enrique Heredia Aguado</font>
-                <font color="#979797" style="font-weight:normal;">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Robotics Engineer</font>
-            </h1>
-        </a>
-
-        <nav>
-            <a href={{ "/index#top" | absolute_url }}>CV</a>
-            <!-- <a href={{ "/about#top" | absolute_url }}>About</a> -->
-            <a href={{ "/projects#top" | absolute_url }}>Projects</a>
-            <a href={{ "/gallery#top" | absolute_url }}>Gallery</a>
-        </nav>
-    </header>
 
     <body>
         {{ content }}

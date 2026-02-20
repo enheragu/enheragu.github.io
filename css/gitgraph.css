@@ -2,13 +2,16 @@
   position: absolute;
   margin-top: -15px;
   margin-left: 25px;
-  padding: 10px;
-  border-radius: 5px;
-  background: #eee;
-  color: #333;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--bg-tertiary, #21262d);
+  color: var(--text-primary, #e6edf3);
+  border: 1px solid var(--border, #30363d);
   text-align: center;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.4;
+  box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.3));
 }
 
 .gitgraph-tooltip:after {
@@ -20,21 +23,25 @@
   border-width: 10px;
   border-style: solid;
   border-color: transparent;
-  border-right-color: #eee;
+  border-right-color: var(--bg-tertiary, #21262d);
   content: "";
 }
 
 
 .gitgraph-detail {
   position: absolute;
-  padding: 1%;
-  text-align: justify;
-  width: 45%;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  width: 55%;
   display: none;
 
-  font-size: 0.9vw;
-
-  /* display: block; */
-  /* margin: auto; */
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-primary, #e6edf3);
+  background: var(--bg-secondary, #161b22);
+  border: 1px solid var(--border, #30363d);
+  border-radius: 6px;
+  box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.3));
+  z-index: 10;
 }
 

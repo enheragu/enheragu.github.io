@@ -1,0 +1,265 @@
+- category: "Journal Articles"
+  type_key: "journal"
+  entries:
+    - key: "rs17061060"
+      title: "Static Early Fusion Techniques for Visible and Thermal Images to Enhance Convolutional Neural Network Detection: A Performance Analysis"
+      year: 2025
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Juan Jose Cabrera"
+        - "Luis Miguel Jimenez"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "Remote Sensing"
+      doi: "10.3390/rs17061060"
+      url: "https://www.mdpi.com/2072-4292/17/6/1060"
+      volume: "17"
+      number: "6"
+
+    - key: "technologies13040162"
+      title: "Ground Segmentation for LiDAR Point Clouds in Structured and Unstructured Environments Using a Hybrid Neural–Geometric Approach"
+      year: 2025
+      authors:
+        - "Antonio Santo"
+        - "Enrique Heredia-Aguado"
+        - "Carlos Viegas"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "Technologies"
+      doi: "10.3390/technologies13040162"
+      url: "https://www.mdpi.com/2227-7080/13/4/162"
+      volume: "13"
+      number: "4"
+
+- category: "Book Chapters"
+  type_key: "book_chapter"
+  entries:
+    - key: "santo2026sparse_conv"
+      title: "Sparse Convolutional 3D Neural Networks for the Assessment of Environment Traversability"
+      year: 2026
+      authors:
+        - "Antonio Santo"
+        - "Arturo Gil"
+        - "David Valiente"
+        - "Alvaro Martinez"
+        - "Enrique Heredia-Aguado"
+      venue: "Informatics in Control, Automation and Robotics"
+      publisher: "Springer Nature Switzerland"
+      doi: "10.1007/978-3-031-94989-0_9"
+      pages: "199–218"
+
+    - key: "govindaraj2024building"
+      title: "Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-Robot-Team"
+      year: 2024
+      authors:
+        - "Shashank Govindaraj"
+        - "Wiebke Brinkmann"
+        - "Francisco Javier Colmenero"
+        - "Irene Sanz Nieto"
+        - "Alexandru But"
+        - "Matteo De Benedetti"
+        - "Leon C Danter"
+        - "Mercedes Alonso"
+        - "Enrique Heredia-Aguado"
+        - "Simon Lacroix"
+        - "et al."
+      venue: "Space Robotics: The State of the Art and Future Trends"
+      publisher: "Springer"
+      pages: "395–431"
+
+- category: "Conference Papers"
+  type_key: "conference_paper"
+  entries:
+    - key: "icinco25eheredia"
+      title: "A Robust Comparative Study of Adaptative Reprojection Fusion Methods for Deep Learning Based Detection Tasks with RGB-Thermal Images"
+      year: 2025
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Marcos Alfaro-Perez"
+        - "Maria Flores"
+        - "Luis Paya"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
+      publisher: "SciTePress"
+      doi: "10.5220/0013761800003982"
+      pages: "313–320"
+
+    - key: "icinco25malfaro"
+      title: "Place Recognition with Omnidirectional Imaging and Confidence-Based Late Fusion"
+      year: 2025
+      authors:
+        - "Marcos Alfaro"
+        - "Juan Cabrera"
+        - "Enrique Heredia-Aguado"
+        - "Oscar Reinoso"
+        - "Arturo Gil"
+        - "Luis Paya"
+      venue: "Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
+      publisher: "SciTePress"
+      doi: "10.5220/0013743100003982"
+      pages: "117–125"
+
+    - key: "maximo2024localizacion"
+      title: "Localizacion topologica Monte Carlo basada en descripcion de nubes de puntos LiDAR 3D"
+      year: 2024
+      authors:
+        - "Miriam Maximo"
+        - "Monica Ballesta"
+        - "Enrique Heredia-Aguado"
+        - "David Valiente"
+        - "Oscar Reinoso"
+      venue: "Simposio de Robotica, Bioingenieria y Vision por Computador"
+
+    - key: "eheredia2024fusion"
+      title: "Fusion estatica de imagenes del espectro visible y termico para una mejor deteccion de personas mediante Redes Neuronales Convolucionales: un analisis del rendimiento"
+      year: 2024
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "David Valiente"
+        - "Arturo Gil"
+        - "Miriam Maximo"
+        - "Luis Paya"
+      venue: "Actas del Simposio de Robotica, Bioingenieria y Vision por Computador"
+      pages: "263–268"
+
+    - key: "brinkmann2022mantis"
+      title: "Mantis Within a Multi Robot Team for Lunar Exploration and Construction Tasks"
+      year: 2022
+      authors:
+        - "Wiebke Brinkmann"
+        - "Leon Danter"
+        - "Tobias Stark"
+        - "Enrique Heredia-Aguado"
+        - "Francisco Javier Colmenero"
+        - "Mercedes Alonso"
+      venue: "2022 IEEE Aerospace Conference (AERO)"
+      publisher: "IEEE"
+
+    - key: "govindaraj2021building_conf"
+      title: "Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-Robot-Team"
+      year: 2021
+      authors:
+        - "Shashank Govindaraj"
+        - "Wiebke Brinkmann"
+        - "Francisco Javier Colmenero"
+        - "Enrique Heredia-Aguado"
+        - "Mercedes Alonso"
+        - "Alexandru But"
+        - "Leon Danter"
+        - "Luis Lopes"
+      venue: "International Astronautical Congress (IAC)"
+
+    - key: "govindaraj2020multirobot"
+      title: "Multi-Robot Cooperation for Lunar Base Assembly And Construction"
+      year: 2020
+      authors:
+        - "Shashank Govindaraj"
+        - "Irene Nieto"
+        - "Alexandru But"
+        - "Wiebke Brinkmann"
+        - "Alexander Dettmann"
+        - "Leon Danter"
+        - "Nabil Aouf"
+        - "Masoud Sotoodeh Bahraini"
+        - "Abdelhafid Zenati"
+        - "Heitor Savino"
+        - "Jakub Stelmachowski"
+        - "Francisco Colmenero"
+        - "Enrique Heredia-Aguado"
+        - "Mercedes Alonso"
+        - "Joe Purnell"
+        - "Kevin Picton"
+        - "Luis Lopes"
+      venue: "International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)"
+
+    - key: "ocon2019testing"
+      title: "Testing Autonomous Robots: A Discussion on Performances Obtained During the ERGO Field Tests"
+      year: 2019
+      authors:
+        - "Jorge Ocon"
+        - "Francisco Colmenero"
+        - "Iulia Dragomir"
+        - "Enrique Heredia-Aguado"
+        - "Mercedes Alonso"
+        - "Joaquin Estremera"
+        - "Robert Marc"
+        - "Piotr Weclewski"
+        - "Thomas Keller"
+        - "Mark Woods"
+        - "Spyridon Karachalios"
+      venue: "International Astronautical Congress (IAC)"
+
+    - key: "ocon2018ergo"
+      title: "The ERGO framework and its use in planetary/orbital scenarios"
+      year: 2018
+      authors:
+        - "Jorge Ocon"
+        - "Francisco Colmenero"
+        - "Joaquin Estremera"
+        - "Karl Buckley"
+        - "Mercedes Alonso"
+        - "Enrique Heredia-Aguado"
+        - "J. Garcia"
+        - "Andrew Coles"
+        - "Amanda Coles"
+        - "M. Martinez"
+        - "E. Savaş"
+        - "Florian Pommerening"
+        - "Thomas Keller"
+        - "Spyridon Karachalios"
+        - "Mark Woods"
+        - "Iulia Dragomir"
+        - "Saddek Bensalem"
+        - "Pierre Dissaux"
+        - "A. Schach"
+        - "Piotr Weclewski"
+      venue: "International Astronautical Congress (IAC)"
+
+- category: "Presentations"
+  type_key: "presentation"
+  entries:
+    - key: "heredia2026fusion_multispectral"
+      title: "Tecnicas de fusion de imagenes multiespectrales para una mejor deteccion mediante algoritmos de aprendizaje profundo"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "VI Congreso Anual de Estudiantes de Doctorado (UMH)"
+
+    - key: "heredia2025collab_interdisciplinar"
+      title: "Colaboracion interdisciplinar en estudios de doctorado: Estudiando el proceso de busqueda visual en personas a traves de la vision por computador"
+      year: 2025
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Laura Cepero Amores"
+        - "Luis Miguel Jimenez"
+        - "David Valiente"
+        - "Arturo Gil"
+        - "M. Pilar Aivar"
+      venue: "V Congreso Anual de Estudiantes de Doctorado (UMH)"
+
+    - key: "cepero2025visual_search"
+      title: "Visual Search Strategies: Comparing Screen-Based and Real-World Contexts"
+      year: 2025
+      authors:
+        - "Laura Cepero Amores"
+        - "Enrique Heredia-Aguado"
+        - "Victoria Plaza"
+        - "M. Pilar Aivar"
+      venue: "Reunion Cientifica sobre Atencion (RECA14)"
+
+- category: "Posters"
+  type_key: "poster"
+  entries:
+    - key: "cepero2024poster_visual_search"
+      title: "Bringing Visual Search to Life: how we find colored objects when performing a natural task"
+      year: 2024
+      authors:
+        - "Laura Cepero Amores"
+        - "Enrique Heredia-Aguado"
+        - "Lidia Sobrino"
+        - "M. Pilar Aivar"
+      venue: "XIV Congress of the Spanish Society for Experimental Psychology"

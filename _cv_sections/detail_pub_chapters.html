@@ -1,0 +1,17 @@
+
+{% assign pubs = site.data.publications | where: "type_key", "book_chapter" | first %}
+{% if pubs %}
+<ul class="pub-list">
+    {% for pub in pubs.entries %}
+    <li>
+        <cite><small>{{ pub.authors | join: ", " }}. </small></cite>
+        <strong>({{ pub.year }}). {{ pub.title }}</strong>.
+        {% if pub.venue %} In <em>{{ pub.venue }}</em>.{% endif %}
+        {% if pub.publisher %} {{ pub.publisher }}.{% endif %}
+        {% if pub.pages %} pp. {{ pub.pages }}.{% endif %}
+        {% if pub.doi %} <a href="https://doi.org/{{ pub.doi }}" target="_blank">DOI</a>{% endif %}
+        {% if pub.url %} <a href="{{ pub.url }}" target="_blank">[link]</a>{% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
