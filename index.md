@@ -32,8 +32,10 @@ custom_js:
             </a>
         </div>
     </div>
-    <!-- GitGraph canvas -->
-    <canvas id="gitGraph"></canvas>
+    <!-- GitGraph canvas (wrapper enables horizontal scroll without clipping panels) -->
+    <div class="gitgraph-container">
+        <canvas id="gitGraph"></canvas>
+    </div>
     <!-- Dynamic publication counts (Liquid → JS) -->
     <script>
     window.pubCounts = {

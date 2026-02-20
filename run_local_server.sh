@@ -21,4 +21,4 @@ python3 "$SCRIPT_DIR/_scripts/bib_to_yaml.py"
 
 echo "Starting Jekyll server at http://localhost:4000"
 echo "Press Ctrl+C to stop"
-jekyll serve --livereload
+jekyll serve --livereload --baseurl ''

@@ -46,16 +46,20 @@ a:hover, a:focus {
 
 /* ===== MAIN LAYOUT ===== */
 section {
-  max-width: 1600px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0.5rem 5rem 2rem;
   position: relative;
 }
 
 /* ===== GIT GRAPH SECTION ===== */
+.gitgraph-container {
+  overflow-x: auto;
+}
+
 #gitGraph {
   display: block;
-  margin: 0 auto;
+  margin: 0;
 }
 
 /* ===== DETAIL PANELS ===== */
@@ -63,7 +67,7 @@ section {
   position: absolute;
   padding: 1rem 1.5rem;
   text-align: left;
-  right: 0;
+  right: 5rem;
   max-height: 400px;
   overflow-y: auto;
   display: none;
@@ -168,6 +172,22 @@ section {
 }
 
 .pub-list li a:hover {
+  background: var(--border);
+}
+
+/* Reusable badge-style link (same look as publication links) */
+a.link-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  margin-left: 0.3rem;
+}
+
+a.link-badge:hover {
   background: var(--border);
 }
 
@@ -347,22 +367,104 @@ header, nav {
 }
 
 /* ===== RESPONSIVE ===== */
-@media screen and (max-width: 768px) {
+
+/* — Tablet large (≤1200px): reduce side padding — */
+@media screen and (max-width: 1200px) {
   section {
-    padding: 1rem;
+    padding: 0.5rem 2rem 2rem;
   }
 
   .gitgraph-detail {
-    position: relative !important;
-    width: 100% !important;
-    margin: 0.5rem 0;
+    right: 2rem;
   }
+}
+
+/* — Tablet small / iPad (≤1024px): tighter padding — */
+@media screen and (max-width: 1024px) {
+  section {
+    padding: 0.5rem 1rem 2rem;
+  }
+
+  .gitgraph-detail {
+    right: 1rem;
+  }
+}
+
+/* — Mobile (≤768px): git graph left, panels right — */
+@media screen and (max-width: 768px) {
+  section {
+    padding: 0.5rem 0.5rem 1rem;
+  }
+
+  /* Panels stretch from git-graph edge (left set by JS) to right edge */
+  .gitgraph-detail {
+    right: 0.5rem !important;
+    max-height: none !important;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 0;
+  }
+
+
 
   .cv-header h1 {
     font-size: 1.4rem;
   }
 
+  .cv-subtitle {
+    font-size: 0.75rem;
+  }
+
   .social-links {
     gap: 0.5rem;
+  }
+
+  .social-links a {
+    width: 28px;
+    height: 28px;
+  }
+
+  .social-links a svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .cv-footer {
+    text-align: center;
+  }
+}
+
+/* — Very small screens (≤400px): even more compact — */
+@media screen and (max-width: 400px) {
+  section {
+    padding: 0.3rem 0.25rem 0.8rem;
+  }
+
+  .gitgraph-detail {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.5rem;
+    right: 0.25rem !important;
+  }
+
+  .gitgraph-detail::before {
+    font-size: 0.68rem;
+  }
+
+  .cv-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .cv-subtitle {
+    font-size: 0.68rem;
+  }
+
+  .social-links a {
+    width: 24px;
+    height: 24px;
+  }
+
+  .social-links a svg {
+    width: 12px;
+    height: 12px;
   }
 }

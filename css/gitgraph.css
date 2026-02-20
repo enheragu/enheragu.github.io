@@ -28,20 +28,5 @@
 }
 
 
-.gitgraph-detail {
-  position: absolute;
-  padding: 1rem 1.5rem;
-  text-align: left;
-  width: 55%;
-  display: none;
-
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: var(--text-primary, #e6edf3);
-  background: var(--bg-secondary, #161b22);
-  border: 1px solid var(--border, #30363d);
-  border-radius: 6px;
-  box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.3));
-  z-index: 10;
-}
+/* Detail panel styles are in index.css — single source of truth */
 
