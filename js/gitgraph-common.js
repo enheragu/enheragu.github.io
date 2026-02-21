@@ -122,7 +122,7 @@ var GitGraphCommon = (function() {
       var availW = section.clientWidth - left - cssRight;
       if (availW > 50) c.detail.style.width = availW + "px";
 
-      // Top: aligned with commit dot, avoiding overlap
+      // Top: aligned with commit dot, but never overlapping previous panel
       var idealTop = canvas.offsetTop + cssMarginY + c.y + OFFSET_TOP;
       if (prevBottom > 0 && idealTop < prevBottom + GAP) {
         idealTop = prevBottom + GAP;
@@ -134,9 +134,10 @@ var GitGraphCommon = (function() {
       prevBottom = idealTop + c.detail.clientHeight;
     }
 
-    // Ensure section accommodates all panels
-    if (prevBottom > section.scrollHeight) {
-      section.style.minHeight = (prevBottom + 40) + "px";
+    // Ensure section accommodates all panels + canvas
+    var needed = Math.max(prevBottom, canvas.offsetTop + canvas.clientHeight);
+    if (needed + 40 > section.clientHeight) {
+      section.style.minHeight = (needed + 40) + "px";
     }
   }
 
@@ -181,6 +182,24 @@ var GitGraphCommon = (function() {
     handleAnchor();
     // Expose instance so async content (repo cards) can trigger relayout
     window._gitgraphInstance = gitgraph;
+
+    // Delayed re-layouts to catch async content (repo cards, images)
+    setTimeout(function() { relayoutPanels(gitgraph); }, 500);
+    setTimeout(function() { relayoutPanels(gitgraph); }, 1500);
+    setTimeout(function() { relayoutPanels(gitgraph); }, 3000);
+
+    // MutationObserver: re-layout when panel children change (async loads)
+    if (typeof MutationObserver !== 'undefined') {
+      var _relayoutTimer = null;
+      var observer = new MutationObserver(function() {
+        clearTimeout(_relayoutTimer);
+        _relayoutTimer = setTimeout(function() { relayoutPanels(gitgraph); }, 100);
+      });
+      var panels = document.querySelectorAll('.gitgraph-detail');
+      for (var p = 0; p < panels.length; p++) {
+        observer.observe(panels[p], { childList: true, subtree: true, characterData: true });
+      }
+    }
   }
 
   // ---- Public API ----

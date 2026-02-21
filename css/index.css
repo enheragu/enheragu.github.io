@@ -306,6 +306,7 @@ a.link-badge:hover {
   display: block;
   flex: 1 1 220px;
   max-width: 320px;
+  min-height: 70px;
   padding: 0.6rem 0.8rem;
   background: var(--bg-tertiary);
   border: 1px solid var(--border);

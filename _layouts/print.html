@@ -13,12 +13,13 @@
 
     <body>
         {{ content }}
-    </body>
+
     <!-- Scripts -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     {% for jsfile in page.custom_js %}
     <script src={{ jsfile | absolute_url }} ></script>
     {% endfor %}
+    </body>
 
 </html>

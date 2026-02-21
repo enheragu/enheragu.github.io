@@ -2,3 +2,12 @@ name: enheragu cv
 title: Enrique Heredia Aguado
 url: https://enheragu.github.io
 github_repo: enheragu/enheragu.github.io
+description: "Personal website and CV of Enrique Heredia Aguado — Robotics, Computer Vision & AI PhD student at Universidad Miguel Hernández (UMH). Publications, research projects, academic background and photo gallery."
+author: Enrique Heredia Aguado
+lang: en
+
+# Google Analytics 4 — Measurement ID (format: G-XXXXXXXXXX)
+google_analytics: G-BQJ3799LQT
+
+# Google Search Console verification
+google_site_verification: vqmYVzG7PKuhZrcDMVyTFQLd9cb-2Wj8dXQfLO5LChA
