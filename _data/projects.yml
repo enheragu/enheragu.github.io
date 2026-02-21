@@ -2,11 +2,14 @@
 
 content_path: _projects
 items:
+- id: detail-TED2021
+- id: detail-AViRobots
+- id: detail-PROMETEO
+- id: detail-ACTVIS
 - id: detail-MOSAR
 - id: detail-PROACT
 - id: detail-ADE
 - id: detail-ERGO
 - id: detail-GOTCHA
-- id: detail-RHA
 - id: detail-HIDALGO
 - id: detail-Other

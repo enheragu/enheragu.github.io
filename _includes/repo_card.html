@@ -1,0 +1,68 @@
+{% comment %}
+  Reusable GitHub repo card — usage:
+    {% include repo_card.html repos="enheragu/eye_tracking_yolo,enheragu/other_repo" %}
+  Fetches repo info from GitHub API and renders styled cards.
+  No data file needed — just list repos inline.
+{% endcomment %}
+{% assign repo_list = include.repos | split: "," %}
+{% if repo_list.size > 0 %}
+<div class="repo-box">
+<h4>Related Repositories ({{ repo_list.size }})</h4>
+<div class="repo-cards">
+{% for repo_full in repo_list %}
+  {% assign r = repo_full | strip %}
+  <a class="repo-card" href="https://github.com/{{ r }}" target="_blank" data-repo="{{ r }}">
+    <div class="repo-card-header">
+      <svg class="repo-icon" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+      <span class="repo-name">{{ r | split: '/' | last }}</span>
+    </div>
+    <p class="repo-desc" data-loading="true">Loading...</p>
+    <div class="repo-meta">
+      <span class="repo-lang" data-loading="true"></span>
+      <span class="repo-stars" data-loading="true"></span>
+    </div>
+  </a>
+{% endfor %}
+</div>
+</div>
+<script>
+(function() {
+  var cards = document.querySelectorAll('.repo-card[data-repo]');
+  var cache = {};
+  cards.forEach(function(card) {
+    var repo = card.getAttribute('data-repo');
+    if (cache[repo]) { fillCard(card, cache[repo]); return; }
+    fetch('https://api.github.com/repos/' + repo)
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function(data) {
+        cache[repo] = data;
+        // Fill all cards with same repo (in case duplicated)
+        document.querySelectorAll('.repo-card[data-repo="' + repo + '"]')
+          .forEach(function(c) { fillCard(c, data); });
+        // Trigger panel relayout after content loaded
+        if (window._gitgraphInstance && window.GitGraphCommon)
+          GitGraphCommon.relayoutPanels(window._gitgraphInstance);
+      })
+      .catch(function() {
+        card.querySelector('.repo-desc').textContent = 'Could not load repo info';
+        card.querySelector('.repo-desc').removeAttribute('data-loading');
+      });
+  });
+  function fillCard(card, data) {
+    var desc = card.querySelector('.repo-desc');
+    desc.textContent = data.description || 'No description';
+    desc.removeAttribute('data-loading');
+    var lang = card.querySelector('.repo-lang');
+    if (data.language) {
+      lang.innerHTML = '<span class="lang-dot"></span> ' + data.language;
+    }
+    lang.removeAttribute('data-loading');
+    var stars = card.querySelector('.repo-stars');
+    if (data.stargazers_count > 0) {
+      stars.innerHTML = '&#9733; ' + data.stargazers_count;
+    }
+    stars.removeAttribute('data-loading');
+  }
+})();
+</script>
+{% endif %}

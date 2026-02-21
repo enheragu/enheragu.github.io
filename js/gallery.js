@@ -1,31 +1,85 @@
-function myFunction(imgs, src_big, author, camera, date) 
-{
-  var container = document.getElementById("imageviewr");
-  // Get the expanded image
-  var expandImg = document.getElementById("expandedImg");
-  // Get the image text
-  var imgText = document.getElementById("imgtext");
-  // Use the same src in the expanded image as the image being clicked on from the grid
-  expandImg.src = src_big;//imgs.src;
-  // Use the value of the alt attribute of the clickable image as text inside the expanded image
-  imgText.innerHTML = imgs.alt + " <br><small><small><i>(" + author + " - " +camera + ")</i> " + date + "</small></small>";
+// ===== Gallery Lightbox with Arrow Navigation =====
 
-  // Show the container element (hidden with CSS)
-  expandImg.parentElement.style.display = "block";
-  // Same with the container id
-  container.style.display = "block";
+var allGalleryItems = [];
+var currentLightboxIndex = -1;
 
-  // Get the <span> element that closes the container
-  var span = document.getElementsByClassName("closebtn")[0];
+// Collect all gallery-item elements for sequential navigation
+function collectGalleryItems() {
+  allGalleryItems = Array.prototype.slice.call(
+    document.querySelectorAll('.gallery-item')
+  );
 
-  // When the user clicks on <span> (x), close the container
-  span.onclick = function() {
-    container.style.display = "none";
-    span.parentElement.style.display='none'
+  // Wire up click handlers using data attributes
+  allGalleryItems.forEach(function(item, idx) {
+    item.addEventListener('click', function() {
+      openLightboxByIndex(idx);
+    });
+  });
+}
+
+function openLightboxByIndex(idx) {
+  if (idx < 0 || idx >= allGalleryItems.length) return;
+  currentLightboxIndex = idx;
+  var item = allGalleryItems[idx];
+
+  var src    = item.getAttribute('data-src')    || '';
+  var text   = item.getAttribute('data-text')   || '';
+  var author = item.getAttribute('data-author') || '';
+  var camera = item.getAttribute('data-camera') || '';
+  var date   = item.getAttribute('data-date')   || '';
+
+  var lb      = document.getElementById('lightbox');
+  var img     = document.getElementById('lightbox-img');
+  var caption = document.getElementById('lightbox-caption');
+  var counter = document.getElementById('lightbox-counter');
+
+  img.src = src;
+  img.alt = text;
+
+  var parts = [text];
+  var meta = [];
+  if (author && author.trim()) meta.push(author.trim());
+  if (camera && camera.trim()) meta.push(camera.trim());
+  if (date && date.trim())     meta.push(date.trim());
+  if (meta.length) parts.push('<br><small>' + meta.join(' · ') + '</small>');
+
+  caption.innerHTML = parts.join('');
+  if (counter) {
+    counter.textContent = (idx + 1) + ' / ' + allGalleryItems.length;
   }
+
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
-function fade(self_obj) 
-{
-  self_obj.style.display = "none";
+function navigateLightbox(direction) {
+  if (allGalleryItems.length === 0) return;
+  var next = currentLightboxIndex + direction;
+  // Wrap around
+  if (next < 0) next = allGalleryItems.length - 1;
+  if (next >= allGalleryItems.length) next = 0;
+  openLightboxByIndex(next);
 }
+
+function closeLightbox(e) {
+  // Only close if clicking overlay or close button, not the image/nav
+  if (e && (e.target.id === 'lightbox-img' ||
+            e.target.classList.contains('lightbox-nav'))) return;
+  var lb = document.getElementById('lightbox');
+  lb.classList.remove('active');
+  document.body.style.overflow = '';
+  currentLightboxIndex = -1;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  var lb = document.getElementById('lightbox');
+  if (!lb || !lb.classList.contains('active')) return;
+
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+});
+
+// Collect items once DOM is ready (called again from gallery-graph.js after layout)
+document.addEventListener('DOMContentLoaded', collectGalleryItems);

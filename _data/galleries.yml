@@ -1,146 +1,299 @@
 
 
-imagefolder: ./img_gallery
-thumnaifolder: ./img_gallery/Thumbnails
+imagefolder: /img_gallery
+thumnaifolder: /img_gallery/Thumbnails
 
-galleryset:
+# Branches on the gitgraph (one per project)
+branches:
+- name: "UMH"
+  tag: "UMH"
+  campaigns:
+  - id: umh-tfm-2022
+    label: "[06/2022] · TFM"
+    images:
+    - name: 06_2022_umh_01.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[06/2022]"
+    - name: 06_2022_umh_02.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[06/2022]"
+    - name: 06_2022_umh_03.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[06/2022]"
 
-- id: ade_gallery
-  description: Field Test Campaigns
-  images:  
-  - name: 07_2020_ade_bremen_00.jpg
-    text: DFKI outside installations for testing.
-    author: Enrique Heredia
-    camera: Phone
-    date: "[07/2020]"
+- name: "PROACT"
+  tag: "PROACT"
+  campaigns:
+  - id: proact-2021
+    label: "[04/2021] · PROACT"
+    images:
+    - name: 04_2021_proact_01.jpg
+      text: "Photo of part of PROACT team after the successful remote field test campagin due to COVID-19 restrictions."
+      author: " "
+      camera: "Screenshot :)"
+      date: "[04/2021]"
 
-  - name: 07_2020_ade_bremen_01.jpg
-    text: Myself with SherpaTT Robot.
-    author: Ricardo Sanchez
-    camera: Phone
-    date: "[07/2020]"
+- name: "ADE"
+  tag: "ADE"
+  campaigns:
+  - id: ade-bremen-2020-10
+    label: "[10/2020] · Bremen Field Tests (2nd campaign)"
+    images:
+    - name: 10_2020_ade_bremen_00.jpg
+      text: Image from.
+      author: Ricardo Sanchez
+      camera: Phone
+      date: "[10/2020]"
+    - name: 10_2020_ade_bremen_01.jpg
+      text: Image from.
+      author: Enrique Heredia
+      camera: Phone
+      date: "[10/2020]"
+    - name: 10_2020_ade_bremen_02.jpg
+      text: Image from.
+      author: Enrique Heredia
+      camera: Phone
+      date: "[10/2020]"
+    - name: 10_2020_ade_bremen_03.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[10/2020]"
 
-  - name: 07_2020_ade_gmv_00.jpg
-    text: GMVs Foxizirc Robot prepared for Nuclear Scenario Tests.
-    author: Enrique Heredia
-    camera: Phone
-    date: "[07/2020]"
+  - id: ade-bremen-2020-07
+    label: "[07/2020] · Bremen Field Tests"
+    images:
+    - name: 07_2020_ade_bremen_00.jpg
+      text: DFKI outside installations for testing.
+      author: Enrique Heredia
+      camera: Phone
+      date: "[07/2020]"
+    - name: 07_2020_ade_bremen_01.jpg
+      text: Myself with SherpaTT Robot.
+      author: Ricardo Sanchez
+      camera: Phone
+      date: "[07/2020]"
+    - name: 07_2020_ade_gmv_00.jpg
+      text: GMVs Foxizirc Robot prepared for Nuclear Scenario Tests.
+      author: Enrique Heredia
+      camera: Phone
+      date: "[07/2020]"
 
-  - name: 10_2020_ade_bremen_00.jpg
-    text: Image from.
-    author: Ricardo Sanchez
-    camera: Phone
-    date: "[10/2020]"
+- name: "ERGO"
+  tag: "ERGO"
+  campaigns:
+  - id: ergo-morocco-2018
+    label: "[12/2018] · Gara Medouar, Morocco"
+    images:
+    - name: 12_2018_ergo_garam_00.jpg
+      text: Camp in the desert.
+      author: " "
+      camera: Phone
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_01.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_02.jpg
+      text: SherpaTT Robot in the camp site.
+      author: " "
+      camera: Phone
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_03.jpg
+      text: Image from.
+      author: " "
+      camera: Phone
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_04.jpg
+      text: SherpaTT Robot with Gara Medouar in the background.
+      author: " "
+      camera: Phone
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_05.jpg
+      text: Image from.
+      author: Jorge Ocon
+      camera: Phone
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_06.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_07.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_08.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2018]"
+    - name: 12_2018_ergo_garam_09.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2018]"
+    - name: ergo_final_test_shotD2018_346_12_01_23X8_02Y7_99H0_20.png
+      text: Part of ERGO team in Morocco (Gara Medouar) Field Tests.
+      author: DFKI Robot SherpaTT
+      camera: On board camera
+      date: "[12/2018]"
 
-  - name: 10_2020_ade_bremen_01.jpg
-    text: Image from.
-    author: Enrique Heredia
-    camera: Phone
-    date: "[10/2020]"
+  - id: ergo-xaluka-2018
+    label: "[11/2018] · Xaluka Workshop"
+    images:
+    - name: 11_2018_ergo_xaluka_00.JPG
+      text: Starry night, Xaluka Hotel's roof.
+      author: Enrique Heredia
+      camera: NikonD3100
+      date: "[11/2018]"
+    - name: 11_2018_ergo_xaluka_01.jpg
+      text: Starry night, Xaluka Hotel's roof.
+      author: Enrique Heredia
+      camera: NikonD3100
+      date: "[11/2018]"
+    - name: 11_2018_ergo_xaluka_02.jpg
+      text: Xaluka Testing Workshop with SherpaTT Robot.
+      author: Enrique Heredia
+      camera: Phone
+      date: "[11/2018]"
+    - name: 11_2018_ergo_xaluka_03.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[11/2018]"
+    - name: 11_2018_ergo_xaluka_04.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[11/2018]"
+    - name: 11_2018_ergo_xaluka_05.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[11/2018]"
 
-  - name: 10_2020_ade_bremen_02.jpg
-    text: Image from.
-    author: Enrique Heredia
-    camera: Phone
-    date: "[10/2020]"
+  - id: ergo-bremen-2018
+    label: "[08/2018] · Bremen Field Tests"
+    images:
+    - name: 08_2018_ergo_bremen_00.JPG
+      text: DFKI outside installations for testing.
+      author: Tobias Stark
+      camera: DJI drone
+      date: "[08/2018]"
+    - name: 08_2018_ergo_bremen_01.JPG
+      text: DFKI outside installations for testing.
+      author: Tobias Stark
+      camera: DJI drone
+      date: "[08/2018]"
+    - name: 08_2018_ergo_bremen_02.JPG
+      text: DFKI outside installations for testing.
+      author: Tobias Stark
+      camera: DJI drone
+      date: "[08/2018]"
 
+  - id: ergo-gmv-2018
+    label: "[08/2018] · GMV Lab - Orbital Scenario"
+    images:
+    - name: 08_2018_ergo_gmv_00.jpg
+      text: ERGO Orbital Scenario setup in GMV's platform-art laboratory.
+      author: Enrique Heredia
+      camera: Phone
+      date: "[08/2018]"
 
-- id: ergo_gallery
-  description: ERGO Field Test Campaigns
-  images:
-  - name: 08_2020_ergo_gmv_00.jpg
-    text: ERGO Orbital Case setup in GMV's platform-art laboratory.
-    author: Enrique Heredia
-    camera: Phone
-    date: "[08/2020]"
+- name: "GOTCHA"
+  tag: "GOTCHA"
+  campaigns:
+  - id: gotcha-colmenar-2018
+    label: "[05/2018] · Colmenar Field Tests"
+    images:
+    - name: gotcha_final_test.png
+      text: Part of GOTCHA team in Colmenar Field Tests once field test finished successfully.
+      author: ESA Rover RAT
+      camera: On board camera
+      date: "[05/2018]"
+    - name: 05_2018_gotcha_01.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[05/2018]"
+    - name: 04_2018_gotcha_02.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[04/2018]"
+    - name: 04_2018_gotcha_03.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[04/2018]"
+    - name: 04_2018_gotcha_04.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[04/2018]"
 
-  - name: 08_2018_ergo_bremen_00.JPG
-    text: DFKI outside installations for testing.
-    author: Tobias Stark
-    camera: DJI drone
-    date: "[08/2018]"
+  - id: gotcha-2017
+    label: "[12/2017] · GOTCHA"
+    images:
+    - name: 12_2017_gotcha.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2017]"
 
-  - name: 08_2018_ergo_bremen_01.JPG
-    text: DFKI outside installations for testing.
-    author: Tobias Stark
-    camera: DJI drone
-    date: "[08/2018]"
-
-  - name: 08_2018_ergo_bremen_02.JPG
-    text: DFKI outside installations for testing.
-    author: Tobias Stark
-    camera: DJI drone
-    date: "[08/2018]"
-
-  - name: 11_2018_ergo_xaluka_00.JPG
-    text: Starry night, Xaluka Hotel's roof.
-    author: Enrique Heredia
-    camera: NikonD3100
-    date: "[11/2018]"
-
-  - name: 11_2018_ergo_xaluka_01.jpg
-    text: Starry night, Xaluka Hotel's roof.
-    author: Enrique Heredia
-    camera: NikonD3100
-    date: "[11/2018]"
-
-  - name: 11_2018_ergo_xaluka_02.jpg
-    text: Xaluka Testing Workshop with SherpaTT Robot.
-    author: Enrique Heredia
-    camera: Phone
-    date: "[11/2018]"
-
-  # - name: 11_2018_ergo_xaluka_03.jpg
-  #   text: Image from.
-  #   date: "[11/2018]"
-
-  - name: 12_2018_ergo_garam_00.jpg
-    text: Camp in the desert.
-    author: " "
-    camera: Phone
-    date: "[12/2018]"
-
-  # - name: 12_2018_ergo_garam_01.jpg
-  #   text: Image from.
-  #   date: "[12/2018]"
-  - name: 12_2018_ergo_garam_02.jpg
-    text: SherpaTT Robot in the camp site.
-    author: " "
-    camera: Phone
-    date: "[12/2018]"
-
-  - name: 12_2018_ergo_garam_03.jpg
-    text: Image from.
-    author: " "
-    camera: Phone
-    date: "[12/2018]"
-
-  - name: 12_2018_ergo_garam_04.jpg
-    text: SherpaTT Robot with Gara Medouar in the background.
-    author: " "
-    camera: Phone
-    date: "[12/2018]"
-
-  - name: 12_2018_ergo_garam_05.jpg
-    text: Image from.
-    author: Jorge Ocon
-    camera: Phone
-    date: "[12/2018]"
-
-  - name: ergo_final_test_shotD2018_346_12_01_23X8_02Y7_99H0_20.png
-    text: Part of ERGO team in Morocco (Gara Medouar) Field Tests.
-    author: DFKI Robot SherpaTT
-    camera: On board camera
-    date: "[12/2018]"
-
-
-- id: gotcha_gallery
-  description: GOTCHA Field Test Campaigns
-  images:
-  - name: gotcha_final_test.png
-    text: Part of GOTCHA team in Colmenar Field Tests.
-    author: ESA Rover RAT
-    camera: On board camera
-    date: "[05/2018]"
-
-
+- name: "HIDALGO"
+  tag: "HIDALGO"
+  campaigns:
+  - id: hidalgo-hacklab-2015
+    label: "[12/2015] · Hidalgo presentations and Hacklab team"
+    images:
+    - name: 12_2015_hacklab_hidalgo_03.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2015]"
+    - name: 12_2015_hacklab_hidalgo_01.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2015]"
+    - name: 12_2015_hacklab_hidalgo_02.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2015]"
+    - name: 12_2015_hacklab_hidalgo_04.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2015]"
+- name: "HACKLAB"
+  tag: "HACKLAB"
+  campaigns:
+  - id: hacklab-challenge-2014
+    label: "[12/2014] · Hacklab challenge"
+    images:
+    - name: 12_2014_hacklab_challenge_01.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2014]"
+    - name: 12_2014_hacklab_challenge_02.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2014]"
+    - name: 12_2014_hacklab_challenge_03.jpg
+      text: " "
+      author: " "
+      camera: " "
+      date: "[12/2014]"

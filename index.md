@@ -4,6 +4,7 @@ layout: default
 custom_css: /css/gitgraph.css
 custom_js: 
 - /js/gitgraph.1.0.0.min.js
+- /js/gitgraph-common.js
 - /js/index.js
 ---
 
@@ -47,7 +48,4 @@ custom_js:
         {% include_relative {{ site.data.cv_sections.content_path }}/{{item.id  | replace: '-', '_'}}.html %}
     </div>
     {% endfor %}
-    <div class="cv-footer">
-        <span>Last updated: {{ site.time | date: "%B %Y" }}</span>
-    </div>
 </section>

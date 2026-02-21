@@ -1,0 +1,46 @@
+{% comment %}
+  Reusable publication box — usage:
+    {% include pub_box.html keys="ocon2019testing,ocon2018ergo" %}
+  Looks up each key in publications.yml and renders it with its category label.
+  Title + count stay outside the scrollable area.
+{% endcomment %}
+{% assign key_list = include.keys | split: "," %}
+{% assign pub_count = 0 %}
+{% assign pub_items = "" %}
+{% for wanted_key in key_list %}
+  {% assign k = wanted_key | strip %}
+  {% for category in site.data.publications %}
+    {% for pub in category.entries %}
+      {% if pub.key == k %}
+        {% assign pub_count = pub_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+{% if pub_count > 0 %}
+<div class="pub-box">
+<h4>Publications and Conferences ({{ pub_count }})</h4>
+<div class="pub-box-scroll">
+<ul class="pub-list">
+{% for wanted_key in key_list %}
+  {% assign k = wanted_key | strip %}
+  {% for category in site.data.publications %}
+    {% for pub in category.entries %}
+      {% if pub.key == k %}
+    <li>
+        <span class="pub-type-badge">{{ category.category }}</span>
+        <cite><small>{{ pub.authors | join: ", " }}. </small></cite>
+        <strong>({{ pub.year }}). {{ pub.title }}</strong>.
+        {% if pub.venue %} <em>{{ pub.venue }}</em>.{% endif %}
+        {% if pub.volume %} Vol. {{ pub.volume }}{% if pub.number %}({{ pub.number }}){% endif %}.{% endif %}
+        {% if pub.doi %} <a href="https://doi.org/{{ pub.doi }}" target="_blank">DOI</a>{% endif %}
+        {% if pub.url %} <a href="{{ pub.url }}" target="_blank">[link]</a>{% endif %}
+    </li>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+</ul>
+</div>
+</div>
+{% endif %}

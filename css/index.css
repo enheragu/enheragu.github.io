@@ -191,6 +191,195 @@ a.link-badge:hover {
   background: var(--border);
 }
 
+/* ===== PUB BOX (embedded in detail panels) ===== */
+.pub-box {
+  margin-top: 0.8rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+}
+
+.pub-box h4 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.pub-box-scroll {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.pub-box .pub-list li {
+  font-size: 0.78rem;
+  padding: 0.3rem 0;
+  padding-left: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+
+/* Type badge before each publication */
+.pub-type-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--green);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0px 4px;
+  margin-right: 0.3rem;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ===== EXPANDED PANELS (project/academic pages — no max-height) ===== */
+.expanded-panels .gitgraph-detail {
+  max-height: none;
+  overflow-y: visible;
+}
+
+/* ===== MINI NAV (horizontal link bar in presentation panel) ===== */
+.mini-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+  flex-wrap: wrap;
+}
+
+.mini-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.mini-nav a:hover {
+  background: var(--border);
+  color: var(--accent-hover);
+}
+
+.mini-nav-sep {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+/* ===== REPO CARDS (GitHub repository embeds) ===== */
+.repo-box {
+  margin-top: 0.8rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+}
+
+.repo-box h4 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.repo-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.repo-card {
+  display: block;
+  flex: 1 1 220px;
+  max-width: 320px;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.repo-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.repo-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.repo-icon {
+  fill: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.repo-name {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repo-desc {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.3rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.repo-desc[data-loading] {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.repo-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.lang-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+.repo-stars {
+  color: var(--yellow);
+}
+
 /* ===== TOOLTIP ===== */
 .gitgraph-tooltip {
   position: absolute;
@@ -329,8 +518,9 @@ h4 {
   border-radius: 2px;
 }
 
-/* ===== CV FOOTER ===== */
-.cv-footer {
+/* ===== CV FOOTER / SITE FOOTER ===== */
+.cv-footer,
+.site-footer {
   text-align: right;
   padding: 1rem 0 0.5rem;
   margin-top: 1rem;
@@ -341,9 +531,146 @@ h4 {
   letter-spacing: 0.03em;
 }
 
-/* ===== NAV (hidden) ===== */
-header, nav {
-  display: none;
+.site-footer {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* ===== HAMBURGER MENU ===== */
+.hamburger-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px;
+  transition: all 0.3s;
+  opacity: 0.6;
+}
+
+.hamburger-btn:hover {
+  opacity: 1;
+  border-color: var(--accent);
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: all 0.3s;
+}
+
+.hamburger-btn.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 2rem 2rem;
+  gap: 0.3rem;
+  transition: right 0.3s ease;
+  box-shadow: -4px 0 15px rgba(0,0,0,0.3);
+}
+
+.nav-menu.open {
+  right: 0;
+}
+
+.nav-menu a {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius);
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.nav-menu a:hover {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+.nav-menu a.active {
+  color: var(--accent);
+  background: var(--bg-tertiary);
+  border-left: 2px solid var(--accent);
+}
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.nav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hide Jekyll's default header */
+header { display: none; }
+
+/* ===== PAGE HEADER (sub-pages) ===== */
+.page-header {
+  text-align: center;
+  padding: 0.3rem 0 0.8rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
 }
 
 /* ===== LIGHT THEME ===== */
@@ -429,7 +756,8 @@ header, nav {
     height: 14px;
   }
 
-  .cv-footer {
+  .cv-footer,
+  .site-footer {
     text-align: center;
   }
 }

@@ -1,7 +1,7 @@
 - category: "Journal Articles"
   type_key: "journal"
   entries:
-    - key: "rs17061060"
+    - key: "heredia2025fusion_static"
       title: "Static Early Fusion Techniques for Visible and Thermal Images to Enhance Convolutional Neural Network Detection: A Performance Analysis"
       year: 2025
       authors:
@@ -16,7 +16,7 @@
       volume: "17"
       number: "6"
 
-    - key: "technologies13040162"
+    - key: "santo2025ground_segmentation"
       title: "Ground Segmentation for LiDAR Point Clouds in Structured and Unstructured Environments Using a Hybrid Neural–Geometric Approach"
       year: 2025
       authors:
@@ -42,14 +42,14 @@
         - "Arturo Gil"
         - "David Valiente"
         - "Alvaro Martinez"
-        - "Enrique Heredia-Aguado"
+        - "Enrique Heredia"
       venue: "Informatics in Control, Automation and Robotics"
       publisher: "Springer Nature Switzerland"
-      doi: "10.1007/978-3-031-94989-0_9"
+      doi: "https://doi.org/10.1007/978-3-031-94989-0_9"
       pages: "199–218"
 
     - key: "govindaraj2024building"
-      title: "Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-Robot-Team"
+      title: "Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-robot-Team"
       year: 2024
       authors:
         - "Shashank Govindaraj"
@@ -58,13 +58,19 @@
         - "Irene Sanz Nieto"
         - "Alexandru But"
         - "Matteo De Benedetti"
-        - "Leon C Danter"
+        - "Leon C. Danter"
         - "Mercedes Alonso"
-        - "Enrique Heredia-Aguado"
+        - "Enrique Heredia"
         - "Simon Lacroix"
-        - "et al."
+        - "Dominik Kleszczynski"
+        - "Joseph Purnell"
+        - "Kevin Picton"
+        - "Nabil Aouf"
+        - "Luis Lopes"
       venue: "Space Robotics: The State of the Art and Future Trends"
-      publisher: "Springer"
+      publisher: "Springer Nature Switzerland"
+      doi: "10.1007/978-3-031-39214-6_18"
+      url: "https://doi.org/10.1007/978-3-031-39214-6_18"
       pages: "395–431"
 
 - category: "Conference Papers"
@@ -135,6 +141,7 @@
         - "Mercedes Alonso"
       venue: "2022 IEEE Aerospace Conference (AERO)"
       publisher: "IEEE"
+      doi: "10.1109/AERO53065.2022.9843351"
 
     - key: "govindaraj2021building_conf"
       title: "Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-Robot-Team"
@@ -149,6 +156,7 @@
         - "Leon Danter"
         - "Luis Lopes"
       venue: "International Astronautical Congress (IAC)"
+      url: "https://www.researchgate.net/publication/355668710_Building_a_Lunar_Infrastructure_with_the_Help_of_a_Heterogeneous_SemiAutonomous_Multi-Robot-Team"
 
     - key: "govindaraj2020multirobot"
       title: "Multi-Robot Cooperation for Lunar Base Assembly And Construction"
@@ -172,6 +180,7 @@
         - "Kevin Picton"
         - "Luis Lopes"
       venue: "International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)"
+      doi: "https://doi.org/10.1007/978-3-031-39214-6_18"
 
     - key: "ocon2019testing"
       title: "Testing Autonomous Robots: A Discussion on Performances Obtained During the ERGO Field Tests"
@@ -189,6 +198,7 @@
         - "Mark Woods"
         - "Spyridon Karachalios"
       venue: "International Astronautical Congress (IAC)"
+      url: "https://ai.dmi.unibas.ch/papers/ocon-et-al-astra2019.pdf"
 
     - key: "ocon2018ergo"
       title: "The ERGO framework and its use in planetary/orbital scenarios"
@@ -215,6 +225,7 @@
         - "A. Schach"
         - "Piotr Weclewski"
       venue: "International Astronautical Congress (IAC)"
+      url: "https://kclpure.kcl.ac.uk/ws/portalfiles/portal/101292706/IAC_2018_ERGO_PaperV1.0.pdf"
 
 - category: "Presentations"
   type_key: "presentation"
@@ -262,4 +273,4 @@
         - "Enrique Heredia-Aguado"
         - "Lidia Sobrino"
         - "M. Pilar Aivar"
-      venue: "XIV Congress of the Spanish Society for Experimental Psychology"
+      venue: "XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)"

@@ -16,13 +16,86 @@
     </head>
 
     <body>
+        <!-- Hamburger Navigation -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-menu" id="navMenu">
+            <a href="{{ '/' | relative_url }}">CV</a>
+            <a href="{{ '/projects/' | relative_url }}">Research</a>
+            <a href="{{ '/academic/' | relative_url }}">Academic</a>
+            <a href="{{ '/personal/' | relative_url }}">Personal</a>
+            <a href="{{ '/gallery/' | relative_url }}">Gallery</a>
+        </nav>
+        <div class="nav-overlay" id="navOverlay"></div>
+
         {{ content }}
-    </body>
-    <!-- Scripts -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+        <!-- Site-wide footer -->
+        <footer class="site-footer">
+            <span id="last-update">Last updated: {{ site.time | date: "%-d %B %Y" }}</span>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     {% for jsfile in page.custom_js %}
     <script src={{ jsfile | absolute_url }} ></script>
     {% endfor %}
+    <script>
+    (function() {
+        var btn = document.getElementById('hamburgerBtn');
+        var menu = document.getElementById('navMenu');
+        var overlay = document.getElementById('navOverlay');
+        btn.addEventListener('click', function() {
+            menu.classList.toggle('open');
+            overlay.classList.toggle('open');
+            btn.classList.toggle('open');
+        });
+        overlay.addEventListener('click', function() {
+            menu.classList.remove('open');
+            overlay.classList.remove('open');
+            btn.classList.remove('open');
+        });
+        // Highlight current page
+        var path = window.location.pathname;
+        var links = menu.querySelectorAll('a');
+        for (var i = 0; i < links.length; i++) {
+            var href = links[i].getAttribute('href');
+            if (href === '/') {
+                if (path === '/' || path === '/index.html') links[i].classList.add('active');
+            } else if (path.indexOf(href.replace(/\/$/, '')) === 0) {
+                links[i].classList.add('active');
+            }
+        }
+        // In-page smooth scroll for .mini-nav-scroll links
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('.mini-nav-scroll');
+            if (!link) return;
+            var hash = link.getAttribute('href');
+            var target = document.querySelector(hash);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                target.style.display = 'block';
+                history.replaceState(null, '', hash);
+            }
+        });
+    })();
 
+    // Last-updated: fetch real commit date from GitHub API
+    (function() {
+        var repo = "{{ site.github_repo }}";
+        if (!repo) return;
+        fetch("https://api.github.com/repos/" + repo + "/commits?per_page=1")
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (!data || !data[0] || !data[0].commit) return;
+            var d = new Date(data[0].commit.author.date);
+            var span = document.getElementById("last-update");
+            if (span) span.textContent = "Last updated: " + d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+          }).catch(function() {});
+    })();
+    </script>
+    </body>
 </html>

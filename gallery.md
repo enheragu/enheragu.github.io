@@ -1,51 +1,56 @@
 ---
 title: Gallery
 layout: default
-custom_css: /css/gallery.css
-custom_js: /js/gallery.js
+permalink: /gallery/
+custom_css:
+  - /css/gitgraph.css
+  - /css/gallery.css
+custom_js:
+  - /js/gitgraph.1.0.0.min.js
+  - /js/gitgraph-common.js
+  - /js/gallery.js
+  - /js/gallery-graph.js
 ---
 
-<section>
-<!-- For each gallery make rows of max 4 images -->
-<!-- First iteration adds row -->
-<!-- End row div when has to add new row or if it is the last item -->
-<!-- Need to add empty column if not filled with images -->
-{% for gallery in site.data.galleries.galleryset %}
-    <h2>{{ gallery.description }}</h2>
-    {% assign img_count_int = 0 %}
-    {% for image in gallery.images %}
-        {% if img_count_int == 0 %}
-    <div class="row">
-        {% endif %}
-        <div class="column">
-            <img src="{{ site.data.galleries.thumnaifolder }}/{{ image.name }}" alt="{{ image.text }}" 
-            onclick="myFunction(this,'{{ site.data.galleries.imagefolder }}/{{ image.name }}', 
-            '{{ image.author }}', '{{ image.camera }}', '{{ image.date }}');">
-        </div>
-        {% if img_count_int == 3 %}
-            {% assign img_count_int = 0 %}
+<section class="expanded-panels">
+    <div class="page-header">
+        <h1>Photo Gallery</h1>
+        <span class="page-subtitle">A small peek into field tests, conferences & lab life</span>
     </div>
-        {% elsif forloop.last == true %}
-            {% for missin_col in (img_count_int..3) %}
-        <div class="column"></div>
+
+    <div class="gitgraph-container">
+        <canvas id="gitGraph"></canvas>
+
+        {% for branch in site.data.galleries.branches %}
+            {% for campaign in branch.campaigns %}
+                <div id="{{ campaign.id }}" class="gitgraph-detail gallery-panel">
+                    <div class="gallery-grid gallery-panel-grid">
+                    {% for image in campaign.images %}
+                        <div class="gallery-item"
+                             data-src="{{ site.data.galleries.imagefolder }}/{{ image.name }}"
+                             data-text="{{ image.text }}"
+                             data-author="{{ image.author }}"
+                             data-camera="{{ image.camera }}"
+                             data-date="{{ image.date }}">
+                            <img src="{{ site.data.galleries.thumnaifolder }}/{{ image.name }}" alt="{{ image.text }}" loading="lazy">
+                            <div class="gallery-item-overlay">
+                                <span>{{ image.text }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
+        {% endfor %}
     </div>
-        {% else %}
-            {% assign img_count_int = img_count_int|plus:1 %}
-        {% endif %}
-    {% endfor %}
-{% endfor %}
 
-        <!-- The expanding image container -->
-        <div id="imageviewr" class="container" onclick="fade(this)">
-            <!-- Close the image -->
-            <span class="closebtn">&times;</span>
-    
-            <!-- Expanded image -->
-            <img id="expandedImg" class="container-content">
-    
-            <!-- Image text -->
-            <div id="imgtext"></div>
-        </div>
-
+    <!-- Lightbox overlay -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1); event.stopPropagation();">&#10094;</button>
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" class="lightbox-content" alt="">
+        <div id="lightbox-caption" class="lightbox-caption"></div>
+        <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1); event.stopPropagation();">&#10095;</button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
 </section>
