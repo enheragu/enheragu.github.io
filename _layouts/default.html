@@ -151,9 +151,11 @@
         {{ content }}
 
         <!-- Site-wide footer -->
+        {% if page.show_footer != false %}
         <footer class="site-footer">
             <span id="last-update">Last updated: {{ site.time | date: "%-d %B %Y" }}</span>
         </footer>
+        {% endif %}
 
         <!-- Scripts -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

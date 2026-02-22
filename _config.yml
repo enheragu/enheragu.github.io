@@ -7,8 +7,8 @@ author: Enrique Heredia Aguado
 lang: en
 
 plugins:
-	- jekyll-seo-tag
-	- jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Google Analytics 4 — Measurement ID (format: G-XXXXXXXXXX)
 google_analytics: G-BQJ3799LQT
