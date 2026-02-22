@@ -23,6 +23,17 @@ if ! command -v jekyll &> /dev/null || ! jekyll --version &> /dev/null; then
     hash -r
 fi
 
+# Ensure SEO plugins needed by this site are available locally
+if ! gem list -i jekyll-seo-tag > /dev/null 2>&1; then
+    echo "Installing jekyll-seo-tag..."
+    gem install --user-install jekyll-seo-tag
+fi
+
+if ! gem list -i jekyll-sitemap > /dev/null 2>&1; then
+    echo "Installing jekyll-sitemap..."
+    gem install --user-install jekyll-sitemap
+fi
+
 # Convert BibTeX to YAML before serving
 echo "Converting publications.bib -> publications.yml..."
 python3 "$SCRIPT_DIR/_scripts/bib_to_yaml.py"
