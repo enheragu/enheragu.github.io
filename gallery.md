@@ -1,5 +1,6 @@
 ---
 title: Gallery
+description: Photo gallery of Enrique Heredia Aguado with snapshots from robotics field tests, conferences and laboratory work and other nice photos I like :).
 layout: default
 permalink: /gallery/
 custom_css:
@@ -14,6 +15,7 @@ custom_js:
 
 <section class="expanded-panels">
     <div class="page-header">
+        <div class="page-brand-muted">{{ site.title }}</div>
         <h1>Photo Gallery</h1>
         <span class="page-subtitle">A small peek into field tests, conferences & lab life</span>
     </div>

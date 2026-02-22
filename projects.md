@@ -1,5 +1,6 @@
 ---
 title: Research Projects
+description: Research projects by Enrique Heredia Aguado in robotics, computer vision and AI, including funded collaborations and applied research work.
 layout: default
 permalink: /projects/
 custom_css: /css/gitgraph.css
@@ -11,6 +12,7 @@ custom_js:
 
 <section class="expanded-panels">
     <div class="page-header">
+        <div class="page-brand-muted">{{ site.title }}</div>
         <h1>Research Projects</h1>
         <span class="page-subtitle">Projects I have been involved in during my career</span>
     </div>

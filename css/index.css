@@ -653,6 +653,7 @@ header { display: none; }
 
 /* ===== PAGE HEADER (sub-pages) ===== */
 .page-header {
+  position: relative;
   text-align: center;
   padding: 0.3rem 0 0.8rem;
   border-bottom: 1px solid var(--border);
@@ -665,6 +666,21 @@ header { display: none; }
   color: var(--text-primary);
   margin-bottom: 0.15rem;
   letter-spacing: -0.02em;
+}
+
+.page-brand-muted {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 0.2rem;
+  transform: translateX(-50%);
+  width: max-content;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  margin: 0;
 }
 
 .page-subtitle {

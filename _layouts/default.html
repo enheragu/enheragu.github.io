@@ -4,7 +4,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{ page.title }} | {{ site.title }}</title>
+        {% if page.url == '/' or page.url == '/index.html' %}
+        {% assign seo_title = site.title | append: ' — Robotics, Computer Vision & AI' %}
+        {% else %}
+        {% assign seo_title = page.title | append: ' · ' | append: site.title %}
+        {% endif %}
+        <title>{{ seo_title }}</title>
 
         <!-- Google Search Console verification -->
         {% if site.google_site_verification %}
@@ -29,7 +34,7 @@
         <link rel="canonical" href="{{ page.url | absolute_url }}" />
 
         <!-- Open Graph (Facebook, LinkedIn, etc.) -->
-        <meta property="og:title" content="{{ page.title }} | {{ site.title }}" />
+        <meta property="og:title" content="{{ seo_title }}" />
         <meta property="og:description" content="{{ page.description | default: site.description }}" />
         <meta property="og:url" content="{{ page.url | absolute_url }}" />
         <meta property="og:site_name" content="{{ site.title }}" />
@@ -39,31 +44,103 @@
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="{{ page.title }} | {{ site.title }}" />
+        <meta name="twitter:title" content="{{ seo_title }}" />
         <meta name="twitter:description" content="{{ page.description | default: site.description }}" />
         <meta name="twitter:image" content="{{ '/img/robot.svg' | absolute_url }}" />
 
-        <!-- Structured data: Person (JSON-LD) -->
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "{{ site.title }}",
-          "url": "{{ site.url }}",
-          "jobTitle": "PhD Student in Robotics, Computer Vision & AI",
-          "affiliation": {
-            "@type": "Organization",
-            "name": "Universidad Miguel Hernández (UMH)"
-          },
-          "sameAs": [
-            "https://www.linkedin.com/in/enheragu",
-            "https://github.com/enheragu",
-            "https://scholar.google.es/citations?user=1J56jsMAAAAJ",
-            "https://orcid.org/0009-0001-7717-1428",
-            "https://www.researchgate.net/profile/Enrique-Heredia-Aguado"
-          ]
-        }
-        </script>
+                {% assign current_url = page.url | replace: 'index.html', '' %}
+                {% assign breadcrumb_name = nil %}
+                {% if current_url == '/projects/' %}
+                {% assign breadcrumb_name = 'Research' %}
+                {% elsif current_url == '/academic/' %}
+                {% assign breadcrumb_name = 'Academic' %}
+                {% elsif current_url == '/personal/' %}
+                {% assign breadcrumb_name = 'Personal' %}
+                {% elsif current_url == '/gallery/' %}
+                {% assign breadcrumb_name = 'Gallery' %}
+                {% elsif current_url == '/print/' %}
+                {% assign breadcrumb_name = 'Print' %}
+                {% endif %}
+
+                <!-- Structured data: Person -->
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Person",
+                    "@id": "{{ site.url }}/#person",
+                    "name": {{ site.author | default: site.title | jsonify }},
+                    "url": "{{ site.url }}",
+                    "jobTitle": "PhD Student in Robotics, Computer Vision & AI",
+                    "affiliation": {
+                        "@type": "Organization",
+                        "name": "Universidad Miguel Hernández (UMH)"
+                    },
+                    "sameAs": [
+                        "https://www.linkedin.com/in/enheragu",
+                        "https://github.com/enheragu",
+                        "https://scholar.google.es/citations?user=1J56jsMAAAAJ",
+                        "https://orcid.org/0009-0001-7717-1428",
+                        "https://www.researchgate.net/profile/Enrique-Heredia-Aguado"
+                    ]
+                }
+                </script>
+
+                <!-- Structured data: WebSite -->
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "@id": "{{ site.url }}/#website",
+                    "url": "{{ site.url }}",
+                    "name": {{ site.title | jsonify }},
+                    "description": {{ site.description | jsonify }},
+                    "inLanguage": {{ site.lang | default: 'en' | jsonify }},
+                    "publisher": {
+                        "@id": "{{ site.url }}/#person"
+                    }
+                }
+                </script>
+
+                <!-- Structured data: WebPage -->
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "WebPage",
+                    "@id": "{{ page.url | absolute_url }}#webpage",
+                    "url": "{{ page.url | absolute_url }}",
+                    "name": {{ page.title | append: ' | ' | append: site.title | jsonify }},
+                    "description": {{ page.description | default: site.description | jsonify }},
+                    "isPartOf": {
+                        "@id": "{{ site.url }}/#website"
+                    },
+                    "about": {
+                        "@id": "{{ site.url }}/#person"
+                    },
+                    "inLanguage": {{ site.lang | default: 'en' | jsonify }}
+                }
+                </script>
+
+                <!-- Structured data: BreadcrumbList -->
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "CV",
+                            "item": "{{ '/' | absolute_url }}"
+                        }{% if breadcrumb_name %},
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": {{ breadcrumb_name | jsonify }},
+                            "item": "{{ current_url | absolute_url }}"
+                        }{% endif %}
+                    ]
+                }
+                </script>
 
         <link id="favicon" rel="shortcut icon" type="image/svg" href={{ "/img/robot.svg" | absolute_url }} />
         <link rel="stylesheet" type="text/css" href={{ "/css/index.css" | absolute_url }} />
