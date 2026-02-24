@@ -86,7 +86,156 @@ var GitGraphCommon = (function() {
     }
   }
 
-  // ---- relayoutPanels: single post-render truth for panel positions ----
+  // ---- Measure panel height even if hidden ----
+  function measurePanelHeight(panel) {
+    var computed = window.getComputedStyle(panel);
+    if (computed.display !== 'none') return panel.offsetHeight;
+    var prevDisplay = panel.style.display;
+    var prevVisibility = panel.style.visibility;
+    panel.style.visibility = 'hidden';
+    panel.style.display = 'block';
+    var h = panel.offsetHeight;
+    panel.style.display = prevDisplay;
+    panel.style.visibility = prevVisibility;
+    return h;
+  }
+
+  // ---- recalculateYPositions: fix canvas positions after async growth ----
+  //
+  // When async content (repo cards, images) makes panels taller than what
+  // the engine measured at commit-creation time, canvas-drawn commit dots
+  // and messages end up overlapping panels above them.
+  //
+  // This function:
+  //   1. Walks commits top→bottom, checks if the current panel's actual
+  //      height exceeds the space the engine reserved.
+  //   2. If so, pushes the commit (and all subsequent ones) down.
+  //   3. Updates ALL branch.path points using an interpolation mapping
+  //      (old Y → new Y), so lines stay aligned with dots.
+  //   4. Re-renders the canvas.
+  //
+  // The mapping ensures routing joints between commits are shifted
+  // proportionally, keeping merge lines visually correct.
+  function recalculateYPositions(gitgraph) {
+    var commits = gitgraph.commits;
+    if (!commits || !commits.length) return;
+    var canvas = document.getElementById("gitGraph");
+    if (!canvas) return;
+
+    var absSpacingY = Math.abs(gitgraph.template.commit.spacingY);
+    var DETAIL_BUFFER = 40; // must match engine's detailSpace buffer
+
+    // Sort commits by y (ascending = top to bottom)
+    var sorted = commits.slice().sort(function(a, b) { return a.y - b.y; });
+
+    // Save original y values
+    var originals = [];
+    for (var i = 0; i < sorted.length; i++) {
+      originals.push(sorted[i].y);
+    }
+
+    // Walk through and push commits down if previous panel grew
+    var changed = false;
+    for (var i = 1; i < sorted.length; i++) {
+      var prev = sorted[i - 1];
+      var curr = sorted[i];
+
+      var minY;
+      if (prev.detail) {
+        var panelH = measurePanelHeight(prev.detail);
+        // The panel bottom is at prev.y + OFFSET_TOP + panelH (CSS).
+        // But in canvas space, commit.y is the dot centre. The engine
+        // reserved |spacingY| + (clientHeight + BUFFER). We need
+        // commit-to-commit distance >= panelH + DETAIL_BUFFER + absSpacingY
+        // to avoid the next commit label sitting inside the panel.
+        minY = prev.y + panelH + DETAIL_BUFFER;
+      } else {
+        minY = prev.y + absSpacingY;
+      }
+
+      // Ensure at least absSpacingY between any two commits
+      minY = Math.max(minY, prev.y + absSpacingY);
+
+      if (curr.y < minY) {
+        var delta = minY - curr.y;
+        // Push this commit and all subsequent ones down by delta
+        for (var j = i; j < sorted.length; j++) {
+          sorted[j].y += delta;
+        }
+        changed = true;
+      }
+    }
+
+    if (!changed) return;
+
+    // Build full Y mapping (old → new) for path interpolation
+    var fullMap = [];
+    for (var i = 0; i < sorted.length; i++) {
+      fullMap.push({ oldY: originals[i], newY: sorted[i].y });
+    }
+
+    // Interpolation function: maps old Y → new Y
+    function mapY(y) {
+      // Exact match (within 0.5px tolerance)
+      for (var i = 0; i < fullMap.length; i++) {
+        if (Math.abs(y - fullMap[i].oldY) < 0.5) return fullMap[i].newY;
+      }
+      // Before first commit: apply first commit's delta
+      if (y < fullMap[0].oldY) {
+        return y + (fullMap[0].newY - fullMap[0].oldY);
+      }
+      // After last commit: apply last commit's delta
+      if (y > fullMap[fullMap.length - 1].oldY) {
+        return y + (fullMap[fullMap.length - 1].newY - fullMap[fullMap.length - 1].oldY);
+      }
+      // Between two commits: linear interpolation
+      for (var i = 0; i < fullMap.length - 1; i++) {
+        if (y >= fullMap[i].oldY && y <= fullMap[i + 1].oldY) {
+          var range = fullMap[i + 1].oldY - fullMap[i].oldY;
+          if (range < 0.5) return fullMap[i].newY;
+          var t = (y - fullMap[i].oldY) / range;
+          return fullMap[i].newY + t * (fullMap[i + 1].newY - fullMap[i].newY);
+        }
+      }
+      return y;
+    }
+
+    // Update ALL branch path points
+    for (var b = 0; b < gitgraph.branches.length; b++) {
+      var branch = gitgraph.branches[b];
+      for (var p = 0; p < branch.path.length; p++) {
+        branch.path[p].y = mapY(branch.path[p].y);
+      }
+      if (branch.startPoint) {
+        branch.startPoint.y = mapY(branch.startPoint.y);
+      }
+    }
+
+    // Update commitOffsetY for canvas sizing
+    var lastY = sorted[sorted.length - 1].y;
+    if (sorted[sorted.length - 1].detail) {
+      lastY += measurePanelHeight(sorted[sorted.length - 1].detail) + DETAIL_BUFFER;
+    }
+    gitgraph.commitOffsetY = -lastY;
+
+    // Re-render canvas with corrected positions
+    gitgraph.render();
+  }
+
+  // ---- relayoutPanels: post-render CSS fix for panel positions ----
+  //
+  // The gitgraph engine computes commit Y positions and reserves vertical
+  // space based on panel clientHeight at commit-creation time.  It also
+  // sets detail.style.top/left during Commit.prototype.render().
+  //
+  // This function runs AFTER render() and:
+  //   1. Recalculates left & width (handles resize)
+  //   2. Overrides top with overlap prevention: if panel N would overlap
+  //      the bottom of panel N-1, it is pushed down.
+  //   3. Grows the <section> to fit everything.
+  //
+  // IMPORTANT: This function NEVER modifies commit.y or branch.path.
+  // Doing so would desynchronise canvas-drawn lines from commit dots.
   function relayoutPanels(gitgraph) {
     var canvas = document.getElementById("gitGraph");
     if (!canvas) return;
@@ -97,9 +246,12 @@ var GitGraphCommon = (function() {
     var sf = gitgraph.scalingFactor || 1;
     var cssMarginX = gitgraph.marginX / sf;
     var cssMarginY = gitgraph.marginY / sf;
-    var OFFSET_TOP = 30;
-    var GAP = 15;
+    // Distance from commit dot centre to panel top edge.
+    // Smaller on mobile so titles stay closer to their panels.
+    var OFFSET_TOP = isMobile ? 20 : 30;
+    var GAP = isMobile ? 12 : 20;
     var prevBottom = 0;
+    var maxBottom = 0;
 
     // Read CSS 'right' from first visible panel
     var cssRight = 0;
@@ -122,20 +274,21 @@ var GitGraphCommon = (function() {
       var availW = section.clientWidth - left - cssRight;
       if (availW > 50) c.detail.style.width = availW + "px";
 
-      // Top: aligned with commit dot, but never overlapping previous panel
+      // Top: aligned with commit dot, push down if overlapping previous
       var idealTop = canvas.offsetTop + cssMarginY + c.y + OFFSET_TOP;
       if (prevBottom > 0 && idealTop < prevBottom + GAP) {
         idealTop = prevBottom + GAP;
       }
       c.detail.style.top = idealTop + "px";
 
-      // Force reflow for accurate height
-      void c.detail.offsetHeight;
-      prevBottom = idealTop + c.detail.clientHeight;
+      // Track bottom for next overlap check
+      var panelHeight = measurePanelHeight(c.detail);
+      prevBottom = idealTop + panelHeight;
+      if (prevBottom > maxBottom) maxBottom = prevBottom;
     }
 
-    // Ensure section accommodates all panels + canvas
-    var needed = Math.max(prevBottom, canvas.offsetTop + canvas.clientHeight);
+    // Ensure section is tall enough
+    var needed = Math.max(maxBottom, canvas.offsetTop + canvas.clientHeight);
     if (needed + 40 > section.clientHeight) {
       section.style.minHeight = (needed + 40) + "px";
     }
@@ -143,10 +296,12 @@ var GitGraphCommon = (function() {
 
   // ---- Wire up relayout to run after gitgraph's own resize handler ----
   function hookResize(gitgraph) {
+    recalculateYPositions(gitgraph);
     relayoutPanels(gitgraph);
     var _origOnResize = window.onresize;
     window.onresize = function() {
       if (_origOnResize) _origOnResize.call(window);
+      recalculateYPositions(gitgraph);
       relayoutPanels(gitgraph);
     };
   }
@@ -158,18 +313,13 @@ var GitGraphCommon = (function() {
     var target = document.querySelector(hash);
     if (!target || !target.classList.contains('gitgraph-detail')) return;
 
-    // Show the panel
     target.style.display = 'block';
-
-    // Brief highlight effect
     target.style.outline = '2px solid var(--accent)';
     target.style.outlineOffset = '2px';
     setTimeout(function() {
       target.style.outline = '';
       target.style.outlineOffset = '';
     }, 2500);
-
-    // Scroll into view after layout settles
     setTimeout(function() {
       target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 300);
@@ -177,23 +327,47 @@ var GitGraphCommon = (function() {
 
   // ---- Convenience: run widthExtension + relayout + resize hook ----
   function finalize(gitgraph, template) {
+    // On mobile, bump marginY so the first commit title isn't clipped
+    if (isMobile) {
+      gitgraph.marginY = (gitgraph.marginY || 0) + 16;
+      gitgraph.render();
+    }
+
     applyWidthExtension(gitgraph, template);
     hookResize(gitgraph);
     handleAnchor();
+
     // Expose instance so async content (repo cards) can trigger relayout
     window._gitgraphInstance = gitgraph;
 
-    // Delayed re-layouts to catch async content (repo cards, images)
-    setTimeout(function() { relayoutPanels(gitgraph); }, 500);
-    setTimeout(function() { relayoutPanels(gitgraph); }, 1500);
-    setTimeout(function() { relayoutPanels(gitgraph); }, 3000);
+    // Delayed re-layouts for async content (repo cards, font swap)
+    var delays = [200, 600, 1500, 3000];
+    for (var d = 0; d < delays.length; d++) {
+      (function(ms) {
+        setTimeout(function() {
+          recalculateYPositions(gitgraph);
+          relayoutPanels(gitgraph);
+        }, ms);
+      })(delays[d]);
+    }
+
+    // Re-layout after web fonts finish loading (fixes first-load sizing)
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function() {
+        recalculateYPositions(gitgraph);
+        relayoutPanels(gitgraph);
+      });
+    }
 
     // MutationObserver: re-layout when panel children change (async loads)
     if (typeof MutationObserver !== 'undefined') {
       var _relayoutTimer = null;
       var observer = new MutationObserver(function() {
         clearTimeout(_relayoutTimer);
-        _relayoutTimer = setTimeout(function() { relayoutPanels(gitgraph); }, 100);
+        _relayoutTimer = setTimeout(function() {
+          recalculateYPositions(gitgraph);
+          relayoutPanels(gitgraph);
+        }, 100);
       });
       var panels = document.querySelectorAll('.gitgraph-detail');
       for (var p = 0; p < panels.length; p++) {
@@ -212,6 +386,7 @@ var GitGraphCommon = (function() {
     mergeFont:          mergeFont,
     mergeColor:         mergeColor,
     applyWidthExtension: applyWidthExtension,
+    recalculateYPositions: recalculateYPositions,
     relayoutPanels:     relayoutPanels,
     hookResize:         hookResize,
     finalize:           finalize

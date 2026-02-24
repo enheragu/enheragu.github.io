@@ -45,7 +45,7 @@
         - "Enrique Heredia"
       venue: "Informatics in Control, Automation and Robotics"
       publisher: "Springer Nature Switzerland"
-      doi: "https://doi.org/10.1007/978-3-031-94989-0_9"
+      doi: "10.1007/978-3-031-94989-0_9"
       pages: "199–218"
 
     - key: "govindaraj2024building"
@@ -180,7 +180,7 @@
         - "Kevin Picton"
         - "Luis Lopes"
       venue: "International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)"
-      doi: "https://doi.org/10.1007/978-3-031-39214-6_18"
+      doi: "10.1007/978-3-031-39214-6_18"
 
     - key: "ocon2019testing"
       title: "Testing Autonomous Robots: A Discussion on Performances Obtained During the ERGO Field Tests"

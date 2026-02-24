@@ -9,7 +9,7 @@ branches:
   tag: "UMH"
   campaigns:
   - id: umh-tfm-2022
-    label: "[06/2022] · TFM"
+    label: "[06/2022] · M.Sc. Thesis"
     images:
     - name: 06_2022_umh_01.jpg
       text: " "
