@@ -8,7 +8,7 @@ custom_js:
 - /js/index.js
 ---
 
-<section>
+<section class="gitgraph-page">
     <div class="cv-header">
         <h1>Enrique Heredia Aguado</h1>
         <h2 class="visually-hidden">Curriculum timeline sections</h2>

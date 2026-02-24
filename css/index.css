@@ -52,6 +52,11 @@ section {
   position: relative;
 }
 
+/* Reserve initial space on desktop to avoid first-load large layout shifts */
+.gitgraph-page {
+  min-height: 3200px;
+}
+
 /* ===== GIT GRAPH SECTION ===== */
 .gitgraph-container {
   overflow-x: auto;
@@ -749,6 +754,10 @@ header { display: none; }
 
 /* — Mobile (≤768px): git graph left, panels right — */
 @media screen and (max-width: 768px) {
+  .gitgraph-page {
+    min-height: 0;
+  }
+
   section {
     padding: 0.5rem 0.5rem 1rem;
   }

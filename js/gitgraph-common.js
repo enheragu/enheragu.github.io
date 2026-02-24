@@ -294,6 +294,30 @@ var GitGraphCommon = (function() {
     }
   }
 
+  // ---- Lock an initial section min-height to reduce late CLS ----
+  // Uses current panel top/height after the first relayout pass.
+  function lockSectionMinHeight(gitgraph) {
+    var canvas = document.getElementById("gitGraph");
+    if (!canvas) return;
+    var section = canvas.closest("section");
+    if (!section) return;
+
+    var maxBottom = canvas.offsetTop + canvas.clientHeight;
+    var panels = section.querySelectorAll('.gitgraph-detail');
+    for (var i = 0; i < panels.length; i++) {
+      var panel = panels[i];
+      var top = parseFloat(panel.style.top);
+      if (!isFinite(top)) continue;
+      var panelBottom = top + measurePanelHeight(panel);
+      if (panelBottom > maxBottom) maxBottom = panelBottom;
+    }
+
+    var target = Math.ceil(maxBottom + 40);
+    if (target > section.clientHeight) {
+      section.style.minHeight = target + "px";
+    }
+  }
+
   // ---- Wire up relayout to run after gitgraph's own resize handler ----
   function hookResize(gitgraph) {
     recalculateYPositions(gitgraph);
@@ -335,18 +359,19 @@ var GitGraphCommon = (function() {
 
     applyWidthExtension(gitgraph, template);
     hookResize(gitgraph);
+    lockSectionMinHeight(gitgraph);
     handleAnchor();
 
     // Expose instance so async content (repo cards) can trigger relayout
     window._gitgraphInstance = gitgraph;
 
-    // Delayed re-layouts for async content (repo cards, font swap)
-    var delays = [200, 600, 1500, 3000];
+    // Limited delayed passes for async content (more stable, less CLS)
+    var delays = [250, 1200];
     for (var d = 0; d < delays.length; d++) {
       (function(ms) {
         setTimeout(function() {
-          recalculateYPositions(gitgraph);
           relayoutPanels(gitgraph);
+          lockSectionMinHeight(gitgraph);
         }, ms);
       })(delays[d]);
     }
@@ -354,25 +379,38 @@ var GitGraphCommon = (function() {
     // Re-layout after web fonts finish loading (fixes first-load sizing)
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function() {
-        recalculateYPositions(gitgraph);
         relayoutPanels(gitgraph);
+        lockSectionMinHeight(gitgraph);
       });
     }
 
     // MutationObserver: re-layout when panel children change (async loads)
     if (typeof MutationObserver !== 'undefined') {
       var _relayoutTimer = null;
+      var _observerPasses = 0;
+      var _maxObserverPasses = 2;
       var observer = new MutationObserver(function() {
+        if (_observerPasses >= _maxObserverPasses) return;
         clearTimeout(_relayoutTimer);
         _relayoutTimer = setTimeout(function() {
-          recalculateYPositions(gitgraph);
+          if (_observerPasses >= _maxObserverPasses) return;
+          _observerPasses++;
           relayoutPanels(gitgraph);
-        }, 100);
+          lockSectionMinHeight(gitgraph);
+          if (_observerPasses >= _maxObserverPasses) {
+            observer.disconnect();
+          }
+        }, 180);
       });
       var panels = document.querySelectorAll('.gitgraph-detail');
       for (var p = 0; p < panels.length; p++) {
         observer.observe(panels[p], { childList: true, subtree: true, characterData: true });
       }
+
+      // Stop observing after initial load window.
+      setTimeout(function() {
+        observer.disconnect();
+      }, 5000);
     }
   }
 
@@ -388,6 +426,7 @@ var GitGraphCommon = (function() {
     applyWidthExtension: applyWidthExtension,
     recalculateYPositions: recalculateYPositions,
     relayoutPanels:     relayoutPanels,
+    lockSectionMinHeight: lockSectionMinHeight,
     hookResize:         hookResize,
     finalize:           finalize
   };
