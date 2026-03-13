@@ -1,0 +1,26 @@
+tools:
+  C-NRSBTool:
+    title:
+      en: "Related Work"
+      es: "Trabajos Relacionados"
+    links:
+      - kind: "tool"
+        label: "DIF-AccumulationTool"
+        url: "https://enheragu.github.io/DIF-AccumulationTool/"
+        description:
+          en: "Simulator focused on DIF accumulation effects."
+          es: "Simulador centrado en efectos acumulados de DIF."
+    publication_keys: []
+
+  DIF-AccumulationTool:
+    title:
+      en: "Related Work"
+      es: "Trabajos Relacionados"
+    links:
+      - kind: "tool"
+        label: "C-NRSBTool"
+        url: "https://enheragu.github.io/C-NRSBTool/"
+        description:
+          en: "Simulator for country-selection bias and HDI modeling."
+          es: "Simulador para sesgo de selección por país y modelado con IDH."
+    publication_keys: []

@@ -1,0 +1,8 @@
+---
+---
+{{
+	{
+		"tools": site.data.related_work.tools,
+		"publications": site.data.publications
+	} | jsonify
+}}

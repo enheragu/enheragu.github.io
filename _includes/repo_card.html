@@ -26,112 +26,31 @@
 </div>
 </div>
 <script>
-(function() {
-  window.__repoCardCache = window.__repoCardCache || {};
-  window.__repoCardInflight = window.__repoCardInflight || {};
-  var cache = window.__repoCardCache;
-  var inflight = window.__repoCardInflight;
-  function triggerRelayout() {
-    if (!(window._gitgraphInstance && window.GitGraphCommon)) return;
-    requestAnimationFrame(function() {
-      GitGraphCommon.recalculateYPositions(window._gitgraphInstance);
-      GitGraphCommon.relayoutPanels(window._gitgraphInstance);
-      setTimeout(function() {
-        GitGraphCommon.recalculateYPositions(window._gitgraphInstance);
-        GitGraphCommon.relayoutPanels(window._gitgraphInstance);
-      }, 120);
-    });
-  }
-  function loadCard(card) {
-    var repo = card.getAttribute('data-repo');
-    if (!repo) return;
+  (function () {
+    function initRepoCards() {
+      if (!window.SharedRepoCards?.init) return;
+      window.SharedRepoCards.init(document);
+    }
 
-    if (cache[repo]) {
-      fillCard(card, cache[repo]);
-      triggerRelayout();
+    if (window.SharedRepoCards?.init) {
+      initRepoCards();
       return;
     }
 
-    if (inflight[repo]) {
-      inflight[repo]
-        .then(function(data) {
-          document.querySelectorAll('.repo-card[data-repo="' + repo + '"]')
-            .forEach(function(c) { fillCard(c, data); });
-        })
-        .catch(function() {
-          document.querySelectorAll('.repo-card[data-repo="' + repo + '"]')
-            .forEach(function(c) {
-              var desc = c.querySelector('.repo-desc');
-              desc.textContent = 'Could not load repo info';
-              desc.removeAttribute('data-loading');
-              c.querySelector('.repo-lang').removeAttribute('data-loading');
-              c.querySelector('.repo-stars').removeAttribute('data-loading');
-            });
-        })
-        .finally(function() {
-          triggerRelayout();
-        });
+    if (!document.querySelector('script[data-shared-repo-cards]')) {
+      var script = document.createElement('script');
+      script.src = '/assets/shared/repo-cards.js';
+      script.setAttribute('data-shared-repo-cards', '1');
+      script.onload = initRepoCards;
+      script.onerror = function () {
+        script.onerror = null;
+        script.src = 'https://enheragu.github.io/assets/shared/repo-cards.js';
+      };
+      document.head.appendChild(script);
       return;
     }
 
-    inflight[repo] = fetch('https://api.github.com/repos/' + repo)
-      .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
-      .then(function(data) {
-        cache[repo] = data;
-        // Fill all cards with same repo (in case duplicated)
-        document.querySelectorAll('.repo-card[data-repo="' + repo + '"]')
-          .forEach(function(c) { fillCard(c, data); });
-        return data;
-      })
-      .catch(function() {
-        document.querySelectorAll('.repo-card[data-repo="' + repo + '"]')
-          .forEach(function(c) {
-            var desc = c.querySelector('.repo-desc');
-            desc.textContent = 'Could not load repo info';
-            desc.removeAttribute('data-loading');
-            c.querySelector('.repo-lang').removeAttribute('data-loading');
-            c.querySelector('.repo-stars').removeAttribute('data-loading');
-          });
-        throw new Error('repo fetch failed');
-      })
-      .finally(function() {
-        delete inflight[repo];
-        triggerRelayout();
-      });
-  }
-
-  function processCards() {
-    var cards = document.querySelectorAll('.repo-card[data-repo]:not([data-repo-init])');
-    cards.forEach(function(card) {
-      card.setAttribute('data-repo-init', '1');
-      loadCard(card);
-    });
-  }
-
-  processCards();
-
-  if (!window.__repoCardObserver) {
-    window.__repoCardObserver = new MutationObserver(function() {
-      processCards();
-    });
-    window.__repoCardObserver.observe(document.documentElement, { childList: true, subtree: true });
-  }
-
-  function fillCard(card, data) {
-    var desc = card.querySelector('.repo-desc');
-    desc.textContent = data.description || 'No description';
-    desc.removeAttribute('data-loading');
-    var lang = card.querySelector('.repo-lang');
-    if (data.language) {
-      lang.innerHTML = '<span class="lang-dot"></span> ' + data.language;
-    }
-    lang.removeAttribute('data-loading');
-    var stars = card.querySelector('.repo-stars');
-    if (data.stargazers_count > 0) {
-      stars.innerHTML = '&#9733; ' + data.stargazers_count;
-    }
-    stars.removeAttribute('data-loading');
-  }
-})();
+    document.addEventListener('DOMContentLoaded', initRepoCards, { once: true });
+  })();
 </script>
 {% endif %}
