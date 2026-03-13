@@ -43,7 +43,7 @@ header {
 }
 
 header h1 {
-  font-size: 1.1rem;
+  font-size: 1.22rem;
   font-weight: 700;
   color: var(--clr-primary);
 }
@@ -101,8 +101,8 @@ header h1 {
 }
 
 .panel-header h2 {
-  font-size: .95rem;
-  font-weight: 600;
+  font-size: 1.03rem;
+  font-weight: 700;
   color: var(--clr-primary);
 }
 
@@ -138,30 +138,103 @@ select {
   font-family: inherit;
 }
 
+input[type='checkbox'] {
+  accent-color: var(--clr-primary);
+}
+
+/* Button levels guide:
+   L1 `.btn-primary`   -> primary actions
+   L2 `.btn-secondary` -> strong secondary actions (exports)
+   L3 `.btn-ghost`/`.btn-outline` -> supportive actions/toggles
+   L4 `.btn-stepper`   -> compact +/- controls */
+
+.btn-primary,
+.btn-secondary,
+.btn-ghost,
+.btn-outline,
+.btn-stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  min-height: 34px;
+  padding: .42rem .7rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .12s, border-color .12s, color .12s, transform .1s;
+  white-space: nowrap;
+}
+
 .btn-primary {
   padding: .55rem 1.1rem;
   border: none;
   border-radius: var(--radius);
   background: var(--clr-primary);
   color: #fff;
-  cursor: pointer;
-  font-weight: 600;
 }
 
 .btn-primary:hover {
   background: var(--clr-primary-h);
 }
 
+.btn-primary:active {
+  transform: scale(.98);
+}
+
+.btn-primary:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: color-mix(in oklab, var(--clr-surface) 80%, var(--clr-bg));
+  border-color: color-mix(in oklab, var(--clr-primary) 28%, var(--clr-border));
+  color: var(--clr-text);
+}
+
+.btn-secondary:hover {
+  background: color-mix(in oklab, var(--clr-surface) 74%, var(--clr-primary));
+  border-color: var(--clr-primary);
+}
+
 .btn-ghost {
   background: transparent;
-  border: 1px solid var(--clr-border);
+  border-color: var(--clr-border);
   color: var(--clr-muted);
-  cursor: pointer;
 }
 
 .btn-ghost:hover {
   color: var(--clr-text);
   border-color: var(--clr-primary);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+}
+
+.btn-outline:hover {
+  background: color-mix(in oklab, var(--clr-primary) 14%, transparent);
+}
+
+.btn-stepper {
+  padding: 0;
+  min-width: 34px;
+  font-size: 1rem;
+  border-radius: 0;
+  border-color: var(--clr-border);
+  background: var(--clr-surface);
+  color: var(--clr-muted);
+}
+
+.btn-stepper:hover {
+  background: color-mix(in oklab, var(--clr-surface) 86%, var(--clr-primary));
+  color: var(--clr-text);
 }
 
 .card {
@@ -196,19 +269,39 @@ select {
 }
 
 .btn-chart-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: .28rem;
   padding: .25rem .55rem;
-  border: 1px solid var(--clr-border);
+  border: 1px solid var(--clr-primary);
   border-radius: 5px;
-  background: var(--clr-bg);
-  color: var(--clr-muted);
+  background: transparent;
+  color: var(--clr-primary);
   font-size: .74rem;
   font-weight: 600;
   cursor: pointer;
 }
 
 .btn-chart-expand:hover {
-  border-color: var(--clr-primary);
-  color: var(--clr-primary);
+  background: color-mix(in oklab, var(--clr-primary) 14%, transparent);
+}
+
+.btn-chart-expand::before {
+  content: '⤢';
+  font-size: .78rem;
+  line-height: 1;
+}
+
+.btn-chart-close {
+  display: inline-flex;
+  align-items: center;
+  gap: .28rem;
+}
+
+.btn-chart-close::before {
+  content: '✕';
+  font-size: .74rem;
+  line-height: 1;
 }
 
 .chart-modal-overlay {
