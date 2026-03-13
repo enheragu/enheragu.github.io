@@ -165,6 +165,13 @@
     {% endfor %}
     <script>
     (function() {
+        var p = window.location.pathname;
+        if (p === '/C-NRSBTool') {
+            window.location.replace('/C-NRSBTool/' + window.location.search + window.location.hash);
+        }
+    })();
+
+    (function() {
         var btn = document.getElementById('hamburgerBtn');
         var menu = document.getElementById('navMenu');
         var overlay = document.getElementById('navOverlay');
