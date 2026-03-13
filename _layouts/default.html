@@ -168,6 +168,10 @@
         var p = window.location.pathname;
         if (p === '/C-NRSBTool') {
             window.location.replace('/C-NRSBTool/' + window.location.search + window.location.hash);
+            return;
+        }
+        if (p === '/DIF-AccumulationTool') {
+            window.location.replace('/DIF-AccumulationTool/' + window.location.search + window.location.hash);
         }
     })();
 
