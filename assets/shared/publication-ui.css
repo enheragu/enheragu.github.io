@@ -1,0 +1,373 @@
+/* Shared publication actions UI (CV + related-work) */
+
+/* CV publication badges/actions */
+.pub-list li a,
+.pub-cite-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.1;
+  height: 1.15rem;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: color-mix(in oklab, var(--bg-tertiary) 84%, var(--bg-secondary));
+  border: 1px solid var(--border);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+}
+
+.pub-list li a {
+  margin-left: 0.3rem;
+}
+
+.pub-list li a:hover {
+  background: var(--border);
+}
+
+.pub-action-link {
+  margin-left: 0.3rem;
+}
+
+.pub-cite {
+  display: inline-block;
+  margin-left: 0.28rem;
+  margin-top: 0;
+  vertical-align: baseline;
+}
+
+.pub-cite-summary {
+  display: inline-flex;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.1;
+  vertical-align: baseline;
+}
+
+.pub-cite-badge {
+  vertical-align: baseline;
+}
+
+.pub-cite-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pub-cite-summary::marker {
+  content: "";
+}
+
+.pub-cite[open] .pub-cite-summary {
+  border-color: var(--accent);
+}
+
+.pub-cite-popover {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  width: min(860px, calc(100vw - 1rem));
+  max-width: 100%;
+  max-height: min(88vh, 860px);
+  overflow: auto;
+  padding: 0.68rem 0.7rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.46);
+}
+
+.pub-cite-backdrop {
+  display: none;
+  z-index: 1090;
+}
+
+.pub-cite[open] .pub-cite-popover,
+.pub-cite[open] .pub-cite-backdrop {
+  display: block;
+}
+
+.pub-cite-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 0.46rem;
+}
+
+.pub-cite-title {
+  margin: 0;
+  font-size: 0.92rem;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.pub-cite-copy,
+.pub-cite-close {
+  cursor: pointer;
+  user-select: none;
+}
+
+.pub-cite-content {
+  display: block;
+  margin: 0;
+  padding: 0.56rem 2.35rem 0.56rem 0.56rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
+
+.pub-cite-format {
+  padding: 0;
+  margin-bottom: 0.7rem;
+}
+
+.pub-cite-format:last-child {
+  margin-bottom: 0;
+}
+
+.pub-cite-format-title {
+  margin: 0 0 0.28rem;
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.pub-cite-content-wrap {
+  position: relative;
+}
+
+body.pubui-selection-lock {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body.pubui-selection-lock [data-pubui-cite-content] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+body.pubui-selection-lock .shared-modal-backdrop {
+  pointer-events: none;
+}
+
+.pub-cite-close,
+.related-work-cite-close {
+  min-width: 1.6rem !important;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.pub-cite-copy,
+.related-work-cite-copy {
+  min-width: 1.7rem !important;
+  width: 1.7rem;
+  height: 1.7rem;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.pub-cite-copy.copied {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.pub-cite-content-wrap .pub-cite-copy {
+  position: absolute !important;
+  top: 0.34rem;
+  right: 0.36rem;
+  z-index: 2;
+}
+
+/* Related-work cite popup details (base link badge style remains in app-shell.css) */
+.related-work-inline-link {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  line-height: 1.1;
+  min-height: 1.15rem;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: var(--bg-tertiary, var(--clr-chart-bg));
+  background: color-mix(in oklab, var(--bg-tertiary, var(--clr-chart-bg)) 84%, var(--bg-secondary, var(--clr-surface)));
+  border: 1px solid var(--border, var(--clr-border));
+  color: var(--accent, var(--clr-primary));
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.related-work-item-cite > .related-work-inline-link,
+.related-work-item-pub > .related-work-inline-link {
+  margin-left: 0.3rem;
+}
+
+.related-work-item-cite .related-work-cite {
+  margin-left: 0.3rem;
+}
+
+.related-work-item-cite .related-work-cite-summary,
+.related-work-item-pub .related-work-cite-summary {
+  margin-left: 0;
+}
+
+.related-work-inline-link:hover {
+  background: var(--border, var(--clr-border));
+}
+
+.related-work-cite {
+  display: inline-block;
+  margin-left: .28rem;
+  vertical-align: baseline;
+}
+
+.related-work-cite-summary {
+  display: inline-flex;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.1;
+  vertical-align: baseline;
+  border-radius: 3px;
+  border: 1px solid var(--border, var(--clr-border));
+  padding: 0 5px;
+}
+
+.related-work-cite-summary::-webkit-details-marker {
+  display: none;
+}
+
+.related-work-cite-summary::marker {
+  content: "";
+}
+
+.related-work-cite-popover {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1120;
+  width: min(860px, calc(100vw - 1rem));
+  max-width: 100%;
+  max-height: min(88vh, 860px);
+  overflow: auto;
+  padding: .68rem .7rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.37);
+}
+
+.related-work-cite-backdrop {
+  display: none;
+  z-index: 1110;
+}
+
+.related-work-cite[open] .related-work-cite-popover,
+.related-work-cite[open] .related-work-cite-backdrop {
+  display: block;
+}
+
+.related-work-cite-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .42rem;
+}
+
+.related-work-cite-title {
+  margin: 0;
+  color: var(--clr-primary);
+  font-size: .92rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  text-transform: none;
+}
+
+.related-work-cite-format {
+  padding: 0;
+  margin-bottom: .7rem;
+}
+
+.related-work-cite-format:last-child {
+  margin-bottom: 0;
+}
+
+.related-work-cite-format-title {
+  margin: 0 0 .28rem;
+  font-size: .78rem;
+  color: var(--clr-primary);
+  font-weight: 600;
+}
+
+.related-work-cite-copy.copied {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+}
+
+.related-work-cite-pre {
+  margin: .1rem 0 .2rem;
+  padding: .56rem 2.35rem .56rem .56rem;
+  border: 1px solid var(--clr-border);
+  border-radius: 5px;
+  background: var(--clr-chart-bg);
+  color: var(--clr-muted);
+  font-size: .78rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
+
+.related-work-cite-content-wrap {
+  position: relative;
+}
+
+.related-work-cite-content-wrap .related-work-cite-copy {
+  position: absolute !important;
+  top: .34rem;
+  right: .36rem;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .pub-cite-popover,
+  .related-work-cite-popover {
+    width: min(760px, calc(100vw - 0.7rem));
+    max-height: 85vh;
+    padding: 0.5rem;
+  }
+
+  .pub-cite-content,
+  .related-work-cite-pre {
+    max-height: 180px;
+  }
+}

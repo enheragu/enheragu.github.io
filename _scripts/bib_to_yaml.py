@@ -18,12 +18,14 @@ TYPE_ORDER = {
     'Conference Paper': 2,
     'Presentation': 3,
     'Poster': 4,
+    'Software': 5,
 }
 
 TYPE_LABELS = {
     'Journal': 'Journal Articles',
     'Book Chapter': 'Book Chapters',
     'Conference Paper': 'Conference Papers',
+    'Software': 'Software Tools',
     'Presentation': 'Presentations',
     'Poster': 'Posters',
 }
@@ -208,9 +210,13 @@ def get_pub_type(entry):
         return 'Book Chapter'
     elif etype in ('inproceedings', 'conference'):
         return 'Conference Paper'
+    elif etype == 'software':
+        return 'Software'
     elif etype == 'misc':
         if 'poster' in note.lower():
             return 'Poster'
+        if 'software' in note.lower() or 'tool' in note.lower():
+            return 'Software'
         return 'Presentation'
     return 'Conference Paper'
 
@@ -264,7 +270,7 @@ def entries_to_yaml(entries):
             if fields.get('publisher'):
                 lines.append(f"      publisher: {yaml_escape(fields['publisher'])}")
 
-            for field in ['doi', 'url', 'pages', 'volume', 'number']:
+            for field in ['doi', 'url', 'pages', 'volume', 'number', 'version', 'keywords']:
                 if field in fields and fields[field]:
                     lines.append(f"      {field}: {yaml_escape(fields[field])}")
 

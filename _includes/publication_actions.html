@@ -1,0 +1,12 @@
+<span
+  data-pub-actions
+  data-pub-key="{{ include.pub.key | escape }}"
+  data-pub-title="{{ include.pub.title | escape }}"
+  data-pub-year="{{ include.pub.year | default: '' | escape }}"
+  data-pub-authors="{{ include.pub.authors | join: '||' | escape }}"
+  data-pub-venue="{{ include.pub.venue | default: '' | escape }}"
+  data-pub-publisher="{{ include.pub.publisher | default: '' | escape }}"
+  data-pub-version="{{ include.pub.version | default: '' | escape }}"
+  data-pub-doi="{{ include.pub.doi | default: '' | escape }}"
+  data-pub-url="{{ include.pub.url | default: '' | escape }}"
+></span>

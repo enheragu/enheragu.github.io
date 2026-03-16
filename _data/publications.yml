@@ -274,3 +274,43 @@
         - "Lidia Sobrino"
         - "M. Pilar Aivar"
       venue: "XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)"
+
+- category: "Software Tools"
+  type_key: "software"
+  entries:
+    - key: "heredia2026psychometric_tools"
+      title: "Psychometric Tools: Interactive Psychometric Calculators"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.XXXXXXX"
+      url: "https://enheragu.github.io/stat-tools/psychometric-tools/"
+      version: "v1.0.0"
+      keywords: "psychometrics, educational measurement, statistics, web tools"
+
+    - key: "heredia2026ml_variance_tools"
+      title: "ML Variance Tools: Interactive Machine Learning Variance Calculators"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.XXXXXXX"
+      url: "https://enheragu.github.io/stat-tools/ml-variance-analysis/"
+      version: "v1.0.0"
+      keywords: "machine learning, variance analysis, model diagnostics, web tools"
+
+    - key: "heredia2026stattools_platform"
+      title: "Stat Tools: Interactive Statistical Tools Platform"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.YYYYYYY"
+      url: "https://enheragu.github.io/stat-tools/"
+      version: "v1.0.0"
+      keywords: "statistics, psychometrics, machine learning, web platform"

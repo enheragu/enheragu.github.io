@@ -48,11 +48,33 @@ custom_js:
 
     <!-- Lightbox overlay -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
-        <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1); event.stopPropagation();">&#10094;</button>
-        <span class="lightbox-close">&times;</span>
-        <img id="lightbox-img" class="lightbox-content" alt="">
+        <div class="shared-corner-controls" onclick="event.stopPropagation();">
+            <button class="lightbox-close shared-icon-btn shared-close-btn" onclick="closeLightbox(event); event.stopPropagation();" aria-label="Close" title="Close">
+                <span aria-hidden="true" class="icon-close">
+                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                        <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </button>
+        </div>
+        <div class="lightbox-stage shared-lightbox-stage" onclick="event.stopPropagation();">
+            <button class="lightbox-nav lightbox-prev shared-icon-btn shared-nav-btn" onclick="navigateLightbox(-1); event.stopPropagation();" aria-label="Previous image" title="Previous image">
+                <span aria-hidden="true" class="icon-arrow icon-arrow-left">
+                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                        <path d="M14.5 6 8.5 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <img id="lightbox-img" class="lightbox-content shared-lightbox-media shared-lightbox-frame" alt="">
+            <button class="lightbox-nav lightbox-next shared-icon-btn shared-nav-btn" onclick="navigateLightbox(1); event.stopPropagation();" aria-label="Next image" title="Next image">
+                <span aria-hidden="true" class="icon-arrow icon-arrow-right">
+                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                        <path d="M9.5 6 15.5 12l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+        </div>
         <div id="lightbox-caption" class="lightbox-caption"></div>
-        <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1); event.stopPropagation();">&#10095;</button>
         <div class="lightbox-counter" id="lightbox-counter"></div>
     </div>
 </section>

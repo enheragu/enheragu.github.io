@@ -126,6 +126,10 @@
 
         <link id="favicon" rel="shortcut icon" type="image/svg" href={{ "/img/robot.svg" | absolute_url }} />
         <link rel="stylesheet" type="text/css" href={{ "/css/index.css" | absolute_url }} />
+        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/modal-primitives.css?v=20260316" | absolute_url }} />
+        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/lightbox-stage.css?v=20260316" | absolute_url }} />
+        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/publication-ui.css?v=20260316" | absolute_url }} />
+        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/hamburger-menu.css" | absolute_url }} />
         {% for stylesheet in page.custom_css %}
         <link rel="stylesheet" type="text/css" href={{ stylesheet | absolute_url }} />
         {% endfor %}
@@ -163,43 +167,25 @@
     {% for jsfile in page.custom_js %}
     <script src={{ jsfile | absolute_url }} ></script>
     {% endfor %}
+    <script src={{ "/assets/shared/publication-ui.js?v=20260316" | absolute_url }} ></script>
+    <script src={{ "/assets/shared/hamburger-menu.js" | absolute_url }} ></script>
+    <script src={{ "/js/cite-widget.js" | absolute_url }} ></script>
     <script>
     (function() {
         var p = window.location.pathname;
-        if (p === '/C-NRSBTool') {
-            window.location.replace('/C-NRSBTool/' + window.location.search + window.location.hash);
+        var trailingSlashRedirects = {
+            '/C-NRSBTool': '/C-NRSBTool/',
+            '/DIF-AccumulationTool': '/DIF-AccumulationTool/',
+            '/Harris-ShutterTool': '/Harris-ShutterTool/',
+            '/HarrisShutter': '/Harris-ShutterTool/'
+        };
+        if (Object.prototype.hasOwnProperty.call(trailingSlashRedirects, p)) {
+            window.location.replace(trailingSlashRedirects[p] + window.location.search + window.location.hash);
             return;
-        }
-        if (p === '/DIF-AccumulationTool') {
-            window.location.replace('/DIF-AccumulationTool/' + window.location.search + window.location.hash);
         }
     })();
 
     (function() {
-        var btn = document.getElementById('hamburgerBtn');
-        var menu = document.getElementById('navMenu');
-        var overlay = document.getElementById('navOverlay');
-        btn.addEventListener('click', function() {
-            menu.classList.toggle('open');
-            overlay.classList.toggle('open');
-            btn.classList.toggle('open');
-        });
-        overlay.addEventListener('click', function() {
-            menu.classList.remove('open');
-            overlay.classList.remove('open');
-            btn.classList.remove('open');
-        });
-        // Highlight current page
-        var path = window.location.pathname;
-        var links = menu.querySelectorAll('a');
-        for (var i = 0; i < links.length; i++) {
-            var href = links[i].getAttribute('href');
-            if (href === '/') {
-                if (path === '/' || path === '/index.html') links[i].classList.add('active');
-            } else if (path.indexOf(href.replace(/\/$/, '')) === 0) {
-                links[i].classList.add('active');
-            }
-        }
         // In-page smooth scroll for .mini-nav-scroll links
         document.addEventListener('click', function(e) {
             var link = e.target.closest('.mini-nav-scroll');

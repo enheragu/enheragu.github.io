@@ -57,6 +57,7 @@ var publications = cv_eeha
   .commit({message: "Conference Papers" + _pc("conference_paper"), detailId: "detail-pub-conferences" })
   .commit({message: "Oral Presentations" + _pc("presentation"), detailId: "detail-pub-presentations" })
   .commit({message: "Poster presentations" + _pc("poster"), detailId: "detail-pub-posters" })
+  .commit({message: "Software Tools" + _pc("software"), detailId: "detail-pub-software" })
   .merge(cv_eeha, {message: "merge publications", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 cv_eeha.checkout();
 

@@ -7,8 +7,7 @@
         <cite><small>{{ pub.authors | join: ", " }}. </small></cite>
         <strong>({{ pub.year }}). {{ pub.title }}</strong>.
         {% if pub.venue %} <em>{{ pub.venue }}</em>.{% endif %}
-        {% if pub.doi %} <a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener noreferrer">DOI</a>{% endif %}
-        {% if pub.url %} <a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer">[link]</a>{% endif %}
+        {% include publication_actions.html pub=pub %}
     </li>
     {% endfor %}
 </ul>

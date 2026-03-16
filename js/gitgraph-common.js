@@ -123,7 +123,8 @@ var GitGraphCommon = (function() {
     if (!canvas) return;
 
     var absSpacingY = Math.abs(gitgraph.template.commit.spacingY);
-    var DETAIL_BUFFER = 40; // must match engine's detailSpace buffer
+    var PANEL_TOP_OFFSET = isMobile ? 20 : 30;
+    var PANEL_STACK_GAP = isMobile ? 14 : 24;
 
     // Sort commits by y (ascending = top to bottom)
     var sorted = commits.slice().sort(function(a, b) { return a.y - b.y; });
@@ -134,8 +135,17 @@ var GitGraphCommon = (function() {
       originals.push(sorted[i].y);
     }
 
-    // Walk through and push commits down if previous panel grew
+    // Walk through and push commits down when needed.
+    // Key rule: once a detail panel sets a "bottom floor", all subsequent
+    // commits must stay below that floor even if there are non-detail commits
+    // (e.g., merge/helper nodes) in between.
     var changed = false;
+    var detailFloorY = -Infinity;
+
+    if (sorted[0].detail) {
+      detailFloorY = sorted[0].y + PANEL_TOP_OFFSET + measurePanelHeight(sorted[0].detail) + PANEL_STACK_GAP;
+    }
+
     for (var i = 1; i < sorted.length; i++) {
       var prev = sorted[i - 1];
       var curr = sorted[i];
@@ -143,18 +153,17 @@ var GitGraphCommon = (function() {
       var minY;
       if (prev.detail) {
         var panelH = measurePanelHeight(prev.detail);
-        // The panel bottom is at prev.y + OFFSET_TOP + panelH (CSS).
-        // But in canvas space, commit.y is the dot centre. The engine
-        // reserved |spacingY| + (clientHeight + BUFFER). We need
-        // commit-to-commit distance >= panelH + DETAIL_BUFFER + absSpacingY
-        // to avoid the next commit label sitting inside the panel.
-        minY = prev.y + panelH + DETAIL_BUFFER;
+        // Keep panel stacking gap consistent: next commit anchor must sit
+        // enough below previous panel content to avoid overlap.
+        minY = prev.y + PANEL_TOP_OFFSET + panelH + PANEL_STACK_GAP;
       } else {
         minY = prev.y + absSpacingY;
       }
 
       // Ensure at least absSpacingY between any two commits
       minY = Math.max(minY, prev.y + absSpacingY);
+      // Ensure we never go above the latest detail panel floor.
+      minY = Math.max(minY, detailFloorY);
 
       if (curr.y < minY) {
         var delta = minY - curr.y;
@@ -162,7 +171,15 @@ var GitGraphCommon = (function() {
         for (var j = i; j < sorted.length; j++) {
           sorted[j].y += delta;
         }
+        if (isFinite(detailFloorY)) {
+          detailFloorY += delta;
+        }
         changed = true;
+      }
+
+      if (curr.detail) {
+        var currPanelH = measurePanelHeight(curr.detail);
+        detailFloorY = Math.max(detailFloorY, curr.y + PANEL_TOP_OFFSET + currPanelH + PANEL_STACK_GAP);
       }
     }
 
@@ -214,7 +231,7 @@ var GitGraphCommon = (function() {
     // Update commitOffsetY for canvas sizing
     var lastY = sorted[sorted.length - 1].y;
     if (sorted[sorted.length - 1].detail) {
-      lastY += measurePanelHeight(sorted[sorted.length - 1].detail) + DETAIL_BUFFER;
+      lastY += measurePanelHeight(sorted[sorted.length - 1].detail) + PANEL_STACK_GAP;
     }
     gitgraph.commitOffsetY = -lastY;
 
@@ -243,27 +260,27 @@ var GitGraphCommon = (function() {
     if (!section) return;
 
     var commits = gitgraph.commits;
+    var sortedCommits = commits.slice().sort(function(a, b) { return a.y - b.y; });
     var sf = gitgraph.scalingFactor || 1;
     var cssMarginX = gitgraph.marginX / sf;
     var cssMarginY = gitgraph.marginY / sf;
-    // Distance from commit dot centre to panel top edge.
-    // Smaller on mobile so titles stay closer to their panels.
-    var OFFSET_TOP = isMobile ? 20 : 30;
-    var GAP = isMobile ? 12 : 20;
+    // Distance from commit anchor to panel top and desired inter-panel gap.
+    var PANEL_TOP_OFFSET = isMobile ? 20 : 30;
+    var PANEL_STACK_GAP = isMobile ? 14 : 24;
     var prevBottom = 0;
     var maxBottom = 0;
 
     // Read CSS 'right' from first visible panel
     var cssRight = 0;
-    for (var k = 0; k < commits.length; k++) {
-      if (commits[k].detail) {
-        cssRight = parseFloat(window.getComputedStyle(commits[k].detail).right) || 0;
+    for (var k = 0; k < sortedCommits.length; k++) {
+      if (sortedCommits[k].detail) {
+        cssRight = parseFloat(window.getComputedStyle(sortedCommits[k].detail).right) || 0;
         break;
       }
     }
 
-    for (var i = 0; i < commits.length; i++) {
-      var c = commits[i];
+    for (var i = 0; i < sortedCommits.length; i++) {
+      var c = sortedCommits[i];
       if (!c.detail) continue;
 
       // Left: just past the commit dot
@@ -275,10 +292,7 @@ var GitGraphCommon = (function() {
       if (availW > 50) c.detail.style.width = availW + "px";
 
       // Top: aligned with commit dot, push down if overlapping previous
-      var idealTop = canvas.offsetTop + cssMarginY + c.y + OFFSET_TOP;
-      if (prevBottom > 0 && idealTop < prevBottom + GAP) {
-        idealTop = prevBottom + GAP;
-      }
+      var idealTop = canvas.offsetTop + cssMarginY + c.y + PANEL_TOP_OFFSET;
       c.detail.style.top = idealTop + "px";
 
       // Track bottom for next overlap check
@@ -351,6 +365,21 @@ var GitGraphCommon = (function() {
 
   // ---- Convenience: run widthExtension + relayout + resize hook ----
   function finalize(gitgraph, template) {
+    var relayoutTimer = null;
+    function scheduleRelayout(delay) {
+      var ms = typeof delay === 'number' ? delay : 80;
+      clearTimeout(relayoutTimer);
+      relayoutTimer = setTimeout(function() {
+        // Pass 1: ensure panel widths are up to date before measuring heights.
+        relayoutPanels(gitgraph);
+        // Pass 2: recompute commit Y with measured panel heights.
+        recalculateYPositions(gitgraph);
+        // Pass 3: apply final panel positions from updated Y values.
+        relayoutPanels(gitgraph);
+        lockSectionMinHeight(gitgraph);
+      }, ms);
+    }
+
     // On mobile, bump marginY so the first commit title isn't clipped
     if (isMobile) {
       gitgraph.marginY = (gitgraph.marginY || 0) + 16;
@@ -365,52 +394,46 @@ var GitGraphCommon = (function() {
     // Expose instance so async content (repo cards) can trigger relayout
     window._gitgraphInstance = gitgraph;
 
-    // Limited delayed passes for async content (more stable, less CLS)
-    var delays = [250, 1200];
-    for (var d = 0; d < delays.length; d++) {
-      (function(ms) {
-        setTimeout(function() {
-          relayoutPanels(gitgraph);
-          lockSectionMinHeight(gitgraph);
-        }, ms);
-      })(delays[d]);
-    }
+    // One early reflow pass after initial paint
+    requestAnimationFrame(function() {
+      scheduleRelayout(30);
+    });
 
     // Re-layout after web fonts finish loading (fixes first-load sizing)
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function() {
-        relayoutPanels(gitgraph);
-        lockSectionMinHeight(gitgraph);
+        scheduleRelayout(40);
       });
     }
 
-    // MutationObserver: re-layout when panel children change (async loads)
+    // MutationObserver: re-layout on style/content changes (open/close panels,
+    // injected widgets, text updates), debounced for performance.
     if (typeof MutationObserver !== 'undefined') {
-      var _relayoutTimer = null;
-      var _observerPasses = 0;
-      var _maxObserverPasses = 2;
       var observer = new MutationObserver(function() {
-        if (_observerPasses >= _maxObserverPasses) return;
-        clearTimeout(_relayoutTimer);
-        _relayoutTimer = setTimeout(function() {
-          if (_observerPasses >= _maxObserverPasses) return;
-          _observerPasses++;
-          relayoutPanels(gitgraph);
-          lockSectionMinHeight(gitgraph);
-          if (_observerPasses >= _maxObserverPasses) {
-            observer.disconnect();
-          }
-        }, 180);
+        scheduleRelayout(70);
       });
       var panels = document.querySelectorAll('.gitgraph-detail');
       for (var p = 0; p < panels.length; p++) {
-        observer.observe(panels[p], { childList: true, subtree: true, characterData: true });
+        observer.observe(panels[p], {
+          attributes: true,
+          attributeFilter: ['style', 'class'],
+          childList: true,
+          subtree: true,
+          characterData: true
+        });
       }
+    }
 
-      // Stop observing after initial load window.
-      setTimeout(function() {
-        observer.disconnect();
-      }, 5000);
+    // ResizeObserver: track panel size changes (line wraps, image loads, widget
+    // hydration) and keep stacking non-overlapping.
+    if (typeof ResizeObserver !== 'undefined') {
+      var ro = new ResizeObserver(function() {
+        scheduleRelayout(60);
+      });
+      var observedPanels = document.querySelectorAll('.gitgraph-detail');
+      for (var rp = 0; rp < observedPanels.length; rp++) {
+        ro.observe(observedPanels[rp]);
+      }
     }
   }
 

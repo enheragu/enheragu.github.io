@@ -232,6 +232,14 @@ body.dark .lang-btn:not(.active) {
   transition: filter .15s, opacity .15s;
 }
 
+.flag-gb {
+  background-image: url('/assets/shared/flags/gb.svg');
+}
+
+.flag-es {
+  background-image: url('/assets/shared/flags/es.svg');
+}
+
 .lang-btn.active .flag-icon,
 .lang-btn:hover .flag-icon {
   filter: grayscale(0) saturate(1);
@@ -276,6 +284,18 @@ body.dark .lang-btn:not(.active) {
 .view-toggle .btn-ghost.active {
   background: var(--clr-primary, #58a6ff);
   color: #fff;
+}
+
+.btn-export {
+  margin-top: .55rem;
+  width: auto;
+  flex: 1;
+}
+
+.export-row {
+  margin-top: .55rem;
+  display: flex;
+  gap: .45rem;
 }
 
 @media (max-width: 500px) {

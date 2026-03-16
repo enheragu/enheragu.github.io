@@ -1,14 +1,13 @@
 
-{% assign pubs = site.data.publications | where: "type_key", "conference_paper" | first %}
+{% assign pubs = site.data.publications | where: "type_key", "software" | first %}
 {% if pubs %}
 <ul class="pub-list">
     {% for pub in pubs.entries %}
     <li>
         <cite><small>{{ pub.authors | join: ", " }}. </small></cite>
         <strong>({{ pub.year }}). {{ pub.title }}</strong>.
-        {% if pub.venue %} <em>{{ pub.venue }}</em>.{% endif %}
         {% if pub.publisher %} {{ pub.publisher }}.{% endif %}
-        {% if pub.pages %} pp. {{ pub.pages }}.{% endif %}
+        {% if pub.version %} Version {{ pub.version }}.{% endif %}
         {% include publication_actions.html pub=pub %}
     </li>
     {% endfor %}

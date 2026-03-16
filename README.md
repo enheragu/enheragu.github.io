@@ -16,7 +16,7 @@ Shared assets currently include:
 - `assets/shared/chart-interactions.js` (zoom/pan/pinch/reset interactions for Chart.js),
 - `assets/shared/app-shell.css` (common shell primitives: header, panels, buttons, inputs, typography),
 - `assets/shared/repo-cards.js` (shared GitHub repo-card loader),
-- `assets/shared/related-work.json` + `_data/related_work.yml` (single source for cross-tool related links/publications metadata),
+- `assets/shared/related-work.json` + `_data/publications.yml` keys (single source for cross-tool related links and publication metadata),
 - `assets/shared/related-work.js` (optional renderer for related-work blocks in external tools).
 
 Web version:

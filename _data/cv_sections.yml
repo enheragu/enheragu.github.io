@@ -15,6 +15,7 @@ items:
 - id: detail-pub-conferences
 - id: detail-pub-presentations
 - id: detail-pub-posters
+- id: detail-pub-software
 - id: detail-projects
 - id: detail-courses
 - id: detail-skills

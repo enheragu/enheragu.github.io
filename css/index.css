@@ -87,6 +87,10 @@ section {
   margin-bottom: 20px;
 }
 
+.gitgraph-detail.cite-widget-host-active {
+  z-index: 80;
+}
+
 .gitgraph-detail h3,
 .gitgraph-detail h4,
 .gitgraph-detail strong {
@@ -366,6 +370,7 @@ a.link-badge:hover {
   margin: 0 0 0.3rem;
   line-height: 1.4;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -558,116 +563,7 @@ h4 {
   padding-right: 1rem;
 }
 
-/* ===== HAMBURGER MENU ===== */
-.hamburger-btn {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1000;
-  width: 40px;
-  height: 40px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 8px;
-  transition: all 0.3s;
-  opacity: 0.6;
-}
-
-.hamburger-btn:hover {
-  opacity: 1;
-  border-color: var(--accent);
-}
-
-.hamburger-btn span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: var(--text-primary);
-  border-radius: 1px;
-  transition: all 0.3s;
-}
-
-.hamburger-btn.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger-btn.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger-btn.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-.nav-menu {
-  position: fixed;
-  top: 0;
-  right: -250px;
-  width: 250px;
-  height: 100vh;
-  background: var(--bg-secondary);
-  border-left: 1px solid var(--border);
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  padding: 5rem 2rem 2rem;
-  gap: 0.3rem;
-  transition: right 0.3s ease;
-  box-shadow: -4px 0 15px rgba(0,0,0,0.3);
-}
-
-.nav-menu.open {
-  right: 0;
-}
-
-.nav-menu a {
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  padding: 0.6rem 0.8rem;
-  border-radius: var(--radius);
-  transition: all 0.15s;
-  text-decoration: none;
-}
-
-.nav-menu a:hover {
-  color: var(--text-primary);
-  background: var(--bg-tertiary);
-}
-
-.nav-menu a.active {
-  color: var(--accent);
-  background: var(--bg-tertiary);
-  border-left: 2px solid var(--accent);
-}
-
-.nav-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: 998;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-}
-
-.nav-overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Hide Jekyll's default header */
-header { display: none; }
+/* Hamburger menu styles moved to shared asset: /assets/shared/hamburger-menu.css */
 
 /* ===== PAGE HEADER (sub-pages) ===== */
 .page-header {
