@@ -76,6 +76,18 @@
 - category: "Conference Papers"
   type_key: "conference_paper"
   entries:
+    - key: "heredia2026psychometric_tools"
+      title: "Psychometric Tools: An Interactive Web
+                   Applications for Measurement and Assessment
+                   Research"
+      year: 2026
+      authors:
+        - "Enrique and
+                  Rujano, Alejandro Heredia-Aguado"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.19163769"
+      url: "https://doi.org/10.5281/zenodo.19163769"
+
     - key: "icinco25eheredia"
       title: "A Robust Comparative Study of Adaptative Reprojection Fusion Methods for Deep Learning Based Detection Tasks with RGB-Thermal Images"
       year: 2025
