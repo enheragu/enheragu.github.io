@@ -76,18 +76,6 @@
 - category: "Conference Papers"
   type_key: "conference_paper"
   entries:
-    - key: "heredia2026psychometric_tools"
-      title: "Psychometric Tools: An Interactive Web
-                   Applications for Measurement and Assessment
-                   Research"
-      year: 2026
-      authors:
-        - "Enrique and
-                  Rujano, Alejandro Heredia-Aguado"
-      publisher: "Zenodo"
-      doi: "10.5281/zenodo.19163769"
-      url: "https://doi.org/10.5281/zenodo.19163769"
-
     - key: "icinco25eheredia"
       title: "A Robust Comparative Study of Adaptative Reprojection Fusion Methods for Deep Learning Based Detection Tasks with RGB-Thermal Images"
       year: 2025
@@ -291,16 +279,17 @@
   type_key: "software"
   entries:
     - key: "heredia2026psychometric_tools"
-      title: "Psychometric Tools: Interactive Psychometric Calculators"
+      title: "Psychometric Tools: An Interactive Web
+                   Applications for Measurement and Assessment
+                   Research"
       year: 2026
       authors:
-        - "Enrique Heredia-Aguado"
-        - "Alejandro Rujano"
+        - "Enrique and
+                  Rujano, Alejandro Heredia-Aguado"
       publisher: "Zenodo"
-      doi: "10.5281/zenodo.XXXXXXX"
-      url: "https://enheragu.github.io/stat-tools/psychometric-tools/"
-      version: "v1.0.0"
-      keywords: "psychometrics, educational measurement, statistics, web tools"
+      doi: "10.5281/zenodo.19163769"
+      url: "https://doi.org/10.5281/zenodo.19163769"
+      version: "1.0.0"
 
     - key: "heredia2026ml_variance_tools"
       title: "ML Variance Tools: Interactive Machine Learning Variance Calculators"
@@ -314,15 +303,3 @@
       doi: "10.5281/zenodo.XXXXXXX"
       url: "https://enheragu.github.io/stat-tools/ml-variance-analysis/"
       version: "v1.0.0"
-      keywords: "machine learning, variance analysis, model diagnostics, web tools"
-
-    - key: "heredia2026stattools_platform"
-      title: "Stat Tools: Interactive Statistical Tools Platform"
-      year: 2026
-      authors:
-        - "Enrique Heredia-Aguado"
-      publisher: "Zenodo"
-      doi: "10.5281/zenodo.YYYYYYY"
-      url: "https://enheragu.github.io/stat-tools/"
-      version: "v1.0.0"
-      keywords: "statistics, psychometrics, machine learning, web platform"
