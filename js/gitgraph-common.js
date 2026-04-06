@@ -224,7 +224,14 @@ var GitGraphCommon = (function() {
         branch.path[p].y = mapY(branch.path[p].y);
       }
       if (branch.startPoint) {
-        branch.startPoint.y = mapY(branch.startPoint.y);
+        // Use the exact parent commit anchor when available to avoid
+        // split calculations between startPoint and commit coordinates.
+        if (branch.parentCommit) {
+          branch.startPoint.x = branch.parentCommit.x;
+          branch.startPoint.y = branch.parentCommit.y;
+        } else {
+          branch.startPoint.y = mapY(branch.startPoint.y);
+        }
       }
     }
 

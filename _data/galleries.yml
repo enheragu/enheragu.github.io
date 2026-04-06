@@ -51,6 +51,7 @@ branches:
       camera: Phone
       date: "[10/2020]"
     - name: 10_2020_ade_bremen_01.jpg
+      thumb_position: left center
       text: Image from.
       author: Enrique Heredia
       camera: Phone
@@ -262,11 +263,13 @@ branches:
       camera: " "
       date: "[12/2015]"
     - name: 12_2015_hacklab_hidalgo_01.jpg
+      layout: tall
       text: " "
       author: " "
       camera: " "
       date: "[12/2015]"
     - name: 12_2015_hacklab_hidalgo_02.jpg
+      layout: none
       text: " "
       author: " "
       camera: " "

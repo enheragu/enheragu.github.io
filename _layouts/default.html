@@ -88,8 +88,8 @@
                 {
                     "@context": "https://schema.org",
                     "@type": "WebPage",
-                    "@id": "{{ page.url | absolute_url }}#webpage",
-                    "url": "{{ page.url | absolute_url }}",
+                    "@id": "{{ page.url | relative_url }}#webpage",
+                    "url": "{{ page.url | relative_url }}",
                     "name": {{ page.title | append: ' | ' | append: site.title | jsonify }},
                     "description": {{ page.description | default: site.description | jsonify }},
                     "isPartOf": {
@@ -112,26 +112,34 @@
                             "@type": "ListItem",
                             "position": 1,
                             "name": "CV",
-                            "item": "{{ '/' | absolute_url }}"
+                            "item": "{{ '/' | relative_url }}"
                         }{% if breadcrumb_name %},
                         {
                             "@type": "ListItem",
                             "position": 2,
                             "name": {{ breadcrumb_name | jsonify }},
-                            "item": "{{ current_url | absolute_url }}"
+                            "item": "{{ current_url | relative_url }}"
                         }{% endif %}
                     ]
                 }
                 </script>
 
-        <link id="favicon" rel="shortcut icon" type="image/svg" href={{ "/img/robot.svg" | absolute_url }} />
-        <link rel="stylesheet" type="text/css" href={{ "/css/index.css" | absolute_url }} />
-        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/modal-primitives.css?v=20260316" | absolute_url }} />
-        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/lightbox-stage.css?v=20260316" | absolute_url }} />
-        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/publication-ui.css?v=20260316" | absolute_url }} />
-        <link rel="stylesheet" type="text/css" href={{ "/assets/shared/hamburger-menu.css" | absolute_url }} />
+        <link id="favicon" rel="shortcut icon" type="image/svg" href={{ "/img/robot.svg" | relative_url }} />
+        {% assign shared_assets_base = site.shared_assets_base | default: '/assets/shared' %}
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/theme-tokens.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/theme-tokens.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/base-primitives.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/base-primitives.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/typography-primitives.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/typography-primitives.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/cv-nav-primitives.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/cv-nav-primitives.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/cv-identity-primitives.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/cv-identity-primitives.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/content-primitives.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/content-primitives.css';" />
+        <link rel="stylesheet" type="text/css" href={{ "/css/index.css" | relative_url }} />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/modal-primitives.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/modal-primitives.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/lightbox-stage.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/lightbox-stage.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/publication-ui.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/publication-ui.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/controls.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/controls.css';" />
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/tools-nav.css" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/tools-nav.css';" />
         {% for stylesheet in page.custom_css %}
-        <link rel="stylesheet" type="text/css" href={{ stylesheet | absolute_url }} />
+        <link rel="stylesheet" type="text/css" href={{ stylesheet | relative_url }} />
         {% endfor %}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -139,18 +147,7 @@
     </head>
 
     <body>
-        <!-- Hamburger Navigation -->
-        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
-        <nav class="nav-menu" id="navMenu">
-            <a href="{{ '/' | relative_url }}">CV</a>
-            <a href="{{ '/projects/' | relative_url }}">Research</a>
-            <a href="{{ '/academic/' | relative_url }}">Academic</a>
-            <a href="{{ '/personal/' | relative_url }}">Personal</a>
-            <a href="{{ '/gallery/' | relative_url }}">Gallery</a>
-        </nav>
-        <div class="nav-overlay" id="navOverlay"></div>
+        <div data-theme-toggle-host></div>
 
         {{ content }}
 
@@ -165,12 +162,36 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     {% for jsfile in page.custom_js %}
-    <script src={{ jsfile | absolute_url }} ></script>
+    <script src={{ jsfile | relative_url }} ></script>
     {% endfor %}
-    <script src={{ "/assets/shared/publication-ui.js?v=20260316" | absolute_url }} ></script>
-    <script src={{ "/assets/shared/hamburger-menu.js" | absolute_url }} ></script>
-    <script src={{ "/js/cite-widget.js" | absolute_url }} ></script>
+    <script src="{{ shared_assets_base }}/publication-ui.js" onerror="this.onerror=null;this.src='https://enheragu.github.io/tool-pages-theme/assets/shared/publication-ui.js';"></script>
+    <script src="{{ shared_assets_base }}/ui-core.js" onerror="this.onerror=null;this.src='https://enheragu.github.io/tool-pages-theme/assets/shared/ui-core.js';"></script>
     <script>
+    window.ToolsNavConfig = {
+      preserveLangParam: false,
+      menuItems: [
+        { href: "{{ '/' | relative_url }}", label: { en: "CV", es: "CV" } },
+        { href: "{{ '/projects/' | relative_url }}", label: { en: "Research", es: "Investigación" } },
+        { href: "{{ '/academic/' | relative_url }}", label: { en: "Academic", es: "Académico" } },
+        { href: "{{ '/personal/' | relative_url }}", label: { en: "Personal", es: "Personal" } },
+        { href: "{{ '/gallery/' | relative_url }}", label: { en: "Gallery", es: "Galería" } }
+      ]
+    };
+    </script>
+    <script src="{{ shared_assets_base }}/tools-nav.js" onerror="this.onerror=null;this.src='https://enheragu.github.io/tool-pages-theme/assets/shared/tools-nav.js';"></script>
+    <script src={{ "/js/cite-widget.js" | relative_url }} ></script>
+    <script>
+    (function() {
+        if (window.SharedUiCore && typeof window.SharedUiCore.initThemeToggle === 'function') {
+            window.SharedUiCore.initThemeToggle({
+                themeButtonId: 'btn-theme',
+                syncDataTheme: true,
+                preventBubble: true,
+                animationMs: 420
+            });
+        }
+    })();
+
     (function() {
         var p = window.location.pathname;
         var trailingSlashRedirects = {

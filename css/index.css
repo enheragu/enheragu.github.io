@@ -6,42 +6,23 @@
 }
 
 :root {
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --bg-tertiary: #21262d;
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --text-muted: #6e7681;
-  --accent: #58a6ff;
-  --accent-hover: #79c0ff;
-  --border: #30363d;
-  --green: #3fb950;
-  --yellow: #d29922;
-  --red: #f85149;
-  --purple: #bc8cff;
+  /* Reuse shared theme tokens as the single source of truth. */
+  --bg-primary: var(--clr-bg);
+  --bg-secondary: var(--clr-surface);
+  --bg-tertiary: var(--clr-chart-bg);
+  --text-primary: var(--clr-text);
+  --text-secondary: color-mix(in oklab, var(--clr-text) 72%, var(--clr-muted));
+  --text-muted: var(--clr-muted);
+  --accent: var(--clr-primary);
+  --accent-hover: var(--clr-primary-h);
+  --border: var(--clr-border);
+  --green: var(--clr-data-green);
+  --yellow: var(--clr-data-amber);
+  --red: var(--clr-danger);
+  --purple: var(--clr-data-purple);
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
   --radius: 6px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
-}
-
-body {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-
-a:hover, a:focus {
-  color: var(--accent-hover);
 }
 
 /* ===== MAIN LAYOUT ===== */
@@ -92,21 +73,12 @@ section {
 }
 
 .gitgraph-detail h3,
-.gitgraph-detail h4,
-.gitgraph-detail strong {
-  color: var(--text-primary);
+.gitgraph-detail h4 {
+  color: var(--text-muted);
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.gitgraph-detail strong {
+  color: var(--text-primary);
 }
 
 .gitgraph-detail p {
@@ -133,275 +105,16 @@ section {
   color: var(--accent);
 }
 
-.gitgraph-detail a:hover {
+.gitgraph-detail a:not(.link-badge):not(.pub-action-link):hover {
   color: var(--accent-hover);
 }
 
-/* ===== PUBLICATIONS ===== */
-.pub-category {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--green);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0.3rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.pub-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.pub-list li {
-  padding: 0.4rem 0;
-  border-left: 2px solid var(--border);
-  padding-left: 0.8rem;
-  margin-bottom: 0.4rem;
-  transition: border-color 0.15s;
-}
-
-.pub-list li:hover {
-  border-left-color: var(--accent);
-}
-
-.pub-list li strong {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.pub-list li cite small {
-  color: var(--text-muted);
-  font-size: 0.75rem;
-}
-
-.pub-list li em {
-  color: var(--text-secondary);
-}
-
-.pub-list li a {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  padding: 1px 5px;
-  border-radius: 3px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  margin-left: 0.3rem;
-}
-
-.pub-list li a:hover {
-  background: var(--border);
-}
-
-/* Reusable badge-style link (same look as publication links) */
-a.link-badge {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  padding: 1px 5px;
-  border-radius: 3px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  margin-left: 0.3rem;
-}
-
-a.link-badge:hover {
-  background: var(--border);
-}
-
-/* ===== PUB BOX (embedded in detail panels) ===== */
-.pub-box {
-  margin-top: 0.8rem;
-  padding-top: 0.6rem;
-  border-top: 1px dashed var(--border);
-}
-
-.pub-box h4 {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-}
-
-.pub-box-scroll {
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.pub-box .pub-list li {
-  font-size: 0.78rem;
-  padding: 0.3rem 0;
-  padding-left: 0.6rem;
-  margin-bottom: 0.3rem;
-}
-
-/* Type badge before each publication */
-.pub-type-badge {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 500;
-  color: var(--green);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 0px 4px;
-  margin-right: 0.3rem;
-  vertical-align: middle;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-}
+/* Publication and repository UI styles are provided by shared publication-ui.css. */
 
 /* ===== EXPANDED PANELS (project/academic pages — full content on desktop) ===== */
 .expanded-panels .gitgraph-detail {
   max-height: none;
   overflow-y: visible;
-}
-
-/* ===== MINI NAV (horizontal link bar in presentation panel) ===== */
-.mini-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  margin-top: 0.8rem;
-  padding-top: 0.6rem;
-  border-top: 1px dashed var(--border);
-  flex-wrap: wrap;
-}
-
-.mini-nav a {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  padding: 3px 10px;
-  border-radius: 3px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  transition: all 0.15s;
-  text-decoration: none;
-}
-
-.mini-nav a:hover {
-  background: var(--border);
-  color: var(--accent-hover);
-}
-
-.mini-nav-sep {
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  user-select: none;
-}
-
-/* ===== REPO CARDS (GitHub repository embeds) ===== */
-.repo-box {
-  margin-top: 0.8rem;
-  padding-top: 0.6rem;
-  border-top: 1px dashed var(--border);
-}
-
-.repo-box h4 {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-}
-
-.repo-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.repo-card {
-  display: block;
-  flex: 1 1 220px;
-  max-width: 320px;
-  min-height: 90px;
-  padding: 0.6rem 0.8rem;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  text-decoration: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.repo-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
-}
-
-.repo-card-header {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 0.3rem;
-}
-
-.repo-icon {
-  fill: var(--text-muted);
-  flex-shrink: 0;
-}
-
-.repo-name {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--accent);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.repo-desc {
-  font-size: 0.72rem;
-  color: var(--text-secondary);
-  margin: 0 0 0.3rem;
-  line-height: 1.4;
-  display: -webkit-box;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.repo-desc[data-loading] {
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-.repo-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
-}
-
-.lang-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  margin-right: 2px;
-  vertical-align: middle;
-}
-
-.repo-stars {
-  color: var(--yellow);
 }
 
 /* ===== TOOLTIP ===== */
@@ -434,195 +147,13 @@ a.link-badge:hover {
   content: "";
 }
 
-/* ===== CODE ===== */
-code, pre {
-  font-family: var(--font-mono);
-}
-
-code {
-  padding: 2px 6px;
-  font-size: 0.85em;
-  color: var(--accent);
-  background: var(--bg-tertiary);
-  border-radius: 4px;
-}
-
-pre {
-  display: block;
-  padding: 12px 16px;
-  margin: 0 0 12px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text-primary);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow-x: auto;
-}
-
 /* ===== IMAGES ===== */
 .logoimage {
   display: none;
 }
 
-/* ===== TYPOGRAPHY ===== */
-h1 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin: 0.5em 0;
-  color: var(--text-primary);
-}
+/* Navigation menu styles are provided by shared tools-nav.css */
 
-h4 {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-/* ===== CV HEADER ===== */
-.cv-header {
-  text-align: center;
-  padding: 0.3rem 0 0.8rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 1rem;
-}
-
-.cv-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.15rem;
-  letter-spacing: -0.02em;
-}
-
-.cv-subtitle {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  letter-spacing: 0.03em;
-}
-
-/* ===== SOCIAL LINKS ===== */
-.social-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-  margin-top: 0.6rem;
-}
-
-.social-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  color: var(--text-secondary);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  transition: all 0.2s;
-}
-
-.social-links a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
-
-.social-links a svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-}
-
-.social-links a img {
-  width: 16px;
-  height: 16px;
-  border-radius: 2px;
-}
-
-/* ===== CV FOOTER / SITE FOOTER ===== */
-.cv-footer,
-.site-footer {
-  text-align: right;
-  padding: 1rem 0 0.5rem;
-  margin-top: 1rem;
-  border-top: 1px solid var(--border);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 0.03em;
-}
-
-.site-footer {
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-/* Hamburger menu styles moved to shared asset: /assets/shared/hamburger-menu.css */
-
-/* ===== PAGE HEADER (sub-pages) ===== */
-.page-header {
-  position: relative;
-  text-align: center;
-  padding: 0.3rem 0 0.8rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 1rem;
-}
-
-.page-header h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.15rem;
-  letter-spacing: -0.02em;
-}
-
-.page-brand-muted {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 0.2rem;
-  transform: translateX(-50%);
-  width: max-content;
-  color: var(--text-muted);
-  font-weight: 500;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
-  margin: 0;
-}
-
-.page-subtitle {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  letter-spacing: 0.03em;
-}
-
-/* ===== LIGHT THEME ===== */
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg-primary: #f4f6f9;
-    --bg-secondary: #ffffff;
-    --bg-tertiary: #edf1f5;
-    --text-primary: #1e293b;
-    --text-secondary: #4f5d73;
-    --text-muted: #6e7681;
-    --accent: #58a6ff;
-    --accent-hover: #bc8cff;
-    --border: #dde1e7;
-    --green: #1a7f37;
-    --yellow: #9a6700;
-    --red: #d1242f;
-    --purple: #8250df;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
-  }
-}
 
 /* ===== RESPONSIVE ===== */
 
@@ -673,45 +204,6 @@ h4 {
     overflow-y: auto !important;
   }
 
-  .repo-cards {
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .repo-card {
-    width: 100%;
-    max-width: none;
-    flex: 1 1 auto;
-  }
-
-
-
-  .cv-header h1 {
-    font-size: 1.4rem;
-  }
-
-  .cv-subtitle {
-    font-size: 0.75rem;
-  }
-
-  .social-links {
-    gap: 0.5rem;
-  }
-
-  .social-links a {
-    width: 28px;
-    height: 28px;
-  }
-
-  .social-links a svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .cv-footer,
-  .site-footer {
-    text-align: center;
-  }
 }
 
 /* — Very small screens (≤400px): even more compact — */
@@ -731,21 +223,4 @@ h4 {
     font-size: 0.68rem;
   }
 
-  .cv-header h1 {
-    font-size: 1.2rem;
-  }
-
-  .cv-subtitle {
-    font-size: 0.68rem;
-  }
-
-  .social-links a {
-    width: 24px;
-    height: 24px;
-  }
-
-  .social-links a svg {
-    width: 12px;
-    height: 12px;
-  }
 }

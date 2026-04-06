@@ -1,6 +1,16 @@
 - category: "Journal Articles"
   type_key: "journal"
   entries:
+    - key: "heredia2026variance_analysis_ml"
+      title: "The Impact of Randomness-Induced Variability on Neural Network Performance Evaluation and its Implications for Model Design"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "Preprint"
+
     - key: "heredia2025fusion_static"
       title: "Static Early Fusion Techniques for Visible and Thermal Images to Enhance Convolutional Neural Network Detection: A Performance Analysis"
       year: 2025
@@ -279,16 +289,14 @@
   type_key: "software"
   entries:
     - key: "heredia2026psychometric_tools"
-      title: "Psychometric Tools: An Interactive Web
-                   Applications for Measurement and Assessment
-                   Research"
+      title: "Psychometric Tools: An Interactive Web Applications for Measurement and Assessment Research"
       year: 2026
       authors:
         - "Enrique Heredia-Aguado"
         - "Alejandro Rujano"
       publisher: "Zenodo"
       doi: "10.5281/zenodo.19163769"
-      url: "https://doi.org/10.5281/zenodo.19163769"
+      url: "https://enheragu.github.io/psychometric-tools/"
       version: "1.0.0"
 
     - key: "heredia2026ml_variance_tools"
@@ -301,5 +309,5 @@
         - "Arturo Gil"
       publisher: "Zenodo"
       doi: "10.5281/zenodo.XXXXXXX"
-      url: "https://enheragu.github.io/stat-tools/ml-variance-analysis/"
+      url: "https://enheragu.github.io/mlv-tools/"
       version: "v1.0.0"

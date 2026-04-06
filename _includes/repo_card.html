@@ -43,8 +43,11 @@
       script.setAttribute('data-shared-repo-cards', '1');
       script.onload = initRepoCards;
       script.onerror = function () {
-        script.onerror = null;
-        script.src = 'https://enheragu.github.io/assets/shared/repo-cards.js';
+        script.onerror = function () {
+          script.onerror = null;
+          script.src = 'https://enheragu.github.io/assets/shared/repo-cards.js';
+        };
+        script.src = 'https://enheragu.github.io/tool-pages-theme/assets/shared/repo-cards.js';
       };
       document.head.appendChild(script);
       return;

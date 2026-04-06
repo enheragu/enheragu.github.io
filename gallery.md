@@ -4,13 +4,13 @@ description: Photo gallery of Enrique Heredia Aguado with snapshots from robotic
 layout: default
 permalink: /gallery/
 custom_css:
-  - /css/gitgraph.css
-  - /css/gallery.css
+    - /css/gitgraph.css
+    - /assets/shared/gallery-primitives.css
 custom_js:
-  - /js/gitgraph.1.0.0.min.js
-  - /js/gitgraph-common.js
-  - /js/gallery.js
-  - /js/gallery-graph.js
+    - /js/gitgraph.1.0.0.min.js
+    - /js/gitgraph-common.js
+    - /js/gallery.js
+    - /js/gallery-graph.js
 ---
 
 <section class="expanded-panels">
@@ -33,8 +33,11 @@ custom_js:
                              data-text="{{ image.text }}"
                              data-author="{{ image.author }}"
                              data-camera="{{ image.camera }}"
-                             data-date="{{ image.date }}">
-                            <img src="{{ site.data.galleries.thumnaifolder }}/{{ image.name }}" alt="{{ image.text }}" loading="lazy">
+                                data-date="{{ image.date }}"
+                                data-wide="{{ image.wide | default: '' }}"
+                                data-tall="{{ image.tall | default: '' }}"
+                                data-layout="{{ image.layout | default: '' }}">
+                            <img src="{{ site.data.galleries.thumnaifolder }}/{{ image.name }}" alt="{{ image.text }}" loading="lazy"{% if image.thumb_position %} style="object-position: {{ image.thumb_position }};"{% endif %}>
                             <div class="gallery-item-overlay">
                                 <span>{{ image.text }}</span>
                             </div>

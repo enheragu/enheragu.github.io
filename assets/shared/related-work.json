@@ -1,6 +1,0 @@
----
----
-{
-  "tools": {{ site.data.related_work.tools | jsonify }},
-  "publications": {{ site.data.publications | jsonify }}
-}

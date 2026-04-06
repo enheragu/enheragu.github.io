@@ -38,23 +38,33 @@ fi
 echo "Converting publications.bib -> publications.yml..."
 python3 "$SCRIPT_DIR/_scripts/bib_to_yaml.py"
 
+JEKYLL_HOST="${JEKYLL_HOST:-0.0.0.0}"
 JEKYLL_PORT="${JEKYLL_PORT:-4000}"
-if ! ruby -rsocket -e 'port = ARGV[0].to_i; begin; s = TCPServer.new("127.0.0.1", port); s.close; rescue Errno::EADDRINUSE; exit 1; end' "$JEKYLL_PORT"; then
+if ! ruby -rsocket -e 'host = ARGV[0]; port = ARGV[1].to_i; begin; s = TCPServer.new(host, port); s.close; rescue Errno::EADDRINUSE; exit 1; end' "$JEKYLL_HOST" "$JEKYLL_PORT"; then
     echo "Port $JEKYLL_PORT is busy. Searching for a free port..."
     for candidate in $(seq $((JEKYLL_PORT + 1)) $((JEKYLL_PORT + 20))); do
-        if ruby -rsocket -e 'port = ARGV[0].to_i; begin; s = TCPServer.new("127.0.0.1", port); s.close; rescue Errno::EADDRINUSE; exit 1; end' "$candidate"; then
+        if ruby -rsocket -e 'host = ARGV[0]; port = ARGV[1].to_i; begin; s = TCPServer.new(host, port); s.close; rescue Errno::EADDRINUSE; exit 1; end' "$JEKYLL_HOST" "$candidate"; then
             JEKYLL_PORT="$candidate"
             break
         fi
     done
 fi
 
-echo "Starting Jekyll server at http://localhost:$JEKYLL_PORT"
+echo "Starting Jekyll server on $JEKYLL_HOST:$JEKYLL_PORT"
+if [ "$JEKYLL_HOST" = "0.0.0.0" ]; then
+    LOCAL_IP="$(hostname -I 2>/dev/null | awk '{print $1}')"
+    echo "Local URL: http://localhost:$JEKYLL_PORT"
+    if [ -n "$LOCAL_IP" ]; then
+        echo "LAN URL:   http://$LOCAL_IP:$JEKYLL_PORT"
+    fi
+else
+    echo "URL: http://$JEKYLL_HOST:$JEKYLL_PORT"
+fi
 echo "Press Ctrl+C to stop"
 LIVERELOAD_PORT="${JEKYLL_LIVERELOAD_PORT:-35729}"
 if ruby -rsocket -e 'port = ARGV[0].to_i; begin; s = TCPServer.new("127.0.0.1", port); s.close; rescue Errno::EADDRINUSE; exit 1; end' "$LIVERELOAD_PORT"; then
-    jekyll serve --livereload --livereload_port "$LIVERELOAD_PORT" --baseurl '' --port "$JEKYLL_PORT"
+    jekyll serve --livereload --livereload_port "$LIVERELOAD_PORT" --baseurl '' --host "$JEKYLL_HOST" --port "$JEKYLL_PORT"
 else
     echo "LiveReload port $LIVERELOAD_PORT is busy. Starting without live reload..."
-    jekyll serve --baseurl '' --port "$JEKYLL_PORT"
+    jekyll serve --baseurl '' --host "$JEKYLL_HOST" --port "$JEKYLL_PORT"
 fi

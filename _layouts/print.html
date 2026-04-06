@@ -4,10 +4,10 @@
     <head>
         <meta charset="UTF-8" />
         <title>{{ page.title }} | {{ site.title }}</title>
-        <link id="favicon" rel="shortcut icon" type="image/svg" href={{ "/img/robot.svg" | absolute_url }} />
-        <link rel="stylesheet" type="text/css" href={{ "/css/print.css" | absolute_url }} />
+        <link id="favicon" rel="shortcut icon" type="image/svg" href={{ "/img/robot.svg" | relative_url }} />
+        <link rel="stylesheet" type="text/css" href={{ "/css/print.css" | relative_url }} />
         {% for stylesheet in page.custom_css %}
-        <link rel="stylesheet" type="text/css" href={{ stylesheet | absolute_url }} />
+        <link rel="stylesheet" type="text/css" href={{ stylesheet | relative_url }} />
         {% endfor %}
     </head>
 
@@ -18,7 +18,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     {% for jsfile in page.custom_js %}
-    <script src={{ jsfile | absolute_url }} ></script>
+    <script src={{ jsfile | relative_url }} ></script>
     {% endfor %}
     </body>
 
