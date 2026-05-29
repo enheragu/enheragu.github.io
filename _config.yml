@@ -9,6 +9,9 @@ lang: en
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-remote-theme
+
+remote_theme: enheragu/tool-pages-theme
 
 # Google Analytics 4 — Measurement ID (format: G-XXXXXXXXXX)
 google_analytics: G-BQJ3799LQT

@@ -27,6 +27,8 @@
 </div>
 <script>
   (function () {
+    var sharedBase = '{{ site.shared_assets_base | default: "/assets/shared" }}';
+
     function initRepoCards() {
       if (!window.SharedRepoCards?.init) return;
       window.SharedRepoCards.init(document);
@@ -39,15 +41,13 @@
 
     if (!document.querySelector('script[data-shared-repo-cards]')) {
       var script = document.createElement('script');
-      script.src = '/assets/shared/repo-cards.js';
+      script.src = sharedBase + '/repo-cards.js';
       script.setAttribute('data-shared-repo-cards', '1');
       script.onload = initRepoCards;
       script.onerror = function () {
-        script.onerror = function () {
-          script.onerror = null;
-          script.src = 'https://enheragu.github.io/assets/shared/repo-cards.js';
-        };
-        script.src = 'https://enheragu.github.io/tool-pages-theme/assets/shared/repo-cards.js';
+        script.onerror = null;
+        script.src = 'https://enheragu.github.io/assets/shared/repo-cards.js';
+        script.onload = initRepoCards;
       };
       document.head.appendChild(script);
       return;
