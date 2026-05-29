@@ -13,6 +13,7 @@ items:
 - id: detail-pub-journals
 - id: detail-pub-chapters
 - id: detail-pub-conferences
+- id: detail-pub-preprints
 - id: detail-pub-presentations
 - id: detail-pub-posters
 - id: detail-pub-software

@@ -16,6 +16,7 @@ custom_js:
         <h1>Research Projects</h1>
         <span class="page-subtitle">Projects I have been involved in during my career</span>
     </div>
+    {% include wip_banner.html %}
     <div class="gitgraph-container">
         <canvas id="gitGraph"></canvas>
     </div>

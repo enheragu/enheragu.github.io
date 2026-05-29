@@ -16,15 +16,17 @@ TYPE_ORDER = {
     'Journal': 0,
     'Book Chapter': 1,
     'Conference Paper': 2,
-    'Presentation': 3,
-    'Poster': 4,
-    'Software': 5,
+    'Preprint': 3,
+    'Presentation': 4,
+    'Poster': 5,
+    'Software': 6,
 }
 
 TYPE_LABELS = {
     'Journal': 'Journal Articles',
     'Book Chapter': 'Book Chapters',
     'Conference Paper': 'Conference Papers',
+    'Preprint': 'Preprints',
     'Software': 'Software Tools',
     'Presentation': 'Presentations',
     'Poster': 'Posters',

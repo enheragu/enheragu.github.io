@@ -1,16 +1,6 @@
 - category: "Journal Articles"
   type_key: "journal"
   entries:
-    - key: "heredia2026variance_analysis_ml"
-      title: "The Impact of Randomness-Induced Variability on Neural Network Performance Evaluation and its Implications for Model Design"
-      year: 2026
-      authors:
-        - "Enrique Heredia-Aguado"
-        - "Alejandro Rujano"
-        - "David Valiente"
-        - "Arturo Gil"
-      venue: "Preprint"
-
     - key: "heredia2025fusion_static"
       title: "Static Early Fusion Techniques for Visible and Thermal Images to Enhance Convolutional Neural Network Detection: A Performance Analysis"
       year: 2025
@@ -86,6 +76,37 @@
 - category: "Conference Papers"
   type_key: "conference_paper"
   entries:
+    - key: "cea2026eheredia"
+      title: "Fusion temprana de imagenes multiespectrales mediante tecnicas de reproyeccion para tareas de deteccion mediante algoritmos profundos: Un estudio comparativo"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Maria Flores"
+        - "Monica Ballesta"
+        - "David Valiente"
+        - "Luis Paya"
+        - "Arturo Gil"
+        - "Juan Jose Cabrera"
+      venue: "Simposio CEA de Robotica, Bioingenieria, Vision Artificial y Automatica Marina"
+      doi: "10.64117/simposioscea.v2i2.174"
+      volume: "2"
+      number: "2"
+
+    - key: "cea2026flores"
+      title: "Localizacion global mediante descriptores basados en un diccionario semantico-visual"
+      year: 2026
+      authors:
+        - "Maria Flores"
+        - "Enrique Heredia-Aguado"
+        - "Juan Jose Cabrera"
+        - "Arturo Gil"
+        - "David Valiente"
+        - "Luis Paya"
+      venue: "Simposio CEA de Robotica, Bioingenieria, Vision Artificial y Automatica Marina"
+      doi: "10.64117/simposioscea.v2i2.224"
+      volume: "2"
+      number: "2"
+
     - key: "icinco25eheredia"
       title: "A Robust Comparative Study of Adaptative Reprojection Fusion Methods for Deep Learning Based Detection Tasks with RGB-Thermal Images"
       year: 2025
@@ -125,7 +146,9 @@
         - "Enrique Heredia-Aguado"
         - "David Valiente"
         - "Oscar Reinoso"
-      venue: "Simposio de Robotica, Bioingenieria y Vision por Computador"
+      venue: "Actas del Simposio de Robotica, Bioingenieria y Vision por Computador"
+      url: "https://hdl.handle.net/11000/32892"
+      pages: "55–60"
 
     - key: "eheredia2024fusion"
       title: "Fusion estatica de imagenes del espectro visible y termico para una mejor deteccion de personas mediante Redes Neuronales Convolucionales: un analisis del rendimiento"
@@ -137,6 +160,7 @@
         - "Miriam Maximo"
         - "Luis Paya"
       venue: "Actas del Simposio de Robotica, Bioingenieria y Vision por Computador"
+      url: "https://hdl.handle.net/11000/32893"
       pages: "263–268"
 
     - key: "brinkmann2022mantis"
@@ -190,7 +214,7 @@
         - "Kevin Picton"
         - "Luis Lopes"
       venue: "International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)"
-      doi: "10.1007/978-3-031-39214-6_18"
+      url: "https://www.researchgate.net/publication/344860299_Multi-Robot_Cooperation_for_Lunar_Base_Assembly_And_Construction"
 
     - key: "ocon2019testing"
       title: "Testing Autonomous Robots: A Discussion on Performances Obtained During the ERGO Field Tests"
@@ -207,7 +231,7 @@
         - "Thomas Keller"
         - "Mark Woods"
         - "Spyridon Karachalios"
-      venue: "International Astronautical Congress (IAC)"
+      venue: "Symposium on Advanced Space Technologies in Robotics and Automation (ASTRA 2019)"
       url: "https://ai.dmi.unibas.ch/papers/ocon-et-al-astra2019.pdf"
 
     - key: "ocon2018ergo"
@@ -234,12 +258,37 @@
         - "Pierre Dissaux"
         - "A. Schach"
         - "Piotr Weclewski"
-      venue: "International Astronautical Congress (IAC)"
+      venue: "Proceedings of the 69th International Astronautical Congress (IAC)"
       url: "https://kclpure.kcl.ac.uk/ws/portalfiles/portal/101292706/IAC_2018_ERGO_PaperV1.0.pdf"
+
+- category: "Preprints"
+  type_key: "preprint"
+  entries:
+    - key: "heredia2026variance_analysis_ml"
+      title: "The Impact of Performance Variability on Neural Network Evaluation and its Implications for Model Design"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "Mónica Galdeano"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "Preprint"
 
 - category: "Presentations"
   type_key: "presentation"
   entries:
+    - key: "cepero2026busqueda_visual"
+      title: "Búsqueda visual repetida en contexto natural, ¿eficiencia o aprendizaje?"
+      year: 2026
+      authors:
+        - "Laura Cepero Amores"
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "M. Pilar Aivar"
+        - "Victoria Plaza"
+      venue: "VI Congreso Anual de Estudiantes de Doctorado (UMH)"
+
     - key: "heredia2026fusion_multispectral"
       title: "Tecnicas de fusion de imagenes multiespectrales para una mejor deteccion mediante algoritmos de aprendizaje profundo"
       year: 2026
@@ -249,6 +298,7 @@
         - "David Valiente"
         - "Arturo Gil"
       venue: "VI Congreso Anual de Estudiantes de Doctorado (UMH)"
+      doi: "10.13140/RG.2.2.31157.33760"
 
     - key: "heredia2025collab_interdisciplinar"
       title: "Colaboracion interdisciplinar en estudios de doctorado: Estudiando el proceso de busqueda visual en personas a traves de la vision por computador"
@@ -257,10 +307,9 @@
         - "Enrique Heredia-Aguado"
         - "Laura Cepero Amores"
         - "Luis Miguel Jimenez"
-        - "David Valiente"
-        - "Arturo Gil"
         - "M. Pilar Aivar"
       venue: "V Congreso Anual de Estudiantes de Doctorado (UMH)"
+      doi: "10.13140/RG.2.2.35237.41443"
 
     - key: "cepero2025visual_search"
       title: "Visual Search Strategies: Comparing Screen-Based and Real-World Contexts"
@@ -275,6 +324,32 @@
 - category: "Posters"
   type_key: "poster"
   entries:
+    - key: "cepero2026cip"
+      title: "From Screens to the Real World: How context shapes Visual Search"
+      year: 2026
+      authors:
+        - "Laura Cepero Amores"
+        - "Enrique Heredia-Aguado"
+        - "Lucía Bernardino"
+        - "Alejandro Rujano"
+        - "Jose David Moreno"
+        - "Pilar Aivar"
+        - "Victoria Plaza"
+      venue: "11th Iberian Congress of Perception (CIP 2026)"
+      doi: "10.13140/RG.2.2.15132.04488"
+
+    - key: "aivar2026vss"
+      title: "Visual search for real objects: how spatial consistency facilitates performance"
+      year: 2026
+      authors:
+        - "M. Pilar Aivar"
+        - "Laura Cepero Amores"
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "Rocio Asperilla"
+        - "Victoria Plaza"
+      venue: "Vision Sciences Society Annual Meeting (VSS 2026)"
+
     - key: "cepero2024poster_visual_search"
       title: "Bringing Visual Search to Life: how we find colored objects when performing a natural task"
       year: 2024
@@ -295,12 +370,11 @@
         - "Enrique Heredia-Aguado"
         - "Alejandro Rujano"
       publisher: "Zenodo"
-      doi: "10.5281/zenodo.19163769"
+      doi: "10.5281/zenodo.19163768"
       url: "https://enheragu.github.io/psychometric-tools/"
-      version: "1.0.0"
 
     - key: "heredia2026ml_variance_tools"
-      title: "ML Variance Tools: Interactive Machine Learning Variance Calculators"
+      title: "MLV Tools: Interactive Web Applications for Machine Learning Variance Analysis"
       year: 2026
       authors:
         - "Enrique Heredia-Aguado"
@@ -308,6 +382,5 @@
         - "David Valiente"
         - "Arturo Gil"
       publisher: "Zenodo"
-      doi: "10.5281/zenodo.XXXXXXX"
-      url: "https://enheragu.github.io/mlv-tools/"
-      version: "v1.0.0"
+      doi: "10.5281/zenodo.20268237"
+      url: "https://enheragu.github.io/mlv-tools"

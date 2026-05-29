@@ -1,21 +1,19 @@
 %% ==========================================================================
 %% Publicaciones de Enrique Heredia Aguado
 %% Para excluir una entrada de la web, añadir: exclude = {true}
-%% El campo 'note' se usa para clasificar: Journal, Book Chapter,
-%%   Conference Paper, Presentation, Poster
+%% El campo 'note' se usa para clasificar: Preprint, Journal, Book Chapter,
+%%   Conference Paper, Presentation, Poster, Software
 %% ==========================================================================
 
 
 %% ========================== JOURNAL ARTICLES =============================
 
 @article{heredia2026variance_analysis_ml,
-  author = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
-  title = {The Impact of Randomness-Induced Variability on Neural Network Performance Evaluation and its Implications for Model Design},
+  author = {Heredia-Aguado, Enrique and Rujano, Alejandro and Galdeano, Mónica and Valiente, David and Gil, Arturo},
+  title = {The Impact of Performance Variability on Neural Network Evaluation and its Implications for Model Design},
   journal = {Preprint},
-  number = {},
-  volume = {},
   year = {2026},
-  note = {Journal}
+  note = {Preprint}
 }
 
 @article{heredia2025fusion_static,
@@ -46,41 +44,63 @@
 %% =========================== BOOK CHAPTERS ===============================
 
 @incollection{santo2026sparse_conv,
-  author="Santo, Antonio and Gil, Arturo and Valiente, David and Mart{\'i}nez, {\'A}lvaro and Heredia, Enrique",
-  editor="Gini, Giuseppina and Nijmeijer, Henk and Filev, Dimitar",
-  title="Sparse Convolutional 3D Neural Networks for the Assessment of Environment Traversability",
-  booktitle="Informatics in Control, Automation and Robotics",
-  year="2026",
-  publisher="Springer Nature Switzerland",
-  address="Cham",
-  pages="199--218",
-  abstract="Ensuring accurate assessment of the surrounding environment is crucial for the efficient operation of autonomous mobile robots, especially when faced with the complexities of unfamiliar and natural terrain that lacks a predefined structure. In this context, traversability assessment is presented as a fundamental component of the autonomous navigation. This research introduces a systematic methodology that employs a LiDAR sensor to capture detailed 3D point clouds, thus facilitating the analysis of traversability regions on both conventional roads and natural scenarios. The proposed approach integrates a well-structured sparse encoder-decoder configuration with rotation invariant features. This configuration is meticulously designed to replicate the input data by associating the acquired traversability features to each individual point in the 3D point cloud. Experimental results confirm the robustness and effectiveness of our method, especially in outdoor environments. Notably, our approach outperforms existing methodologies, making a significant contribution to the ongoing progress in the field of autonomous robotic navigation.",
-  isbn="978-3-031-94989-0",
+  author = {Santo, Antonio and Gil, Arturo and Valiente, David and Mart{\'i}nez, {\'A}lvaro and Heredia, Enrique},
+  editor = {Gini, Giuseppina and Nijmeijer, Henk and Filev, Dimitar},
+  title = {Sparse Convolutional 3D Neural Networks for the Assessment of Environment Traversability},
+  booktitle = {Informatics in Control, Automation and Robotics},
+  year = {2026},
+  publisher = {Springer Nature Switzerland},
+  address = {Cham},
+  pages = {199--218},
+  abstract = {Ensuring accurate assessment of the surrounding environment is crucial for the efficient operation of autonomous mobile robots, especially when faced with the complexities of unfamiliar and natural terrain that lacks a predefined structure. In this context, traversability assessment is presented as a fundamental component of the autonomous navigation. This research introduces a systematic methodology that employs a LiDAR sensor to capture detailed 3D point clouds, thus facilitating the analysis of traversability regions on both conventional roads and natural scenarios. The proposed approach integrates a well-structured sparse encoder-decoder configuration with rotation invariant features. This configuration is meticulously designed to replicate the input data by associating the acquired traversability features to each individual point in the 3D point cloud. Experimental results confirm the robustness and effectiveness of our method, especially in outdoor environments. Notably, our approach outperforms existing methodologies, making a significant contribution to the ongoing progress in the field of autonomous robotic navigation.},
+  isbn = {978-3-031-94989-0},
   doi = {10.1007/978-3-031-94989-0_9},
   note = {Book Chapter}
 }
 
 @incollection{govindaraj2024building,
-  author="Govindaraj, Shashank and Brinkmann, Wiebke and Colmenero, Francisco Javier and Nieto, Irene Sanz and But, Alexandru and De Benedetti, Matteo and Danter, Leon C. and Alonso, Mercedes and Heredia, Enrique and Lacroix, Simon and Kleszczynski, Dominik and Purnell, Joseph and Picton, Kevin and Aouf, Nabil and Lopes, Luis",
-  editor="Yan, Xiu Tian and Visentin, Gianfranco",
-  title="Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-robot-Team",
-  bookTitle="Space Robotics: The State of the Art and Future Trends",
-  year="2024",
-  publisher="Springer Nature Switzerland",
-  address="Cham",
-  pages="395--431",
-  abstract="Exploring planets requires cooperative robotics technologies that make it possible to act independently of human influence. So-called multi-robot teams, consisting of different and synchronized robots, can solve problems that cannot be handled by a single robot. The PRO-ACT (PlanetaryPlanetary {\backslash}b RObots deployed for Assembly and Construction Tasks) project aimed to develop and demonstrate key technologies for robot collaboration in the construction of future ISRU (In-Situ Resource Utilization) facilities on the MoonMoon {\backslash}i. To this end, the following robots were used: Veles---a rover with six wheels and a 7-DoF (Degree of Freedom) arm, Mantis---a six-legged walkingWalking system, and a mobile gantry that can be used for payloadPayload {\backslash}i manipulation or 3D printing. The project further developed existing software and hardware developed in previous space robotics projects and integrated them into the robotic systems involved. The software enables collaborative tasks such as transportation, mapping and navigationNavigation {\backslash}b. Due to the Covid-19 situation, the final demonstration was performed remotely for defined mission scenarios. The intensive remote test campaigns provided valuable lessons learned that are directly applicable to future space missions. In addition, PRO-ACT opens a new way for multi-robot collaboration. The paper describes the developed robotic software and hardware as well as the final mission scenarios performed in lunar analogues with Mantis tested in the test field with granules in the DFKI Space Hall in Bremen, Germany, with Veles tested in Warsaw, Poland and with the mobile gantry tested in Elgoibar, Spain. In addition, one mission scenario, manipulation tasks with two robotic systems, was performed with two Panda robotic arms in Toulouse, France. The paper concludes with the results of the final demonstration of the multi-robotics team.",
-  isbn="978-3-031-39214-6",
-  doi="10.1007/978-3-031-39214-6_18",
-  url="https://doi.org/10.1007/978-3-031-39214-6_18",
+  author = {Govindaraj, Shashank and Brinkmann, Wiebke and Colmenero, Francisco Javier and Nieto, Irene Sanz and But, Alexandru and De Benedetti, Matteo and Danter, Leon C. and Alonso, Mercedes and Heredia, Enrique and Lacroix, Simon and Kleszczynski, Dominik and Purnell, Joseph and Picton, Kevin and Aouf, Nabil and Lopes, Luis},
+  editor = {Yan, Xiu Tian and Visentin, Gianfranco},
+  title = {Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-robot-Team},
+  booktitle = {Space Robotics: The State of the Art and Future Trends},
+  year = {2024},
+  publisher = {Springer Nature Switzerland},
+  address = {Cham},
+  pages = {395--431},
+  abstract = {Exploring planets requires cooperative robotics technologies that make it possible to act independently of human influence. So-called multi-robot teams, consisting of different and synchronized robots, can solve problems that cannot be handled by a single robot. The PRO-ACT (PlanetaryPlanetary {\backslash}b RObots deployed for Assembly and Construction Tasks) project aimed to develop and demonstrate key technologies for robot collaboration in the construction of future ISRU (In-Situ Resource Utilization) facilities on the MoonMoon {\backslash}i. To this end, the following robots were used: Veles---a rover with six wheels and a 7-DoF (Degree of Freedom) arm, Mantis---a six-legged walkingWalking system, and a mobile gantry that can be used for payloadPayload {\backslash}i manipulation or 3D printing. The project further developed existing software and hardware developed in previous space robotics projects and integrated them into the robotic systems involved. The software enables collaborative tasks such as transportation, mapping and navigationNavigation {\backslash}b. Due to the Covid-19 situation, the final demonstration was performed remotely for defined mission scenarios. The intensive remote test campaigns provided valuable lessons learned that are directly applicable to future space missions. In addition, PRO-ACT opens a new way for multi-robot collaboration. The paper describes the developed robotic software and hardware as well as the final mission scenarios performed in lunar analogues with Mantis tested in the test field with granules in the DFKI Space Hall in Bremen, Germany, with Veles tested in Warsaw, Poland and with the mobile gantry tested in Elgoibar, Spain. In addition, one mission scenario, manipulation tasks with two robotic systems, was performed with two Panda robotic arms in Toulouse, France. The paper concludes with the results of the final demonstration of the multi-robotics team.},
+  isbn = {978-3-031-39214-6},
+  doi = {10.1007/978-3-031-39214-6_18},
+  url = {https://doi.org/10.1007/978-3-031-39214-6_18},
   note = {Book Chapter}
 }
 
 
 %% ========================= CONFERENCE PAPERS =============================
 
+@inproceedings{cea2026eheredia,
+  author = {Heredia-Aguado, Enrique and Flores, Mar{\'i}a and Ballesta, M{\'o}nica and Valiente, David and Pay{\'a}, Luis and Gil, Arturo and Cabrera, Juan Jos{\'e}},
+  title = {Fusi{\'o}n temprana de im{\'a}genes multiespectrales mediante t{\'e}cnicas de reproyecci{\'o}n para tareas de detecci{\'o}n mediante algoritmos profundos: Un estudio comparativo},
+  booktitle = {Simposio CEA de Rob{\'o}tica, Bioingenier{\'i}a, Visi{\'o}n Artificial y Autom{\'a}tica Marina},
+  volume = {2},
+  number = {2},
+  year = {2026},
+  doi = {10.64117/simposioscea.v2i2.174},
+  note = {Conference Paper}
+}
+
+@inproceedings{cea2026flores,
+  author = {Flores, Mar{\'i}a and Heredia-Aguado, Enrique and Cabrera, Juan Jos{\'e} and Gil, Arturo and Valiente, David and Pay{\'a}, Luis},
+  title = {Localizaci{\'o}n global mediante descriptores basados en un diccionario sem{\'a}ntico-visual},
+  booktitle = {Simposio CEA de Rob{\'o}tica, Bioingenier{\'i}a, Visi{\'o}n Artificial y Autom{\'a}tica Marina},
+  volume = {2},
+  number = {2},
+  year = {2026},
+  doi = {10.64117/simposioscea.v2i2.224},
+  note = {Conference Paper}
+}
+
 @inproceedings{icinco25eheredia,
-  author = {Heredia-Aguado, Enrique and Alfaro-P{\'e}rez, Marcos and Flores, Mar{\'i}a and Paya, Luis and Valiente, David and Gil, Arturo},
+  author = {Heredia-Aguado, Enrique and Alfaro-P{\'e}rez, Marcos and Flores, Mar{\'i}a and Pay{\'a}, Luis and Valiente, David and Gil, Arturo},
   title = {A Robust Comparative Study of Adaptative Reprojection Fusion Methods for Deep Learning Based Detection Tasks with RGB-Thermal Images},
   booktitle = {Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)},
   year = {2025},
@@ -91,7 +111,7 @@
 }
 
 @inproceedings{icinco25malfaro,
-  author = {Alfaro, Marcos and Cabrera, Juan and Heredia-Aguado, Enrique and Reinoso, Oscar and Gil, Arturo and Paya, Luis},
+  author = {Alfaro, Marcos and Cabrera, Juan and Heredia-Aguado, Enrique and Reinoso, Oscar and Gil, Arturo and Pay{\'a}, Luis},
   title = {Place Recognition with Omnidirectional Imaging and Confidence-Based Late Fusion},
   booktitle = {Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)},
   year = {2025},
@@ -104,9 +124,12 @@
 @inproceedings{maximo2024localizacion,
   author = {M{\'a}ximo, Miriam and Ballesta, M{\'o}nica and Heredia-Aguado, Enrique and Valiente, David and Reinoso, Oscar},
   title = {Localizaci{\'o}n topol{\'o}gica Monte Carlo basada en descripci{\'o}n de nubes de puntos LiDAR 3D},
-  booktitle = {Simposio de Rob{\'o}tica, Bioingenier{\'i}a y Visi{\'o}n por Computador},
+  booktitle = {Actas del Simposio de Rob{\'o}tica, Bioingenier{\'i}a y Visi{\'o}n por Computador},
+  pages = {55--60},
   year = {2024},
   organization = {Universidad de Extremadura},
+  isbn = {978-84-9127-262-5},
+  url = {https://hdl.handle.net/11000/32892},
   note = {Conference Paper}
 }
 
@@ -116,6 +139,8 @@
   booktitle = {Actas del Simposio de Rob{\'o}tica, Bioingenier{\'i}a y Visi{\'o}n por Computador},
   pages = {263--268},
   year = {2024},
+  isbn = {978-84-9127-262-5},
+  url = {https://hdl.handle.net/11000/32893},
   note = {Conference Paper}
 }
 
@@ -143,14 +168,14 @@
   title = {Multi-Robot Cooperation for Lunar Base Assembly And Construction},
   booktitle = {International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)},
   year = {2020},
-  doi = {10.1007/978-3-031-39214-6_18},
+  url = {https://www.researchgate.net/publication/344860299_Multi-Robot_Cooperation_for_Lunar_Base_Assembly_And_Construction},
   note = {Conference Paper}
 }
 
 @inproceedings{ocon2019testing,
   author = {Ocon, Jorge and Colmenero, Francisco and Dragomir, Iulia and Heredia-Aguado, Enrique and Alonso, Mercedes and Estremera, Joaquin and Marc, R{\'o}bert and Weclewski, Piotr and Keller, Thomas and Woods, Mark and Karachalios, Spyridon},
   title = {Testing Autonomous Robots: A Discussion on Performances Obtained During the ERGO Field Tests},
-  booktitle = {International Astronautical Congress (IAC)},
+  booktitle = {Symposium on Advanced Space Technologies in Robotics and Automation (ASTRA 2019)},
   year = {2019},
   url = {https://ai.dmi.unibas.ch/papers/ocon-et-al-astra2019.pdf},
   note = {Conference Paper}
@@ -158,8 +183,9 @@
 
 @inproceedings{ocon2018ergo,
   author = {Ocon, Jorge and Colmenero, Francisco and Estremera, Joaquin and Buckley, Karl and Alonso, Mercedes and Heredia-Aguado, Enrique and Garcia, J. and Coles, Andrew and Coles, Amanda and Mart{\'i}nez, M. and Sava{\c{s}}, E. and Pommerening, Florian and Keller, Thomas and Karachalios, Spyridon and Woods, Mark and Dragomir, Iulia and Bensalem, Saddek and Dissaux, Pierre and Schach, A. and Weclewski, Piotr},
-  title = {The ERGO framework and its use in planetary/orbital scenarios},
-  booktitle = {International Astronautical Congress (IAC)},
+  title = {The ERGO framework and its use in planetary/orbital scenarios}, 
+  booktitle = "Proceedings of the 69th International Astronautical Congress (IAC)", 
+  month = {oct},
   year = {2018},
   url = {https://kclpure.kcl.ac.uk/ws/portalfiles/portal/101292706/IAC_2018_ERGO_PaperV1.0.pdf},
   note = {Conference Paper}
@@ -168,19 +194,29 @@
 
 %% ============================= PRESENTATIONS =============================
 
-@misc{heredia2026fusion_multispectral,
-  author = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
-  title = {T{\'e}cnicas de fusi{\'o}n de im{\'a}genes multiespectrales para una mejor detecci{\'o}n mediante algoritmos de aprendizaje profundo},
+@misc{cepero2026busqueda_visual,
+  author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Rujano, Alejandro and Aivar, M. Pilar and Plaza, Victoria},
+  title = {Búsqueda visual repetida en contexto natural, ¿eficiencia o aprendizaje?},
   year = {2026},
   howpublished = {VI Congreso Anual de Estudiantes de Doctorado (UMH)},
   note = {Presentation}
 }
 
+@misc{heredia2026fusion_multispectral,
+  author = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
+  title = {T{\'e}cnicas de fusi{\'o}n de im{\'a}genes multiespectrales para una mejor detecci{\'o}n mediante algoritmos de aprendizaje profundo},
+  year = {2026},
+  howpublished = {VI Congreso Anual de Estudiantes de Doctorado (UMH)},
+  doi = {10.13140/RG.2.2.31157.33760},
+  note = {Presentation}
+}
+
 @misc{heredia2025collab_interdisciplinar,
-  author = {Heredia-Aguado, Enrique and Cepero Amores, Laura and Jim{\'e}nez, Luis Miguel and Valiente, David and Gil, Arturo and Aivar, M. Pilar},
+  author = {Heredia-Aguado, Enrique and Cepero Amores, Laura and Jim{\'e}nez, Luis Miguel and Aivar, M. Pilar},
   title = {Colaboraci{\'o}n interdisciplinar en estudios de doctorado: Estudiando el proceso de b{\'u}squeda visual en personas a trav{\'e}s de la visi{\'o}n por computador},
   year = {2025},
   howpublished = {V Congreso Anual de Estudiantes de Doctorado (UMH)},
+  doi = {10.13140/RG.2.2.35237.41443},
   note = {Presentation}
 }
 
@@ -195,6 +231,26 @@
 
 %% ================================ POSTERS ================================
 
+
+@misc{cepero2026cip,
+  author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Bernardino, Lucía and Rujano, Alejandro and David Moreno, Jose and Aivar, Pilar and Plaza, Victoria},
+  year = {2026},
+  month = {05},
+  title = {From Screens to the Real World: How context shapes Visual Search},
+  doi = {10.13140/RG.2.2.15132.04488},
+  howpublished = {11th Iberian Congress of Perception (CIP 2026)},
+  note = {Poster}
+}
+
+@misc{aivar2026vss,
+  author = {Aivar, M. Pilar and Cepero Amores, Laura and Heredia-Aguado, Enrique and Rujano, Alejandro and Asperilla, Roc{\'i}o and Plaza, Victoria},
+  title = {Visual search for real objects: how spatial consistency facilitates performance},
+  year = {2026},
+  month = {05},
+  howpublished = {Vision Sciences Society Annual Meeting (VSS 2026)},
+  note = {Poster}
+}
+
 @misc{cepero2024poster_visual_search,
   author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Sobrino, Lidia and Aivar, M. Pilar},
   title = {Bringing Visual Search to Life: how we find colored objects when performing a natural task},
@@ -206,25 +262,25 @@
 
 
 %% ================================ SOFTWARE ================================
+
 @software{heredia2026psychometric_tools,
   author       = {Heredia-Aguado, Enrique and Rujano, Alejandro},
   title        = {Psychometric Tools: An Interactive Web Applications for Measurement and Assessment Research},
   month        = {mar},
   year         = {2026},
   publisher    = {Zenodo},
-  version      = {1.0.0},
-  doi          = {10.5281/zenodo.19163769},
+  doi          = {10.5281/zenodo.19163768},
   url          = {https://enheragu.github.io/psychometric-tools/},
   note = {Software},  
 }
 
 @software{heredia2026ml_variance_tools,
-  title = {ML Variance Tools: Interactive Machine Learning Variance Calculators},
-  author = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
-  doi = {10.5281/zenodo.XXXXXXX},
-  url = {https://enheragu.github.io/mlv-tools/},
-  year = {2026},
-  version = {v1.0.0},
-  publisher = {Zenodo},
+  author       = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
+  title        = {MLV Tools: Interactive Web Applications for Machine Learning Variance Analysis},
+  month        = {may},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.20268237},
+  url          = {https://enheragu.github.io/mlv-tools},
   note = {Software},
 }

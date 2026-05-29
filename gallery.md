@@ -5,7 +5,8 @@ layout: default
 permalink: /gallery/
 custom_css:
     - /css/gitgraph.css
-    - /assets/shared/gallery-primitives.css
+shared_custom_css:
+    - gallery-primitives.css
 custom_js:
     - /js/gitgraph.1.0.0.min.js
     - /js/gitgraph-common.js
@@ -19,7 +20,7 @@ custom_js:
         <h1>Photo Gallery</h1>
         <span class="page-subtitle">A small peek into field tests, conferences & lab life</span>
     </div>
-
+    {% include wip_banner.html %}
     <div class="gitgraph-container">
         <canvas id="gitGraph"></canvas>
 

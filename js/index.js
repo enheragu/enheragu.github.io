@@ -55,6 +55,7 @@ var publications = cv_eeha
   .commit({message: "Journal Articles" + _pc("journal"), detailId: "detail-pub-journals" })
   .commit({message: "Book Chapters" + _pc("book_chapter"), detailId: "detail-pub-chapters" })
   .commit({message: "Conference Papers" + _pc("conference_paper"), detailId: "detail-pub-conferences" })
+  .commit({message: "Preprints" + _pc("preprint"), detailId: "detail-pub-preprints" })
   .commit({message: "Oral Presentations" + _pc("presentation"), detailId: "detail-pub-presentations" })
   .commit({message: "Poster presentations" + _pc("poster"), detailId: "detail-pub-posters" })
   .commit({message: "Software Tools" + _pc("software"), detailId: "detail-pub-software" })

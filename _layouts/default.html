@@ -141,6 +141,9 @@
         {% for stylesheet in page.custom_css %}
         <link rel="stylesheet" type="text/css" href={{ stylesheet | relative_url }} />
         {% endfor %}
+        {% for stylesheet in page.shared_custom_css %}
+        <link rel="stylesheet" type="text/css" href="{{ shared_assets_base }}/{{ stylesheet }}" onerror="this.onerror=null;this.href='https://enheragu.github.io/tool-pages-theme/assets/shared/{{ stylesheet }}';" />
+        {% endfor %}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">

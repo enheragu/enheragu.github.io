@@ -16,6 +16,7 @@ custom_js:
         <h1>Academic Work</h1>
         <span class="page-subtitle">PhD · Master's · Bachelor's</span>
     </div>
+    {% include wip_banner.html %}
     <div class="gitgraph-container">
         <canvas id="gitGraph"></canvas>
     </div>
