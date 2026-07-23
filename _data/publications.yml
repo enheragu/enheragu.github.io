@@ -278,6 +278,35 @@
 - category: "Presentations"
   type_key: "presentation"
   entries:
+    - key: "cepero2026ojodato"
+      title: "Ojo al dato: Soluciones interdisciplinares a problemas metodologicos en experimentos de busqueda visual"
+      year: 2026
+      authors:
+        - "Laura Cepero Amores"
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "Victoria Plaza"
+        - "M. Pilar Aivar"
+      venue: "XIX Congreso de Metodologia de las Ciencias Sociales y de la Salud (AEMCCO), Almeria"
+
+    - key: "rujano2026sesgos"
+      title: "Aunque la hipotesis se vista de seda: Sesgos metodologicos en el estudio de la paradoja de la igualdad"
+      year: 2026
+      authors:
+        - "Alejandro Rujano"
+        - "Enrique Heredia-Aguado"
+      venue: "XIX Congreso de Metodologia de las Ciencias Sociales y de la Salud (AEMCCO), Almeria"
+
+    - key: "heredia2026azar_redes"
+      title: "Que no te engañe el azar: Como impacta la aleatoriedad en el diseño de redes neuronales"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "XIX Congreso de Metodologia de las Ciencias Sociales y de la Salud (AEMCCO), Almeria"
+
     - key: "cepero2026busqueda_visual"
       title: "Búsqueda visual repetida en contexto natural, ¿eficiencia o aprendizaje?"
       year: 2026
@@ -307,8 +336,9 @@
         - "Enrique Heredia-Aguado"
         - "Laura Cepero Amores"
         - "Luis Miguel Jimenez"
+        - "Victoria Plaza"
         - "M. Pilar Aivar"
-      venue: "V Congreso Anual de Estudiantes de Doctorado (UMH)"
+      venue: "V Congreso Anual Internacional de Estudiantes de Doctorado (UMH)"
       doi: "10.13140/RG.2.2.35237.41443"
 
     - key: "cepero2025visual_search"
