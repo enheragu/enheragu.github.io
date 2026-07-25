@@ -47,7 +47,7 @@ def main():
             path=args.out,
             format="A4",
             print_background=True,
-            margin={"top": "12mm", "bottom": "12mm", "left": "13mm", "right": "13mm"},
+            margin={"top": "6mm", "bottom": "12mm", "left": "13mm", "right": "13mm"},
         )
         browser.close()
 

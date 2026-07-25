@@ -20,7 +20,7 @@
   .stage {
     position: relative;
     width: 1000px;
-    height: 88px;
+    height: 120px;
     background: transparent;
     overflow: hidden;
   }
@@ -29,7 +29,7 @@
     left: 0;
     top: 0;
     width: 1000px;
-    height: 88px;
+    height: 120px;
     overflow: hidden;
     display: flex;
     align-items: flex-start;      /* trunk near the top; branches hang DOWN */
@@ -51,8 +51,8 @@
   <script src="../js/gitgraph-common.js"></script>
   <script>
     var LP = {
-      gray:   '#57606a', blue: '#0969da', green: '#1a7f37',
-      amber:  '#9a6700', purple: '#8250df', red: '#cf222e'
+      gray:   '#57606a', blue: '#1a73e8', green: '#1e8e3e',
+      amber:  '#c9950c', purple: '#8430ce', red: '#d93025'
     };
 
     function br(parent, name, color, column) {
@@ -94,18 +94,25 @@
       main.commit({});
       var amber = br(main, 'amber', LP.amber);
       amber.commit({});
+      green.commit({});
       red.commit({}); red.merge(main).delete();
       var purple = br(green, 'purple', LP.purple);
+      purple.commit({});
       purple.commit({}); purple.merge(green).delete();
+      amber.commit({});
+      var blue2 = br(amber, 'blue', LP.blue, amber.column + 1);
+      amber.commit({});
       green.commit({}); green.merge(main).delete();
-      main.commit({});
-      amber.commit({}); amber.merge(main).delete();
+      blue2.commit({});
+      // main.commit({});
+      blue2.commit({}); blue2.merge(amber).delete();
+      amber.merge(main).delete();
       main.commit({});
 
       return gitgraph;
     }
 
-    var TARGET = 980, REF = -50;
+    var TARGET = 948, REF = -50;
     var refSpan = Math.max.apply(null, buildGraph(REF).commits.map(function (c) { return c.x; }));
     var canvas = document.getElementById('gitGraph');
     canvas.width = canvas.width;
@@ -118,7 +125,7 @@
       var wrap = document.querySelector('.graph-wrap');
       var mX = gitgraph.marginX, mY = gitgraph.marginY;
       var r = gitgraph.template.commit.dot.size;
-      var LEFT = 8, TOP = 10;
+      var LEFT = 2, TOP = 9;
       wrap.style.left = (LEFT + r - mX / dpr) + 'px';
       wrap.style.top = (TOP - mY / dpr) + 'px';
     })();

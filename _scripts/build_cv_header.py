@@ -17,7 +17,7 @@ import os
 from playwright.sync_api import sync_playwright
 
 CHROMIUM = "/usr/bin/chromium"
-STAGE = (1000, 122)
+STAGE = (1000, 88)
 SCALE = 2
 
 

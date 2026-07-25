@@ -36,20 +36,29 @@ a {
 
 /* ===== Header ===== */
 .print-header {
+  position: relative;
   border-bottom: 2px solid var(--ink);
-  padding-bottom: 3mm;
-  margin-bottom: 4mm;
+  padding-bottom: 2mm;
+  margin-bottom: 2.5mm;
 }
 
-/* Decorative git-branch banner across the top (real gitgraph rendered to a
-   transparent PNG by _scripts/build_cv_header.py). Its gray trunk reads as the
-   page's top border; branches hang down, soft on the left / busier on the
-   right, so the name sits in the calm left area. */
+/* Decorative git-branch banner (real gitgraph rendered to a transparent PNG by
+   _scripts/build_cv_header.py). It sits BEHIND the header text (absolute, out of
+   flow, so it adds no height): the gray trunk runs along the top as a border and
+   the busy right cluster fills the space beside the name; the calm left is where
+   the name reads. */
 .print-header-graph {
-  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: auto;
-  margin: 0 0 1mm;
+  z-index: 0;
+}
+.print-header-text {
+  position: relative;
+  z-index: 1;
+  padding-top: 11mm;   /* drop the name ~one line so the graph reads above/around it */
 }
 
 .print-header h1 {

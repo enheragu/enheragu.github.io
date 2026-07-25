@@ -11,12 +11,14 @@ sitemap: false
 -->
 <header class="print-header">
     <img class="print-header-graph" src="{{ '/img/cv_header_graph.png' | relative_url }}" alt="">
+    <div class="print-header-text">
     <h1>Enrique Heredia Aguado</h1>
     <p class="print-subtitle">Robotics, Computer Vision and AI · PhD Student</p>
     <p class="print-contact">
         <a class="obf-mail" data-u="e.heredia" data-d="umh.es" data-show href="#"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>e.heredia [at] umh.es</a> ·
         <a href="https://enheragu.github.io"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7.93 9h-3.02a15.7 15.7 0 0 0-1.2-5.3A8.02 8.02 0 0 1 19.93 11zM12 4.04c.83 1.2 1.62 3.05 1.9 6.96h-3.8c.28-3.91 1.07-5.76 1.9-6.96zM4.07 13h3.02c.14 1.93.55 3.73 1.2 5.3A8.02 8.02 0 0 1 4.07 13zm3.02-2H4.07a8.02 8.02 0 0 1 4.22-5.3 15.7 15.7 0 0 0-1.2 5.3zM12 19.96c-.83-1.2-1.62-3.05-1.9-6.96h3.8c-.28 3.91-1.07 5.76-1.9 6.96zm3.71-1.66c.65-1.57 1.06-3.37 1.2-5.3h3.02a8.02 8.02 0 0 1-4.22 5.3z"/></svg>enheragu.github.io</a>
     </p>
+    </div>
 </header>
 {%- comment -%}
   The PDF is split into page-groups by the print_page flag in _data/cv_sections.yml
@@ -48,13 +50,13 @@ sitemap: false
     {%- comment -%} Section colour mirrors SECTION_COLORS in js/index.js so the PDF
        matches the web (set inline per section — nth-of-type would reset per page). {%- endcomment -%}
     {%- case item.group -%}
-      {%- when "Education" -%}{%- assign bcolor = "#0969da" -%}
-      {%- when "Work Experience" -%}{%- assign bcolor = "#9a6700" -%}
-      {%- when "Publications" -%}{%- assign bcolor = "#1a7f37" -%}
-      {%- when "Awards" -%}{%- assign bcolor = "#9a6700" -%}
-      {%- when "Projects" -%}{%- assign bcolor = "#cf222e" -%}
-      {%- when "Courses and Workshops" -%}{%- assign bcolor = "#8250df" -%}
-      {%- when "Skills" -%}{%- assign bcolor = "#0969da" -%}
+      {%- when "Education" -%}{%- assign bcolor = "#1a73e8" -%}
+      {%- when "Work Experience" -%}{%- assign bcolor = "#c9950c" -%}
+      {%- when "Publications" -%}{%- assign bcolor = "#1e8e3e" -%}
+      {%- when "Awards" -%}{%- assign bcolor = "#c9950c" -%}
+      {%- when "Projects" -%}{%- assign bcolor = "#d93025" -%}
+      {%- when "Courses and Workshops" -%}{%- assign bcolor = "#8430ce" -%}
+      {%- when "Skills" -%}{%- assign bcolor = "#1a73e8" -%}
       {%- else -%}{%- assign bcolor = "#57606a" -%}
     {%- endcase -%}
     <section class="pbranch" style="--branch: {{ bcolor }};">
