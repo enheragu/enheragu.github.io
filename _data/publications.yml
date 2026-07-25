@@ -6,8 +6,8 @@
       year: 2025
       authors:
         - "Enrique Heredia-Aguado"
-        - "Juan Jose Cabrera"
-        - "Luis Miguel Jimenez"
+        - "Juan José Cabrera"
+        - "Luis Miguel Jiménez"
         - "David Valiente"
         - "Arturo Gil"
       venue: "Remote Sensing"
@@ -41,7 +41,7 @@
         - "Antonio Santo"
         - "Arturo Gil"
         - "David Valiente"
-        - "Alvaro Martinez"
+        - "Álvaro Martínez"
         - "Enrique Heredia"
       venue: "Informatics in Control, Automation and Robotics"
       publisher: "Springer Nature Switzerland"
@@ -77,32 +77,32 @@
   type_key: "conference_paper"
   entries:
     - key: "cea2026eheredia"
-      title: "Fusion temprana de imagenes multiespectrales mediante tecnicas de reproyeccion para tareas de deteccion mediante algoritmos profundos: Un estudio comparativo"
+      title: "Fusión temprana de imágenes multiespectrales mediante técnicas de reproyección para tareas de detección mediante algoritmos profundos: Un estudio comparativo"
       year: 2026
       authors:
         - "Enrique Heredia-Aguado"
-        - "Maria Flores"
-        - "Monica Ballesta"
+        - "María Flores"
+        - "Mónica Ballesta"
         - "David Valiente"
-        - "Luis Paya"
+        - "Luis Payá"
         - "Arturo Gil"
-        - "Juan Jose Cabrera"
-      venue: "Simposio CEA de Robotica, Bioingenieria, Vision Artificial y Automatica Marina"
+        - "Juan José Cabrera"
+      venue: "Simposio CEA de Robótica, Bioingeniería, Visión Artificial y Automática Marina"
       doi: "10.64117/simposioscea.v2i2.174"
       volume: "2"
       number: "2"
 
     - key: "cea2026flores"
-      title: "Localizacion global mediante descriptores basados en un diccionario semantico-visual"
+      title: "Localización global mediante descriptores basados en un diccionario semántico-visual"
       year: 2026
       authors:
-        - "Maria Flores"
+        - "María Flores"
         - "Enrique Heredia-Aguado"
-        - "Juan Jose Cabrera"
+        - "Juan José Cabrera"
         - "Arturo Gil"
         - "David Valiente"
-        - "Luis Paya"
-      venue: "Simposio CEA de Robotica, Bioingenieria, Vision Artificial y Automatica Marina"
+        - "Luis Payá"
+      venue: "Simposio CEA de Robótica, Bioingeniería, Visión Artificial y Automática Marina"
       doi: "10.64117/simposioscea.v2i2.224"
       volume: "2"
       number: "2"
@@ -112,9 +112,9 @@
       year: 2025
       authors:
         - "Enrique Heredia-Aguado"
-        - "Marcos Alfaro-Perez"
-        - "Maria Flores"
-        - "Luis Paya"
+        - "Marcos Alfaro-Pérez"
+        - "María Flores"
+        - "Luis Payá"
         - "David Valiente"
         - "Arturo Gil"
       venue: "Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
@@ -131,35 +131,35 @@
         - "Enrique Heredia-Aguado"
         - "Oscar Reinoso"
         - "Arturo Gil"
-        - "Luis Paya"
+        - "Luis Payá"
       venue: "Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
       publisher: "SciTePress"
       doi: "10.5220/0013743100003982"
       pages: "117–125"
 
     - key: "maximo2024localizacion"
-      title: "Localizacion topologica Monte Carlo basada en descripcion de nubes de puntos LiDAR 3D"
+      title: "Localización topológica Monte Carlo basada en descripción de nubes de puntos LiDAR 3D"
       year: 2024
       authors:
-        - "Miriam Maximo"
-        - "Monica Ballesta"
+        - "Miriam Máximo"
+        - "Mónica Ballesta"
         - "Enrique Heredia-Aguado"
         - "David Valiente"
         - "Oscar Reinoso"
-      venue: "Actas del Simposio de Robotica, Bioingenieria y Vision por Computador"
+      venue: "Actas del Simposio de Robótica, Bioingeniería y Visión por Computador"
       url: "https://hdl.handle.net/11000/32892"
       pages: "55–60"
 
     - key: "eheredia2024fusion"
-      title: "Fusion estatica de imagenes del espectro visible y termico para una mejor deteccion de personas mediante Redes Neuronales Convolucionales: un analisis del rendimiento"
+      title: "Fusión estática de imágenes del espectro visible y térmico para una mejor detección de personas mediante Redes Neuronales Convolucionales: un análisis del rendimiento"
       year: 2024
       authors:
         - "Enrique Heredia-Aguado"
         - "David Valiente"
         - "Arturo Gil"
-        - "Miriam Maximo"
-        - "Luis Paya"
-      venue: "Actas del Simposio de Robotica, Bioingenieria y Vision por Computador"
+        - "Miriam Máximo"
+        - "Luis Payá"
+      venue: "Actas del Simposio de Robótica, Bioingeniería y Visión por Computador"
       url: "https://hdl.handle.net/11000/32893"
       pages: "263–268"
 
@@ -188,7 +188,7 @@
         - "Mercedes Alonso"
         - "Alexandru But"
         - "Leon Danter"
-        - "Luis Lopes"
+        - "Luís Lopes"
       venue: "International Astronautical Congress (IAC)"
       url: "https://www.researchgate.net/publication/355668710_Building_a_Lunar_Infrastructure_with_the_Help_of_a_Heterogeneous_SemiAutonomous_Multi-Robot-Team"
 
@@ -212,7 +212,7 @@
         - "Mercedes Alonso"
         - "Joe Purnell"
         - "Kevin Picton"
-        - "Luis Lopes"
+        - "Luís Lopes"
       venue: "International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)"
       url: "https://www.researchgate.net/publication/344860299_Multi-Robot_Cooperation_for_Lunar_Base_Assembly_And_Construction"
 
@@ -226,7 +226,7 @@
         - "Enrique Heredia-Aguado"
         - "Mercedes Alonso"
         - "Joaquin Estremera"
-        - "Robert Marc"
+        - "Róbert Marc"
         - "Piotr Weclewski"
         - "Thomas Keller"
         - "Mark Woods"
@@ -247,7 +247,7 @@
         - "J. Garcia"
         - "Andrew Coles"
         - "Amanda Coles"
-        - "M. Martinez"
+        - "M. Martínez"
         - "E. Savaş"
         - "Florian Pommerening"
         - "Thomas Keller"
@@ -275,9 +275,60 @@
         - "Arturo Gil"
       venue: "Preprint"
 
+- category: "Theses"
+  type_key: "thesis"
+  entries:
+    - key: "heredia2022tfm"
+      title: "Integración de tecnologías láser y GPS/RTK para navegación autónoma en exteriores"
+      year: 2022
+      authors:
+        - "Enrique Heredia-Aguado"
+      venue: "Universidad Miguel Hernández (UMH)"
+      thesis_type: "Master's Thesis"
+      url: "https://hdl.handle.net/11000/27927"
+
+    - key: "heredia2018tfg"
+      title: "Diseño y construcción de un brazo robótico para el apoyo a la interactividad de personas enfermas (RHA - RoboHealth ARM)"
+      year: 2018
+      authors:
+        - "Enrique Heredia-Aguado"
+      venue: "Universidad Politécnica de Madrid (UPM)"
+      thesis_type: "Bachelor's Final Degree Project"
+      url: "https://github.com/enheragu/RHA-report"
+
 - category: "Presentations"
   type_key: "presentation"
   entries:
+    - key: "cepero2026ojodato"
+      title: "Ojo al dato: Soluciones interdisciplinares a problemas metodológicos en experimentos de búsqueda visual"
+      year: 2026
+      authors:
+        - "Laura Cepero Amores"
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "Victoria Plaza"
+        - "M. Pilar Aivar"
+      venue: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO), Almería"
+
+    - key: "rujano2026sesgos"
+      title: "Aunque la hipótesis se vista de seda: Sesgos metodológicos en el estudio de la paradoja de la igualdad"
+      year: 2026
+      authors:
+        - "Alejandro Rujano"
+        - "Enrique Heredia-Aguado"
+      venue: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO), Almería"
+
+    - key: "heredia2026azar_redes"
+      title: "Que no te engañe el azar: Cómo impacta la aleatoriedad en el diseño de redes neuronales"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      venue: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO), Almería"
+      slides: "https://enheragu.github.io/presentations/2026_07_8_AEMCCO_ALMERIA/"
+
     - key: "cepero2026busqueda_visual"
       title: "Búsqueda visual repetida en contexto natural, ¿eficiencia o aprendizaje?"
       year: 2026
@@ -290,7 +341,7 @@
       venue: "VI Congreso Anual de Estudiantes de Doctorado (UMH)"
 
     - key: "heredia2026fusion_multispectral"
-      title: "Tecnicas de fusion de imagenes multiespectrales para una mejor deteccion mediante algoritmos de aprendizaje profundo"
+      title: "Técnicas de fusión de imágenes multiespectrales para una mejor detección mediante algoritmos de aprendizaje profundo"
       year: 2026
       authors:
         - "Enrique Heredia-Aguado"
@@ -301,14 +352,15 @@
       doi: "10.13140/RG.2.2.31157.33760"
 
     - key: "heredia2025collab_interdisciplinar"
-      title: "Colaboracion interdisciplinar en estudios de doctorado: Estudiando el proceso de busqueda visual en personas a traves de la vision por computador"
+      title: "Colaboración interdisciplinar en estudios de doctorado: Estudiando el proceso de búsqueda visual en personas a través de la visión por computador"
       year: 2025
       authors:
         - "Enrique Heredia-Aguado"
         - "Laura Cepero Amores"
-        - "Luis Miguel Jimenez"
+        - "Luis Miguel Jiménez"
+        - "Victoria Plaza"
         - "M. Pilar Aivar"
-      venue: "V Congreso Anual de Estudiantes de Doctorado (UMH)"
+      venue: "V Congreso Anual Internacional de Estudiantes de Doctorado (UMH)"
       doi: "10.13140/RG.2.2.35237.41443"
 
     - key: "cepero2025visual_search"
@@ -319,7 +371,7 @@
         - "Enrique Heredia-Aguado"
         - "Victoria Plaza"
         - "M. Pilar Aivar"
-      venue: "Reunion Cientifica sobre Atencion (RECA14)"
+      venue: "Reunión Científica sobre Atención (RECA14)"
 
 - category: "Posters"
   type_key: "poster"
@@ -346,7 +398,7 @@
         - "Laura Cepero Amores"
         - "Enrique Heredia-Aguado"
         - "Alejandro Rujano"
-        - "Rocio Asperilla"
+        - "Rocío Asperilla"
         - "Victoria Plaza"
       venue: "Vision Sciences Society Annual Meeting (VSS 2026)"
 
@@ -384,3 +436,16 @@
       publisher: "Zenodo"
       doi: "10.5281/zenodo.20268237"
       url: "https://enheragu.github.io/mlv-tools"
+
+- category: "Awards"
+  type_key: "award"
+  entries:
+    - key: "heredia2026premio_aemcco"
+      title: "Premio AEMCCO de Divulgación y Transferencia en Metodología: \"Herramientas estadísticas y psicométricas\""
+      year: 2026
+      authors:
+        - "José Alejandro Rodríguez Rujano"
+        - "Enrique Heredia-Aguado"
+      venue: "Asociación Española de Metodología de las Ciencias del Comportamiento (AEMCCO), XIX Congreso de Metodología de las Ciencias Sociales y de la Salud, Almería"
+      url: "https://aemcco.org/listado_noimg.php?Seccion=Premios%20AEMCCO"
+      slides: "https://enheragu.github.io/presentations/2026_07_09_AEMCCO_ALMERIA/"

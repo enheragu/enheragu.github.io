@@ -1,0 +1,15 @@
+{% comment %}
+  Mini navigation row for subpage headers — the floating hamburger alone was
+  easy to miss when landing on a subpage. Marks the current page.
+  Usage: {% include page_nav.html %} inside .page-header.
+{% endcomment %}
+{% assign cur = page.url | replace: 'index.html', '' %}
+<nav class="mini-nav page-header-nav" aria-label="Site pages">
+    <a href="{{ '/' | relative_url }}"{% if cur == '/' %} class="current" aria-current="page"{% endif %}>CV</a>
+    <span class="mini-nav-sep">·</span>
+    <a href="{{ '/projects/' | relative_url }}"{% if cur == '/projects/' %} class="current" aria-current="page"{% endif %}>Research</a>
+    <span class="mini-nav-sep">·</span>
+    <a href="{{ '/academic/' | relative_url }}"{% if cur == '/academic/' %} class="current" aria-current="page"{% endif %}>Academic</a>
+    <span class="mini-nav-sep">·</span>
+    <a href="{{ '/gallery/' | relative_url }}"{% if cur == '/gallery/' %} class="current" aria-current="page"{% endif %}>Gallery</a>
+</nav>

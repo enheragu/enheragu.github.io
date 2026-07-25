@@ -10,12 +10,106 @@ var GitGraphCommon = (function() {
   var isMobile  = screenWidth <= 768;
   var isTablet  = !isMobile && screenWidth <= 1200;
 
-  // ---- Shared color palette ----
+  // ---- Theme detection ----
+  // Same resolution as SharedUiCore.initThemeToggle (which loads after page
+  // scripts): explicit localStorage choice first, otherwise system preference.
+  function isLightTheme() {
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light') return true;
+      if (saved === 'dark') return false;
+    } catch (e) { /* private mode */ }
+    return !(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+
+  // ---- Shared color palette (canvas colors, themed) ----
+  // Pairs of [dark-bg color, light-bg color] — GitHub-style hues; the light
+  // variants keep WCAG-AA contrast on white (the dark palette did not).
+  var COLOR_PAIRS = {
+    gray:   ["#6e7681", "#57606a"],
+    blue:   ["#58a6ff", "#0969da"],
+    amber:  ["#d29922", "#9a6700"],
+    green:  ["#3fb950", "#1a7f37"],
+    red:    ["#f85149", "#cf222e"],
+    purple: ["#bc8cff", "#8250df"]
+  };
+
+  var themeIsLight = isLightTheme();
+  var themeIdx = themeIsLight ? 1 : 0;
+
+  var palette = {};
+  for (var pKey in COLOR_PAIRS) {
+    if (Object.prototype.hasOwnProperty.call(COLOR_PAIRS, pKey)) {
+      palette[pKey] = COLOR_PAIRS[pKey][themeIdx];
+    }
+  }
+
   var defaultColors = [
-    "#6e7681", "#58a6ff", "#d29922", "#3fb950", "#f85149",
-    "#bc8cff", "#58a6ff", "#d29922", "#3fb950", "#f85149",
-    "#bc8cff", "#58a6ff", "#d29922", "#3fb950", "#f85149"
+    palette.gray, palette.blue, palette.amber, palette.green, palette.red,
+    palette.purple, palette.blue, palette.amber, palette.green, palette.red,
+    palette.purple, palette.blue, palette.amber, palette.green, palette.red
   ];
+
+  // ---- Live recolor when the theme toggle flips data-theme ----
+  // Colors are baked into branch/commit objects at build time; swap them via
+  // the dark↔light pairs and re-render, without rebuilding the graph.
+  function recolorForTheme(gitgraph, toLight) {
+    var map = {};
+    for (var k in COLOR_PAIRS) {
+      if (Object.prototype.hasOwnProperty.call(COLOR_PAIRS, k)) {
+        map[COLOR_PAIRS[k][toLight ? 0 : 1]] = COLOR_PAIRS[k][toLight ? 1 : 0];
+      }
+    }
+    function sw(c) { return map[c] || c; }
+
+    var i;
+    for (i = 0; i < gitgraph.branches.length; i++) {
+      var b = gitgraph.branches[i];
+      b.color = sw(b.color);
+      if (b.commitDefaultOptions) b.commitDefaultOptions.color = sw(b.commitDefaultOptions.color);
+    }
+    for (i = 0; i < gitgraph.commits.length; i++) {
+      var c = gitgraph.commits[i];
+      c.color = sw(c.color);
+      c.dotColor = sw(c.dotColor);
+      c.messageColor = sw(c.messageColor);
+      c.tagColor = sw(c.tagColor);
+      c.labelColor = sw(c.labelColor);
+    }
+    if (gitgraph.template && gitgraph.template.colors) {
+      for (i = 0; i < gitgraph.template.colors.length; i++) {
+        gitgraph.template.colors[i] = sw(gitgraph.template.colors[i]);
+      }
+    }
+    gitgraph.render();
+    tintPanels(gitgraph);
+  }
+
+  // Expose each panel's branch colour as a CSS var (--branch) on the panel
+  // element, so panel subheadings (and anything else) can echo their section's
+  // colour. Single source of truth: the graph's own commit colours (so it
+  // stays in sync with the graph and with the light/dark recolor).
+  function tintPanels(gitgraph) {
+    for (var i = 0; i < gitgraph.commits.length; i++) {
+      var c = gitgraph.commits[i];
+      // The commit's colour lives on dotColor (and the branch), not on .color;
+      // both are swapped by recolorForTheme, so this stays theme-correct.
+      var col = c.dotColor || (c.branch && c.branch.color);
+      if (c.detail && col) c.detail.style.setProperty('--branch', col);
+    }
+  }
+
+  function watchTheme(gitgraph) {
+    if (typeof MutationObserver === 'undefined') return;
+    var observer = new MutationObserver(function() {
+      var nowLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (nowLight !== themeIsLight) {
+        themeIsLight = nowLight;
+        recolorForTheme(gitgraph, nowLight);
+      }
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
 
   // ---- Color cycler ----
   function createColorCycler(colors) {
@@ -45,17 +139,19 @@ var GitGraphCommon = (function() {
         },
         message: {
           display: true,
-          font: isMobile ? "bold 11px 'Inter', sans-serif"
-              : (isTablet ? "bold 12px 'Inter', sans-serif"
-              : "bold 13px 'Inter', sans-serif"),
+          // Commit messages act as the section/entry HEADINGS of the panels
+          // (16px prose): keep them one step above, not below.
+          font: isMobile ? "bold 12px 'Inter', sans-serif"
+              : (isTablet ? "bold 14px 'Inter', sans-serif"
+              : "bold 15px 'Inter', sans-serif"),
           displayBranch: false,
           displayHash: false,
           displayAuthor: false
         },
         tag: {
-          font: isMobile ? "bold 10px 'Inter', sans-serif"
-              : (isTablet ? "bold 11px 'Inter', sans-serif"
-              : "bold 13px 'Inter', sans-serif")
+          font: isMobile ? "bold 11px 'Inter', sans-serif"
+              : (isTablet ? "bold 13px 'Inter', sans-serif"
+              : "bold 14px 'Inter', sans-serif")
         }
       }
     });
@@ -63,7 +159,15 @@ var GitGraphCommon = (function() {
 
   // ---- Merge style constants ----
   var mergeFont  = "italic 11px 'Inter', sans-serif";
-  var mergeColor = "#6e7681";
+  var mergeColor = palette.gray;
+
+  // ---- Section label lookup ----
+  // Labels live in _data/*.yml and are injected by the page as window.cvLabels
+  // (single source shared with /print and the hidden accessibility headings).
+  // The inline fallback keeps the graph working if the page defines no labels.
+  function label(id, fallback) {
+    return (window.cvLabels && window.cvLabels[id]) || fallback;
+  }
 
   // ---- Dynamic widthExtension: prevents tag clipping ----
   function applyWidthExtension(gitgraph, template) {
@@ -126,6 +230,47 @@ var GitGraphCommon = (function() {
     var PANEL_TOP_OFFSET = isMobile ? 20 : 30;
     var PANEL_STACK_GAP = isMobile ? 14 : 24;
 
+    // Snapshot the pristine engine layout on the first pass and RESTORE it at
+    // the start of every later pass. This makes the relayout idempotent: it
+    // can react to panels that shrink (collapsible sections) as well as grow,
+    // instead of only ever pushing commits further down.
+    if (!gitgraph._layoutSnapshot) {
+      var snapBranchPaths = [];
+      var snapStartPoints = [];
+      for (var sb = 0; sb < gitgraph.branches.length; sb++) {
+        var sPath = gitgraph.branches[sb].path;
+        var sYs = [];
+        for (var sp = 0; sp < sPath.length; sp++) sYs.push(sPath[sp].y);
+        snapBranchPaths.push(sYs);
+        snapStartPoints.push(gitgraph.branches[sb].startPoint ? gitgraph.branches[sb].startPoint.y : null);
+      }
+      var snapCommitYs = [];
+      for (var sc = 0; sc < commits.length; sc++) snapCommitYs.push(commits[sc].y);
+      gitgraph._layoutSnapshot = {
+        commitYs: snapCommitYs,
+        branchPaths: snapBranchPaths,
+        startPoints: snapStartPoints,
+        commitOffsetY: gitgraph.commitOffsetY
+      };
+    }
+
+    // Restore pristine positions (no-op right after taking the snapshot)
+    var restoredFromSnapshot = false;
+    if (gitgraph._layoutSnapshot) {
+      var snap = gitgraph._layoutSnapshot;
+      for (var rc = 0; rc < commits.length; rc++) commits[rc].y = snap.commitYs[rc];
+      for (var rb = 0; rb < gitgraph.branches.length; rb++) {
+        var rPath = gitgraph.branches[rb].path;
+        var rYs = snap.branchPaths[rb];
+        for (var rp = 0; rp < rPath.length; rp++) rPath[rp].y = rYs[rp];
+        if (gitgraph.branches[rb].startPoint && snap.startPoints[rb] !== null) {
+          gitgraph.branches[rb].startPoint.y = snap.startPoints[rb];
+        }
+      }
+      gitgraph.commitOffsetY = snap.commitOffsetY;
+      restoredFromSnapshot = true;
+    }
+
     // Sort commits by y (ascending = top to bottom)
     var sorted = commits.slice().sort(function(a, b) { return a.y - b.y; });
 
@@ -183,7 +328,12 @@ var GitGraphCommon = (function() {
       }
     }
 
-    if (!changed) return;
+    if (!changed) {
+      // Positions may have been restored from the snapshot (e.g. after a
+      // panel collapsed back): repaint so the canvas matches them.
+      if (restoredFromSnapshot) gitgraph.render();
+      return;
+    }
 
     // Build full Y mapping (old → new) for path interpolation
     var fullMap = [];
@@ -308,11 +458,11 @@ var GitGraphCommon = (function() {
       if (prevBottom > maxBottom) maxBottom = prevBottom;
     }
 
-    // Ensure section is tall enough
+    // Fit the section to the content: grows when panels expand and shrinks
+    // back when they collapse (the stylesheet min-height only reserves the
+    // initial space before this runs).
     var needed = Math.max(maxBottom, canvas.offsetTop + canvas.clientHeight);
-    if (needed + 40 > section.clientHeight) {
-      section.style.minHeight = (needed + 40) + "px";
-    }
+    section.style.minHeight = (needed + 40) + "px";
   }
 
   // ---- Lock an initial section min-height to reduce late CLS ----
@@ -351,12 +501,50 @@ var GitGraphCommon = (function() {
     };
   }
 
+  // ---- Collapsible panels (marked with data-collapsible) ----
+  // Adds a show/hide toggle; content visibility is CSS-driven (.collapsed).
+  // The MutationObserver in finalize() picks up the class change and
+  // re-runs the relayout, so the graph adapts to the new panel height.
+  function initCollapsiblePanels() {
+    var panels = document.querySelectorAll('.gitgraph-detail[data-collapsible]');
+    for (var i = 0; i < panels.length; i++) {
+      (function(panel) {
+        if (panel.dataset.collapsibleBound === '1') return;
+        panel.dataset.collapsibleBound = '1';
+        var count = panel.querySelectorAll('.pub-list > li').length;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'collapse-toggle';
+        function refresh() {
+          var collapsed = panel.classList.contains('collapsed');
+          btn.textContent = collapsed
+            ? '▸ show ' + (count ? count + ' entries' : 'content')
+            : '▾ hide';
+          btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        }
+        btn.addEventListener('click', function() {
+          panel.classList.toggle('collapsed');
+          refresh();
+        });
+        panel.insertBefore(btn, panel.firstChild);
+        refresh();
+      })(panels[i]);
+    }
+  }
+
   // ---- Handle anchor link: scroll to & highlight targeted panel ----
   function handleAnchor() {
     var hash = window.location.hash;
     if (!hash) return;
     var target = document.querySelector(hash);
     if (!target || !target.classList.contains('gitgraph-detail')) return;
+
+    // Expand a collapsed panel before revealing it
+    if (target.classList.contains('collapsed')) {
+      var toggle = target.querySelector('.collapse-toggle');
+      if (toggle) toggle.click();
+      else target.classList.remove('collapsed');
+    }
 
     target.style.display = 'block';
     target.style.outline = '2px solid var(--accent)';
@@ -394,9 +582,12 @@ var GitGraphCommon = (function() {
     }
 
     applyWidthExtension(gitgraph, template);
+    tintPanels(gitgraph);   // expose each panel's branch colour as --branch
     hookResize(gitgraph);
     lockSectionMinHeight(gitgraph);
+    initCollapsiblePanels();
     handleAnchor();
+    watchTheme(gitgraph);
 
     // Expose instance so async content (repo cards) can trigger relayout
     window._gitgraphInstance = gitgraph;
@@ -448,11 +639,14 @@ var GitGraphCommon = (function() {
   return {
     isMobile:           isMobile,
     isTablet:           isTablet,
+    isLightTheme:       isLightTheme,
+    palette:            palette,
     defaultColors:      defaultColors,
     createColorCycler:  createColorCycler,
     createTemplate:     createTemplate,
     mergeFont:          mergeFont,
     mergeColor:         mergeColor,
+    label:              label,
     applyWidthExtension: applyWidthExtension,
     recalculateYPositions: recalculateYPositions,
     relayoutPanels:     relayoutPanels,

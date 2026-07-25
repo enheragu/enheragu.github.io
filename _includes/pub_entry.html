@@ -1,0 +1,22 @@
+{% comment %}
+  Renders ONE publication entry: highlighted authors, (year) + bold title,
+  optional venue/publisher/volume/pages/version, and the action chips.
+  Used by pub_list.html (category loops) and thesis_entry.html (single key).
+  Both published name variants ("Enrique Heredia-Aguado"/"Enrique Heredia")
+  are kept as printed in each publication, highlighted via .pub-self.
+{% endcomment %}
+{% assign authors_joined = include.pub.authors | join: ", " %}
+{% assign authors_marked = authors_joined
+    | replace: 'Enrique Heredia-Aguado', '@@EHA@@'
+    | replace: 'Enrique Heredia', '<span class="pub-self">Enrique Heredia</span>'
+    | replace: '@@EHA@@', '<span class="pub-self">Enrique Heredia-Aguado</span>' %}
+<cite><small>{{ authors_marked }}. </small></cite>
+<strong>({{ include.pub.year }}). {{ include.pub.title }}</strong>.
+{% if include.pub.thesis_type %} {{ include.pub.thesis_type }},{% endif %}
+{% if include.pub.venue %} {% if include.venue_prefix %}{{ include.venue_prefix }} {% endif %}<em>{{ include.pub.venue }}</em>.{% endif %}
+{% if include.pub.publisher %} {{ include.pub.publisher }}.{% endif %}
+{% if include.pub.volume %} Vol. {{ include.pub.volume }}{% if include.pub.number %}({{ include.pub.number }}){% endif %}.{% endif %}
+{% if include.pub.pages %} pp. {{ include.pub.pages }}.{% endif %}
+{% if include.pub.version %} Version {{ include.pub.version }}.{% endif %}
+{% include publication_actions.html pub=include.pub %}
+{% if include.pub.slides %} <a class="link-badge" href="{{ include.pub.slides }}" target="_blank" rel="noopener noreferrer">[slides]</a>{% endif %}

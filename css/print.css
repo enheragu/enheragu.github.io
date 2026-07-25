@@ -1,94 +1,302 @@
-body {
-    width: 1100px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    line-height: 1.428571429;
-    color: #333333;
-    background-color: #ffffff;
-  }
-  
-  a {
-    color: #428bca;
-    text-decoration: none;
-  }
-  
-  a:hover,
-  a:focus {
-    color: #2a6496;
-    text-decoration: none;
-  }
-  
-  a:focus {
-    outline: thin dotted #333;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
-  }
-  
-  square {
-    line-height: 1.428571429;
-    color: #333333;
-    word-break: break-all;
-    word-wrap: break-word;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-  }
-  
-  code,
-  pre {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  }
-  
-  code {
-    padding: 2px 4px;
-    font-size: 90%;
-    color: #c7254e;
-    white-space: nowrap;
-    background-color: #f9f2f4;
-    border-radius: 4px;
-  }
-  
-  pre {
-    display: block;
-    padding: 9.5px;
-    margin: 0 0 10px;
-    font-size: 13px;
-    line-height: 1.428571429;
-    color: #333333;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-  }
-  
-  pre.prettyprint {
-    padding: 2px 10px !important;
-    border-color: #d8d8d8 !important;
-  }
-  
-  .logoimage {
-    display: block;
-    width: 6.2%;
-    margin-left: 0;
-  }
+/* ===================================================================
+   Print / PDF stylesheet — used only by _layouts/print.html.
+   Self-contained (no theme tokens): the print page renders standalone
+   and is converted to PDF by _scripts/build_cv_pdf.py.
+   =================================================================== */
 
-  section {
-    width: 100%;
-    margin: auto;
-    padding: 2%;
-    background-color: #fff;
-    margin-bottom: 0px;
+:root {
+  --ink: #1f2328;
+  --muted: #57606a;
+  --line: #d0d7de;
+  --accent: #0969da;
+  --mono: "JetBrains Mono", "Cascadia Code", Consolas, Menlo, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 185mm;
+  margin: 0 auto;
+  padding: 8mm 4mm;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.28;
+  color: var(--ink);
+  background-color: #ffffff;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ===== Header ===== */
+.print-header {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 3mm;
+  margin-bottom: 4mm;
+}
+
+/* Decorative git-branch banner across the top (real gitgraph rendered to a
+   transparent PNG by _scripts/build_cv_header.py). Its gray trunk reads as the
+   page's top border; branches hang down, soft on the left / busier on the
+   right, so the name sits in the calm left area. */
+.print-header-graph {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 1mm;
+}
+
+.print-header h1 {
+  font-size: 17pt;
+  margin-bottom: 1mm;
+}
+
+.print-subtitle {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 9pt;
+  margin-bottom: 1.5mm;
+}
+
+.print-contact {
+  font-family: var(--mono);
+  font-size: 8.5pt;
+  color: var(--muted);
+}
+
+.print-contact svg {
+  width: 3.2mm;
+  height: 3.2mm;
+  vertical-align: -0.7mm;
+  margin-right: 0.9mm;
+  fill: var(--muted);
+}
+
+/* ===== Section structure — commit rail =====
+   A single gray MAIN TRUNK runs down the far left (the .print-cv left border).
+   Every section and every entry is a COMMIT DOT on that trunk, coloured by its
+   section; the section name is a coloured tag. No offset branches or fork/merge
+   curves — clean and page-break safe. */
+.print-cv {
+  --branch: #57606a;
+  border-left: 0.9mm solid #57606a;    /* main trunk (gray) */
+  padding-left: 0;
+}
+
+.pbranch { position: relative; padding-top: 2.4mm; }
+/* Section commit dot on the trunk (coloured by its section) */
+.pbranch::before {
+  content: "";
+  position: absolute;
+  left: -1.95mm;
+  top: 3.4mm;
+  width: 3mm;
+  height: 3mm;
+  border-radius: 50%;
+  background: var(--branch);
+  border: 0.55mm solid #ffffff;
+  z-index: 1;
+}
+
+/* Branch tag = section name */
+h2.print-section {
+  padding-left: 6mm;
+  padding-bottom: 1mm;
+  font-size: 10.5pt;
+  font-family: var(--mono);
+  font-weight: 600;
+  break-after: avoid;
+}
+h2.print-section > span {
+  display: inline-block;
+  color: #ffffff;
+  background: var(--branch);
+  padding: 0.7mm 3mm;
+  border-radius: 1.6mm;
+}
+
+/* Section body: content indented past the trunk (single rail, no offset branch) */
+.pbranch-body { padding-left: 6mm; }
+
+/* Page-group breaks: pages 2 (Publications+Awards) and 3 (Projects+Courses)
+   start on a fresh sheet. See print_page in _data/cv_sections.yml. */
+.print-newpage { break-before: page; }
+
+/* About is trimmed to a brief intro in the PDF — first two paragraphs only.
+   The fact chips are dropped here (the Skills section below carries the detail;
+   the fuller About + chips stay on the web). */
+#detail-presentation p:nth-of-type(n+3),
+#detail-presentation .cv-facts { display: none; }
+
+/* Skills: two columns in the PDF to save vertical space (the web stays single
+   column). Keep each item whole. */
+#detail-skills ul { column-count: 2; column-gap: 8mm; }
+#detail-skills li { break-inside: avoid; }
+
+/* Condensed one-line Teaching summary (print only; the web shows the full list). */
+.teach-print { margin: 0.6mm 0 0; }
+
+/* Inline subheading label (e.g. "Languages:") — keep the section colour like the
+   block h3 subheadings, even though it sits inline. */
+.print-subhead { color: var(--branch, var(--muted)); }
+
+/* Entry = commit on the branch rail. The role/title is clean sans-serif; only
+   the date keeps the monospace "commit" accent (see .print-date below). */
+h3.print-entry {
+  position: relative;
+  font-size: 9.5pt;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  padding-top: 2mm;
+  padding-bottom: 0.6mm;
+  break-after: avoid;
+}
+h3.print-entry .print-date {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--branch);
+}
+/* Commit dot on the gray trunk (coloured by its section) */
+h3.print-entry::before {
+  content: "";
+  position: absolute;
+  left: -7.95mm;
+  top: 2.8mm;
+  width: 3mm;
+  height: 3mm;
+  border-radius: 50%;
+  background: var(--branch);
+  border: 0.55mm solid #ffffff;
+}
+
+/* Branch colour per section is set INLINE on each .pbranch by print.md (via
+   --branch), mirroring SECTION_COLORS in js/index.js. It must be inline, not a
+   nth-of-type rule, because the PDF splits into one .print-cv per page-group and
+   nth-of-type would restart the colour sequence on each page. */
+
+.print-panel {
+  padding-bottom: 1mm;
+  /* Indent an entry's body under its heading so it clearly belongs to it —
+     flush paragraphs (e.g. the thesis line) read as detached otherwise. */
+  padding-left: 2.8mm;
+}
+
+.print-panel h3,
+.print-panel h4 {
+  font-size: 9.5pt;
+  color: var(--muted);
+  margin: 2mm 0 0.5mm;
+  break-after: avoid;
+}
+/* h3 subheadings echo the section's branch colour (--branch is set per section
+   by the .print-cv h2:nth-of-type rules above), matching the web panels. */
+.print-panel h3 { color: var(--branch, var(--muted)); }
+
+.print-panel p {
+  margin-bottom: 0.7mm;
+}
+
+.print-panel ul {
+  padding-left: 4mm;
+  margin-bottom: 0.7mm;
+}
+
+.print-panel li {
+  margin-bottom: 0.3mm;
+  break-inside: avoid;
+}
+
+.print-panel cite {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.pub-self {
+  color: var(--ink);
+  font-weight: inherit;
+}
+
+.link-badge {
+  font-family: var(--mono);
+  font-size: 8.5pt;
+}
+
+/* ===== Quick facts (shared with the About panel of the index) ===== */
+.cv-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5mm;
+  margin: 2mm 0;
+}
+
+.cv-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2mm;
+  padding: 0.5mm 2.4mm 0.5mm 1.8mm;
+  border: 1px solid var(--line);
+  border-radius: 99mm;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 8.5pt;
+  white-space: nowrap;
+}
+
+.cv-fact::before {
+  content: "";
+  width: 1.6mm;
+  height: 1.6mm;
+  border-radius: 50%;
+  background: var(--fact-tone, var(--accent));
+  flex-shrink: 0;
+}
+
+.cv-fact--blue   { --fact-tone: #0969da; }
+.cv-fact--green  { --fact-tone: #1a7f37; }
+.cv-fact--amber  { --fact-tone: #9a6700; }
+.cv-fact--purple { --fact-tone: #8250df; }
+
+/* Interactive-only bits hidden in the print version. `.web-only` marks in-site
+   navigation links ([more details] / [Check more details]) that jump to another
+   page: useless in a standalone PDF (the whole CV is already here), and they
+   rendered as stray lines linking back to the website. */
+.mini-nav,
+.cv-contact,
+.web-only {
+  display: none;
+}
+
+/* ===== Chips: role/category badge (.pub-type-badge — teaching reuses it) =====
+   The theme's publication-ui.css isn't loaded in print, so style the badge here
+   so it reads as a chip on paper too (teaching role + any pub_box badge). */
+.pub-type-badge {
+  display: inline-block;
+  margin-right: 3pt;
+  padding: 0 3pt;
+  border: 0.5pt solid var(--line);
+  border-radius: 2pt;
+  font-family: var(--mono);
+  font-size: 7.5pt;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.teach-meta { color: var(--muted); }
+
+/* ===== Actual printing ===== */
+@media print {
+  body {
+    max-width: none;
+    /* Left room so the trunk's commit dots (which sit ~1mm left of the trunk)
+       aren't clipped at the printable-area edge. */
+    padding: 0 0 0 3.5mm;
   }
-   
-  
-  h1 {
-    /* display: block; */
-    font-size: 1.3vw;
-    margin-top: 0.5em;
-    margin-bottom: 0.1em;
-    margin-right: 0;
-    font-weight: bold;
-    text-align: left;
-  }
-  
-  
+}

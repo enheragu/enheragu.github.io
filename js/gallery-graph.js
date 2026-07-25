@@ -2,18 +2,18 @@
 
 var C = GitGraphCommon;
 var galleryColors = [
-  "#6e7681",  // gallery (main)
-  "#3fb950",  // UMH
-  "#f85149",  // PhD
-  "#d29922",  // M.Sc. Thesis
-  "#d29922",  // GMV
-  "#bc8cff",  // PROACT
-  "#58a6ff",  // ADE
-  "#f85149",  // ERGO
-  "#3fb950",  // GOTCHA
-  "#58a6ff",  // UPM
-  "#f85149",  // B.Sc. Thesis
-  "#bc8cff"   // Hacklab
+  C.palette.gray,  // gallery (main)
+  C.palette.green,  // UMH
+  C.palette.red,  // PhD
+  C.palette.amber,  // M.Sc. Thesis
+  C.palette.amber,  // GMV
+  C.palette.purple,  // PROACT
+  C.palette.blue,  // ADE
+  C.palette.red,  // ERGO
+  C.palette.green,  // GOTCHA
+  C.palette.blue,  // UPM
+  C.palette.red,  // B.Sc. Thesis
+  C.palette.purple   // Hacklab
 ];
 var colorCycler = C.createColorCycler(galleryColors);
 var myTemplate = C.createTemplate({colors: galleryColors});
@@ -37,11 +37,17 @@ var umh = gallery
   .branch({name: "UMH", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "UMH", message: " "});
 
-// ---- PhD (sub-branch of UMH) — placeholder ----
+// ---- PhD (sub-branch of UMH) ----
+// NOTE: this graph is hand-built; each campaign added to _data/galleries.yml
+// needs a matching commit here (same detailId) or its photo panel is unreachable.
 branch_color = colorCycler.next();
 var phd = umh
   .branch({name: "PhD", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "PhD", message: " "})
+  .commit({message: "[07/2026] · AEMCCO Conference", detailId: "phd-aemcco-2026"})
+  .commit({message: "[05–07/2026] · DFKI Bremen (2nd research stay)", detailId: "phd-bremen-2026"})
+  .commit({message: "[12/2025] · DFKI Bremen (research stay)", detailId: "phd-bremen-2025"})
+  .commit({message: "[11/2025] · UMH", detailId: "phd-umh-2025"})
   .merge(umh, {message: "merge PhD", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 umh.checkout();
 
@@ -134,7 +140,7 @@ var hacklab = upm
 
 upm.merge(gallery, {message: "merge UPM", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 
-gallery.commit({message: " ", messageColor: "#6e7681"});
+gallery.commit({message: " ", messageColor: C.palette.gray});
 // ---- Finalize ----
 C.finalize(gitgraph, myTemplate);
 

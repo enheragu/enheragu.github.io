@@ -1,22 +1,86 @@
 content_path: _cv_sections
 
+# `group` starts a new top-level section. `label` names each entry (education
+# entries use `edu:` -> _data/education.yml instead, see index.md/academic.md).
+#
+# PRINT-ONLY flags (ignored by the web index/academic pages):
+#   print_page: 1|2|3  -> which PDF page-group the entry renders on.
+#                         1 = compact core (About/Education/Experience/Skills),
+#                         2 = Publications + Awards, 3 = Projects + Courses.
+#   print_compact: true -> in the PDF, render only the one-line heading (no panel
+#                          body) — used to summarise secondary work roles.
 items:
 - id: detail-presentation
+  group: "About me"
+  print_page: 1
 - id: detail-phd
+  group: "Education"
+  edu: phd
+  print_page: 1
 - id: detail-mscrobotics
+  edu: msc
+  print_page: 1
 - id: detail-electronicsdeg
+  edu: bsc
+  print_page: 1
 - id: detail-umh
+  group: "Work Experience"
+  label: "[Dec. 2022 – present] · Research Engineer & PhD Student · UMH"
+  print_page: 1
+- id: detail-umh-lecturer
+  label: "[Mar. – Jun. 2026] · Lecturer · UMH"
+  print_page: 1
+  print_compact: true
 - id: detail-dfki-2025
+  label: "[Dec. 2025 · May–Jul. 2026] · Visiting researcher · DFKI Bremen"
+  print_page: 1
+  print_compact: true
 - id: detail-umh-intern
+  label: "[Feb. 2022 – Sep. 2022] · Research Intern · UMH"
+  print_page: 1
+  print_compact: true
 - id: detail-gmv
+  label: "[Feb. 2017 – Oct. 2021] · Robotics Engineer · GMV · On Board Autonomy Division"
+  print_page: 1
 - id: detail-bq
+  label: "[Feb. 2016 – Aug. 2016] · Intern · BQ"
+  print_page: 1
+  print_compact: true
 - id: detail-pub-journals
+  group: "Publications"
+  label: "Journal Articles"
+  print_page: 2
 - id: detail-pub-chapters
+  label: "Book Chapters"
+  print_page: 2
 - id: detail-pub-conferences
+  label: "Conference Papers"
+  print_page: 2
 - id: detail-pub-preprints
+  label: "Preprints"
+  print_page: 2
+# Theses live in the Education panels (with cite actions) — a separate
+# Publications section was redundant. Re-enable here + js/index.js if wanted:
+# - id: detail-pub-theses
+#   label: "Theses"
 - id: detail-pub-presentations
+  label: "Oral Presentations"
+  print_page: 2
 - id: detail-pub-posters
+  label: "Poster Presentations"
+  print_page: 2
 - id: detail-pub-software
+  label: "Software Tools"
+  print_page: 2
+- id: detail-awards
+  group: "Awards"
+  print_page: 2
 - id: detail-projects
+  group: "Projects"
+  print_page: 3
 - id: detail-courses
+  group: "Courses and Workshops"
+  print_page: 3
 - id: detail-skills
+  group: "Skills"
+  print_page: 1

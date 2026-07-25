@@ -11,7 +11,9 @@
   --bg-secondary: var(--clr-surface);
   --bg-tertiary: var(--clr-chart-bg);
   --text-primary: var(--clr-text);
-  --text-secondary: color-mix(in oklab, var(--clr-text) 72%, var(--clr-muted));
+  /* Softer than before (was 72% text): panel prose at full brightness over
+     the dark bg read as harsh/high-contrast. */
+  --text-secondary: color-mix(in oklab, var(--clr-text) 55%, var(--clr-muted));
   --text-muted: var(--clr-muted);
   --accent: var(--clr-primary);
   --accent-hover: var(--clr-primary-h);
@@ -24,6 +26,10 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
   --radius: 6px;
 }
+
+/* Light-mode accent contrast is handled by the THEME (light-luminance
+   --pal-blue/--pal-purple in theme-tokens.css) — single brand source, no
+   local redefinitions here. */
 
 /* ===== WIP BANNER ===== */
 .wip-banner {
@@ -46,6 +52,92 @@
   flex-shrink: 0;
   width: 1rem;
   height: 1rem;
+}
+
+/* ===== QUICK FACTS (About panel) =====
+   Pills with a commit-dot in a branch color, echoing the graph. */
+.cv-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.85rem 0 0.6rem;
+}
+
+.cv-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.16rem 0.6rem 0.16rem 0.5rem;
+  border: 1px solid color-mix(in oklab, var(--fact-tone, var(--accent)) 30%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--fact-tone, var(--accent)) 6%, var(--bg-primary));
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  white-space: nowrap;
+}
+
+.cv-fact::before {
+  content: "";
+  width: 0.44rem;
+  height: 0.44rem;
+  border-radius: 50%;
+  background: var(--fact-tone, var(--accent));
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--fact-tone, var(--accent)) 22%, transparent);
+  flex-shrink: 0;
+}
+
+.cv-fact--blue   { --fact-tone: var(--accent); }
+.cv-fact--green  { --fact-tone: var(--green); }
+.cv-fact--amber  { --fact-tone: var(--yellow); }
+.cv-fact--purple { --fact-tone: var(--purple); }
+
+.cv-contact {
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+}
+
+/* Teaching (Work panel) reuses the publication list/chip styles
+   (.pub-box-scroll / .pub-list / .pub-type-badge — see detail_umh.html) for
+   coherence and to avoid duplicated CSS; only the muted, compact one-line meta
+   is teaching-specific. */
+.teach-meta { color: var(--text-secondary); font-size: var(--txt-sm); }
+
+/* The Work panel caps at 400px (see .gitgraph-detail): with the intro + Research
+   list above it, the teaching list would push the panel over that cap, so the
+   WHOLE panel scrolled instead of the list. A tighter cap than the 260px
+   publication default keeps the slider contained WITHIN the teaching list
+   (like publications), leaving intro + Research static. Tune the height here. */
+.pub-box-scroll.teach-scroll { max-height: 8rem; }
+
+/* Elements meant only for the printable PDF (e.g. condensed summaries) are hidden
+   on the web; print.css does not load here, so they show in the PDF by default.
+   Counterpart of `.web-only` (which print.css hides). */
+.print-only { display: none; }
+
+/* Toast shown when the mail icon copies the address */
+.mail-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(0.5rem);
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.mail-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ===== MAIN LAYOUT ===== */
@@ -80,7 +172,9 @@ section {
   max-height: 400px;
   overflow-y: auto;
   display: none;
-  font-size: var(--txt-base);
+  /* --txt-md (~14.7px): one step below the 16px default — GitHub-density
+     prose, and keeps the 15px bold commit headings above the body text. */
+  font-size: var(--txt-md);
   line-height: 1.6;
   color: var(--text-primary);
   background: var(--bg-secondary);
@@ -91,13 +185,92 @@ section {
   margin-bottom: 20px;
 }
 
+/* ===== SUBTLE SCROLLBARS (all scrollable areas of the CV) =====
+   Default scrollbars differ a lot between engines (chunky in Firefox, overlay
+   in WebKit) — so they are NOT consistent across browsers unless styled. One
+   rule for every scroll container (the panels/graph on the CV page AND the
+   pub/repo scroll boxes on the Projects & Academic pages, which used to show
+   the OS default — hence the "thicker on some pages" mismatch). Thin, rounded,
+   semi-transparent thumb in the muted tone (themed via tokens). */
+.gitgraph-detail,
+.gitgraph-container,
+.pub-box-scroll,
+.repo-box-scroll {
+  scrollbar-width: thin;                                 /* Firefox */
+  scrollbar-color: color-mix(in oklab, var(--text-secondary) 40%, transparent) transparent;
+}
+.gitgraph-detail::-webkit-scrollbar,
+.gitgraph-container::-webkit-scrollbar,
+.pub-box-scroll::-webkit-scrollbar,
+.repo-box-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.gitgraph-detail::-webkit-scrollbar-track,
+.gitgraph-container::-webkit-scrollbar-track,
+.pub-box-scroll::-webkit-scrollbar-track,
+.repo-box-scroll::-webkit-scrollbar-track { background: transparent; }
+.gitgraph-detail::-webkit-scrollbar-thumb,
+.gitgraph-container::-webkit-scrollbar-thumb,
+.pub-box-scroll::-webkit-scrollbar-thumb,
+.repo-box-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--text-secondary) 38%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;                         /* inset the thumb */
+  background-clip: padding-box;
+}
+.gitgraph-detail:hover::-webkit-scrollbar-thumb,
+.gitgraph-container:hover::-webkit-scrollbar-thumb,
+.pub-box-scroll:hover::-webkit-scrollbar-thumb,
+.repo-box-scroll:hover::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--text-secondary) 60%, transparent);
+}
+
 .gitgraph-detail.cite-widget-host-active {
   z-index: 80;
+}
+
+/* ===== COLLAPSIBLE PANELS ===== */
+/* Everything except the toggle button and hidden headings is hidden while
+   collapsed; the relayout observers adapt the graph to the reduced height. */
+.gitgraph-detail.collapsed > *:not(.collapse-toggle):not(.visually-hidden) {
+  display: none;
+}
+
+.collapse-toggle {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  padding: 0.15rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  cursor: pointer;
+}
+
+.collapse-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+/* The About panel always shows its full content (no inner scroll):
+   it holds the quick facts, contact and mini-nav. */
+#detail-presentation {
+  max-height: none;
+  overflow-y: visible;
 }
 
 .gitgraph-detail h3,
 .gitgraph-detail h4 {
   color: var(--text-muted);
+}
+
+/* Audit fix: default h3 rendered at 18.7px inside panels ("At UMH…"), a big
+   jump vs the equivalent h4 headers (14.7px). One step above prose instead.
+   Colour = the section's branch colour (--branch, set per panel by tintPanels
+   in gitgraph-common) so subheadings echo the graph; falls back to muted. */
+.gitgraph-detail h3 {
+  font-size: var(--txt-lg);
+  color: var(--branch, var(--text-muted));
 }
 
 .gitgraph-detail strong {
@@ -108,6 +281,7 @@ section {
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
+
 
 .gitgraph-detail ul {
   padding-left: 1.2rem;
@@ -124,6 +298,25 @@ section {
   font-style: normal;
 }
 
+/* Audit fix: category chips in pub boxes (JOURNAL ARTICLES…) rendered
+   12px + uppercase + semibold + accent — visually louder than the 13.3px
+   authors they label. One size down and calmer weight. */
+.pub-box .pub-type-badge {
+  font-size: var(--txt-2xs);
+  font-weight: 500;
+}
+
+/* Own name highlighted inside publication author lists — regular weight in
+   the primary text color: it stands out from the muted co-authors by
+   luminance alone, without competing with bold titles (too heavy) or looking
+   like a link (accent blue). The .gitgraph-detail variant outweighs the
+   `.gitgraph-detail cite` color rule. */
+.pub-self,
+.gitgraph-detail .pub-self {
+  color: var(--text-primary);
+  font-weight: inherit;
+}
+
 .gitgraph-detail a {
   color: var(--accent);
 }
@@ -133,6 +326,17 @@ section {
 }
 
 /* Publication and repository UI styles are provided by shared publication-ui.css. */
+
+/* Scrollable repo-card area (same pattern as .pub-box-scroll for pub lists:
+   the "Related Repositories (N)" heading stays outside the scroll). */
+.repo-box-scroll {
+  max-height: 300px;
+  overflow-y: auto;
+  /* Inner padding so the repo-card hover (translateY(-1px) + box-shadow) has
+     room inside the scroll box instead of being clipped at its edges — the
+     clip was most visible on the FIRST row, cut off by the top edge. */
+  padding: 0.55rem 0.45rem;
+}
 
 /* ===== EXPANDED PANELS (project/academic pages — full content on desktop) ===== */
 .expanded-panels .gitgraph-detail {
@@ -170,12 +374,18 @@ section {
   content: "";
 }
 
-/* ===== IMAGES ===== */
-.logoimage {
-  display: none;
+/* Navigation menu styles are provided by shared tools-nav.css */
+
+/* Subpage header nav (include page_nav.html): centered under the subtitle */
+.page-header-nav {
+  justify-content: center;
+  margin-top: 0.6rem;
 }
 
-/* Navigation menu styles are provided by shared tools-nav.css */
+.page-header-nav a.current {
+  color: var(--text-primary);
+  pointer-events: none;
+}
 
 
 /* ===== RESPONSIVE ===== */
@@ -225,6 +435,11 @@ section {
   .expanded-panels .gitgraph-detail {
     max-height: min(46vh, 340px) !important;
     overflow-y: auto !important;
+  }
+
+  #detail-presentation {
+    max-height: none !important;
+    overflow-y: visible !important;
   }
 
 }

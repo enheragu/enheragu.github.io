@@ -1,8 +1,8 @@
 // ----------------------- ACADEMIC GITGRAPH ----------------------- //
 
 var C = GitGraphCommon;
-var colorCycler = C.createColorCycler(["#58a6ff", "#3fb950", "#d29922", "#f85149", "#bc8cff"]);
-var myTemplate = C.createTemplate({colors: ["#58a6ff", "#3fb950", "#d29922", "#f85149", "#bc8cff"]});
+var colorCycler = C.createColorCycler([C.palette.blue, C.palette.green, C.palette.amber, C.palette.red, C.palette.purple]);
+var myTemplate = C.createTemplate({colors: [C.palette.blue, C.palette.green, C.palette.amber, C.palette.red, C.palette.purple]});
 
 var gitgraph = new GitGraph({
   template: myTemplate,
@@ -20,7 +20,7 @@ branch_color = colorCycler.next();
 var phd = academic
   .branch({name: "PhD", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "PhD", message: " "})
-  .commit({message: "[2022 – Currently] · PhD in Industrial & Telecom Technologies · UMH", detailId: "detail-phd"})
+  .commit({message: C.label("detail-phd", "PhD in Industrial & Telecom Technologies"), detailId: "detail-phd"})
   .merge(academic, {message: "merge PhD", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 academic.checkout();
 
@@ -29,7 +29,7 @@ branch_color = colorCycler.next();
 var msc = academic
   .branch({name: "Master", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "M.Sc.", message: " "})
-  .commit({message: "[2021 – 2022] · M.Sc. Robotics · UMH", detailId: "detail-msc"})
+  .commit({message: C.label("detail-msc", "M.Sc. Robotics"), detailId: "detail-msc"})
   .merge(academic, {message: "merge Master", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 academic.checkout();
 
@@ -38,10 +38,10 @@ branch_color = colorCycler.next();
 var bsc = academic
   .branch({name: "Degree", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "B.Sc.", message: " "})
-  .commit({message: "[2012 – 2018] · B.Sc. Electronics & Automation · UPM", detailId: "detail-bsc"})
+  .commit({message: C.label("detail-bsc", "B.Sc. Electronics & Automation Eng."), detailId: "detail-bsc"})
   .merge(academic, {message: "merge Degree", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 
-academic.commit({message: " ", messageColor: "#6e7681"});
+academic.commit({message: " ", messageColor: C.palette.gray});
 
 // ---- Finalize ----
 C.finalize(gitgraph, myTemplate);

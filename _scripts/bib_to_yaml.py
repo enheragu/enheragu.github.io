@@ -17,9 +17,11 @@ TYPE_ORDER = {
     'Book Chapter': 1,
     'Conference Paper': 2,
     'Preprint': 3,
-    'Presentation': 4,
-    'Poster': 5,
-    'Software': 6,
+    'Thesis': 4,
+    'Presentation': 5,
+    'Poster': 6,
+    'Software': 7,
+    'Award': 8,
 }
 
 TYPE_LABELS = {
@@ -27,6 +29,8 @@ TYPE_LABELS = {
     'Book Chapter': 'Book Chapters',
     'Conference Paper': 'Conference Papers',
     'Preprint': 'Preprints',
+    'Thesis': 'Theses',
+    'Award': 'Awards',
     'Software': 'Software Tools',
     'Presentation': 'Presentations',
     'Poster': 'Posters',
@@ -35,6 +39,12 @@ TYPE_LABELS = {
 
 def parse_bib(bib_content):
     """Parse a .bib file content and return a list of entries."""
+    # Drop BibTeX comment lines (starting with %) so commented-out entries
+    # (e.g. the PhD-thesis placeholder) are not parsed.
+    bib_content = '\n'.join(
+        line for line in bib_content.splitlines()
+        if not line.lstrip().startswith('%')
+    )
     entries = []
     entry_pattern = re.compile(r'@(\w+)\s*\{', re.IGNORECASE)
 
@@ -141,8 +151,8 @@ def parse_fields(fields_str):
 
 def clean_latex(text):
     """Clean common LaTeX escape sequences."""
-    # Handle {\' e} style accents
-    text = re.sub(r"\{\\'\{?([a-zA-Z])\}?\}", r'\1', text)  # {\'e} -> e (simplified)
+    # Handle {\'e} style accents (keep the accent, do not strip it)
+    text = re.sub(r"\{\\'\{?([a-zA-Z])\}?\}", lambda m: accent_map("'", m.group(1)), text)
     text = re.sub(r"\\'\{([a-zA-Z])\}", lambda m: accent_map("'", m.group(1)), text)
     text = re.sub(r"\\'\s*([a-zA-Z])", lambda m: accent_map("'", m.group(1)), text)
     text = re.sub(r'\{\\"([a-zA-Z])\}', lambda m: accent_map('"', m.group(1)), text)
@@ -212,6 +222,8 @@ def get_pub_type(entry):
         return 'Book Chapter'
     elif etype in ('inproceedings', 'conference'):
         return 'Conference Paper'
+    elif etype in ('mastersthesis', 'phdthesis', 'thesis'):
+        return 'Thesis'
     elif etype == 'software':
         return 'Software'
     elif etype == 'misc':
@@ -236,9 +248,13 @@ def entries_to_yaml(entries):
             groups[pub_type] = []
         groups[pub_type].append(entry)
 
-    # Sort each group by year descending
+    # Sort each group by year descending (tolerate non-numeric years like "in press")
+    def year_key(e):
+        m = re.search(r'\d{4}', e['fields'].get('year', ''))
+        return -int(m.group(0)) if m else 0
+
     for pub_type in groups:
-        groups[pub_type].sort(key=lambda e: -(int(e['fields'].get('year', '0'))))
+        groups[pub_type].sort(key=year_key)
 
     # Output in importance order
     lines = []
@@ -264,15 +280,19 @@ def entries_to_yaml(entries):
             for author in authors:
                 lines.append(f"        - {yaml_escape(author)}")
 
-            # Venue info
-            venue = fields.get('journal') or fields.get('booktitle') or fields.get('howpublished') or ''
+            # Venue info (school covers thesis entries)
+            venue = fields.get('journal') or fields.get('booktitle') or fields.get('school') or fields.get('howpublished') or ''
             if venue:
                 lines.append(f"      venue: {yaml_escape(venue)}")
+
+            # Thesis kind (e.g. "Master's Thesis") from the BibTeX `type` field
+            if fields.get('type'):
+                lines.append(f"      thesis_type: {yaml_escape(fields['type'])}")
 
             if fields.get('publisher'):
                 lines.append(f"      publisher: {yaml_escape(fields['publisher'])}")
 
-            for field in ['doi', 'url', 'pages', 'volume', 'number', 'version', 'keywords']:
+            for field in ['doi', 'url', 'slides', 'pages', 'volume', 'number', 'version', 'keywords']:
                 if field in fields and fields[field]:
                     lines.append(f"      {field}: {yaml_escape(fields[field])}")
 

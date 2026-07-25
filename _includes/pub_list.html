@@ -1,0 +1,16 @@
+{% comment %}
+  Renders the publication list of one category — usage:
+    {% include pub_list.html type_key="journal" %}
+    {% include pub_list.html type_key="book_chapter" venue_prefix="In" %}
+  Entry markup lives in pub_entry.html (shared with thesis_entry.html).
+{% endcomment %}
+{% assign pubs = site.data.publications | where: "type_key", include.type_key | first %}
+{% if pubs %}
+<ul class="pub-list">
+    {% for pub in pubs.entries %}
+    <li>
+        {% include pub_entry.html pub=pub venue_prefix=include.venue_prefix %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

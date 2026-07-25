@@ -1,0 +1,13 @@
+{% comment %}
+  Renders a thesis inside an Education panel — usage:
+    {% include thesis_entry.html key="heredia2022tfm" %}
+  Prose-style so it integrates with the panel (no author/school: both are
+  obvious from context), but sourced from publications.bib: kind, title and
+  year come from the entry, and the [link]/[cite] chips make it citable.
+    → **Master's Thesis:** "Título" (2022). [link] [cite]
+{% endcomment %}
+{% assign tcat = site.data.publications | where: "type_key", "thesis" | first %}
+{% if tcat %}
+  {% assign tpub = tcat.entries | where: "key", include.key | first %}
+  {% if tpub %}<strong>{{ tpub.thesis_type }}:</strong> "{{ tpub.title }}" ({{ tpub.year }}).{% if include.directors %} Directed by {{ include.directors }}.{% endif %} {% include publication_actions.html pub=tpub %}{% endif %}
+{% endif %}

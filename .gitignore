@@ -3,6 +3,9 @@ _site/
 .jekyll-cache/
 .sass-cache/
 
+# Local Jekyll preview artifacts (dev-only server override)
+_config.local.yml
+
 # Editor
 .vscode/
 

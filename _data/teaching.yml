@@ -1,0 +1,23 @@
+# Teaching record — one entry per course·year, newest first.
+# Rendered in _cv_sections/detail_umh.html (web + PDF). To grow it, just add an
+# entry here; it reuses the publication list/chip styles.
+- role: "Teaching Assistant"
+  course: "Computer Vision"
+  programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
+  year: "2026–2027"
+  ects: "3"
+- role: "Teaching Assistant"
+  course: "Robotics"
+  programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
+  year: "2024–2025"
+  ects: "2.1"
+- role: "Teaching Assistant"
+  course: "Computer Vision"
+  programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
+  year: "2023–2024"
+  ects: "3"
+- role: "Teaching Assistant"
+  course: "Computer Vision"
+  programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
+  year: "2022–2023"
+  ects: "3"

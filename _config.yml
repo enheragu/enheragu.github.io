@@ -18,3 +18,10 @@ google_analytics: G-BQJ3799LQT
 
 # Google Search Console verification
 google_site_verification: vqmYVzG7PKuhZrcDMVyTFQLd9cb-2Wj8dXQfLO5LChA
+
+# Default social-share image (og:image / twitter:image via jekyll-seo-tag)
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /img/og_card.png

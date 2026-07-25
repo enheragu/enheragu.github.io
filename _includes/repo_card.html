@@ -8,6 +8,7 @@
 {% if repo_list.size > 0 %}
 <div class="repo-box">
 <h4>Related Repositories ({{ repo_list.size }})</h4>
+<div class="repo-box-scroll">
 <div class="repo-cards">
 {% for repo_full in repo_list %}
   {% assign r = repo_full | strip %}
@@ -23,6 +24,7 @@
     </div>
   </a>
 {% endfor %}
+</div>
 </div>
 </div>
 <script>

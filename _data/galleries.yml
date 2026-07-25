@@ -1,10 +1,56 @@
 
 
 imagefolder: /img_gallery
-thumnaifolder: /img_gallery/Thumbnails
+thumbnailfolder: /img_gallery/Thumbnails
 
 # Branches on the gitgraph (one per project)
 branches:
+- name: "PhD"
+  tag: "PhD"
+  campaigns:
+  - id: phd-aemcco-2026
+    label: "[07/2026] · AEMCCO Conference"
+    images:
+    - name: 07_2026_phd_aemcco_conference.JPG
+      text: "AEMCCO — methodology & outreach award."
+      author: " "
+      camera: " "
+      date: "[07/2026]"
+  - id: phd-bremen-2026
+    label: "[05–07/2026] · DFKI Bremen (2nd research stay)"
+    images:
+    - name: 07_2026_phd_bremen.JPG
+      text: "Research stay at DFKI, Bremen."
+      author: " "
+      camera: " "
+      date: "[07/2026]"
+    - name: 07_2026_phd_bremen_robot.JPG
+      text: "At DFKI, Bremen."
+      author: " "
+      camera: " "
+      date: "[07/2026]"
+  - id: phd-bremen-2025
+    label: "[12/2025] · DFKI Bremen (research stay)"
+    images:
+    - name: 12_2025_phd_bremen_experimentalsetup.JPG
+      text: "Experimental setup at DFKI, Bremen."
+      author: " "
+      camera: " "
+      date: "[12/2025]"
+    - name: 12_2025_phd_bremen_calibration.webp
+      text: "Sensor calibration at DFKI, Bremen."
+      author: " "
+      camera: " "
+      date: "[12/2025]"
+  - id: phd-umh-2025
+    label: "[11/2025] · Robot @ UMH"
+    images:
+    - name: 11_2025_phd_robot_umh.JPG
+      text: "Robot setup at UMH."
+      author: " "
+      camera: " "
+      date: "[11/2025]"
+
 - name: "UMH"
   tag: "UMH"
   campaigns:

@@ -1,15 +1,105 @@
-
-
 content_path: _projects
+
+# Single source of truth for every project entry.
+#   name + dates            -> derived "[dates] · name" label, used by:
+#                                * projects.md   -> visually-hidden heading (a11y / Ctrl+F) + window.cvLabels
+#                                * js/projects.js -> canvas commit text (via cvLabels; JS fallback is name-only)
+#   name + dates + desc/link -> _cv_sections/detail_projects.html (CV summary list, grouped by `group`)
+#   panel: false            -> summary-only entry (no /projects/ graph node nor _projects/*.html panel)
+# The rich /projects/ panels live in _projects/*.html and are NOT generated from this file.
+
+groups:
+- id: UMH
+  heading: "At UMH (2022–present)"
+- id: GMV
+  heading: "At GMV (2017–2021)"
+- id: UPM
+  heading: "At UPM (2012–2018)"
+
 items:
-- id: detail-TED2021
+- id: detail-PROMETEO2025
+  group: UMH
+  name: "PROMETEO 2025"
+  dates: "Sep 2025 – present"
+  desc: '"Aprendizaje profundo para navegación autónoma, interpretación del entorno e interacción social con robots móviles". Generalitat Valenciana.'
+- id: detail-FIND
+  group: UMH
+  name: "FIND"
+  dates: "2025 – present"
+  desc: '"¡Perdido y encontrado! Por qué nos cuesta encontrar ciertos objetos y cómo optimizar nuestras estrategias de búsqueda". AEI/FEDER. Collaboration with Universidad Autónoma de Madrid.'
+- id: detail-ROBDEKON2
+  group: UMH
+  name: "ROBDEKON II"
+  desc: 'research stays at DFKI Bremen (Dec. 2025; May – Jul. 2026), contributing to ROBDEKON, the BMBF-funded German competence center developing autonomous, semi-autonomous and teleoperated robots that cooperate with human operators to perform decontamination and dismantling tasks in environments hazardous to humans.'
+  link: "https://robotik.dfki-bremen.de/en/research/projects/robdekon-ii"
+  link_text: "DFKI"
+  panel: false
 - id: detail-AViRobots
-- id: detail-PROMETEO
+  group: UMH
+  name: "AViRobots"
+  dates: "Jan 2025 – Oct 2025"
+  desc: '"Development of an intelligent surveillance and security infrastructure system based on mobile robots".'
+- id: detail-ROBOT_VIGILANTE
+  group: UMH
+  name: "Robot_Vigilante"
+  dates: "Sep 2024 – present"
+  desc: '"Robótica móvil para la vigilancia automática de recintos e identificación de situaciones de riesgo en condiciones desafiantes mediante técnicas de aprendizaje profundo". AEI/MICIU + FEDER.'
 - id: detail-ACTVIS
+  group: UMH
+  name: "ACTVIS"
+  dates: "2022 – 2025"
+  desc: '"Visión Activa: qué nos enseñan los movimientos oculares sobre las estrategias de búsqueda visual". Collaboration with Universidad Autónoma de Madrid.'
+- id: detail-TED2021
+  group: UMH
+  name: "TED2021"
+  dates: "Dec 2022 – Nov 2024"
+  desc: '"Desarrollo de tecnologías móviles inteligentes para tareas de seguridad y vigilancia de entornos de interior y exterior". MICIU/AEI + NextGenerationEU/PRTR.'
+- id: detail-PROMETEO
+  group: UMH
+  name: "PROMETEO"
+  dates: "Nov 2022 – Dec 2024"
+  desc: '"Towards Further Integration of Intelligent Robots in Society: Navigate, Recognize and Manipulate". Generalitat Valenciana.'
 - id: detail-MOSAR
+  group: GMV
+  name: "MOSAR"
+  dates: "Mar 2019 – Oct 2021"
+  desc: '"MOdular Spacecraft Assembly and Reconfiguration". Focused on orbital operations, this project focused on in-orbit reconfiguration and servicing capabilities. A set of spacecraft modules and a walking manipulator was deployed to autonomously reconfigure functionality, geometry, power and data transfer among spacecraft modules. H2020 SRC PERASPERA OG9.'
+  link: "https://cordis.europa.eu/project/id/821996"
 - id: detail-PROACT
+  group: GMV
+  name: "PROACT"
+  dates: "Feb 2019 – Oct 2021"
+  desc: '"Planetary RObots Deployed for Assembly and Construction Tasks". Focused on collaboration in planetary robotics, this project focused on extending OG2 autonomy capabilities to a multi-agent system. Using this approach, a fleet of robots could autonomously execute a representative set of operations to build an ISRU plant. H2020 SRC PERASPERA OG11.'
+  link: "https://cordis.europa.eu/project/id/821903"
 - id: detail-ADE
+  group: GMV
+  name: "ADE"
+  dates: "Feb 2019 – Oct 2021"
+  desc: '"Autonomous DEcision making in very long traverses". Focused on planetary exploration robots, this project focused on enhancing the Autonomy framework with space hardware specifically targeting the accomplishments of long traverses in full autonomy. H2020 SRC PERASPERA OG10.'
+  link: "https://cordis.europa.eu/project/id/821988"
 - id: detail-ERGO
+  group: GMV
+  name: "ERGO"
+  dates: "Jan 2018 – Jan 2019"
+  desc: '"European Robotic goal-oriented autonomous COntroller". Focused on delivering an advanced and flexible space autonomous framework with adaptable levels of autonomy. The framework includes mission planning, execution and monitoring along with path planning and trajectory control for both mobile robot base and robotic arms among other functionalities. H2020 SRC PERASPERA OG2.'
+  link: "https://cordis.europa.eu/project/id/730086"
 - id: detail-GOTCHA
+  group: GMV
+  name: "GOTCHA"
+  dates: "Feb 2017 – May 2018"
+  desc: '"GOAC TRL-increase Convenience-enhancements, Hardening and Application-extension". Aiming to develop a robotic autonomous controller for the space domain integrating an action-based planner. Its purpose is to enhance the autonomy capabilities on board space systems offering goal-based commanding and telemetry monitoring. ESA/GSTP.'
+  link: "https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Shaping_the_Future/Autonomous_software_makes_planning_easy"
+  link_text: "ESA post"
+- id: detail-RHA
+  group: UPM
+  name: "RHA (RoboHealth ARM)"
+  dates: "Feb 2017 – Feb 2018"
+  desc: '"Diseño y construcción de un brazo robótico para el apoyo a la interactividad de personas enfermas" (B.Sc. thesis). Part of the ROBOHEALTH national coordinated project (UPM · UC3M): "Entornos inteligentes para paciente conviviendo con robots". Ministerio de Economía y Competitividad (RETOS · DPI2013-47944-C4-2-R).'
+  link: "https://blogs.upm.es/miguelhernando/national-projects/"
 - id: detail-HIDALGO
-- id: detail-Other
+  group: UPM
+  name: "HIDALGO"
+  dates: "Sep 2015 – Sep 2016"
+  desc: "Spanish humanoid robot project led by Miguel Hernando at UPM, born from the HackLab UPM-BQ maker lab, aiming to build the lightest, lowest-cost humanoid possible."
+  link: "https://blogs.upm.es/hidalgo/about-us/"
+  link_text: "project blog"

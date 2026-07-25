@@ -3,8 +3,6 @@ title: Gallery
 description: Photo gallery of Enrique Heredia Aguado with snapshots from robotics field tests, conferences and laboratory work and other nice photos I like :).
 layout: default
 permalink: /gallery/
-custom_css:
-    - /css/gitgraph.css
 shared_custom_css:
     - gallery-primitives.css
 custom_js:
@@ -19,16 +17,20 @@ custom_js:
         <div class="page-brand-muted">{{ site.title }}</div>
         <h1>Photo Gallery</h1>
         <span class="page-subtitle">A small peek into field tests, conferences & lab life</span>
+        {% include page_nav.html %}
     </div>
     {% include wip_banner.html %}
+    <h2 class="visually-hidden">Timeline details</h2>
     <div class="gitgraph-container">
-        <canvas id="gitGraph"></canvas>
+        <canvas id="gitGraph" role="img" aria-label="Interactive git-graph timeline of photo campaigns. The photo panels follow."></canvas>
 
         {% for branch in site.data.galleries.branches %}
             {% for campaign in branch.campaigns %}
                 <div id="{{ campaign.id }}" class="gitgraph-detail gallery-panel">
                     <div class="gallery-grid gallery-panel-grid">
                     {% for image in campaign.images %}
+                        {% assign img_text = image.text | strip %}
+                        {% if img_text == "" %}{% assign img_alt = campaign.label | append: " — photo " | append: forloop.index %}{% else %}{% assign img_alt = img_text %}{% endif %}
                         <div class="gallery-item"
                              data-src="{{ site.data.galleries.imagefolder }}/{{ image.name }}"
                              data-text="{{ image.text }}"
@@ -38,7 +40,7 @@ custom_js:
                                 data-wide="{{ image.wide | default: '' }}"
                                 data-tall="{{ image.tall | default: '' }}"
                                 data-layout="{{ image.layout | default: '' }}">
-                            <img src="{{ site.data.galleries.thumnaifolder }}/{{ image.name }}" alt="{{ image.text }}" loading="lazy"{% if image.thumb_position %} style="object-position: {{ image.thumb_position }};"{% endif %}>
+                            <img src="{{ site.data.galleries.thumbnailfolder }}/{{ image.name }}" alt="{{ img_alt }}" loading="lazy"{% if image.thumb_position %} style="object-position: {{ image.thumb_position }};"{% endif %}>
                             <div class="gallery-item-overlay">
                                 <span>{{ image.text }}</span>
                             </div>

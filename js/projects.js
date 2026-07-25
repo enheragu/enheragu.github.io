@@ -1,8 +1,8 @@
 // ----------------------- PROJECTS GITGRAPH ----------------------- //
 
 var C = GitGraphCommon;
-var colorCycler = C.createColorCycler(["#f85149", "#58a6ff", "#d29922", "#3fb950", "#bc8cff"]);
-var myTemplate = C.createTemplate({colors: ["#f85149", "#58a6ff", "#d29922", "#3fb950", "#bc8cff"]});
+var colorCycler = C.createColorCycler([C.palette.red, C.palette.blue, C.palette.amber, C.palette.green, C.palette.purple]);
+var myTemplate = C.createTemplate({colors: [C.palette.red, C.palette.blue, C.palette.amber, C.palette.green, C.palette.purple]});
 
 var gitgraph = new GitGraph({
   template: myTemplate,
@@ -20,10 +20,13 @@ branch_color = colorCycler.next();
 var umh = career
   .branch({name: "UMH", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "UMH (2022–present)", message: " "})
-  .commit({message: "[Oct 2025 – Currently] · TED2021", detailId: "detail-TED2021"})
-  .commit({message: "[Jan 2025 – Oct 2025] · AViRobots", detailId: "detail-AViRobots"})
-  .commit({message: "[Nov 2022 – Dec 2024] · PROMETEO", detailId: "detail-PROMETEO"})
-  .commit({message: "[Dec 2024 – Currently] · ACTVIS", detailId: "detail-ACTVIS"})
+  .commit({message: C.label("detail-PROMETEO2025", "PROMETEO 2025"), detailId: "detail-PROMETEO2025"})
+  .commit({message: C.label("detail-FIND", "FIND"), detailId: "detail-FIND"})
+  .commit({message: C.label("detail-AViRobots", "AViRobots"), detailId: "detail-AViRobots"})
+  .commit({message: C.label("detail-ROBOT_VIGILANTE", "Robot_Vigilante"), detailId: "detail-ROBOT_VIGILANTE"})
+  .commit({message: C.label("detail-ACTVIS", "ACTVIS"), detailId: "detail-ACTVIS"})
+  .commit({message: C.label("detail-TED2021", "TED2021"), detailId: "detail-TED2021"})
+  .commit({message: C.label("detail-PROMETEO", "PROMETEO"), detailId: "detail-PROMETEO"})
   .merge(career, {message: "merge UMH", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 career.checkout();
 
@@ -32,24 +35,26 @@ branch_color = colorCycler.next();
 var gmv = career
   .branch({name: "GMV", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "GMV (2017–2021)", message: " "})
-  .commit({message: "[Mar 2019 – Oct 2021] · MOSAR", detailId: "detail-MOSAR"})
-  .commit({message: "[Feb 2019 – Oct 2021] · PROACT", detailId: "detail-PROACT"})
-  .commit({message: "[Feb 2019 – Oct 2021] · ADE", detailId: "detail-ADE"})
-  .commit({message: "[Jan 2018 – Jan 2019] · ERGO", detailId: "detail-ERGO"})
-  .commit({message: "[Feb 2017 – May 2018] · GOTCHA", detailId: "detail-GOTCHA"})
+  .commit({message: C.label("detail-MOSAR", "MOSAR"), detailId: "detail-MOSAR"})
+  .commit({message: C.label("detail-PROACT", "PROACT"), detailId: "detail-PROACT"})
+  .commit({message: C.label("detail-ADE", "ADE"), detailId: "detail-ADE"})
+  .commit({message: C.label("detail-ERGO", "ERGO"), detailId: "detail-ERGO"})
+  .commit({message: C.label("detail-GOTCHA", "GOTCHA"), detailId: "detail-GOTCHA"})
   .merge(career, {message: "merge GMV", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 career.checkout();
 
-// ---- Other ----
+// ---- UPM / HackLab ----
 branch_color = colorCycler.next();
-var other = career
-  .branch({name: "other", color: branch_color, commitDefaultOptions: {color: branch_color}})
-  .commit({tag: "Other", message: " "})
-  .commit({message: "HIDALGO", detailId: "detail-HIDALGO"})
-  .commit({message: "Other projects", detailId: "detail-Other"})
-  .merge(career, {message: "merge other", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
+var upm = career
+  .branch({name: "UPM", color: branch_color, commitDefaultOptions: {color: branch_color}})
+  .commit({tag: "UPM (2012–2018)", message: " "})
+  .commit({message: C.label("detail-RHA", "RHA (RoboHealth ARM)"), detailId: "detail-RHA"})
+  .commit({message: C.label("detail-HIDALGO", "HIDALGO"), detailId: "detail-HIDALGO"})
+  // "Other projects" hidden until its content is written (draft in _projects/detail_other.html):
+  // .commit({message: "Other projects", detailId: "detail-Other"})
+  .merge(career, {message: "merge UPM", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 
-career.commit({message: " ", messageColor: "#6e7681"});
+career.commit({message: " ", messageColor: C.palette.gray});
 
 // ---- Finalize ----
 C.finalize(gitgraph, myTemplate);

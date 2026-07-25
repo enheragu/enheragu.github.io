@@ -29,11 +29,7 @@
       {% if pub.key == k %}
     <li>
         <span class="pub-type-badge">{{ category.category }}</span>
-        <cite><small>{{ pub.authors | join: ", " }}. </small></cite>
-        <strong>({{ pub.year }}). {{ pub.title }}</strong>.
-        {% if pub.venue %} <em>{{ pub.venue }}</em>.{% endif %}
-        {% if pub.volume %} Vol. {{ pub.volume }}{% if pub.number %}({{ pub.number }}){% endif %}.{% endif %}
-        {% include publication_actions.html pub=pub %}
+        {% include pub_entry.html pub=pub %}
     </li>
       {% endif %}
     {% endfor %}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  /* Light palette matching print.css / SECTION_COLORS (web light theme). */
+  :root {
+    --gray:   #57606a;
+    --blue:   #0969da;
+    --green:  #1a7f37;
+    --amber:  #9a6700;
+    --purple: #8250df;
+    --red:    #cf222e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: transparent; }
+
+  /* Banner: wide + short. The build script screenshots .stage with a
+     transparent background so it can sit over the PDF header. */
+  .stage {
+    position: relative;
+    width: 1000px;
+    height: 88px;
+    background: transparent;
+    overflow: hidden;
+  }
+  .graph-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1000px;
+    height: 88px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;      /* trunk near the top; branches hang DOWN */
+    justify-content: flex-start;
+  }
+  /* No scaleY flip here (unlike og_card): the gray trunk stays at the top and
+     the feature branches descend, so the top edge reads as a border. */
+  .graph-wrap canvas { flex: 0 0 auto; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="graph-wrap"><canvas id="gitGraph"></canvas></div>
+  </div>
+
+  <!-- Real gitgraph engine (same as the site). -->
+  <script>localStorage.setItem('theme', 'light');</script>
+  <script src="../js/gitgraph.1.0.0.min.js"></script>
+  <script src="../js/gitgraph-common.js"></script>
+  <script>
+    var LP = {
+      gray:   '#57606a', blue: '#0969da', green: '#1a7f37',
+      amber:  '#9a6700', purple: '#8250df', red: '#cf222e'
+    };
+
+    function br(parent, name, color, column) {
+      var opts = { name: name, color: color, commitDefaultOptions: { color: color } };
+      if (typeof column === 'number') opts.column = column;
+      return parent.branch(opts);
+    }
+
+    // Soft on the LEFT (few branches, under the name), busier on the RIGHT
+    // (fills the empty space). Trunk (gray) runs along the top.
+    function buildGraph(spacingY) {
+      var tmpl = new GitGraph.Template({
+        colors: [LP.gray, LP.blue, LP.green, LP.purple, LP.red, LP.amber],
+        branch: { lineWidth: 3.5, spacingX: 21, labelRotation: 0 },
+        commit: {
+          spacingY: spacingY,
+          dot: { size: 6, strokeWidth: 2 },
+          message: { display: false }
+        }
+      });
+      var gitgraph = new GitGraph({
+        template: tmpl, author: '', mode: 'compact',
+        orientation: 'horizontal', elementId: 'gitGraph'
+      });
+
+      var main = gitgraph.branch({ name: 'main', color: LP.gray, commitDefaultOptions: { color: LP.gray } });
+      main.commit({}); main.commit({}); main.commit({});
+
+      // LEFT — soft: a single short blue branch.
+      var blue = br(main, 'blue', LP.blue);
+      blue.commit({}); blue.commit({}); blue.merge(main).delete();
+      main.commit({}); main.commit({});
+
+      // RIGHT — busier: green canopy with nested branches + amber + red.
+      var green = br(main, 'green', LP.green);
+      green.commit({});
+      var red = br(green, 'red', LP.red);
+      red.commit({});
+      main.commit({});
+      var amber = br(main, 'amber', LP.amber);
+      amber.commit({});
+      red.commit({}); red.merge(main).delete();
+      var purple = br(green, 'purple', LP.purple);
+      purple.commit({}); purple.merge(green).delete();
+      green.commit({}); green.merge(main).delete();
+      main.commit({});
+      amber.commit({}); amber.merge(main).delete();
+      main.commit({});
+
+      return gitgraph;
+    }
+
+    var TARGET = 980, REF = -50;
+    var refSpan = Math.max.apply(null, buildGraph(REF).commits.map(function (c) { return c.x; }));
+    var canvas = document.getElementById('gitGraph');
+    canvas.width = canvas.width;
+    var gitgraph = buildGraph(REF * TARGET / refSpan);
+
+    // DPR-independent placement: pin the first dot's outer edge to the left and
+    // the gray trunk near the top (see og_card for the marginX/dpr rationale).
+    (function place() {
+      var dpr = window.devicePixelRatio || 1;
+      var wrap = document.querySelector('.graph-wrap');
+      var mX = gitgraph.marginX, mY = gitgraph.marginY;
+      var r = gitgraph.template.commit.dot.size;
+      var LEFT = 8, TOP = 10;
+      wrap.style.left = (LEFT + r - mX / dpr) + 'px';
+      wrap.style.top = (TOP - mY / dpr) + 'px';
+    })();
+  </script>
+</body>
+</html>

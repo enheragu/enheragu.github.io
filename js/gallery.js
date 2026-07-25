@@ -3,6 +3,7 @@
 var allGalleryItems = [];
 var currentLightboxIndex = -1;
 var lightboxImageCache = Object.create(null);
+var lastFocusedGalleryItem = null;
 
 function isTruthyData(value) {
   var v = String(value || '').trim().toLowerCase();
@@ -76,12 +77,23 @@ function collectGalleryItems() {
     document.querySelectorAll('.gallery-item')
   );
 
-  // Wire up click handlers using data attributes
+  // Wire up click + keyboard handlers using data attributes
   allGalleryItems.forEach(function(item, idx) {
     classifyGalleryItem(item);
     if (item.dataset.lightboxBound !== '1') {
+      // Keyboard access: items are plain divs, expose them as buttons
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      var itemText = item.getAttribute('data-text') || '';
+      item.setAttribute('aria-label', 'Open image: ' + (itemText.trim() || 'photo ' + (idx + 1)));
       item.addEventListener('click', function() {
         openLightboxByIndex(idx);
+      });
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightboxByIndex(idx);
+        }
       });
       item.dataset.lightboxBound = '1';
     }
@@ -125,6 +137,16 @@ function openLightboxByIndex(idx) {
   lb.classList.add('active');
   lb.classList.add('is-loading');
   document.body.style.overflow = 'hidden';
+
+  // Dialog semantics + move focus into the lightbox on first open
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-modal', 'true');
+  lb.setAttribute('aria-label', 'Image viewer');
+  var closeBtn = lb.querySelector('.lightbox-close');
+  if (closeBtn && document.activeElement && !lb.contains(document.activeElement)) {
+    lastFocusedGalleryItem = document.activeElement;
+    closeBtn.focus();
+  }
 
   var loader = new Image();
   loader.decoding = 'async';
@@ -173,6 +195,12 @@ function closeLightbox(e) {
   }
   document.body.style.overflow = '';
   currentLightboxIndex = -1;
+
+  // Return focus to the item that opened the lightbox
+  if (lastFocusedGalleryItem && typeof lastFocusedGalleryItem.focus === 'function') {
+    lastFocusedGalleryItem.focus();
+    lastFocusedGalleryItem = null;
+  }
 }
 
 // Keyboard navigation

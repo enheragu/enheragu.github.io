@@ -1,7 +1,12 @@
-
-
 content_path: _academic
+
+# Each entry maps to a degree in _data/education.yml via `edu`; academic.md builds
+# the "[dates] · degree · institution" heading + window.cvLabels from there (single
+# source shared with the index page), and js/academic.js reads it via cvLabels.
 items:
 - id: detail-phd
+  edu: phd
 - id: detail-msc
+  edu: msc
 - id: detail-bsc
+  edu: bsc

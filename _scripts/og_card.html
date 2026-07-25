@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #05070a;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --blue: #58a6ff;
+    --green: #3fb950;
+    --amber: #d29922;
+    --purple: #bc8cff;
+    --red: #f85149;
+    --gray: #6e7681;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1200px;
+    height: 630px;
+    background: var(--page);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .stage {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(720px 420px at 30% 30%, rgba(88,166,255,0.10), transparent 60%),
+      radial-gradient(640px 380px at 78% 82%, rgba(63,185,80,0.07), transparent 60%),
+      var(--page);
+  }
+
+  .card {
+    position: relative;
+    width: 1104px;
+    height: 542px;
+    border-radius: 30px;
+    background: linear-gradient(155deg, #171c25 0%, #10141a 62%, #0d1117 100%);
+    border: 1px solid var(--border);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.55), 0 2px 0 rgba(255,255,255,0.03) inset;
+    overflow: hidden;
+  }
+
+  .content {
+    position: absolute;
+    left: 68px;
+    top: 62px;
+    width: 968px;
+  }
+
+  h1 {
+    font-size: 63px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  .kicker {
+    margin-top: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 23px;
+    color: var(--blue);
+    line-height: 1.5;
+  }
+
+  .graph-wrap {
+    position: absolute;
+    /* left/top here are only a fallback — place() in the script sets them at
+       runtime from the measured margins so the graph is DPR-independent (see the
+       note there). Left-anchored (flex-start) so the canvas starts at the wrap's
+       left edge; the fixed height keeps the flip's vertical centring stable. */
+    left: 49px;
+    top: 162px;
+    width: 1045px;
+    height: 290px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  /* Horizontal mode draws no commit text, so mirroring the canvas vertically is
+     safe: it flips the graph so the gray trunk reads as a baseline and the
+     feature branches rise upward (instead of hanging down as valleys).
+     flex:0 0 auto keeps the canvas at its intrinsic width. */
+  .graph-wrap canvas { transform: scaleY(-1); flex: 0 0 auto; }
+
+  .footer {
+    position: absolute;
+    /* Bottom-right: its right edge sits on the same 68px margin as the graph's
+       last dot, balancing the top-left title (title & graph anchor the left,
+       footer & graph anchor the right). */
+    right: 68px;
+    bottom: 34px;
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="card" id="capture-card">
+      <div class="content">
+        <h1>Enrique Heredia Aguado</h1>
+        <div class="kicker">Robotics &middot; Computer Vision &middot;  AI</div>
+      </div>
+
+      <div class="graph-wrap">
+        <canvas id="gitGraph"></canvas>
+      </div>
+
+      <div class="footer">enheragu.github.io</div>
+    </div>
+  </div>
+
+  <!-- Real gitgraph engine (same one used across the site), not a hand-drawn
+       approximation: same curves/dots/theming as the rest of the CV. -->
+  <script>localStorage.setItem('theme', 'dark');</script>
+  <script src="../js/gitgraph.1.0.0.min.js"></script>
+  <script src="../js/gitgraph-common.js"></script>
+  <script>
+    var C = GitGraphCommon;
+    var P = C.palette;
+
+    // Tiny helper to cut repetition when spawning branches. Pass an optional
+    // `column` to force a branch's level: a higher number sits higher up once
+    // the canvas is flipped. Omit it and the engine picks the lowest free
+    // column, which would place the child *below* its parent.
+    function br(parent, name, color, column) {
+      var opts = { name: name, color: color, commitDefaultOptions: { color: color } };
+      if (typeof column === 'number') opts.column = column;
+      return parent.branch(opts);
+    }
+
+    // Build the whole history at a given horizontal commit spacing and return
+    // the instance. It is called twice (see the fit below): the width is set by
+    // choosing the spacing — NOT by scaling the canvas — so the dots stay
+    // perfectly round and the result is pixel-identical in every browser.
+    function buildGraph(spacingY) {
+      var tmpl = new GitGraph.Template({
+        colors: [P.gray, P.blue, P.green, P.purple, P.red, P.amber],
+        // spacingX = vertical gap between branch levels. spacingY (horizontal
+        // gap between commits) is the fitted value passed in.
+        branch: { lineWidth: 5, spacingX: 44, labelRotation: 0 },
+        commit: {
+          spacingY: spacingY,
+          dot: { size: 9, strokeWidth: 3 },
+          message: { display: false }
+        }
+      });
+      var gitgraph = new GitGraph({
+        template: tmpl,
+        author: '',
+        mode: 'compact',
+        orientation: 'horizontal',
+        elementId: 'gitGraph'
+      });
+
+      var main = gitgraph.branch({ name: 'main', color: P.gray, commitDefaultOptions: { color: P.gray } });
+      main.commit({});
+      main.commit({});
+
+      // LEFT cluster — a "green" feature canopy with a short "blue" branch under
+      // it and a nested "purple" branch forced ONE level ABOVE green, so it peaks
+      // over the canopy instead of tucking beneath it. A "red" branch then forks
+      // off green and runs across the middle, stitching the two clusters together.
+      // (.delete() after each merge frees the column so lower levels get reused.)
+      var blue = br(main, 'blue', P.blue);
+      blue.commit({});
+      var green = br(main, 'green', P.green);
+      green.commit({});
+      main.commit({});
+      blue.commit({});
+      blue.commit({}); blue.merge(main).delete();
+      green.commit({});
+      main.commit({});
+      var red = br(green, 'red', P.red);
+      red.commit({});
+      green.merge(main).delete();
+      main.commit({});
+
+      // RIGHT cluster — an "amber" canopy with a nested "blue" branch below and a
+      // "green" branch forced one level ABOVE amber (peaks over the canopy, like
+      // purple on the left). The red connector from the left merges back in here.
+      var amber = br(main, 'amber', P.amber);
+      amber.commit({});
+      red.commit({}); red.merge(main).delete();
+      main.commit({});
+      var blue2 = br(amber, 'blue2', P.blue);
+      blue2.commit({}); blue2.merge(main).delete();
+      var purple = br(amber, 'purple', P.purple, amber.column + 1);
+      purple.commit({});
+      // purple.merge(amber).delete();
+      amber.commit({}); amber.merge(main).delete();
+      main.commit({});
+      purple.commit({});
+
+      return gitgraph;
+    }
+
+    // Two-pass fit: build once to measure the graph's natural width, then rebuild
+    // at the spacing that makes the first→last dot span exactly TARGET px. With
+    // the wrap offset (CSS), the dots' OUTER EDGES land on the text margins. No
+    // CSS scaleX, so the dots stay round and it renders the same in any browser.
+    // Robust to editing the history above — add/remove commits freely.
+    var TARGET = 950, REF = -50;
+    var refSpan = Math.max.apply(null, buildGraph(REF).commits.map(function (c) { return c.x; }));
+    var canvas = document.getElementById('gitGraph');
+    canvas.width = canvas.width;  // reset the 2D context before the real build
+    var gitgraph = buildGraph(REF * TARGET / refSpan);
+
+    // DPR-independent placement. The engine does context.translate(marginX,
+    // marginY) BEFORE context.scale(devicePixelRatio), so the graph's on-canvas
+    // offset is margin/dpr — its position drifts with the display density (that
+    // is why the 2x PNG looked shifted left/low vs the HTML at 1x, and why it
+    // changed between browsers). Position the wrap from the measured margins so
+    // the first dot's OUTER EDGE lands on the left text margin and the gray
+    // baseline on a fixed line, identically at any dpr.
+    (function place() {
+      var dpr = window.devicePixelRatio || 1;
+      var wrap = document.querySelector('.graph-wrap');
+      var mX = gitgraph.marginX, mY = gitgraph.marginY;
+      var r = gitgraph.template.commit.dot.size;   // dot radius
+      // LEFT is the card-x of the first dot's OUTER EDGE, aligned to the 68px
+      // text box (same margin as title / subtitle / footer). This keeps the
+      // graph centred and symmetric; the ~4px the round dot overshoots the
+      // letters' visible strokes is the natural overshoot circles need to read
+      // as aligned with text (a circle flush to a straight edge looks inset).
+      var LEFT = 68;
+      var BASELINE = 400; // card-y of the gray trunk
+      wrap.style.left = (LEFT + r - mX / dpr) + 'px';
+      wrap.style.top = (BASELINE - (wrap.clientHeight + canvas.clientHeight) / 2 + mY / dpr) + 'px';
+    })();
+  </script>
+</body>
+</html>

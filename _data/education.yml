@@ -1,0 +1,25 @@
+# Single source of truth for the three degrees. Consumed by:
+#   index.md / academic.md / print.md   -> derived "[dates] · degree · institution" label
+#                                           (items there carry `edu: phd|msc|bsc` instead of `label`)
+#   js/index.js & js/academic.js         -> canvas commit text via window.cvLabels
+#                                           (their inline fallback is degree-only)
+#   _cv_sections/* & _academic/* panels  -> thesis (via thesis_key) + directors + PhD thesis_desc
+# Thesis title/year/link stay single-sourced in _data/publications.yml (keyed by thesis_key).
+phd:
+  degree: "PhD in Industrial & Telecom Technologies"
+  institution: "UMH"
+  dates: "Dec. 2022 – present"
+  directors: "Arturo Gil Aparicio and David Valiente García"
+  thesis_desc: "Thesis on multispectral image fusion (thermal and RGB) and its methodological study through deep learning, extended to multisensor integration including LiDAR."
+msc:
+  degree: "M.Sc. Robotics"
+  institution: "UMH"
+  dates: "Oct. 2021 – Sep. 2022"
+  directors: "Arturo Gil Aparicio and David Valiente García"
+  thesis_key: "heredia2022tfm"
+bsc:
+  degree: "B.Sc. Electronics & Automation Eng."
+  institution: "UPM"
+  dates: "Sep. 2012 – Feb. 2018"
+  directors: "Miguel Hernando Gutierrez and Alberto Brunete González"
+  thesis_key: "heredia2018tfg"
