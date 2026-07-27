@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: transparent; }
+  /* Thin, subtle footer strip. Screenshotted transparent, embedded in the PDF
+     bottom margin (build_cv_pdf.py). Rendered UNFLIPPED here (trunk near the top,
+     branches hanging DOWN, exactly like the header); build_cv_pdf.py flips the
+     final <img> with scaleY(-1) so in the PDF the trunk is the bottom baseline and
+     the branches rise upward toward the content. Keeping the render unflipped lets
+     it reuse the header's simple, robust placement (no flip math). */
+  .stage {
+    position: relative;
+    width: 1000px;
+    height: 50px;
+    background: transparent;
+    overflow: hidden;
+  }
+  .graph-wrap {
+    position: absolute;
+    left: 0; top: 0;
+    width: 1000px; height: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .graph-wrap canvas { flex: 0 0 auto; }
+</style>
+</head>
+<body>
+  <div class="stage"><div class="graph-wrap"><canvas id="gitGraph"></canvas></div></div>
+
+  <script>localStorage.setItem('theme', 'light');</script>
+  <script src="../js/gitgraph.1.0.0.min.js"></script>
+  <script src="../js/gitgraph-common.js"></script>
+  <script>
+    var LP = {
+      gray:   '#57606a', blue: '#58a6ff', green: '#3fb950',
+      amber:  '#d29922', purple: '#bc8cff', red: '#f85149'
+    };
+    function br(parent, name, color, column) {
+      var opts = { name: name, color: color, commitDefaultOptions: { color: color } };
+      if (typeof column === 'number') opts.column = column;
+      return parent.branch(opts);
+    }
+    // Subtle: shallow branches that all merge back, ending in a clean converged
+    // trunk. Shallower/thinner than the header.
+    function buildGraph(spacingY) {
+      var tmpl = new GitGraph.Template({
+        colors: [LP.gray, LP.blue, LP.green, LP.amber, LP.purple, LP.red],
+        branch: { lineWidth: 3, spacingX: 16, labelRotation: 0 },
+        commit: { spacingY: spacingY, dot: { size: 5, strokeWidth: 2 }, message: { display: false } }
+      });
+      var g = new GitGraph({ template: tmpl, author: '', mode: 'compact', orientation: 'horizontal', elementId: 'gitGraph' });
+
+      var main = g.branch({ name: 'main', color: LP.gray, commitDefaultOptions: { color: LP.gray } });
+      main.commit({}); main.commit({}); main.commit({});
+      var blue = br(main, 'blue', LP.blue);
+      blue.commit({});
+      var green = br(main, 'green', LP.green);
+      green.commit({});
+      main.commit({});
+      blue.commit({}); blue.merge(main).delete();
+      var amber = br(main, 'amber', LP.amber);
+      amber.commit({});
+      green.commit({}); green.merge(main).delete();
+      main.commit({});
+      amber.commit({}); amber.merge(main).delete();
+      // Converge: clean trunk to the end.
+      main.commit({}); main.commit({}); main.commit({});
+      return g;
+    }
+
+    var TARGET = 948, REF = -50;
+    var refSpan = Math.max.apply(null, buildGraph(REF).commits.map(function (c) { return c.x; }));
+    var canvas = document.getElementById('gitGraph');
+    canvas.width = canvas.width;
+    var g = buildGraph(REF * TARGET / refSpan);
+
+    // DPR-independent placement (same as the header, unflipped): pin the first dot's
+    // outer edge to the left and the gray trunk near the top; branches hang down. The
+    // PDF flips the resulting image so the trunk becomes the bottom baseline.
+    (function place() {
+      var dpr = window.devicePixelRatio || 1;
+      var wrap = document.querySelector('.graph-wrap');
+      var mX = g.marginX, mY = g.marginY;
+      var r = g.template.commit.dot.size;
+      var LEFT = 2, TOP = 7;
+      wrap.style.left = (LEFT + r - mX / dpr) + 'px';
+      wrap.style.top = (TOP - mY / dpr) + 'px';
+    })();
+  </script>
+</body>
+</html>

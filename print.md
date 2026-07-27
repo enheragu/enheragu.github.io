@@ -50,16 +50,16 @@ sitemap: false
     {%- comment -%} Section colour mirrors SECTION_COLORS in js/index.js so the PDF
        matches the web (set inline per section — nth-of-type would reset per page). {%- endcomment -%}
     {%- case item.group -%}
-      {%- when "Education" -%}{%- assign bcolor = "#1a73e8" -%}
-      {%- when "Work Experience" -%}{%- assign bcolor = "#c9950c" -%}
-      {%- when "Publications" -%}{%- assign bcolor = "#1e8e3e" -%}
-      {%- when "Awards" -%}{%- assign bcolor = "#c9950c" -%}
-      {%- when "Projects" -%}{%- assign bcolor = "#d93025" -%}
-      {%- when "Courses and Workshops" -%}{%- assign bcolor = "#8430ce" -%}
-      {%- when "Skills" -%}{%- assign bcolor = "#1a73e8" -%}
-      {%- else -%}{%- assign bcolor = "#57606a" -%}
+      {%- when "Education" -%}{%- assign bcolor = "#58a6ff" -%}{%- assign bink = "#0a5cc0" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Work Experience" -%}{%- assign bcolor = "#d29922" -%}{%- assign bink = "#8a5a00" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Publications" -%}{%- assign bcolor = "#3fb950" -%}{%- assign bink = "#15803d" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Awards" -%}{%- assign bcolor = "#d29922" -%}{%- assign bink = "#8a5a00" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Projects" -%}{%- assign bcolor = "#f85149" -%}{%- assign bink = "#bf1b2c" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Courses and Workshops" -%}{%- assign bcolor = "#bc8cff" -%}{%- assign bink = "#6639c6" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Skills" -%}{%- assign bcolor = "#58a6ff" -%}{%- assign bink = "#0a5cc0" -%}{%- assign btext = "#1f2328" -%}
+      {%- else -%}{%- assign bcolor = "#57606a" -%}{%- assign bink = "#57606a" -%}{%- assign btext = "#ffffff" -%}
     {%- endcase -%}
-    <section class="pbranch" style="--branch: {{ bcolor }};">
+    <section class="pbranch" style="--branch: {{ bcolor }}; --branch-ink: {{ bink }}; --tag-text: {{ btext }};">
       <h2 class="print-section"><span>{{ item.group }}</span></h2>
       <div class="pbranch-body">
     {%- assign pbranch_open = true -%}

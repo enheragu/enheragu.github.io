@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+# =============================================================================
+# pre-commit — regenerate the CV PDF (and its gitgraph strips) when staged files
+# affect it, then add the outputs to the same commit so pdf/ never goes stale.
+#
+# Versioned in the repo (_scripts/git-hooks/). Git does NOT auto-run hooks from a
+# tracked directory when a repo is cloned (that would execute arbitrary code on
+# clone), so each clone activates it ONCE with:
+#     ./_scripts/install-hooks.sh          # sets core.hooksPath -> _scripts/git-hooks
+#
+# Skip it for a single commit with:         git commit --no-verify
+# Force a run outside the staged-file gate:  PRECOMMIT_FORCE=1 _scripts/git-hooks/pre-commit
+#
+# Note: the PDF is built from the WORKING TREE (same content the dev server / a
+# jekyll build sees), not from a staged-only snapshot — fine for the usual
+# "stage everything, commit" flow.
+# =============================================================================
+set -euo pipefail
+
+REPO="$(git rev-parse --show-toplevel)"
+cd "$REPO"
+
+# --- Only act when something that affects the PDF is staged ------------------
+relevant='^(print\.md|css/print\.css|_layouts/print\.html|_data/.*\.ya?ml|_cv_sections/|_projects/|_includes/|publications\.bib|_scripts/(build_cv_pdf|build_cv_header|build_cv_footer)\.py|_scripts/cv_graph_(header|footer)\.html)'
+staged="$(git diff --cached --name-only --diff-filter=ACMR || true)"
+if [ "${PRECOMMIT_FORCE:-0}" != "1" ]; then
+    if ! grep -Eq "$relevant" <<<"$staged"; then
+        exit 0
+    fi
+fi
+echo "[pre-commit] CV source changed -> regenerating PDF..."
+
+# --- Toolchain: jekyll via user gems, playwright via the workspace .venv ------
+USER_GEM_DIR="$(ruby -e 'require "rubygems"; print Gem.user_dir' 2>/dev/null || true)"
+[ -n "$USER_GEM_DIR" ] && export PATH="$USER_GEM_DIR/bin:$PATH"
+RUBY_API_VER="$(ruby -e 'print RbConfig::CONFIG["ruby_version"]' 2>/dev/null || true)"
+[ -n "$RUBY_API_VER" ] && export PATH="$HOME/.local/share/gem/ruby/$RUBY_API_VER/bin:$PATH"
+VENV_PY="$REPO/../.venv/bin/python"
+
+if [ ! -x "$VENV_PY" ] || ! command -v jekyll >/dev/null 2>&1; then
+    echo "[pre-commit] WARNING: workspace .venv (playwright) or jekyll not found."
+    echo "             Skipping PDF regen — the committed PDF may be stale."
+    echo "             Regenerate later with: $VENV_PY _scripts/build_cv_pdf.py"
+    exit 0
+fi
+
+add=()
+
+# --- Regenerate the gitgraph strips if their source changed ------------------
+if grep -Eq '_scripts/cv_graph_header\.html' <<<"$staged" || [ "${PRECOMMIT_FORCE:-0}" = "1" ]; then
+    "$VENV_PY" _scripts/build_cv_header.py && add+=("img/cv_header_graph.png")
+fi
+if grep -Eq '_scripts/cv_graph_footer\.html' <<<"$staged" || [ "${PRECOMMIT_FORCE:-0}" = "1" ]; then
+    "$VENV_PY" _scripts/build_cv_footer.py && add+=("img/cv_footer_graph.png")
+fi
+
+# --- Keep publications.yml in sync with the .bib -----------------------------
+if grep -Eq '(^|/)publications\.bib' <<<"$staged"; then
+    python3 _scripts/bib_to_yaml.py && add+=("_data/publications.yml")
+fi
+
+# --- Find a URL that serves print.html --------------------------------------
+# Prefer a running CV dev server (fast); otherwise build to a temp dir and serve
+# it (deterministic, and does not clash with a running `jekyll serve`).
+CV_URL=""
+for port in 4000 $(seq 4001 4020); do
+    if curl -sf "http://127.0.0.1:$port/print.html" 2>/dev/null | grep -q "Heredia Aguado"; then
+        CV_URL="http://127.0.0.1:$port/print.html"
+        echo "[pre-commit] Using running dev server: $CV_URL"
+        break
+    fi
+done
+
+TMP=""
+SRV=""
+cleanup() { [ -n "$SRV" ] && kill "$SRV" 2>/dev/null || true; [ -n "$TMP" ] && rm -rf "$TMP" || true; }
+trap cleanup EXIT
+
+if [ -z "$CV_URL" ]; then
+    echo "[pre-commit] No dev server found -> building the site to a temp dir..."
+    TMP="$(mktemp -d)"
+    jekyll build -q --baseurl '' -d "$TMP/_site"
+    PORT="$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1",0)); print(s.getsockname()[1]); s.close()')"
+    ( cd "$TMP/_site" && python3 -m http.server "$PORT" >/dev/null 2>&1 ) &
+    SRV=$!
+    CV_URL="http://127.0.0.1:$PORT/print.html"
+    for _ in $(seq 1 40); do
+        if curl -sf "$CV_URL" >/dev/null 2>&1; then break; fi
+        sleep 0.25
+    done
+fi
+
+# --- Generate the PDF --------------------------------------------------------
+"$VENV_PY" _scripts/build_cv_pdf.py --url "$CV_URL"
+add+=("pdf/EnriqueHerediaAguado_CV.pdf")
+
+# --- Stage the regenerated outputs into this commit --------------------------
+if [ "${#add[@]}" -gt 0 ]; then
+    git add "${add[@]}"
+    echo "[pre-commit] Regenerated & staged: ${add[*]}"
+fi
