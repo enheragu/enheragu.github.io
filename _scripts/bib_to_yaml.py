@@ -36,6 +36,21 @@ TYPE_LABELS = {
     'Poster': 'Posters',
 }
 
+# Singular forms — used for the per-publication chip in the projects/academic pub
+# boxes (a chip labels ONE publication, so "Journal Article", not the plural
+# section heading "Journal Articles"). Falls back to the plural if missing.
+TYPE_LABELS_SINGULAR = {
+    'Journal': 'Journal Article',
+    'Book Chapter': 'Book Chapter',
+    'Conference Paper': 'Conference Paper',
+    'Preprint': 'Preprint',
+    'Thesis': 'Thesis',
+    'Award': 'Award',
+    'Software': 'Software Tool',
+    'Presentation': 'Presentation',
+    'Poster': 'Poster',
+}
+
 
 def parse_bib(bib_content):
     """Parse a .bib file content and return a list of entries."""
@@ -262,7 +277,9 @@ def entries_to_yaml(entries):
 
     for pub_type in sorted_types:
         type_label = TYPE_LABELS.get(pub_type, pub_type)
+        type_label_singular = TYPE_LABELS_SINGULAR.get(pub_type, type_label)
         lines.append(f"- category: {yaml_escape(type_label)}")
+        lines.append(f"  category_singular: {yaml_escape(type_label_singular)}")
         lines.append(f"  type_key: {yaml_escape(pub_type.lower().replace(' ', '_'))}")
         lines.append("  entries:")
 

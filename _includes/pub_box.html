@@ -28,7 +28,7 @@
     {% for pub in category.entries %}
       {% if pub.key == k %}
     <li>
-        <span class="pub-type-badge">{{ category.category }}</span>
+        <span class="pub-type-badge">{{ category.category_singular | default: category.category }}</span>
         {% include pub_entry.html pub=pub %}
     </li>
       {% endif %}

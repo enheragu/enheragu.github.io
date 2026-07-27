@@ -8,7 +8,7 @@
   --ink: #1f2328;
   --muted: #57606a;
   --line: #d0d7de;
-  --accent: #0969da;
+  --accent: #58a6ff;   /* nocturnal blue — matches the section tags & the gitgraph strips */
   --mono: "JetBrains Mono", "Cascadia Code", Consolas, Menlo, monospace;
 }
 
@@ -204,9 +204,11 @@ h3.print-entry::before {
   margin: 2mm 0 0.5mm;
   break-after: avoid;
 }
-/* h3 subheadings echo the section's branch colour (--branch is set per section
-   by the .print-cv h2:nth-of-type rules above), matching the web panels. */
-.print-panel h3 { color: var(--branch, var(--muted)); }
+/* Panel sub-headings echo the section's branch colour (--branch set per section),
+   matching the web panels — h3 AND h4 ("Publications and References", "Related
+   Repositories"…). */
+.print-panel h3,
+.print-panel h4 { color: var(--branch, var(--muted)); }
 
 .print-panel p {
   margin-bottom: 0.7mm;

@@ -112,7 +112,7 @@ var skills = cv_eeha
 // (no literal e-mail string in the source) and lives on the CANVAS, i.e. drawn
 // as pixels, not DOM text, so scrapers can't read it; the header icon is the
 // clickable / copy-to-clipboard version.
-cv_eeha.commit({message: "Feel free to reach out! :)  ·  " + "e.heredia" + " [at] " + "umh.es", messageColor: C.palette.gray});
+cv_eeha.commit({message: "Feel free to reach out! :)  ·  " + "e.heredia" + String.fromCharCode(64) + "umh.es", messageColor: C.palette.gray});
 
 // ---- Finalize: widthExtension + relayout + resize hook ----
 C.finalize(gitgraph, myTemplate);

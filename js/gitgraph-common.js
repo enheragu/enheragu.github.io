@@ -22,27 +22,35 @@ var GitGraphCommon = (function() {
     return !(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
 
-  // ---- Shared color palette (canvas colors, themed) ----
-  // Pairs of [dark-bg color, light-bg color] — GitHub-style hues; the light
-  // variants keep WCAG-AA contrast on white (the dark palette did not).
-  var COLOR_PAIRS = {
-    gray:   ["#6e7681", "#57606a"],
-    blue:   ["#58a6ff", "#0969da"],
-    amber:  ["#d29922", "#9a6700"],
-    green:  ["#3fb950", "#1a7f37"],
-    red:    ["#f85149", "#cf222e"],
-    purple: ["#bc8cff", "#8250df"]
+  // ---- Shared color palette (canvas colors) ----
+  // SINGLE SOURCE OF TRUTH: the brand palette is read straight from the theme's
+  // --pal-* CSS custom properties (tool-pages-theme/assets/shared/theme-tokens.css),
+  // so the canvas never duplicates the hexes and always matches the rest of the
+  // site — and whatever the theme defines per light/dark. To recolour the brand,
+  // edit the THEME, not this file. The hardcoded map is ONLY a safety fallback for
+  // the brief moment before the stylesheet has applied.
+  var PAL_VARS = {
+    gray: '--pal-gray', blue: '--pal-blue', amber: '--pal-amber',
+    green: '--pal-green', red: '--pal-red', purple: '--pal-purple'
   };
+  var PAL_FALLBACK = {
+    gray: '#6e7681', blue: '#58a6ff', amber: '#d29922',
+    green: '#3fb950', red: '#f85149', purple: '#bc8cff'
+  };
+  function readPalette() {
+    var cs = window.getComputedStyle(document.documentElement);
+    var pal = {};
+    for (var k in PAL_VARS) {
+      if (Object.prototype.hasOwnProperty.call(PAL_VARS, k)) {
+        var v = (cs.getPropertyValue(PAL_VARS[k]) || '').trim();
+        pal[k] = v || PAL_FALLBACK[k];
+      }
+    }
+    return pal;
+  }
 
   var themeIsLight = isLightTheme();
-  var themeIdx = themeIsLight ? 1 : 0;
-
-  var palette = {};
-  for (var pKey in COLOR_PAIRS) {
-    if (Object.prototype.hasOwnProperty.call(COLOR_PAIRS, pKey)) {
-      palette[pKey] = COLOR_PAIRS[pKey][themeIdx];
-    }
-  }
+  var palette = readPalette();
 
   var defaultColors = [
     palette.gray, palette.blue, palette.amber, palette.green, palette.red,
@@ -51,13 +59,16 @@ var GitGraphCommon = (function() {
   ];
 
   // ---- Live recolor when the theme toggle flips data-theme ----
-  // Colors are baked into branch/commit objects at build time; swap them via
-  // the dark↔light pairs and re-render, without rebuilding the graph.
+  // Colours are baked into branch/commit objects at build time. On a theme flip we
+  // re-read the --pal-* vars and remap the previous palette to the new one, then
+  // re-render (no rebuild). With a palette identical in light & dark this is a
+  // no-op; it still works if the theme ever defines per-mode hues.
   function recolorForTheme(gitgraph, toLight) {
+    var newPalette = readPalette();
     var map = {};
-    for (var k in COLOR_PAIRS) {
-      if (Object.prototype.hasOwnProperty.call(COLOR_PAIRS, k)) {
-        map[COLOR_PAIRS[k][toLight ? 0 : 1]] = COLOR_PAIRS[k][toLight ? 1 : 0];
+    for (var k in palette) {
+      if (Object.prototype.hasOwnProperty.call(palette, k)) {
+        map[palette[k]] = newPalette[k];
       }
     }
     function sw(c) { return map[c] || c; }
@@ -80,6 +91,9 @@ var GitGraphCommon = (function() {
       for (i = 0; i < gitgraph.template.colors.length; i++) {
         gitgraph.template.colors[i] = sw(gitgraph.template.colors[i]);
       }
+    }
+    for (var nk in newPalette) {
+      if (Object.prototype.hasOwnProperty.call(newPalette, nk)) palette[nk] = newPalette[nk];
     }
     gitgraph.render();
     tintPanels(gitgraph);

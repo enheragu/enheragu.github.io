@@ -1,4 +1,5 @@
 - category: "Journal Articles"
+  category_singular: "Journal Article"
   type_key: "journal"
   entries:
     - key: "heredia2025fusion_static"
@@ -32,6 +33,7 @@
       number: "4"
 
 - category: "Book Chapters"
+  category_singular: "Book Chapter"
   type_key: "book_chapter"
   entries:
     - key: "santo2026sparse_conv"
@@ -74,6 +76,7 @@
       pages: "395–431"
 
 - category: "Conference Papers"
+  category_singular: "Conference Paper"
   type_key: "conference_paper"
   entries:
     - key: "cea2026eheredia"
@@ -262,6 +265,7 @@
       url: "https://kclpure.kcl.ac.uk/ws/portalfiles/portal/101292706/IAC_2018_ERGO_PaperV1.0.pdf"
 
 - category: "Preprints"
+  category_singular: "Preprint"
   type_key: "preprint"
   entries:
     - key: "heredia2026variance_analysis_ml"
@@ -276,6 +280,7 @@
       venue: "Preprint"
 
 - category: "Theses"
+  category_singular: "Thesis"
   type_key: "thesis"
   entries:
     - key: "heredia2022tfm"
@@ -297,6 +302,7 @@
       url: "https://github.com/enheragu/RHA-report"
 
 - category: "Presentations"
+  category_singular: "Presentation"
   type_key: "presentation"
   entries:
     - key: "cepero2026ojodato"
@@ -374,6 +380,7 @@
       venue: "Reunión Científica sobre Atención (RECA14)"
 
 - category: "Posters"
+  category_singular: "Poster"
   type_key: "poster"
   entries:
     - key: "cepero2026cip"
@@ -413,6 +420,7 @@
       venue: "XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)"
 
 - category: "Software Tools"
+  category_singular: "Software Tool"
   type_key: "software"
   entries:
     - key: "heredia2026psychometric_tools"
@@ -438,6 +446,7 @@
       url: "https://enheragu.github.io/mlv-tools"
 
 - category: "Awards"
+  category_singular: "Award"
   type_key: "award"
   entries:
     - key: "heredia2026premio_aemcco"

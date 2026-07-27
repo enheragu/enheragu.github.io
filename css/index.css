@@ -265,12 +265,24 @@ section {
 }
 
 /* Audit fix: default h3 rendered at 18.7px inside panels ("At UMH…"), a big
-   jump vs the equivalent h4 headers (14.7px). One step above prose instead.
-   Colour = the section's branch colour (--branch, set per panel by tintPanels
-   in gitgraph-common) so subheadings echo the graph; falls back to muted. */
+   jump vs the equivalent h4 headers (14.7px). One step above prose instead. */
 .gitgraph-detail h3 {
   font-size: var(--txt-lg);
+}
+/* Panel sub-headings echo their section's branch colour (--branch, set per panel
+   by tintPanels in gitgraph-common), so headings match the graph on every page —
+   h3 AND h4 ("Publications and References", "Related Repositories"…). Falls back
+   to muted. */
+.gitgraph-detail h3,
+.gitgraph-detail h4 {
   color: var(--branch, var(--text-muted));
+}
+/* The shared publication-ui.css colours .pub-box/.repo-box h4 ("Publications and
+   References", "Related Repositories") with --accent; on the CV's gitgraph pages
+   override it (higher specificity) so they follow their section's branch too. */
+.gitgraph-detail .pub-box h4,
+.gitgraph-detail .repo-box h4 {
+  color: var(--branch, var(--accent, var(--text-muted)));
 }
 
 .gitgraph-detail strong {
