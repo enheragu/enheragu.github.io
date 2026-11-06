@@ -44,6 +44,7 @@ branch_color = colorCycler.next();
 var phd = umh
   .branch({name: "PhD", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "PhD", message: " "})
+  .commit({message: "[09–10/2026] · Universidad Nacional de Córdoba (research stay)", detailId: "phd-cordoba-2026"})
   .commit({message: "[07/2026] · AEMCCO Conference", detailId: "phd-aemcco-2026"})
   .commit({message: "[05–07/2026] · DFKI Bremen (2nd research stay)", detailId: "phd-bremen-2026"})
   .commit({message: "[12/2025] · DFKI Bremen (research stay)", detailId: "phd-bremen-2025"})

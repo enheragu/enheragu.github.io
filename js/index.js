@@ -53,6 +53,7 @@ var work = cv_eeha
   .branch({name: "work", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "Work Experience", message: " "})
   .commit({message: C.label("detail-umh", "[Dec. 2022 – present] · Research Engineer & PhD Student · UMH"), detailId: "detail-umh" })
+  .commit({message: C.label("detail-lidesia-2026", "[Sep. – Oct. 2026] · Visiting researcher · Universidad Nacional de Córdoba"), detailId: "detail-lidesia-2026" })
   .commit({message: C.label("detail-umh-lecturer", "[Mar. – Jun. 2026] · Lecturer · UMH"), detailId: "detail-umh-lecturer" })
   .commit({message: C.label("detail-dfki-2025", "[Dec. 2025 · May–Jul. 2026] · Visiting researcher · DFKI Bremen"), detailId: "detail-dfki-2025" })
   .commit({message: C.label("detail-umh-intern", "[Feb. 2022 – Sep. 2022] · Research Intern · UMH"), detailId: "detail-umh-intern" })

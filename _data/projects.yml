@@ -17,6 +17,13 @@ groups:
   heading: "At UPM (2012–2018)"
 
 items:
+- id: detail-LIDESIA_LSA
+  group: UMH
+  name: "Consolidar SeCyT-UNC"
+  desc: '"Enfoque Integral de la Inteligencia Artificial Aplicada, orientado a Problemas Emergentes". Research stay at LIDeSIA, Universidad Nacional de Córdoba (Sep. – Oct. 2026), in its line on Argentine Sign Language (LSA) recognition and translation: extension of the LSA-Med dataset with real-depth RGB-D recordings and study of 3D depth fusion for sign recognition.'
+  link: "https://fcefyn.unc.edu.ar/facultad/secretarias/investigacion-y-desarrollo/laboratorios/laboratorio-de-investigacion-y-desarrollo-de-software-e-inteligencia-artificial-lidesia/"
+  link_text: "LIDeSIA"
+  panel: false
 - id: detail-PROMETEO2025
   group: UMH
   name: "PROMETEO 2025"

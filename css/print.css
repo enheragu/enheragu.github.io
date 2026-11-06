@@ -185,6 +185,17 @@ h3.print-entry::before {
   border: 0.55mm solid #ffffff;
 }
 
+/* Consecutive print_compact entries (heading right after a heading, no panel in
+   between) read as one tight list — and the saved space keeps the core on page 1. */
+h3.print-entry + h3.print-entry { padding-top: 0.7mm; }
+h3.print-entry + h3.print-entry::before { top: 1.5mm; }
+/* Page-group fitting (.print-page-N comes from the print_page flag in print.md).
+   PDF-only density tweaks so each group keeps its page; the web content is never
+   trimmed for the PDF. Page 1 = compact core, at its limit. */
+.print-page-1 .pbranch { padding-top: 1.6mm; }
+/* Page 3 = Projects + Courses: a dense summary list, slightly tighter leading. */
+.print-page-3 .print-panel { line-height: 1.2; }
+
 /* Branch colour per section is set INLINE on each .pbranch by print.md (via
    --branch), mirroring SECTION_COLORS in js/index.js. It must be inline, not a
    nth-of-type rule, because the PDF splits into one .print-cv per page-group and

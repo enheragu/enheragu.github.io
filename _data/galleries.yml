@@ -8,6 +8,25 @@ branches:
 - name: "PhD"
   tag: "PhD"
   campaigns:
+  - id: phd-cordoba-2026
+    label: "[09–10/2026] · Universidad Nacional de Córdoba (research stay)"
+    images:
+    - name: 10_2026_phd_cordoba_capture_session.JPG
+      text: "Recording Argentine Sign Language (LSA) data with a sign language interpreter at LIDeSIA, Córdoba."
+      author: "Paula Vasquetto"
+      camera: "iPhone 15"
+      date: "[10/2026]"
+    - name: 10_2026_phd_cordoba_capture_interface.JPG
+      text: "Capture interface on the iPad: live RGB frame and real depth map from the iPhone, with per-take quality checks."
+      author: "Paula Vasquetto"
+      camera: "iPhone 15"
+      date: "[10/2026]"
+    - name: 10_2026_phd_cordoba_lidesia_team.JPG
+      text: "With the LIDeSIA team, Universidad Nacional de Córdoba."
+      author: " "
+      camera: "iPhone 15"
+      date: "[10/2026]"
+      thumb_position: 80% center
   - id: phd-aemcco-2026
     label: "[07/2026] · AEMCCO Conference"
     images:

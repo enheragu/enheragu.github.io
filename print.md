@@ -38,7 +38,7 @@ sitemap: false
     </section>
   </section>
     {%- endunless -%}
-  <section class="print-cv{% unless forloop.first %} print-newpage{% endunless %}">
+  <section class="print-cv print-page-{{ item.print_page }}{% unless forloop.first %} print-newpage{% endunless %}">
     {%- assign cur_page = item.print_page -%}
     {%- assign pbranch_open = false -%}
   {%- endif -%}
