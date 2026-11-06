@@ -22,10 +22,15 @@ var gitgraph = new GitGraph({
   author: "",
 });
 
-// Helper: dynamic publication count from Liquid-injected data
-function _pc(typeKey) {
-  var c = window.pubCounts && window.pubCounts[typeKey];
-  return c ? " (" + c + ")" : "";
+// Helper: dynamic publication count from Liquid-injected data. Several type
+// keys add up (a section can list more than one category).
+function _pc() {
+  var total = 0;
+  for (var i = 0; i < arguments.length; i++) {
+    var c = window.pubCounts && window.pubCounts[arguments[i]];
+    if (c) { total += c; }
+  }
+  return total ? " (" + total + ")" : "";
 }
 
 // ---- MAIN BRANCH ----
@@ -76,6 +81,7 @@ var publications = cv_eeha
   .commit({message: C.label("detail-pub-presentations", "Oral Presentations") + _pc("presentation"), detailId: "detail-pub-presentations" })
   .commit({message: C.label("detail-pub-posters", "Poster Presentations") + _pc("poster"), detailId: "detail-pub-posters" })
   .commit({message: C.label("detail-pub-software", "Software Tools") + _pc("software"), detailId: "detail-pub-software" })
+  .commit({message: C.label("detail-pub-replication", "Replication and Transparency") + _pc("research_data", "analysis_code"), detailId: "detail-pub-replication" })
   .merge(cv_eeha, {message: "merge publications", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 cv_eeha.checkout();
 

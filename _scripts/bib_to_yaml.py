@@ -21,7 +21,9 @@ TYPE_ORDER = {
     'Presentation': 5,
     'Poster': 6,
     'Software': 7,
-    'Award': 8,
+    'Research Data': 8,
+    'Analysis Code': 9,
+    'Award': 10,
 }
 
 TYPE_LABELS = {
@@ -32,6 +34,8 @@ TYPE_LABELS = {
     'Thesis': 'Theses',
     'Award': 'Awards',
     'Software': 'Software Tools',
+    'Research Data': 'Research Data',
+    'Analysis Code': 'Analysis Code',
     'Presentation': 'Presentations',
     'Poster': 'Posters',
 }
@@ -47,6 +51,8 @@ TYPE_LABELS_SINGULAR = {
     'Thesis': 'Thesis',
     'Award': 'Award',
     'Software': 'Software Tool',
+    'Research Data': 'Dataset',
+    'Analysis Code': 'Analysis Code',
     'Presentation': 'Presentation',
     'Poster': 'Poster',
 }
@@ -241,6 +247,8 @@ def get_pub_type(entry):
         return 'Thesis'
     elif etype == 'software':
         return 'Software'
+    elif etype == 'dataset':
+        return 'Research Data'
     elif etype == 'misc':
         if 'poster' in note.lower():
             return 'Poster'

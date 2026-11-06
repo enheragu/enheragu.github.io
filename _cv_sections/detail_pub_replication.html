@@ -1,0 +1,18 @@
+{% comment %}
+  Replication and Transparency: the per-trial data deposits and the training and
+  analysis code archived (Zenodo) with each article. Usable applications stay in
+  "Software Tools"; this section holds what backs the papers. Each sub-list
+  renders only when its category has entries (the data deposits stay commented
+  out in publications.bib until their articles are published).
+{% endcomment %}
+<p>Per-trial data deposits and the training and analysis code archived with each article, so that every table and figure can be recomputed from the published data.</p>
+{% assign rdata = site.data.publications | where: "type_key", "research_data" | first %}
+{% if rdata %}
+<h4>Research Data</h4>
+{% include pub_list.html type_key="research_data" %}
+{% endif %}
+{% assign rcode = site.data.publications | where: "type_key", "analysis_code" | first %}
+{% if rcode %}
+<h4>Analysis Code</h4>
+{% include pub_list.html type_key="analysis_code" %}
+{% endif %}

@@ -76,6 +76,9 @@ items:
 - id: detail-pub-software
   label: "Software Tools"
   print_page: 2
+- id: detail-pub-replication
+  label: "Replication and Transparency"
+  print_page: 2
 - id: detail-awards
   group: "Awards"
   print_page: 2

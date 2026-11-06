@@ -2,7 +2,7 @@
 %% Publicaciones de Enrique Heredia Aguado
 %% Para excluir una entrada de la web, añadir: exclude = {true}
 %% El campo 'note' se usa para clasificar: Preprint, Journal, Book Chapter,
-%%   Conference Paper, Presentation, Poster, Software
+%%   Conference Paper, Presentation, Poster, Software, Research Data, Analysis Code
 %% ==========================================================================
 
 
@@ -96,6 +96,18 @@
   number = {2},
   year = {2026},
   doi = {10.64117/simposioscea.v2i2.224},
+  note = {Conference Paper}
+}
+
+@inproceedings{icinco26mmaximo,
+  author = {M{\'a}ximo, M{\'i}riam and Heredia-Aguado, Enrique and Gonz{\'a}lez-Amor{\'o}s, Esther and Mart{\'i}nez-Peral, Francisco Jos{\'e} and Pay{\'a}, Luis and Valiente, David and Ballesta, M{\'o}nica},
+  title = {Deep Global Point Cloud Registration for Long-Term Robot Localization},
+  booktitle = {Proceedings of the 23rd International Conference on Informatics in Control, Automation and Robotics (ICINCO)},
+  year = {2026},
+  pages = {390--397},
+  publisher = {SciTePress},
+  isbn = {978-989-758-870-9},
+  doi = {10.5220/0015203000004979},
   note = {Conference Paper}
 }
 
@@ -199,14 +211,16 @@
   title = {Ojo al dato: Soluciones interdisciplinares a problemas metodol{\'o}gicos en experimentos de b{\'u}squeda visual},
   year = {2026},
   howpublished = {XIX Congreso de Metodolog{\'i}a de las Ciencias Sociales y de la Salud (AEMCCO), Almer{\'i}a},
+  doi = {10.13140/RG.2.2.10111.16807},
   note = {Presentation}
 }
 
 @misc{rujano2026sesgos,
   author = {Rujano, Alejandro and Heredia-Aguado, Enrique},
-  title = {Aunque la hip{\'o}tesis se vista de seda: Sesgos metodol{\'o}gicos en el estudio de la paradoja de la igualdad},
+  title = {Aunque la hip{\'o}tesis se vista de seda: Sesgos metodol{\'o}gicos en el estudio de la paradoja de la igualdad de g{\'e}nero},
   year = {2026},
   howpublished = {XIX Congreso de Metodolog{\'i}a de las Ciencias Sociales y de la Salud (AEMCCO), Almer{\'i}a},
+  doi = {10.13140/RG.2.2.32138.43200},
   note = {Presentation}
 }
 
@@ -215,6 +229,7 @@
   title = {Que no te enga{\~n}e el azar: C{\'o}mo impacta la aleatoriedad en el dise{\~n}o de redes neuronales},
   year = {2026},
   howpublished = {XIX Congreso de Metodolog{\'i}a de las Ciencias Sociales y de la Salud (AEMCCO), Almer{\'i}a},
+  doi = {10.13140/RG.2.2.31685.61925},
   slides = {https://enheragu.github.io/presentations/2026_07_8_AEMCCO_ALMERIA/},
   note = {Presentation}
 }
@@ -277,10 +292,11 @@
 }
 
 @misc{cepero2024poster_visual_search,
-  author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Sobrino, Lidia and Aivar, M. Pilar},
+  author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Sobrino, Lidia and Cantero, Laura and Garc{\'i}a de Viedma, Mar{\'i}a and Plaza, Victoria and Aivar, M. Pilar},
   title = {Bringing Visual Search to Life: how we find colored objects when performing a natural task},
   year = {2024},
   howpublished = {XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)},
+  doi = {10.13140/RG.2.2.36031.78242},
   note = {Poster}
 }
 
@@ -308,6 +324,65 @@
   doi          = {10.5281/zenodo.20268237},
   url          = {https://enheragu.github.io/mlv-tools},
   note = {Software},
+}
+
+%% ===================== REPLICATION AND TRANSPARENCY ======================
+%% Per-trial data deposits and the training/analysis code archived with each
+%% article or study (eye_tracking_board backs the visual search studies). Concept DOIs (always resolve to the latest release), as in SOFTWARE.
+%% The data deposits are listed from the start (Enrique's decision, 2026-11-06):
+%% their DOIs resolve once the articles are published.
+
+@software{heredia2026mnist_playground,
+  author       = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
+  title        = {Performance variability of neural network training on MNIST and YOLO object detection: training and analysis code},
+  month        = {nov},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.24003004},
+  url          = {https://github.com/enheragu/mnist-learning-playground},
+  note         = {Analysis Code},
+}
+
+@software{heredia2026cpc18_playground,
+  author       = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
+  title        = {Variance-aware evaluation of CPC18 choice prediction models: training and analysis code},
+  month        = {nov},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.24013058},
+  url          = {https://github.com/enheragu/cpc18-learning-playground},
+  note         = {Analysis Code},
+}
+
+@software{heredia2026eye_tracking_board,
+  author       = {Heredia-Aguado, Enrique and Cepero Amores, Laura},
+  title        = {Uncertainty-aware gaze-to-cell mapping for mobile eye tracking of visual search on a physical board},
+  month        = {oct},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23724999},
+  url          = {https://github.com/enheragu/eye_tracking_board},
+  note         = {Analysis Code},
+}
+
+%% Data deposit of heredia2026variance_analysis_ml (same key as in the article):
+@dataset{heredia2026pertrial_mnist,
+  author       = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
+  title        = {Per-trial results: performance variability of neural network training on MNIST and YOLOv8 object detection},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23977922},
+  note         = {Research Data},
+}
+
+%% Data deposit of the CPC18 replication article (same key as in the article):
+@dataset{heredia2026pertrial_cpc18,
+  author       = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
+  title        = {Per-trial results: variance-aware evaluation of CPC18 choice prediction models},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23978015},
+  note         = {Research Data},
 }
 
 %% ================================ THESES ================================

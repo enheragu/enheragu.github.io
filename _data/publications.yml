@@ -110,6 +110,22 @@
       volume: "2"
       number: "2"
 
+    - key: "icinco26mmaximo"
+      title: "Deep Global Point Cloud Registration for Long-Term Robot Localization"
+      year: 2026
+      authors:
+        - "Míriam Máximo"
+        - "Enrique Heredia-Aguado"
+        - "Esther González-Amorós"
+        - "Francisco José Martínez-Peral"
+        - "Luis Payá"
+        - "David Valiente"
+        - "Mónica Ballesta"
+      venue: "Proceedings of the 23rd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
+      publisher: "SciTePress"
+      doi: "10.5220/0015203000004979"
+      pages: "390–397"
+
     - key: "icinco25eheredia"
       title: "A Robust Comparative Study of Adaptative Reprojection Fusion Methods for Deep Learning Based Detection Tasks with RGB-Thermal Images"
       year: 2025
@@ -315,14 +331,16 @@
         - "Victoria Plaza"
         - "M. Pilar Aivar"
       venue: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO), Almería"
+      doi: "10.13140/RG.2.2.10111.16807"
 
     - key: "rujano2026sesgos"
-      title: "Aunque la hipótesis se vista de seda: Sesgos metodológicos en el estudio de la paradoja de la igualdad"
+      title: "Aunque la hipótesis se vista de seda: Sesgos metodológicos en el estudio de la paradoja de la igualdad de género"
       year: 2026
       authors:
         - "Alejandro Rujano"
         - "Enrique Heredia-Aguado"
       venue: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO), Almería"
+      doi: "10.13140/RG.2.2.32138.43200"
 
     - key: "heredia2026azar_redes"
       title: "Que no te engañe el azar: Cómo impacta la aleatoriedad en el diseño de redes neuronales"
@@ -333,6 +351,7 @@
         - "David Valiente"
         - "Arturo Gil"
       venue: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO), Almería"
+      doi: "10.13140/RG.2.2.31685.61925"
       slides: "https://enheragu.github.io/presentations/2026_07_8_AEMCCO_ALMERIA/"
 
     - key: "cepero2026busqueda_visual"
@@ -416,8 +435,12 @@
         - "Laura Cepero Amores"
         - "Enrique Heredia-Aguado"
         - "Lidia Sobrino"
+        - "Laura Cantero"
+        - "María García de Viedma"
+        - "Victoria Plaza"
         - "M. Pilar Aivar"
       venue: "XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)"
+      doi: "10.13140/RG.2.2.36031.78242"
 
 - category: "Software Tools"
   category_singular: "Software Tool"
@@ -444,6 +467,70 @@
       publisher: "Zenodo"
       doi: "10.5281/zenodo.20268237"
       url: "https://enheragu.github.io/mlv-tools"
+
+- category: "Research Data"
+  category_singular: "Dataset"
+  type_key: "research_data"
+  entries:
+    - key: "heredia2026pertrial_mnist"
+      title: "Per-trial results: performance variability of neural network training on MNIST and YOLOv8 object detection"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.23977922"
+
+    - key: "heredia2026pertrial_cpc18"
+      title: "Per-trial results: variance-aware evaluation of CPC18 choice prediction models"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.23978015"
+
+- category: "Analysis Code"
+  category_singular: "Analysis Code"
+  type_key: "analysis_code"
+  entries:
+    - key: "heredia2026mnist_playground"
+      title: "Performance variability of neural network training on MNIST and YOLO object detection: training and analysis code"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.24003004"
+      url: "https://github.com/enheragu/mnist-learning-playground"
+
+    - key: "heredia2026cpc18_playground"
+      title: "Variance-aware evaluation of CPC18 choice prediction models: training and analysis code"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.24013058"
+      url: "https://github.com/enheragu/cpc18-learning-playground"
+
+    - key: "heredia2026eye_tracking_board"
+      title: "Uncertainty-aware gaze-to-cell mapping for mobile eye tracking of visual search on a physical board"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Laura Cepero Amores"
+      publisher: "Zenodo"
+      doi: "10.5281/zenodo.23724999"
+      url: "https://github.com/enheragu/eye_tracking_board"
 
 - category: "Awards"
   category_singular: "Award"
