@@ -290,9 +290,30 @@
       authors:
         - "Enrique Heredia-Aguado"
         - "Alejandro Rujano"
-        - "Mónica Galdeano"
+        - "Mónica Ballesta"
         - "David Valiente"
         - "Arturo Gil"
+      venue: "Preprint"
+
+    - key: "heredia2026advancedfusion"
+      title: "Adaptive Early Fusion Techniques for Visible and Thermal Images in Pedestrian Detection: A Replicated Evaluation"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "David Valiente"
+        - "Luis Payá"
+        - "Arturo Gil"
+      venue: "Preprint"
+
+    - key: "heredia2026cpc18"
+      title: "Variance-Aware Evaluation of Behavioral Choice Prediction Models: A Replication and Extension on the Choice Prediction Competition 2018"
+      year: 2026
+      authors:
+        - "Enrique Heredia-Aguado"
+        - "Alejandro Rujano"
+        - "David Valiente"
+        - "Arturo Gil"
+        - "Luis Payá"
       venue: "Preprint"
 
 - category: "Theses"
