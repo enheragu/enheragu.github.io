@@ -1,0 +1,13 @@
+{% comment %}
+  Resolves the globe mode and category filter of one travel event — usage:
+    {% include travel_event_filters.html event=ev %}
+  Sets tef_filter (category hash) and tef_attrs: data-mode ("been" | "away"),
+  data-filter and the category colour, to put on the event's element. Same
+  rules as js/travel/travel-model.js: mode from `attended`, filter from `kind`.
+{% endcomment %}
+{%- assign tef_filter = nil -%}
+{%- for tef_f in site.data.travels.filters -%}
+  {%- if tef_f.kinds contains include.event.kind -%}{%- assign tef_filter = tef_f -%}{%- endif -%}
+{%- endfor -%}
+{%- if include.event.attended == false -%}{%- assign tef_mode = "away" -%}{%- else -%}{%- assign tef_mode = "been" -%}{%- endif -%}
+{%- capture tef_attrs -%}data-mode="{{ tef_mode }}" data-filter="{{ tef_filter.id }}" style="--travel-color: {{ tef_filter.color }}"{%- endcapture -%}

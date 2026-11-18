@@ -1,0 +1,44 @@
+{% comment %}
+  One travel event inside a place panel of /travel/ — usage:
+    {% include travel_event.html event=ev %}
+  Everything except title/dates comes from existing data by id (see the
+  header of _data/travels.yml): CV panel, project panel, gallery campaign
+  (thumbnails + link) and publications (pub_box, same markup as Projects).
+  data-been / data-reached (travel_event_filters.html) say in which globe
+  mode and filter it shows.
+{% endcomment %}
+{% assign te = include.event %}
+{% assign te_gallery = nil %}
+{% if te.gallery %}
+  {% for te_branch in site.data.galleries.branches %}
+    {% assign te_hit = te_branch.campaigns | where: "id", te.gallery | first %}
+    {% if te_hit %}{% assign te_gallery = te_hit %}{% break %}{% endif %}
+  {% endfor %}
+{% endif %}
+{% if te.project %}{% assign te_project = site.data.projects.items | where: "id", te.project | first %}{% else %}{% assign te_project = nil %}{% endif %}
+{% include travel_event_filters.html event=te %}
+<section class="travel-event" {{ tef_attrs }}>
+    <h3 class="travel-event-title">{{ te.title }}</h3>
+    <p class="travel-event-meta">
+        <span class="travel-kind-tag">{{ site.data.travels.kinds[te.kind] }}</span>
+        <span class="travel-event-date">{% include travel_date.html from=te.from to=te.to %}</span>{% if te.online %}
+        <span class="travel-event-note">online</span>{% endif %}{% if te.attended == false %}
+        <span class="travel-event-note">presented by co-authors</span>{% endif %}
+    </p>
+    {% if te.cv or te_project or te_gallery or te.links %}
+    <p class="travel-event-links">
+        {% if te.cv %}<a class="link-badge" href="{{ '/' | relative_url }}#{{ te.cv }}">[CV entry]</a>{% endif %}
+        {% if te_project %}<a class="link-badge" href="{{ '/projects/' | relative_url }}#{{ te_project.id }}">[project {{ te_project.name }}]</a>{% endif %}
+        {% if te_gallery %}<a class="link-badge" href="{{ '/gallery/' | relative_url }}#{{ te_gallery.id }}">[photos]</a>{% endif %}
+        {% for te_link in te.links %}<a class="link-badge" href="{{ te_link.url }}" target="_blank" rel="noopener noreferrer">[{{ te_link.label }}]</a>{% endfor %}
+    </p>
+    {% endif %}
+    {% if te_gallery %}
+    <a class="travel-thumbs" href="{{ '/gallery/' | relative_url }}#{{ te_gallery.id }}" aria-label="Photos: {{ te_gallery.label | escape }}">
+        {% for te_img in te_gallery.images limit: 4 %}
+        <img src="{{ site.data.galleries.thumbnailfolder | relative_url }}/{{ te_img.name }}" alt="" loading="lazy"{% if te_img.thumb_position %} style="object-position: {{ te_img.thumb_position }};"{% endif %}>
+        {% endfor %}
+    </a>
+    {% endif %}
+    {% if te.pubs %}{% assign te_keys = te.pubs | join: "," %}{% include pub_box.html keys=te_keys title="Contributions" %}{% endif %}
+</section>

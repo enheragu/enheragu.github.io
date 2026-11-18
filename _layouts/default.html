@@ -48,6 +48,8 @@
                 {% assign breadcrumb_name = 'Academic' %}
                 {% elsif current_url == '/personal/' %}
                 {% assign breadcrumb_name = 'Personal' %}
+                {% elsif current_url == '/travel/' %}
+                {% assign breadcrumb_name = 'Travel' %}
                 {% elsif current_url == '/gallery/' %}
                 {% assign breadcrumb_name = 'Gallery' %}
                 {% endif %}
@@ -167,6 +169,7 @@
         { href: "{{ '/academic/' | relative_url }}", label: { en: "Academic", es: "Académico" } },
         // Hidden until the page has content ("Coming soon"):
         // { href: "{{ '/personal/' | relative_url }}", label: { en: "Personal", es: "Personal" } },
+        { href: "{{ '/travel/' | relative_url }}", label: { en: "Travel", es: "Viajes" } },
         { href: "{{ '/gallery/' | relative_url }}", label: { en: "Gallery", es: "Galería" } }
       ]
     };

@@ -1,6 +1,7 @@
 {% comment %}
   Reusable publication box — usage:
     {% include pub_box.html keys="ocon2019testing,ocon2018ergo" %}
+    {% include pub_box.html keys="..." title="Contributions" %}  (heading text; default below)
   Looks up each key in publications.yml and renders it with its category label.
   Title + count stay outside the scrollable area.
 {% endcomment %}
@@ -19,7 +20,7 @@
 {% endfor %}
 {% if pub_count > 0 %}
 <div class="pub-box">
-<h4>Publications and References ({{ pub_count }})</h4>
+<h4>{{ include.title | default: "Publications and References" }} ({{ pub_count }})</h4>
 <div class="pub-box-scroll">
 <ul class="pub-list">
 {% for wanted_key in key_list %}

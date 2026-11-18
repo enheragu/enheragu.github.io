@@ -399,6 +399,21 @@ section {
   pointer-events: none;
 }
 
+/* Phones: keep the five pages on one line (tighter chips, no separators) */
+@media screen and (max-width: 480px) {
+  .page-header-nav {
+    gap: 0.25rem;
+  }
+
+  .page-header-nav .mini-nav-sep {
+    display: none;
+  }
+
+  .page-header-nav a {
+    padding: 3px 5px;
+  }
+}
+
 
 /* ===== RESPONSIVE ===== */
 

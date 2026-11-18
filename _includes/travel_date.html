@@ -1,0 +1,38 @@
+{% comment %}
+  Formats a travel date range in the CV style — usage:
+    {% include travel_date.html from="2018-07-01" to="2018-07-06" %}  -> Jul. 1–6, 2018
+    {% include travel_date.html from="2018-07-01" to="2018-07-06" noyear=true %}  -> Jul. 1–6
+  from/to are "YYYY", "YYYY-MM" or "YYYY-MM-DD" (to optional). Pure string
+  handling (no date parsing), so partial dates stay partial:
+    2025-12                -> Dec. 2025
+    2018-09-18             -> Sep. 18, 2018
+    2018-04-17..2018-05-21 -> Apr. 17 – May 21, 2018
+    2026-05..2026-07       -> May – Jul. 2026
+  noyear drops the year when it is the same on both ends (lists grouped by year).
+{% endcomment %}
+{%- assign td_months = "Jan.,Feb.,Mar.,Apr.,May,Jun.,Jul.,Aug.,Sep.,Oct.,Nov.,Dec." | split: "," -%}
+{%- assign td_f = include.from | split: "-" -%}
+{%- assign td_t = include.to | default: "" | split: "-" -%}
+{%- assign td_fy = td_f[0] -%}
+{%- assign td_fm = "" -%}{%- assign td_fd = "" -%}
+{%- if td_f[1] -%}{%- assign td_i = td_f[1] | plus: 0 | minus: 1 -%}{%- assign td_fm = td_months[td_i] -%}{%- endif -%}
+{%- if td_f[2] -%}{%- assign td_fd = td_f[2] | plus: 0 -%}{%- endif -%}
+{%- assign td_ty = td_fy -%}{%- assign td_tm = "" -%}{%- assign td_td = "" -%}
+{%- if td_t.size > 0 -%}
+  {%- assign td_ty = td_t[0] -%}
+  {%- if td_t[1] -%}{%- assign td_i = td_t[1] | plus: 0 | minus: 1 -%}{%- assign td_tm = td_months[td_i] -%}{%- endif -%}
+  {%- if td_t[2] -%}{%- assign td_td = td_t[2] | plus: 0 -%}{%- endif -%}
+{%- endif -%}
+{%- comment -%} year suffixes, empty with noyear when both ends share the year {%- endcomment -%}
+{%- assign td_cy = ", " | append: td_fy -%}{%- assign td_sy = " " | append: td_fy -%}
+{%- if include.noyear and td_fy == td_ty and td_fm != "" -%}{%- assign td_cy = "" -%}{%- assign td_sy = "" -%}{%- endif -%}
+{%- if td_t.size == 0 -%}
+  {%- if td_fd != "" -%}{{ td_fm }} {{ td_fd }}{{ td_cy }}{%- elsif td_fm != "" -%}{{ td_fm }}{{ td_sy }}{%- else -%}{{ td_fy }}{%- endif -%}
+{%- elsif td_fy != td_ty -%}
+  {%- if td_fd != "" -%}{{ td_fm }} {{ td_fd }}, {{ td_fy }}{%- elsif td_fm != "" -%}{{ td_fm }} {{ td_fy }}{%- else -%}{{ td_fy }}{%- endif -%}
+  {{- " – " -}}
+  {%- if td_td != "" -%}{{ td_tm }} {{ td_td }}, {{ td_ty }}{%- elsif td_tm != "" -%}{{ td_tm }} {{ td_ty }}{%- else -%}{{ td_ty }}{%- endif -%}
+{%- elsif td_fm == td_tm and td_fd != "" -%}{{ td_fm }} {{ td_fd }}–{{ td_td }}{{ td_cy }}
+{%- elsif td_fd != "" -%}{{ td_fm }} {{ td_fd }} – {{ td_tm }} {{ td_td }}{{ td_cy }}
+{%- else -%}{{ td_fm }} – {{ td_tm }}{{ td_sy }}
+{%- endif -%}

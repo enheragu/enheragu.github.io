@@ -1,0 +1,1177 @@
+/* ===== TRAVEL MAP (/travel/) =====
+   Page-specific styles for travel.md + js/travel/*. The stage is a full-width
+   "window to space" (dark in both themes); globe, cards and labels derive from
+   the theme palette (--pal-* / --clr-*), so palette changes carry over. Filter
+   colours come from _data/travels.yml (`color`) via --travel-color. */
+
+/* ---- Compact header: the globe is the page ---- */
+.travel-top {
+  padding-bottom: 0.4rem;
+}
+
+.travel-header {
+  padding: 0.2rem 0 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.travel-header .page-header-nav {
+  margin-top: 0.35rem;
+}
+
+/* ---- Stage ---- */
+.travel-stage {
+  /* Space + globe palette (read by travel-globe.js through computed styles) */
+  --globe-sea: color-mix(in oklab, var(--pal-blue) 72%, #0d3150);
+  --globe-sea-deep: color-mix(in oklab, var(--pal-blue) 38%, #04111f);
+  --globe-land: color-mix(in oklab, var(--clr-surface) 95%, var(--pal-blue));
+  --globe-back: rgba(255, 255, 255, 0.13);
+  --globe-border: color-mix(in oklab, var(--pal-blue) 24%, transparent);
+  --globe-coast: rgba(4, 32, 58, 0.22);
+  --globe-grid: rgba(255, 255, 255, 0.09);
+  --globe-halo: color-mix(in oklab, color-mix(in oklab, var(--pal-blue) 45%, white) 55%, transparent);
+  --globe-light: rgba(255, 255, 255, 0.22);
+  --globe-shade: rgba(2, 10, 24, 0.55);
+  --globe-star: #ffffff;
+  /* Overlay */
+  --travel-pin-bg: var(--clr-surface);
+  --travel-arc: rgba(8, 40, 68, 0.75);
+  --travel-arc-halo: rgba(255, 255, 255, 0.6);
+  --travel-label: #0b2238;
+  --travel-label-halo: rgba(255, 255, 255, 0.92);
+  --travel-float-bg: color-mix(in oklab, var(--clr-surface) 90%, transparent);
+
+  position: relative;
+  height: calc(100svh - 5.5rem);
+  min-height: 560px;
+  max-height: 1000px;
+  overflow: hidden;
+  color: #f2f6fb;
+  background:
+    radial-gradient(ellipse 60% 70% at 15% 25%, color-mix(in oklab, var(--pal-purple) 24%, #0a0f22) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 60% at 90% 85%, color-mix(in oklab, var(--pal-blue) 26%, #071226) 0%, transparent 70%),
+    #060a14;
+  scroll-margin-top: 0;
+}
+
+:root.dark .travel-stage,
+:root[data-theme='dark'] .travel-stage,
+body.dark .travel-stage {
+  --globe-land: color-mix(in oklab, var(--pal-gray) 34%, #18222d);
+  --globe-coast: rgba(180, 208, 230, 0.32);
+  --globe-border: rgba(180, 208, 230, 0.16);
+  --globe-back: rgba(255, 255, 255, 0.07);
+  --globe-light: rgba(255, 255, 255, 0.08);
+  --travel-arc: rgba(217, 230, 242, 0.7);
+  --travel-arc-halo: rgba(8, 14, 24, 0.5);
+  --travel-label: #e6edf3;
+  --travel-label-halo: rgba(8, 14, 24, 0.88);
+}
+
+.travel-globe {
+  position: absolute;
+  inset: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.travel-globe-canvas,
+.travel-globe-svg {
+  position: absolute;
+  inset: 0;
+}
+
+.travel-globe-svg {
+  cursor: grab;
+  touch-action: pan-x pan-y;
+}
+
+.travel-globe-svg:active {
+  cursor: grabbing;
+}
+
+.travel-globe-msg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.travel-globe-msg[hidden] {
+  display: none;
+}
+
+.travel-log-year[hidden] {
+  display: none;
+}
+
+/* ---- Hero (title, mode switch, stats over the stage) ----
+   On wide screens the globe is shifted left (travel-page.js padding) so the
+   hero sits on space; the shadow keeps it readable if the globe slides under. */
+.travel-hero {
+  position: absolute;
+  right: 2.5rem;
+  bottom: 2rem;
+  text-align: left;
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 18px rgba(0, 0, 0, 0.55);
+  z-index: 1;
+  transition: opacity 0.25s, visibility 0.25s;
+}
+
+/* Wide screens: the open place card owns the right side */
+@media (min-width: 900px) {
+  .travel-stage.has-card .travel-hero {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Two-line title */
+.travel-hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  font-weight: var(--txt-w-extrabold, 800);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+}
+
+.travel-hero h1 span {
+  display: block;
+}
+
+/* Mode switches: a compact block each (mark | label / figures) */
+.travel-modes {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+}
+
+.travel-mode {
+  display: grid;
+  grid-template-columns: 1rem auto;
+  column-gap: 0.45rem;
+  align-items: center;
+  pointer-events: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: inherit;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.travel-mode:hover,
+.travel-mode[aria-pressed='true'] {
+  color: #ffffff;
+}
+
+.travel-mode-label {
+  font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+  font-weight: var(--txt-w-semibold, 600);
+  line-height: 1.25;
+}
+
+.travel-mode-stats {
+  grid-column: 2;
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+/* Legend of the pin shape: disc = I was there, diamond = without me */
+.travel-mode-mark {
+  justify-self: center;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  border: 0.16em solid currentColor;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.travel-mode[data-mode='away'] .travel-mode-mark {
+  width: 0.62em;
+  height: 0.62em;
+  margin: 0 0.09em;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+
+.travel-mode[aria-pressed='false'] .travel-mode-mark {
+  background: transparent;
+}
+
+.travel-mode:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.travel-stats {
+  margin: 0.4rem 0 0;
+  min-height: 1.2em;
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm-plus, 0.9rem);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ---- Floating cards (controls, place) ---- */
+.travel-float {
+  position: absolute;
+  z-index: 2;
+  color: var(--text-primary);
+  background: var(--travel-float-bg);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  backdrop-filter: blur(10px) saturate(1.2);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.travel-float[hidden] {
+  display: none;
+}
+
+.travel-controls {
+  left: 1.25rem;
+  bottom: 1.25rem;
+  width: 300px;
+  padding: 0.85rem 1rem 0.75rem;
+  display: grid;
+  gap: 0.75rem;
+  font-size: var(--txt-sm);
+}
+
+.travel-stage.is-error .travel-journey,
+.travel-stage.is-error .travel-zoom,
+.travel-stage.is-error .travel-drag-hint {
+  display: none;
+}
+
+.travel-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.travel-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--txt-sm);
+  cursor: pointer;
+}
+
+.travel-chip[aria-pressed='true'] {
+  border-color: color-mix(in oklab, var(--travel-color) 55%, var(--border));
+  background: color-mix(in oklab, var(--travel-color) 12%, var(--bg-secondary));
+}
+
+.travel-chip[aria-pressed='false'] {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.travel-chip[aria-pressed='false'] .travel-dot {
+  background: transparent;
+}
+
+.travel-chip:focus-visible,
+.travel-icon-btn:focus-visible,
+.travel-play:focus-visible,
+.travel-row-head:focus-visible {
+  outline: 2px solid var(--clr-ui-focus-ring, var(--accent));
+  outline-offset: 2px;
+}
+
+.travel-legend-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.25rem;
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+}
+
+/* Colour dot shared by chips, log and cards */
+.travel-dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  border: 2px solid var(--travel-color, var(--text-muted));
+  background: var(--travel-color, var(--text-muted));
+}
+
+.travel-house {
+  width: 0.95em;
+  height: 0.95em;
+  flex: 0 0 auto;
+}
+
+.travel-house path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Journey */
+.travel-row-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: default;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: var(--txt-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.travel-year {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.travel-journey-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.travel-play {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--clr-on-primary, #fff);
+  cursor: pointer;
+}
+
+.travel-play svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: currentColor;
+}
+
+.travel-play .travel-pause-icon,
+.travel-play.is-playing .travel-play-icon {
+  display: none;
+}
+
+.travel-play.is-playing .travel-pause-icon {
+  display: inline;
+}
+
+.travel-range {
+  flex: 1 1 auto;
+  min-width: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.travel-controls-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--border);
+}
+
+.travel-zoom {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.travel-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--txt-md);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.travel-icon-btn svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* With a place card open the controls fold to their last row (zoom + log
+   link), so they cover fewer pins next to the focused place */
+.travel-stage.has-card .travel-chips,
+.travel-stage.has-card .travel-journey {
+  display: none;
+}
+
+.travel-stage.has-card .travel-controls-foot {
+  padding-top: 0;
+  border-top: none;
+}
+
+.travel-icon-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.travel-drag-hint {
+  font-size: var(--txt-xs);
+  color: var(--text-muted);
+}
+
+.travel-log-link {
+  margin-left: auto;
+  font-size: var(--txt-sm);
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ---- Place card ---- */
+/* top leaves room for the fixed site menu button when the stage is scrolled
+   to the top of the viewport */
+.travel-card {
+  top: 4.25rem;
+  right: 1.25rem;
+  width: min(420px, 38vw);
+  max-height: calc(100% - 5.5rem);
+  overflow-y: auto;
+  padding: 1rem 1.25rem 1.1rem;
+  font-size: var(--txt-md);
+  line-height: 1.55;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--text-secondary) 40%, transparent) transparent;
+}
+
+.travel-place-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.travel-place-head h2 {
+  margin: 0;
+  font-size: var(--txt-2xl, 1.7rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.travel-place-sub {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+}
+
+.travel-home-note {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+}
+
+.travel-event {
+  padding: 0.7rem 0 0.2rem;
+  margin-top: 0.7rem;
+  border-top: 1px dashed var(--border);
+}
+
+.travel-place-head + .travel-event {
+  border-top: none;
+  margin-top: 0.2rem;
+}
+
+.travel-event-title {
+  margin: 0;
+  font-size: var(--txt-md);
+  font-weight: var(--txt-w-semibold, 600);
+  line-height: 1.4;
+}
+
+.travel-event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.6rem;
+  margin: 0.2rem 0 0.3rem;
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+}
+
+.travel-kind-tag {
+  padding: 0 6px;
+  border-radius: 3px;
+  border: 1px solid color-mix(in oklab, var(--travel-color) 55%, var(--border));
+  background: color-mix(in oklab, var(--travel-color) 12%, var(--bg-secondary));
+  color: color-mix(in oklab, var(--travel-color) 70%, var(--text-primary));
+  font-size: var(--txt-xs);
+}
+
+.travel-event-note {
+  font-size: var(--txt-xs);
+  color: var(--text-muted);
+}
+
+/* "Without me" events: diamond dot, same category colour */
+.travel-event-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.3rem 0;
+}
+
+.travel-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0.45rem 0 0.2rem;
+}
+
+.travel-thumbs img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  transition: opacity 0.15s;
+}
+
+.travel-thumbs:hover img {
+  opacity: 0.85;
+}
+
+/* ---- Arcs & pins (svg overlay) ---- */
+.travel-leg path {
+  fill: none;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.travel-leg-halo {
+  stroke: var(--travel-arc-halo);
+  stroke-width: 3.4;
+}
+
+.travel-leg-line {
+  stroke: var(--travel-arc);
+  stroke-width: 1.8;
+  stroke-dasharray: 0.1 4.4;
+}
+
+.travel-leg.is-away .travel-leg-halo {
+  stroke-width: 2.4;
+  opacity: 0.5;
+}
+
+.travel-leg.is-away .travel-leg-line {
+  stroke-width: 1.2;
+  stroke-dasharray: 5 5;
+  opacity: 0.7;
+}
+
+.travel-pin {
+  cursor: pointer;
+  outline: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+
+.travel-pin-disc {
+  fill: var(--travel-pin-bg);
+}
+
+.travel-pin-donut path {
+  fill: var(--travel-color);
+}
+
+/* Only "without me": diamond outlined in the category colour */
+.travel-pin-diamond {
+  fill: color-mix(in oklab, var(--travel-pin-bg) 90%, transparent);
+  stroke: var(--travel-color, var(--text-muted));
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.travel-pin-ring {
+  fill: none;
+  stroke: var(--travel-pin-bg);
+  stroke-width: 1.5;
+  opacity: 0;
+}
+
+.travel-pin.is-cluster .travel-pin-ring {
+  stroke-dasharray: 0.1 3.4;
+  stroke-linecap: round;
+  stroke-width: 2;
+  opacity: 0.95;
+}
+
+.travel-pin:hover .travel-pin-ring,
+.travel-pin:focus-visible .travel-pin-ring {
+  stroke: var(--accent);
+  stroke-dasharray: none;
+  opacity: 0.7;
+}
+
+.travel-pin.is-selected .travel-pin-ring {
+  stroke: var(--accent);
+  stroke-dasharray: none;
+  stroke-width: 2.5;
+  opacity: 1;
+}
+
+.travel-pin-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-anchor: middle;
+  fill: var(--text-primary);
+  pointer-events: none;
+}
+
+.travel-pin-home circle {
+  fill: var(--travel-pin-bg);
+  stroke: var(--text-primary);
+  stroke-width: 1;
+}
+
+.travel-pin-home:not(.is-badge) circle {
+  stroke: none;
+}
+
+.travel-pin-home path {
+  fill: none;
+  stroke: var(--text-primary);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.travel-pin-name {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  fill: var(--travel-label);
+  paint-order: stroke;
+  stroke: var(--travel-label-halo);
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+/* ---- Hint toast ---- */
+.travel-hint {
+  position: absolute;
+  left: 50%;
+  top: 1.25rem;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  background: var(--clr-tooltip-bg);
+  color: var(--clr-tooltip-text);
+  font-family: var(--font-mono);
+  font-size: var(--txt-xs);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 3;
+}
+
+.travel-hint.is-on {
+  opacity: 1;
+}
+
+/* ---- Travel log: the CV's own widgets ----
+   Panel look of the CV detail panels + the publication list (pub-list,
+   pub-type-badge, link-badge) so this part reads like the rest of the site.
+   The coloured mark keeps the globe legend: disc = I was there, diamond =
+   without me; colour = category. */
+.travel-log-wrap {
+  padding-top: 2rem;
+}
+
+.travel-log-panel {
+  padding: 1rem 1.5rem 1.25rem;
+  font-size: var(--txt-md);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.travel-log-title {
+  margin: 0;
+  font-size: var(--txt-lg);
+  color: var(--accent);
+  scroll-margin-top: 1rem;
+}
+
+.travel-log-lead {
+  margin: 0.1rem 0 0.4rem;
+  font-size: var(--txt-sm);
+  color: var(--text-muted);
+}
+
+/* Year column on the left, one entry per row:
+   date | title + (mark, type badge, place, notes) | [on the globe] */
+.travel-log-year {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0 1.25rem;
+  margin-top: 1.4rem;
+}
+
+/* Legend of the commit shapes (the colour is in each row's badge) */
+/* One sentence with the commit shapes in parentheses as the key */
+.travel-log-legend {
+  margin: 0.3rem 0 0;
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+}
+
+.travel-log-key {
+  white-space: nowrap;
+}
+
+.travel-log-key-mark {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 0.15rem;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  vertical-align: -0.05em;
+}
+
+.travel-log-key.is-away .travel-log-key-mark {
+  width: 8px;
+  height: 8px;
+  margin: 0 0.22rem;
+  border-radius: 1px;
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--text-secondary);
+  transform: rotate(45deg);
+}
+
+.travel-log-year h3 {
+  margin: 0.3rem 0 0;
+  font-size: var(--txt-xl);
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+.travel-log {
+  gap: 0.55rem;   /* the shared pub-list is tighter; this list needs air */
+}
+
+.travel-log > li {
+  padding-left: 0;   /* the row button carries the padding */
+  border-radius: 0 var(--radius) var(--radius) 0;
+  transition: background 0.15s;
+}
+
+/* The whole row is the button: date | title + details | arrow on hover */
+.travel-log-item {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0 1rem;
+  width: 100%;
+  padding: 0.45rem 0.6rem 0.45rem 1.75rem;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.travel-log-item:focus-visible {
+  outline: 2px solid var(--clr-ui-focus-ring, var(--accent));
+  outline-offset: -2px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.travel-log-go {
+  align-self: center;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.travel-log > li:hover .travel-log-go,
+.travel-log > li.is-current .travel-log-go,
+.travel-log-item:focus-visible .travel-log-go {
+  opacity: 1;
+}
+
+.travel-log > li:hover,
+.travel-log > li.is-current {
+  background: color-mix(in oklab, var(--accent) 7%, transparent);
+}
+
+.travel-log-date {
+  padding-top: 0.1rem;
+  font-family: var(--font-mono);
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.travel-log-body,
+.travel-log-text {
+  display: block;
+}
+
+.travel-log-text {
+  font-weight: var(--txt-w-semibold, 600);
+  line-height: 1.4;
+}
+
+.travel-log-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 0.45rem;
+  margin-top: 0.25rem;
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+}
+
+.travel-log-meta .pub-type-badge {
+  margin-right: 0;
+}
+
+.travel-log-meta em {
+  color: var(--text-secondary);
+}
+
+.travel-log-note {
+  color: var(--text-muted);
+}
+
+/* Git-style trunk (same widths as the CV gitgraph: 3px line, 12px commit
+   with a 2px ring): one continuous line through every visible year, a commit
+   per trip on it. No branches: colour = category, shape = attended or not. */
+.travel-log {
+  position: relative;
+  --trunk-x: 0.55rem;
+}
+
+.travel-log::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--trunk-x) - 1.5px);
+  top: 0.4rem;
+  bottom: -1.4rem;   /* reaches the next year's list: one continuous trunk */
+  width: 3px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--text-muted) 55%, transparent);
+}
+
+.travel-log-year.is-last .travel-log::before {
+  bottom: 0.4rem;
+}
+
+.travel-log > li {
+  position: relative;
+  border-left: none;
+}
+
+.travel-log-commit {
+  position: absolute;
+  left: calc(var(--trunk-x) - 6px);
+  top: 0.75rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--travel-color, var(--text-muted));
+  box-shadow: 0 0 0 2px var(--bg-secondary);
+}
+
+.travel-log li[data-mode='away'] .travel-log-commit {
+  left: calc(var(--trunk-x) - 5px);
+  top: 0.8rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--bg-secondary);
+  box-shadow: inset 0 0 0 2.5px var(--travel-color, var(--text-muted)), 0 0 0 2px var(--bg-secondary);
+  transform: rotate(45deg);
+}
+
+.travel-log > li.is-current .travel-log-commit {
+  box-shadow: 0 0 0 2px var(--bg-secondary), 0 0 0 4px var(--accent);
+}
+
+.travel-log > li.is-current[data-mode='away'] .travel-log-commit {
+  box-shadow: inset 0 0 0 2.5px var(--travel-color, var(--text-muted)), 0 0 0 2px var(--bg-secondary), 0 0 0 4px var(--accent);
+}
+
+/* ---- Narrow screens: hero on top, cards as bottom sheets ---- */
+@media (max-width: 899px) {
+  .travel-stage {
+    height: calc(100svh - 4.5rem);
+    min-height: 420px;
+  }
+
+  /* left-aligned, clear of the fixed menu button on the right */
+  .travel-hero {
+    top: 0.9rem;
+    right: 4.5rem;
+    left: 1rem;
+    bottom: auto;
+    text-align: left;
+  }
+
+  .travel-hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .travel-modes {
+    margin-top: 0.5rem;
+    gap: 0.3rem;
+  }
+
+  .travel-mode-label {
+    font-size: 0.88rem;
+  }
+
+  .travel-mode-stats {
+    font-size: var(--txt-xs);
+  }
+
+  .travel-controls {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: auto;
+    gap: 0.55rem;
+    padding: 0.65rem 0.85rem 0.55rem;
+  }
+
+  .travel-chip {
+    padding: 0.15rem 0.5rem;
+    font-size: var(--txt-xs);
+  }
+
+  .travel-legend-home {
+    font-size: var(--txt-xs);
+  }
+
+  /* Journey folds behind its heading on phones */
+  .travel-row-head {
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  .travel-row-head::after {
+    content: '▸';
+    margin-left: 0.4rem;
+    transition: transform 0.2s;
+  }
+
+  .travel-row-head[aria-expanded='true']::after {
+    transform: rotate(90deg);
+  }
+
+  .travel-row-head .travel-year {
+    margin-left: auto;
+  }
+
+  .travel-journey-row {
+    margin-top: 0.35rem;
+  }
+
+  .travel-row-head[aria-expanded='false'] + .travel-journey-row {
+    display: none;
+  }
+
+  .travel-card {
+    top: auto;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: auto;
+    max-height: 58%;
+  }
+
+  .travel-log-panel {
+    padding: 0.8rem 0.9rem 1rem;
+  }
+
+  .travel-log-year {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 1rem;
+  }
+
+  .travel-log-year h3 {
+    margin: 0 0 0.4rem;
+    font-size: var(--txt-lg);
+  }
+
+  .travel-log-item {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.15rem;
+    padding-left: 1.5rem;
+  }
+
+  /* Phones: the year sits above its list, so each year gets its own trunk
+     segment; thinner line and commits, as the CV gitgraph on mobile */
+  .travel-log::before {
+    left: calc(var(--trunk-x) - 1px);
+    width: 2px;
+    bottom: 0.4rem;
+  }
+
+  .travel-log-commit {
+    left: calc(var(--trunk-x) - 5px);
+    width: 10px;
+    height: 10px;
+  }
+
+  .travel-log li[data-mode='away'] .travel-log-commit {
+    left: calc(var(--trunk-x) - 4px);
+    width: 8px;
+    height: 8px;
+  }
+
+  .travel-log-go {
+    display: none;
+  }
+}
+
+/* Phones: keep the page nav row clear of the fixed site-menu button */
+@media (max-width: 480px) {
+  .travel-header .page-header-nav {
+    margin-top: 0.9rem;
+  }
+}
+
+/* Phones in landscape: hero + controls on the left, card on the right,
+   globe in between (travel-page.js pads it the same way) */
+@media (max-width: 899px) and (orientation: landscape) and (max-height: 520px) {
+  .travel-stage {
+    min-height: 300px;
+  }
+
+  .travel-hero {
+    top: 0.6rem;
+    left: 0.75rem;
+    right: auto;
+    max-width: 42%;
+  }
+
+  .travel-hero h1 {
+    font-size: 1.3rem;
+  }
+
+  .travel-modes {
+    margin-top: 0.3rem;
+    gap: 0.15rem;
+  }
+
+  .travel-controls {
+    right: auto;
+    width: min(300px, 42%);
+    bottom: 0.6rem;
+    left: 0.75rem;
+    gap: 0.4rem;
+  }
+
+  /* top clears the fixed site-menu button when the stage is scrolled up */
+  .travel-card {
+    top: 3.6rem;
+    bottom: 0.6rem;
+    left: auto;
+    right: 0.75rem;
+    width: 50%;
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .travel-hero,
+  .travel-mode,
+  .travel-hint,
+  .travel-thumbs img,
+  .travel-log > li,
+  .travel-log-go,
+  .travel-row-head::after {
+    transition: none;
+  }
+}
+
+/* The globe is interactive-only: never in the printed PDF */
+@media print {
+  .travel-stage {
+    display: none;
+  }
+}
+
+/* Pin names that do not fit without overlapping: shown on hover / focus /
+   selection only (travel-globe.js placeLabels) */
+.travel-pin-name.is-hidden {
+  opacity: 0;
+}
+
+.travel-pin:hover .travel-pin-name,
+.travel-pin:focus-visible .travel-pin-name,
+.travel-pin.is-selected .travel-pin-name {
+  opacity: 1;
+}

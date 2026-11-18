@@ -1,0 +1,355 @@
+# Travel map (/travel/): where research has taken me, and where it reached.
+#
+# modes:  the two hero switches (can be combined). "been" = events I attended;
+#         "away" = events where my work was presented without me
+#         (`attended: false`). Colour never encodes this: places reached only
+#         without me get a diamond pin instead of a disc.
+# filters: category chips (also the legend). `color` is a theme token used by
+#         pins, arcs, dots and tags of that category, in both modes.
+# places: every pin on the globe. `home` marks where I lived & worked: each
+#         trip departs from the home of its date (arcs + km); home pins carry a
+#         house mark and are always visible.
+# events: one entry per trip/event, newest first.
+#         kind: conference | stay | fieldtest
+#         from/to: "YYYY", "YYYY-MM" or "YYYY-MM-DD" (`to` only for ranges).
+#         attended: false -> presented there without me ("away" mode).
+#         trip:    shared id when one journey visits several places, in date
+#                  order (arcs chain home -> stop -> stop; km counted once).
+#         online:  held/attended remotely -> no arc, no km.
+#         Links reuse existing data by id, nothing is duplicated:
+#           pubs:    keys of publications.yml (generated from publications.bib)
+#           gallery: campaign id in galleries.yml  -> photos + "Photos" link
+#           cv:      panel id in cv_sections.yml   -> "In the CV" link
+#           project: panel id in projects.yml      -> "Project" link
+#           links:   external pages [{label, url}]
+
+modes:
+- id: been
+  label: "Research has taken me"
+  attended: true
+- id: away
+  label: "Research went without me"
+  attended: false
+
+filters:
+- id: conferences
+  label: "Conferences"
+  kinds: [conference]
+  color: "var(--clr-data-blue)"
+- id: onsite
+  label: "Stays & field tests"
+  kinds: [stay, fieldtest]
+  color: "var(--clr-data-amber)"
+
+kinds:
+  conference: "Conference"
+  stay: "Research stay"
+  fieldtest: "Field tests"
+
+places:
+- id: madrid
+  name: "Madrid"
+  country: "Spain"
+  lat: 40.4168
+  lon: -3.7035
+  home:
+    from: "2012-09"
+    to: "2021-10"
+    label: "B.Sc. at UPM · BQ · GMV"
+- id: elche
+  name: "Elche"
+  country: "Spain"
+  lat: 38.2770
+  lon: -0.6899
+  home:
+    from: "2021-10"
+    label: "M.Sc. & PhD at UMH"
+- id: colmenar
+  name: "Colmenar Viejo"
+  country: "Spain"
+  lat: 40.7007          # Dehesa de Navalvillar (approx., exact test site pending)
+  lon: -3.7507
+- id: bremen
+  name: "Bremen"
+  country: "Germany"
+  lat: 53.1121          # DFKI
+  lon: 8.8582
+- id: erfoud
+  name: "Erfoud"
+  country: "Morocco"
+  lat: 31.4350
+  lon: -4.2328
+- id: gara-medouar
+  name: "Gara Medouar"
+  country: "Morocco"
+  lat: 31.3000          # approx. (OSM point on the access track)
+  lon: -4.3997
+- id: badajoz
+  name: "Badajoz"
+  country: "Spain"
+  lat: 38.8782
+  lon: -6.9701
+- id: almeria
+  name: "Almería"
+  country: "Spain"
+  lat: 36.8298
+  lon: -2.4057
+- id: cordoba-ar
+  name: "Córdoba"
+  country: "Argentina"
+  lat: -31.4408
+  lon: -64.1903
+- id: bilbao
+  name: "Bilbao"
+  country: "Spain"
+  lat: 43.2627          # Escuela de Ingeniería de Bilbao (UPV/EHU)
+  lon: -2.9494
+- id: angers
+  name: "Angers"
+  country: "France"
+  lat: 47.4935          # ESEO campus
+  lon: -0.5506
+- id: marbella
+  name: "Marbella"
+  country: "Spain"
+  lat: 36.4836
+  lon: -5.0066
+- id: big-sky
+  name: "Big Sky"
+  country: "United States"
+  lat: 45.2852          # Yellowstone Conference Center, Montana
+  lon: -111.4005
+- id: dubai
+  name: "Dubai"
+  country: "United Arab Emirates"
+  lat: 25.2238          # Dubai World Trade Centre
+  lon: 55.2877
+- id: noordwijk
+  name: "Noordwijk"
+  country: "Netherlands"
+  lat: 52.2179          # ESA-ESTEC
+  lon: 4.4218
+- id: palma
+  name: "Palma"
+  country: "Spain"
+  lat: 39.5792          # Universitat de les Illes Balears, Sa Riera
+  lon: 2.6452
+- id: st-pete-beach
+  name: "St. Pete Beach"
+  country: "United States"
+  lat: 27.7292          # TradeWinds Resort, Florida
+  lon: -82.7442
+
+events:
+# i-SAIRAS 2020 (govindaraj2020multirobot) was fully virtual: left out (no place).
+- kind: conference
+  place: angers
+  attended: false
+  from: "2026-10-26"
+  to: "2026-10-28"
+  title: "23rd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
+  project: detail-PROMETEO2025
+  pubs: [icinco26mmaximo]
+- kind: stay
+  place: cordoba-ar
+  from: "2026-09-17"
+  to: "2026-10-20"
+  title: "LIDeSIA, Universidad Nacional de Córdoba"
+  cv: detail-lidesia-2026
+  project: detail-LIDESIA_LSA
+  gallery: phd-cordoba-2026
+- kind: conference
+  place: almeria
+  from: "2026-07-08"    # talk + award days (slides); full congress span pending
+  to: "2026-07-09"
+  title: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO)"
+  pubs: [heredia2026azar_redes, cepero2026ojodato, rujano2026sesgos, heredia2026premio_aemcco]
+  gallery: phd-aemcco-2026
+- kind: conference
+  place: bilbao
+  attended: false
+  from: "2026-06-10"
+  to: "2026-06-12"
+  title: "Simposio CEA de Robótica, Bioingeniería, Visión Artificial y Automática Marina"
+  project: detail-PROMETEO2025
+  pubs: [cea2026eheredia, cea2026flores]
+- kind: stay
+  place: bremen
+  from: "2026-05-28"
+  to: "2026-07-03"
+  title: "DFKI Bremen"
+  cv: detail-dfki-2025
+  gallery: phd-bremen-2026
+- kind: conference
+  place: palma
+  attended: false
+  from: "2026-05-27"
+  to: "2026-05-29"
+  title: "11th Iberian Congress of Perception (CIP 2026)"
+  pubs: [cepero2026cip]
+- kind: conference
+  place: st-pete-beach
+  attended: false
+  from: "2026-05-15"
+  to: "2026-05-19"
+  title: "Vision Sciences Society Annual Meeting (VSS 2026)"
+  pubs: [aivar2026vss]
+- kind: conference
+  place: elche
+  online: true
+  from: "2026-02-05"
+  to: "2026-02-06"
+  title: "VI Congreso Anual Internacional de Estudiantes de Doctorado (CAIED, UMH)"
+  pubs: [heredia2026fusion_multispectral, cepero2026busqueda_visual]
+- kind: stay
+  place: bremen
+  from: "2025-11-30"    # arrived the Sunday before; the whole of December
+  to: "2025-12-31"
+  title: "DFKI Bremen"
+  cv: detail-dfki-2025
+  gallery: phd-bremen-2025
+- kind: conference
+  place: marbella
+  attended: false
+  from: "2025-10-20"
+  to: "2025-10-22"
+  title: "22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
+  project: detail-PROMETEO2025
+  pubs: [icinco25eheredia, icinco25malfaro]
+- kind: conference
+  place: madrid
+  attended: false
+  from: "2025-04-03"    # Universidad Nebrija, Arturo Soria campus
+  to: "2025-04-04"
+  title: "Reunión Científica sobre Atención (RECA14)"
+  pubs: [cepero2025visual_search]
+- kind: conference
+  place: elche
+  online: true
+  from: "2025-02-06"
+  to: "2025-02-07"
+  title: "V Congreso Anual Internacional de Estudiantes de Doctorado (CAIED, UMH)"
+  pubs: [heredia2025collab_interdisciplinar]
+- kind: conference
+  place: almeria
+  attended: false
+  from: "2024-10-23"
+  to: "2024-10-25"
+  title: "XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)"
+  pubs: [cepero2024poster_visual_search]
+- kind: conference
+  place: badajoz
+  from: "2024-05-29"    # Escuela de Ingenierías Industriales (UEx)
+  to: "2024-05-31"
+  title: "Simposio CEA de Robótica, Bioingeniería y Visión por Computador"
+  pubs: [eheredia2024fusion, maximo2024localizacion]
+- kind: conference
+  place: big-sky
+  attended: false
+  from: "2022-03-05"
+  to: "2022-03-12"
+  title: "2022 IEEE Aerospace Conference (AERO)"
+  project: detail-PROACT
+  pubs: [brinkmann2022mantis]
+- kind: conference
+  place: dubai
+  attended: false
+  from: "2021-10-25"
+  to: "2021-10-29"
+  title: "72nd International Astronautical Congress (IAC)"
+  project: detail-PROACT
+  pubs: [govindaraj2021building_conf]
+- kind: fieldtest
+  place: bremen
+  from: "2020-10-04"    # Bremen weeks: out on Sunday, back on Friday
+  to: "2020-10-09"
+  title: "ADE · Galopprennbahn Bremen"
+  cv: detail-gmv
+  project: detail-ADE
+  gallery: ade-bremen-2020-10
+- kind: fieldtest
+  place: bremen
+  from: "2020-09-13"
+  to: "2020-09-18"
+  title: "PROACT · DFKI Bremen"
+  cv: detail-gmv
+  project: detail-PROACT
+- kind: fieldtest
+  place: bremen
+  from: "2020-07-26"
+  to: "2020-07-31"
+  title: "ADE · DFKI Bremen"
+  cv: detail-gmv
+  project: detail-ADE
+  gallery: ade-bremen-2020-07
+- kind: conference
+  place: noordwijk
+  attended: false
+  from: "2019-05-27"
+  to: "2019-05-28"
+  title: "Symposium on Advanced Space Technologies in Robotics and Automation (ASTRA 2019)"
+  project: detail-ERGO
+  pubs: [ocon2019testing]
+- kind: fieldtest
+  place: gara-medouar
+  trip: ergo-morocco-2018
+  from: "2018-12-01"    # camp moved here at the end of November; flight back Dec. 14
+  to: "2018-12-14"
+  title: "ERGO · Gara Medouar desert"
+  cv: detail-gmv
+  project: detail-ERGO
+  gallery: ergo-morocco-2018
+  links:
+  - label: "DFKI news"
+    url: "https://dfki.de/en/web/news/mission-completed-eu-partners-successfully-test-new-technologies-for-space-robotsinmorocco"
+  - label: "ESA"
+    url: "https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Self-driving_rovers_tested_in_Mars-like_Morocco"
+- kind: fieldtest
+  place: erfoud
+  trip: ergo-morocco-2018
+  from: "2018-11-21"
+  to: "2018-11-30"
+  title: "ERGO · Xaluka hotel grounds, Erfoud"
+  cv: detail-gmv
+  project: detail-ERGO
+  gallery: ergo-xaluka-2018
+- kind: conference
+  place: bremen
+  attended: false
+  from: "2018-10-01"    # Messe Bremen
+  to: "2018-10-05"
+  title: "69th International Astronautical Congress (IAC)"
+  project: detail-ERGO
+  pubs: [ocon2018ergo]
+- kind: fieldtest
+  place: madrid
+  from: "2018-09-17"    # the whole week (photo on the 18th)
+  to: "2018-09-21"
+  title: "ERGO orbital scenario · GMV lab"
+  cv: detail-gmv
+  project: detail-ERGO
+  gallery: ergo-gmv-2018
+- kind: fieldtest
+  place: bremen
+  from: "2018-07-01"
+  to: "2018-07-06"
+  title: "ERGO first campaign · DFKI Bremen"
+  cv: detail-gmv
+  project: detail-ERGO
+  gallery: ergo-bremen-2018
+- kind: fieldtest
+  place: colmenar
+  from: "2018-04-17"    # day trips most weeks; final tests on May 21
+  to: "2018-05-21"
+  title: "GOTCHA · Dehesa de Navalvillar"
+  cv: detail-gmv
+  project: detail-GOTCHA
+  gallery: gotcha-colmenar-2018
+- kind: fieldtest
+  place: madrid
+  from: "2017-11-27"    # photos on Dec. 4–5; that week and the one before (Dec. 6 and 8 were holidays)
+  to: "2017-12-07"
+  title: "GOTCHA · GMV Marsyard"
+  cv: detail-gmv
+  project: detail-GOTCHA
+  gallery: gotcha-2017
