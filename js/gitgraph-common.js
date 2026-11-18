@@ -593,6 +593,14 @@ var GitGraphCommon = (function() {
     if (isMobile) {
       gitgraph.marginY = (gitgraph.marginY || 0) + 16;
       gitgraph.render();
+    } else if ((gitgraph.scalingFactor || 1) > 1) {
+      // Desktop/tablet on HiDPI screens: gitgraph.js applies marginY in DEVICE
+      // px (translate before scale), so the top margin shrank to 12/DPR CSS px
+      // and the first commit's dot and title were clipped by the canvas top
+      // (seen at DPR 2). Scale it so the margin matches the DPR-1 look; DPR 1
+      // is untouched. Everything else already reads marginY / scalingFactor.
+      gitgraph.marginY = (gitgraph.marginY || 0) * gitgraph.scalingFactor;
+      gitgraph.render();
     }
 
     applyWidthExtension(gitgraph, template);
