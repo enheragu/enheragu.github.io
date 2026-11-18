@@ -559,6 +559,13 @@ body.dark .travel-stage {
   font-size: var(--txt-xs);
 }
 
+.travel-event-desc {
+  margin: 0.15rem 0 0.3rem;
+  font-size: var(--txt-sm);
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
 .travel-event-note {
   font-size: var(--txt-xs);
   color: var(--text-muted);

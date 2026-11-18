@@ -1,0 +1,49 @@
+{% comment %}
+  Research stays (travels.yml events with kind: stay), newest first — usage:
+    {% include stay_list.html format="list" %}    CV Work panel, web: pub-list rows
+                                                  (same chips as Teaching), each
+                                                  row links to /academic/ PhD
+    {% include stay_list.html format="inline" %}  CV Work panel, PDF: one bullet,
+                                                  same institution grouped
+    {% include stay_list.html format="detail" %}  /academic/ PhD panel: host,
+                                                  topic, work, funding, links
+  Single source: the stay events of _data/travels.yml (also on the /travel/
+  globe). Dates come from travel_date.html unless the event sets cv_dates
+  (certified period, e.g. when travel started the day before).
+{% endcomment %}
+{%- assign sl_stays = site.data.travels.events | where: "kind", "stay" -%}
+{%- if include.format == "inline" -%}
+{%- assign sl_groups = sl_stays | group_by: "title" -%}
+Research stays at {% for sl_g in sl_groups -%}
+  {%- assign sl_first = sl_g.items | first -%}
+  {%- assign sl_place = site.data.travels.places | where: "id", sl_first.place | first -%}
+  {%- unless forloop.first %}{% if forloop.last %} and {% else %}, {% endif %}{% endunless -%}
+  {{ sl_g.name }}, {{ sl_place.country }} (
+  {%- for sl in sl_g.items -%}
+    {%- unless forloop.first %}; {% endunless -%}
+    {%- if sl.cv_dates -%}{{ sl.cv_dates }}{%- else -%}{%- include travel_date.html from=sl.from to=sl.to -%}{%- endif -%}
+  {%- endfor -%})
+{%- endfor -%}.
+{%- elsif include.format == "list" -%}
+<ul class="pub-list">
+    {%- for sl in sl_stays -%}
+    {%- assign sl_place = site.data.travels.places | where: "id", sl.place | first %}
+    <li><a class="stay-row" href="{{ '/academic/' | relative_url }}#detail-phd"><span class="pub-type-badge">Visiting Researcher</span><strong>{{ sl.title }}</strong><span class="teach-meta"> · {{ sl_place.country }} · {% if sl.cv_dates %}{{ sl.cv_dates }}{% else %}{% include travel_date.html from=sl.from to=sl.to %}{% endif %}</span><span class="stay-row-go" aria-hidden="true">→</span><span class="visually-hidden"> (details)</span></a></li>
+    {%- endfor %}
+</ul>
+{%- else -%}
+<ul class="stay-list">
+    {%- for sl in sl_stays -%}
+    {%- assign sl_place = site.data.travels.places | where: "id", sl.place | first %}
+    <li>
+        <strong>{{ sl.title }}</strong>, {{ sl_place.country }} ·
+        {% if sl.cv_dates %}{{ sl.cv_dates }}{% else %}{% include travel_date.html from=sl.from to=sl.to %}{% endif %}.
+        {% if sl.institution %}{{ sl.institution }}.{% endif %}
+        {% if sl.host %}Hosted by {{ sl.host }}{% if sl.topic %}, on {{ sl.topic }}{% endif %}.{% elsif sl.topic %}{{ sl.topic }}.{% endif %}
+        {% if sl.work %}{{ sl.work }}.{% endif %}
+        {% if sl.funding %}Funded by a {{ sl.funding }}.{% endif %}
+        {% for sl_link in sl.links %}<a class="link-badge" href="{{ sl_link.url }}" target="_blank" rel="noopener noreferrer">[{{ sl_link.label }}]</a>{% endfor %}
+    </li>
+    {%- endfor %}
+</ul>
+{%- endif -%}

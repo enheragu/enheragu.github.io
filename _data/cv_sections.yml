@@ -27,18 +27,22 @@ items:
   group: "Work Experience"
   label: "[Dec. 2022 – present] · Research Engineer & PhD Student · UMH"
   print_page: 1
-- id: detail-lidesia-2026
-  label: "[Sep. – Oct. 2026] · Visiting researcher · Universidad Nacional de Córdoba"
-  print_page: 1
-  print_compact: true
-- id: detail-umh-lecturer
-  label: "[Mar. – Jun. 2026] · Lecturer · UMH"
-  print_page: 1
-  print_compact: true
-- id: detail-dfki-2025
-  label: "[Dec. 2025 · May–Jul. 2026] · Visiting researcher · DFKI Bremen"
-  print_page: 1
-  print_compact: true
+# Folded into detail-umh (2026-11-18): the research stays and the lectureship
+# belong to the PhD period, so they are summarised in that panel (teaching from
+# _data/teaching.yml, stays from the stay events of _data/travels.yml) and
+# detailed in /academic/. Their old panels stay in _cv_sections/ for reference.
+# - id: detail-lidesia-2026
+#   label: "[Sep. – Oct. 2026] · Visiting researcher · Universidad Nacional de Córdoba"
+#   print_page: 1
+#   print_compact: true
+# - id: detail-umh-lecturer
+#   label: "[Mar. – Jun. 2026] · Lecturer · UMH"
+#   print_page: 1
+#   print_compact: true
+# - id: detail-dfki-2025
+#   label: "[Dec. 2025 · May–Jul. 2026] · Visiting researcher · DFKI Bremen"
+#   print_page: 1
+#   print_compact: true
 - id: detail-umh-intern
   label: "[Feb. 2022 – Sep. 2022] · Research Intern · UMH"
   print_page: 1

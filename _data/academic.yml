@@ -4,6 +4,11 @@ content_path: _academic
 # the "[dates] · degree · institution" heading + window.cvLabels from there (single
 # source shared with the index page), and js/academic.js reads it via cvLabels.
 items:
+# Teaching first (newest activity; reverse-chronological like the CV). Its
+# entries come from _data/teaching.yml. Supervised theses (TFG/TFM/PhD) would
+# go under this branch as their own panel when there are any.
+- id: detail-teaching
+  label: "[2022 – present] · Teaching Assistant & Lecturer · UMH"
 - id: detail-phd
   edu: phd
 - id: detail-msc

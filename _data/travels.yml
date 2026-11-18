@@ -22,6 +22,16 @@
 #           cv:      panel id in cv_sections.yml   -> "In the CV" link
 #           project: panel id in projects.yml      -> "Project" link
 #           links:   external pages [{label, url}]
+#         Research stays (kind: stay) are also the single source of the stays
+#         listed in the CV Work panel (compact) and the /academic/ PhD panel
+#         (full), via _includes/stay_list.html:
+#           host:        who hosted me            -> globe card + /academic/
+#           topic:       "Hosted by <host>, on <topic>." -> globe card + /academic/
+#           institution: full name, own sentence -> /academic/
+#           work:        what I did, own sentence -> /academic/
+#           funding:     "Funded by a <funding>."  -> /academic/
+#           cv_dates:    certified stay period as display text, when it differs
+#                        from the travel dates (e.g. arrival the day before)
 
 modes:
 - id: been
@@ -155,7 +165,15 @@ events:
   from: "2026-09-17"
   to: "2026-10-20"
   title: "LIDeSIA, Universidad Nacional de Córdoba"
-  cv: detail-lidesia-2026
+  institution: "LIDeSIA (<em>Laboratorio de Investigación y Desarrollo de Software e Inteligencia Artificial</em>), <em>Facultad de Ciencias Exactas, Físicas y Naturales</em>, <em>Universidad Nacional de Córdoba</em> (UNC)"
+  host: "Laura Díaz Dávila"
+  topic: "Argentine Sign Language (LSA) recognition and translation (SeCyT-UNC Consolidar project)"
+  work: "Extension of the LSA-Med dataset with new RGB-D recordings (real depth from an iPhone camera), with a reusable capture protocol and tool; study of 3D depth fusion for sign recognition (ongoing joint work)"
+  funding: "travel grant of the UMH TECNIT doctoral programme (<em>Ayudas y bolsas de viaje para la difusión de resultados de investigación 2026</em>)"
+  links:
+  - label: "LIDeSIA"
+    url: "https://fcefyn.unc.edu.ar/facultad/secretarias/investigacion-y-desarrollo/laboratorios/laboratorio-de-investigacion-y-desarrollo-de-software-e-inteligencia-artificial-lidesia/"
+  cv: detail-umh
   project: detail-LIDESIA_LSA
   gallery: phd-cordoba-2026
 - kind: conference
@@ -178,7 +196,16 @@ events:
   from: "2026-05-28"
   to: "2026-07-03"
   title: "DFKI Bremen"
-  cv: detail-dfki-2025
+  institution: "Robotics Innovation Center (RIC) of DFKI (<em>Deutsches Forschungszentrum für Künstliche Intelligenz</em>)"
+  host: "Ajish Babu"
+  topic: "sensor integration (multispectral camera), calibration and data acquisition in the ROBDEKON II project"
+  work: "Follow-up stay, continuation of the same work"
+  funding: "UMH international mobility grant (<em>Ayuda UMH para la movilidad internacional 2026</em>)"
+  links:
+  - label: "DFKI"
+    url: "https://robotik.dfki-bremen.de/en/research/projects/robdekon-ii"
+  cv: detail-umh
+  project: detail-ROBDEKON2
   gallery: phd-bremen-2026
 - kind: conference
   place: palma
@@ -205,8 +232,17 @@ events:
   place: bremen
   from: "2025-11-30"    # arrived the Sunday before; the whole of December
   to: "2025-12-31"
+  cv_dates: "Dec. 2025"
   title: "DFKI Bremen"
-  cv: detail-dfki-2025
+  institution: "Robotics Innovation Center (RIC) of DFKI (<em>Deutsches Forschungszentrum für Künstliche Intelligenz</em>)"
+  host: "Ajish Babu"
+  topic: "sensor integration (multispectral camera), calibration and data acquisition in the ROBDEKON II project"
+  funding: "Banco Santander predoctoral mobility grant"
+  links:
+  - label: "DFKI"
+    url: "https://robotik.dfki-bremen.de/en/research/projects/robdekon-ii"
+  cv: detail-umh
+  project: detail-ROBDEKON2
   gallery: phd-bremen-2025
 - kind: conference
   place: marbella

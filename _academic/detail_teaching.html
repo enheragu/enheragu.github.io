@@ -1,0 +1,14 @@
+{% comment %} Full teaching record from _data/teaching.yml (newest first). Same
+list/chip format as publications (.pub-box / .pub-list / .pub-type-badge) and
+.teach-meta from css/index.css; the CV Work panel shows a one-line summary per
+role from the same data. {% endcomment %}
+<p>Courses taught at Universidad Miguel Hernández de Elche (UMH).</p>
+<div class="pub-box">
+    <div class="pub-box-scroll">
+        <ul class="pub-list">
+            {% for t in site.data.teaching %}
+            <li><span class="pub-type-badge">{{ t.role }}</span><strong>{{ t.course }}</strong><span class="teach-meta"> · {{ t.programme }} · {{ t.year }} · {{ t.ects }} ECTS</span>{% if t.note %}<br><span class="teach-meta">{{ t.note }}</span>{% endif %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

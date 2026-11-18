@@ -15,6 +15,17 @@ var academic = gitgraph
   .branch({name: "academic", color: branch_color, commitDefaultOptions: {color: branch_color}})
   .commit({tag: "", message: "Academic Journey"});
 
+// ---- Teaching ----
+// Explicit colour (purple, the one the cycler never reaches here) so adding
+// this branch does not shift the PhD / M.Sc. / B.Sc. colours.
+var teaching = academic
+  .branch({name: "Teaching", color: C.palette.purple, commitDefaultOptions: {color: C.palette.purple}})
+  .commit({tag: "Teaching", message: " "})
+  .commit({message: C.label("detail-teaching", "[2022 – present] · Teaching Assistant & Lecturer · UMH"), detailId: "detail-teaching"})
+  // Future: .commit({message: C.label("detail-supervision", "Supervised theses"), detailId: "detail-supervision"})
+  .merge(academic, {message: "merge Teaching", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
+academic.checkout();
+
 // ---- PhD ----
 branch_color = colorCycler.next();
 var phd = academic

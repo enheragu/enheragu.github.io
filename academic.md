@@ -1,6 +1,6 @@
 ---
 title: Academic Work
-description: Academic background of Enrique Heredia Aguado, including PhD, Master's and Bachelor's studies in robotics, computer vision and AI.
+description: Academic background of Enrique Heredia Aguado, including teaching and PhD, Master's and Bachelor's studies in robotics, computer vision and AI.
 layout: default
 permalink: /academic/
 custom_js:
@@ -13,7 +13,7 @@ custom_js:
     <div class="page-header">
         <div class="page-brand-muted">{{ site.title }}</div>
         <h1>Academic Work</h1>
-        <span class="page-subtitle">PhD · Master's · Bachelor's</span>
+        <span class="page-subtitle">Teaching · PhD · Master's · Bachelor's</span>
         {% include page_nav.html %}
     </div>
     <h2 class="visually-hidden">Timeline details</h2>

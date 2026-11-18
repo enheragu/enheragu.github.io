@@ -7,6 +7,7 @@ It includes:
 - CV and academic profile pages,
 - research and project pages,
 - personal and gallery sections,
+- a travel page (`/travel/`): interactive globe and travel log of conferences, research stays and field tests, with the data in `_data/travels.yml`,
 - shared assets used by linked web tools,
 - responsive navigation and GitHub Pages deployment.
 

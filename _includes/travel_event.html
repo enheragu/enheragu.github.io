@@ -25,10 +25,15 @@
         <span class="travel-event-note">online</span>{% endif %}{% if te.attended == false %}
         <span class="travel-event-note">presented by co-authors</span>{% endif %}
     </p>
+    {% if te.host or te.topic %}
+    {% comment %} Stays: one line (host + topic) from travels.yml; the full record
+    (work, funding) is in /academic/ via stay_list.html. {% endcomment %}
+    <p class="travel-event-desc">{% if te.host %}Hosted by {{ te.host }}{% if te.topic %}, on {{ te.topic }}{% endif %}.{% else %}{{ te.topic }}.{% endif %}</p>
+    {% endif %}
     {% if te.cv or te_project or te_gallery or te.links %}
     <p class="travel-event-links">
         {% if te.cv %}<a class="link-badge" href="{{ '/' | relative_url }}#{{ te.cv }}">[CV entry]</a>{% endif %}
-        {% if te_project %}<a class="link-badge" href="{{ '/projects/' | relative_url }}#{{ te_project.id }}">[project {{ te_project.name }}]</a>{% endif %}
+        {% if te_project %}{% comment %} panel: false projects only appear in the CV Projects list {% endcomment %}<a class="link-badge" href="{% if te_project.panel == false %}{{ '/' | relative_url }}#detail-projects{% else %}{{ '/projects/' | relative_url }}#{{ te_project.id }}{% endif %}">[project {{ te_project.name }}]</a>{% endif %}
         {% if te_gallery %}<a class="link-badge" href="{{ '/gallery/' | relative_url }}#{{ te_gallery.id }}">[photos]</a>{% endif %}
         {% for te_link in te.links %}<a class="link-badge" href="{{ te_link.url }}" target="_blank" rel="noopener noreferrer">[{{ te_link.label }}]</a>{% endfor %}
     </p>

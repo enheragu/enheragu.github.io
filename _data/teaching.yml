@@ -1,11 +1,23 @@
-# Teaching record — one entry per course·year, newest first.
-# Rendered in _cv_sections/detail_umh.html (web + PDF). To grow it, just add an
-# entry here; it reuses the publication list/chip styles.
+# Teaching record — one entry per course·year, newest first. Single source for:
+#   - /academic/ Teaching panel (_academic/detail_teaching.html): full list.
+#   - CV Work panel (_cv_sections/detail_umh.html): one summary line per role.
+# Fields: role (chip + summary group), course, programme, year, ects.
+#   period: optional contract span, shown instead of the academic years in the
+#           summary (e.g. a short lectureship inside one course year).
+#   note:   optional extra line under the entry in /academic/ (HTML allowed).
+# To grow it, just add an entry here; it reuses the publication list/chip styles.
 - role: "Teaching Assistant"
   course: "Computer Vision"
   programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
   year: "2026–2027"
   ects: "3"
+- role: "Lecturer"
+  course: "General Electronics"
+  programme: "B.Sc. Electronics &amp; Automation Eng. (2nd yr) + Mechanics Eng. (2nd yr)"
+  year: "2025–2026"
+  ects: "7.2"
+  period: "Mar. – Jun. 2026"
+  note: 'Temporary faculty appointment (<i>Profesor Asociado</i>), Mar. – Jun. 2026, in the Dept. of Communications Engineering (Electronics area). <a href="https://portalinvestigacion.umh.es/unidades/41873/detalle" target="_blank" rel="noopener noreferrer">[Dept.]</a>'
 - role: "Teaching Assistant"
   course: "Robotics"
   programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"

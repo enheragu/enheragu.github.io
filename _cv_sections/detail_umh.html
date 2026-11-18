@@ -8,17 +8,27 @@
     <li>Multi-modal sensor fusion (RGB + Thermal + LIDAR) for deep learning-based object detection.</li>
     <li>Multispectral camera design, calibration and integration with ROS/ROS2.</li>
     <li>Research methodology and experimental design for better replicability.</li>
-    {%- comment -%} PDF only: teaching folded in as a plain bullet (no chip). The web
-    shows the full, styled Teaching list below instead. {%- endcomment -%}
-    {%- assign t_courses = site.data.teaching | map: "course" | uniq | join: " and " -%}
-    {%- assign t_ystart = site.data.teaching | last -%}
-    {%- assign t_yend = site.data.teaching | first -%}
-    <li class="print-only">Teaching Assistant in {{ t_courses }} ({{ t_ystart.year | split: "–" | first }}–{{ t_yend.year | split: "–" | last }}).</li>
+    {%- comment -%} PDF only: teaching folded in as plain bullets (no chip), one per
+    role (courses + span, or the contract period when set), and the research stays
+    as one more bullet. The web shows the full, styled lists below instead. {%- endcomment -%}
+    {%- assign t_roles = site.data.teaching | group_by: "role" -%}
+    {%- for t_g in t_roles -%}
+    {%- assign t_courses = t_g.items | map: "course" | uniq | join: " and " -%}
+    {%- assign t_oldest = t_g.items | last -%}
+    {%- assign t_newest = t_g.items | first -%}
+    {%- if t_g.items.size == 1 and t_newest.period -%}
+      {%- assign t_span = t_newest.period -%}
+    {%- else -%}
+      {%- capture t_span -%}{{ t_oldest.year | split: "–" | first }}–{{ t_newest.year | split: "–" | last }}{%- endcapture -%}
+    {%- endif %}
+    <li class="print-only">{{ t_g.name }} in {{ t_courses }} ({{ t_span }}).</li>
+    {%- endfor %}
+    <li class="print-only">{% include stay_list.html format="inline" %}</li>
 </ul>
 
-<h3 class="web-only">Teaching</h3>
+<h3 class="web-only">Teaching ({{ site.data.teaching | size }})</h3>
 {% comment %} Data-driven: entries live in _data/teaching.yml (newest first). The
-web shows this full styled list; the PDF folds teaching into the single bullet
+web shows this full styled list; the PDF folds teaching into the bullets
 above. Reuses the publication list/chip styles (.pub-box-scroll / .pub-list /
 .pub-type-badge). {% endcomment %}
 <div class="pub-box web-only">
@@ -28,5 +38,16 @@ above. Reuses the publication list/chip styles (.pub-box-scroll / .pub-list /
             <li><span class="pub-type-badge">{{ t.role }}</span><strong>{{ t.course }}</strong><span class="teach-meta"> · {{ t.programme }} · {{ t.year }} · {{ t.ects }} ECTS</span></li>
             {% endfor %}
         </ul>
+    </div>
+</div>
+
+{%- assign stays_n = site.data.travels.events | where: "kind", "stay" | size %}
+<h3 class="web-only">Research stays ({{ stays_n }})</h3>
+{% comment %} Same list/chip format as Teaching. Data: the stay events of
+_data/travels.yml (also on the /travel/ globe); each row links to the full
+record (host, topic, funding) in the /academic/ PhD panel. {% endcomment %}
+<div class="pub-box web-only">
+    <div class="pub-box-scroll teach-scroll">
+        {% include stay_list.html format="list" %}
     </div>
 </div>

@@ -97,10 +97,10 @@
   font-size: var(--txt-sm);
 }
 
-/* Teaching (Work panel) reuses the publication list/chip styles
-   (.pub-box-scroll / .pub-list / .pub-type-badge — see detail_umh.html) for
-   coherence and to avoid duplicated CSS; only the muted, compact one-line meta
-   is teaching-specific. */
+/* Teaching + Research stays (Work panel) and the /academic/ Teaching panel reuse
+   the publication list/chip styles (.pub-box-scroll / .pub-list /
+   .pub-type-badge — see detail_umh.html) for coherence and to avoid duplicated
+   CSS; only the muted, compact one-line meta is teaching-specific. */
 .teach-meta { color: var(--text-secondary); font-size: var(--txt-sm); }
 
 /* The Work panel caps at 400px (see .gitgraph-detail): with the intro + Research
@@ -109,6 +109,44 @@
    publication default keeps the slider contained WITHIN the teaching list
    (like publications), leaving intro + Research static. Tune the height here. */
 .pub-box-scroll.teach-scroll { max-height: 8rem; }
+
+/* Research stays (same capped list) sit under Teaching, so the Work panel needs
+   more than the 400px panel cap or the WHOLE panel scrolls again. Both lists
+   are capped (.teach-scroll), so the panel stays bounded; the graph measures
+   panel heights, so commits re-space themselves. Phones keep their own
+   !important cap (RESPONSIVE section). */
+#detail-umh { max-height: 520px; }
+
+/* Research stays rows: the whole row links to the full record in /academic/
+   (no [more details] chip); a quiet arrow hints it, as in the /travel/ log.
+   Undoes the chip look that .pub-list li a gets from publication-ui.css. */
+.pub-list li a.stay-row {
+  display: block;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+.pub-list li a.stay-row:hover,
+.pub-list li a.stay-row:focus-visible {
+  background: none;
+  color: inherit;
+}
+.stay-row-go {
+  margin-left: 0.4rem;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+.pub-list li a.stay-row:hover .stay-row-go,
+.pub-list li a.stay-row:focus-visible .stay-row-go {
+  color: var(--accent);
+}
 
 /* Elements meant only for the printable PDF (e.g. condensed summaries) are hidden
    on the web; print.css does not load here, so they show in the PDF by default.
