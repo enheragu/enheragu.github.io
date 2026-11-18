@@ -97,8 +97,8 @@ var ergo = gmv
   .commit({tag: "ERGO", message: " "})
   .commit({message: "[12/2018] · Gara Medouar, Morocco", detailId: "ergo-morocco-2018"})
   .commit({message: "[11/2018] · Xaluka Workshop", detailId: "ergo-xaluka-2018"})
-  .commit({message: "[08/2018] · Bremen Field Tests", detailId: "ergo-bremen-2018"})
-  .commit({message: "[08/2018] · GMV Lab – Orbital Scenario", detailId: "ergo-gmv-2018"})
+  .commit({message: "[09/2018] · GMV Lab – Orbital Scenario", detailId: "ergo-gmv-2018"})
+  .commit({message: "[07/2018] · Bremen Field Tests", detailId: "ergo-bremen-2018"})
   .merge(gmv, {message: "merge ERGO", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 gmv.checkout();
 

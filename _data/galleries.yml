@@ -247,33 +247,33 @@ branches:
       camera: " "
       date: "[11/2018]"
 
-  - id: ergo-bremen-2018
-    label: "[08/2018] · Bremen Field Tests"
-    images:
-    - name: 08_2018_ergo_bremen_00.JPG
-      text: DFKI outside installations for testing.
-      author: Tobias Stark
-      camera: DJI drone
-      date: "[08/2018]"
-    - name: 08_2018_ergo_bremen_01.JPG
-      text: DFKI outside installations for testing.
-      author: Tobias Stark
-      camera: DJI drone
-      date: "[08/2018]"
-    - name: 08_2018_ergo_bremen_02.JPG
-      text: DFKI outside installations for testing.
-      author: Tobias Stark
-      camera: DJI drone
-      date: "[08/2018]"
-
   - id: ergo-gmv-2018
-    label: "[08/2018] · GMV Lab - Orbital Scenario"
+    label: "[09/2018] · GMV Lab - Orbital Scenario"
     images:
     - name: 08_2018_ergo_gmv_00.jpg
       text: ERGO Orbital Scenario setup in GMV's platform-art laboratory.
       author: Enrique Heredia
       camera: Phone
-      date: "[08/2018]"
+      date: "[09/2018]"
+
+  - id: ergo-bremen-2018
+    label: "[07/2018] · Bremen Field Tests"
+    images:
+    - name: 08_2018_ergo_bremen_00.JPG
+      text: DFKI outside installations for testing.
+      author: Tobias Stark
+      camera: DJI drone
+      date: "[07/2018]"
+    - name: 08_2018_ergo_bremen_01.JPG
+      text: DFKI outside installations for testing.
+      author: Tobias Stark
+      camera: DJI drone
+      date: "[07/2018]"
+    - name: 08_2018_ergo_bremen_02.JPG
+      text: DFKI outside installations for testing.
+      author: Tobias Stark
+      camera: DJI drone
+      date: "[07/2018]"
 
 - name: "GOTCHA"
   tag: "GOTCHA"
