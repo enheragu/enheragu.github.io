@@ -14,7 +14,8 @@
 # cvn: CVN-only fields, as the FECYT editor expects them: entity, entity_type,
 #   department, category (Categoría profesional), listed (date of the CVN that
 #   already includes it; absent = new). null = still to fill in.
-#   `cvn: false` = not listed in the CVN.
+#   `cvn: false` = not listed in the CVN. `cvn.local_only: true` = CVN item shown
+#   only on the local /cvn/ (never on the published page or in its PDF).
 # Private fields (e.g. contract type) and open questions are NOT stored here
 # (this repo is public): they live in the local, git-ignored _data/cvn_local.yml.
 # Entries without a cv_sections item (umh_lecturer) only feed the CVN and teaching.yml.
@@ -56,6 +57,7 @@ umh_lecturer:
   start: "2026-03"
   end: "2026-06"
   cvn:
+    local_only: true            # public CV: only the teaching (Enrique); the CVN item shows locally only
     entity: "Universidad Miguel Hernández de Elche"
     entity_type: "Universidad"
 umh_intern:

@@ -152,36 +152,10 @@ h2.print-section > span {
 #detail-skills ul { column-count: 2; column-gap: 8mm; }
 #detail-skills li { break-inside: avoid; }
 
-/* Teaching section (PDF only, _cv_sections/detail_teaching.html): one row per
-   course·year, right-aligned ECTS and a total row, so subjects, years and
-   credits read at a glance. Rules in --line, header/total in the branch ink. */
-.teach-table {
-  width: 100%;
-  margin: 1mm 0;
-  border-collapse: collapse;
-  font-size: 8.8pt;
-  break-inside: avoid;
-}
-.teach-table th,
-.teach-table td {
-  padding: 0.5mm 2mm 0.5mm 0;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 0.5pt solid var(--line);
-}
-.teach-table th {
-  color: var(--branch-ink, var(--muted));
-  font-weight: 600;
-  border-bottom-color: var(--branch, var(--line));
-}
-.teach-table .num { text-align: right; padding-right: 0; white-space: nowrap; }
-.teach-table .teach-year { font-family: var(--mono); font-size: 8pt; white-space: nowrap; }
-.teach-table tfoot td {
-  font-weight: 600;
-  color: var(--branch-ink, var(--ink));
-  border-top: 0.5pt solid var(--branch, var(--line));
-  border-bottom: none;
-}
+/* Teaching section (PDF only, _cv_sections/detail_teaching.html): a bullet list
+   with role chips, like the /academic/ Teaching list. */
+#detail-teaching .teach-list { margin: 1mm 0; }
+#detail-teaching .nowrap { white-space: nowrap; }
 #detail-teaching .teach-meta { font-size: 8.5pt; }
 #detail-teaching .teach-training { margin-top: 1mm; }
 
@@ -334,22 +308,11 @@ h3.print-entry + h3.print-entry::before { top: 1.5mm; }
   display: none;
 }
 
-/* ===== Chips: role/category badge (.pub-type-badge — teaching reuses it) =====
-   The theme's publication-ui.css isn't loaded in print, so style the badge here
-   so it reads as a chip on paper too (teaching role + any pub_box badge). */
-.pub-type-badge {
-  display: inline-block;
-  margin-right: 3pt;
-  padding: 0 3pt;
-  border: 0.5pt solid var(--line);
-  border-radius: 2pt;
-  font-family: var(--mono);
-  font-size: 7.5pt;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
+/* ===== No chips on paper (.pub-type-badge) ==================================
+   The web lists use them (publications, teaching, grants), but nothing else in
+   the PDF is chip-styled, so a template shared with the web (the Grants list)
+   drops its badge here; the PDF Teaching list says the role in plain text. */
+.pub-type-badge { display: none; }
 .teach-meta { color: var(--muted); }
 
 /* ===== Actual printing ===== */

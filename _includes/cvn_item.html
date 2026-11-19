@@ -3,10 +3,13 @@
     {% capture f %}{% include cvn_f.html k="Campo" v=c.field %}{% endcapture %}
     {% include cvn_item.html title=t listed=c.listed check=c.check source=c.source fields=f %}
   listed (date of the CVN that already has it) -> "En CVN", else "Nuevo" (the
-  items the section's "Copiar nuevos" button collects).
+  items the section's "Copiar nuevos" button collects); status="…" shows that
+  tag instead and keeps the item out of "Copiar nuevos" (e.g. the PhD in progress).
+  link="url" link_text="…" appends " · <a>link_text</a>" to the title (e.g. the
+  UMH subject code -> its official page); the title is never copied.
 {%- endcomment -%}
-<article class="cvn-item{% unless include.listed %} is-new{% endunless %}">
-    <h3><span class="cvn-tag">{% if include.listed %}En CVN{% else %}Nuevo{% endif %}</span> {{ include.title | strip_html }}</h3>
+<article class="cvn-item{% unless include.listed or include.status %} is-new{% endunless %}"{% if include.private %} data-private{% endif %}>
+    <h3><span class="cvn-tag">{% if include.status %}{{ include.status }}{% elsif include.listed %}En CVN{% else %}Nuevo{% endif %}</span> <span class="cvn-title">{{ include.title | strip_html }}{% if include.link %} · <a href="{{ include.link }}" target="_blank" rel="noopener noreferrer">{{ include.link_text }}</a>{% endif %}</span></h3>
     {%- assign ci_check = include.check | strip -%}{%- assign ci_src = include.source | strip %}
     {%- if ci_check != "" %}
     <p class="cvn-check">Revisar: {{ ci_check }}</p>

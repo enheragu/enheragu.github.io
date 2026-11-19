@@ -57,11 +57,11 @@ def main():
                         help="One-page CV (the core page alone, internal links pointing to the full "
                              "PDF online). Default: <out> with a _short suffix; 'none' to skip.")
     parser.add_argument("--cvn-out", default=None,
-                        help="CV in CVN structure: prints the /cvn/ page (its @media print layout). "
-                             "Default: <out> with an _estructuraCVN suffix; 'none' to skip.")
+                        help="Full-data CV (_fulldata): prints the /cvn/ page (its @media print layout). "
+                             "Default: <out> with an _fulldata suffix; 'none' to skip.")
     args = parser.parse_args()
     if args.cvn_out is None:
-        args.cvn_out = os.path.splitext(args.out)[0] + "_estructuraCVN.pdf"
+        args.cvn_out = os.path.splitext(args.out)[0] + "_fulldata.pdf"
     if args.short_out is None:
         args.short_out = os.path.splitext(args.out)[0] + "_short.pdf"
 
@@ -197,9 +197,8 @@ def main():
 
 
 def build_cvn_pdf(browser, args, project_dir):
-    """CV in CVN structure: the /cvn/ page printed with its own @media print
-    layout (css/cvn.css). Unofficial by design: no FECYT branding, and the
-    page header and this footer say so. The dev server also serves the LOCAL
+    """Full-data CV (_fulldata): the /cvn/ page printed with its own @media print
+    layout (css/cvn.css): our own layout of the CVN sections, no FECYT branding. The dev server also serves the LOCAL
     working data (_data/cvn_local.yml: «Revisar» notes, private fields) and
     PENDIENTE markers; the print CSS hides them, and this function refuses to
     write the PDF if any of them shows up in its text."""
@@ -207,11 +206,10 @@ def build_cvn_pdf(browser, args, project_dir):
     page = browser.new_page()
     page.goto(url, wait_until="networkidle", timeout=30000)
     page.wait_for_timeout(500)
-    page.evaluate("document.title = 'Enrique Heredia Aguado - CV en estructura CVN (no oficial)'")
+    page.evaluate("document.title = 'Enrique Heredia Aguado - CV (datos completos)'")
     footer = ('<div style="width:100%; font-size:7pt; color:#666; padding:0 13mm; display:flex; '
               'justify-content:space-between; font-family:Helvetica, Arial, sans-serif;">'
-              '<span>CV en estructura CVN · documento no oficial generado desde enheragu.github.io/cvn/ '
-              '(el CVN oficial se genera en el editor de FECYT)</span>'
+              '<span>Documento generado desde enheragu.github.io/cvn/</span>'
               '<span><span class="pageNumber"></span>/<span class="totalPages"></span></span></div>')
     tmp = args.cvn_out + ".tmp"
     page.pdf(path=tmp, format="A4", print_background=True, display_header_footer=True,

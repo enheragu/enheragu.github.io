@@ -45,29 +45,46 @@
 
 /* ===== Printed version: the downloadable "CV in CVN structure" PDF ===========
    (_scripts/build_cv_pdf.py prints this page; Ctrl+P gives the same). Only the
-   data: no site chrome, working markers, copy buttons, sources, PENDIENTE,
-   «Revisar» notes or private fields ([data-private]). Not an official CVN look:
-   no FECYT branding, and the header says it is unofficial. */
+   data: no site chrome, status tags, copy buttons, sources, PENDIENTE, «Revisar»
+   notes or private fields ([data-private]). Our own look (the CV's section
+   colours via --sec on each .cvn-section), no FECYT branding. */
 .cvn-print-head { display: none; }
 @media print {
   body > *:not(.cvn-page),
   .cvn-page > .page-header, .cvn-intro, .cvn-copy, .cvn-tag, .cvn-src, .cvn-check,
-  .cvn-pend, .cvn-note:not(.cvn-phd), [data-private] { display: none !important; }
-  body { background: #fff; color: #111; }
-  .cvn-page { max-width: none; padding: 0; font-size: 9.5pt; }
-  .cvn-print-head { display: block; margin-bottom: 4mm; border-bottom: 1.5pt solid #111; padding-bottom: 2mm; }
-  .cvn-print-head h1 { font-size: 17pt; margin: 0 0 1mm; text-align: left; }
-  .cvn-print-head p { margin: 0.5mm 0; font-size: 9pt; color: #333; }
-  .cvn-print-head .cvn-disclaimer { font-size: 8pt; color: #555; }
+  .cvn-pend, .cvn-note, [data-private] { display: none !important; }
+  body { background: #fff; color: #1f2328; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .cvn-page { max-width: none; padding: 0; font-size: 9pt; }
+
+  .cvn-print-head { display: block; margin: 0 0 5mm; padding: 0 0 2.5mm; border-bottom: 1.5pt solid #1f2328; }
+  .cvn-print-head h1 { font-size: 18pt; margin: 0 0 1mm; text-align: left; color: #1f2328; }
+  .cvn-print-head p { margin: 0; font-size: 9pt; color: #57606a; }
+
   .cvn-section { margin: 5mm 0 0; padding: 0; max-width: none; counter-reset: cvn-item; }
-  .cvn-section h2 { font-size: 11.5pt; color: #111; border-bottom: 0.75pt solid #999; break-after: avoid; }
-  .cvn-item { margin: 2.5mm 0 0; break-inside: avoid; }
-  .cvn-item h3 { font-size: 9.5pt; margin: 0 0 0.6mm; break-after: avoid; }
-  .cvn-item h3::before { counter-increment: cvn-item; content: counter(cvn-item) ". "; }
-  .cvn-fields {
-    background: none; border: none; padding: 0 0 0 5mm; margin: 0;
-    font-family: inherit; font-size: 8.8pt; line-height: 1.35; color: #222; white-space: pre-wrap;
+  .cvn-section h2 {
+    display: block; margin: 0 0 1.5mm; padding: 1.1mm 3mm;
+    font-size: 10.5pt; font-weight: 700; color: var(--sec-text, #1f2328);
+    background: var(--sec, #57606a); border: none; border-radius: 2px; break-after: avoid;
   }
-  .cvn-fields .k { font-weight: 600; color: #444; }
+  .cvn-item { margin: 0; padding: 2mm 0 2.2mm; border-bottom: 0.5pt solid #d0d7de; break-inside: avoid; }
+  .cvn-item:last-of-type { border-bottom: none; }
+  .cvn-item h3 {
+    display: flex; align-items: baseline; gap: 2mm;
+    font-size: 9.5pt; font-weight: 700; margin: 0 0 1.2mm; color: #1f2328; break-after: avoid;
+  }
+  .cvn-item h3::before {
+    counter-increment: cvn-item; content: counter(cvn-item);
+    flex: none; min-width: 4.5mm; padding: 0.1mm 1mm; border-radius: 2px; text-align: center;
+    background: var(--sec, #57606a); color: var(--sec-text, #1f2328); font-size: 8pt;
+  }
+  .cvn-fields {
+    background: none; border: none; margin: 0; padding: 0 0 0 6.5mm;
+    font-family: inherit; font-size: 8.6pt; line-height: 1.38; color: #1f2328; white-space: normal;
+  }
   .cvn-section > .cvn-fields { padding-left: 0; }
+  .cvn-fields .f { display: grid; grid-template-columns: 44mm 1fr; column-gap: 3mm; }
+  .cvn-fields .k { color: #57606a; }
+  .cvn-fields .sep { display: none; }
+  .cvn-fields .v { overflow-wrap: anywhere; }
+  .cvn-fields a, .cvn-item h3 a { color: #0969da; text-decoration: none; }
 }

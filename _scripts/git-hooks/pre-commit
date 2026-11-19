@@ -97,7 +97,7 @@ fi
 
 # --- Generate the PDF --------------------------------------------------------
 "$VENV_PY" _scripts/build_cv_pdf.py --url "$CV_URL"     # full CV + one-page CV (_short) + CV in CVN structure
-add+=("pdf/EnriqueHerediaAguado_CV.pdf" "pdf/EnriqueHerediaAguado_CV_short.pdf" "pdf/EnriqueHerediaAguado_CV_estructuraCVN.pdf")
+add+=("pdf/EnriqueHerediaAguado_CV.pdf" "pdf/EnriqueHerediaAguado_CV_short.pdf" "pdf/EnriqueHerediaAguado_CV_fulldata.pdf")
 
 # --- Stage the regenerated outputs into this commit --------------------------
 if [ "${#add[@]}" -gt 0 ]; then

@@ -1,25 +1,18 @@
 {% comment %} PDF-only Teaching section (print_only in _data/cv_sections.yml; the
 web shows the same record in the UMH Work panel and in /academic/). Data:
-_data/teaching.yml (newest first), one row per course·year, with total ECTS;
+_data/teaching.yml (newest first), one bullet per course·year with the role as
+plain text (no chips on paper: see print.css), with total ECTS;
 the kind of teaching is said once when every entry shares it, otherwise per
 row. Teacher training: the teacher_training entries of _data/courses.yml. {% endcomment %}
 {%- assign tt_types = site.data.teaching | map: "type" | uniq -%}
 {%- if tt_types.size == 1 and tt_types[0] -%}{%- assign tt_common = tt_types[0] -%}{%- else -%}{%- assign tt_common = nil -%}{%- endif %}
 <p>Courses taught at Universidad Miguel Hernández de Elche (UMH){% if tt_common %}, all as {{ tt_common }}{% endif %}: {% include teaching_ects.html %} ECTS in total.</p>
-<table class="teach-table">
-    <thead>
-        <tr><th>Year</th><th>Course</th><th>Degree</th><th>Role</th><th class="num">ECTS</th></tr>
-    </thead>
-    <tbody>
-        {%- for t in site.data.teaching %}
-        {%- capture t_per %}{% include teaching_period.html t=t %}{% endcapture %}
-        <tr><td class="teach-year">{{ t.year }}</td><td><strong>{{ t.course }}</strong></td><td>{{ t.programme }}</td><td>{{ t.role }}{% if t_per != "" %} ({{ t_per }}){% endif %}{% if t.type and tt_common == nil %} · {{ t.type }}{% endif %}</td><td class="num">{{ t.ects }}</td></tr>
-        {%- endfor %}
-    </tbody>
-    <tfoot>
-        <tr><td colspan="4">Total</td><td class="num">{% include teaching_ects.html %}</td></tr>
-    </tfoot>
-</table>
+<ul class="pub-list teach-list">
+    {%- for t in site.data.teaching %}
+    {%- capture t_per %}{% include teaching_period.html t=t %}{% endcapture %}
+    <li><strong>{{ t.course }}</strong><span class="teach-meta"> · {{ t.role }} · {{ t.programme }} · {% if t_per != "" %}{{ t_per }}{% else %}{{ t.year }}{% endif %} · <span class="nowrap">{{ t.ects }} ECTS</span>{% if t.type and tt_common == nil %} ({{ t.type }}){% endif %}</span></li>
+    {%- endfor %}
+</ul>
 {%- assign tn = site.data.teaching | where_exp: "t", "t.note" %}
 {%- for t in tn %}
 <p class="teach-meta">{{ t.course }} ({{ t.year }}): {{ t.note }}</p>

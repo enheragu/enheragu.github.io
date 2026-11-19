@@ -4,8 +4,8 @@
   Usage: {% include cvn_f.html k="Campo" v=value %}
     date=true          ISO date -> DD/MM/YYYY (MM/YYYY, YYYY when partial)
     range=true v2=end  "start - end" (both required)
-  The label is wrapped in <span class="k"> (bold in the printed version; the
-  copied text is unchanged). A missing value shows as PENDIENTE (local dev server only; the published
+  Each line is <span class="f"> label (.k) + separator (.sep) + value (.v): two
+  columns in the printed version; the copied text is still "Campo: valor". A missing value shows as PENDIENTE (local dev server only; the published
   page just omits the line) and is left out of the copied text.
 {%- endcomment -%}
 {%- assign cf_v = include.v -%}
@@ -16,6 +16,6 @@
   {%- assign cf_v = cf_v | split: "-" | reverse | join: "/" -%}
   {%- if include.range -%}{%- assign cf_e = include.v2 | split: "-" | reverse | join: "/" -%}{%- assign cf_v = cf_v | append: " - " | append: cf_e -%}{%- endif -%}
 {%- endif -%}
-{%- if cf_miss -%}{%- if jekyll.environment != "production" -%}<span class="cvn-pend" data-skip>{{ include.k }}: PENDIENTE
-</span>{%- endif -%}{%- else -%}<span class="k">{{ include.k }}</span>: {% if include.k == "DOI" %}<a href="https://doi.org/{{ cf_v | strip }}">{{ cf_v | strip }}</a>{% else %}{{ cf_v | strip_html | strip }}{% endif %}
-{% endif -%}
+{%- if cf_miss -%}{%- if jekyll.environment != "production" -%}<span class="f cvn-pend" data-skip><span class="k">{{ include.k }}</span><span class="sep">: </span><span class="v">PENDIENTE</span>
+</span>{%- endif -%}{%- else -%}<span class="f"><span class="k">{{ include.k }}</span><span class="sep">: </span><span class="v">{% if include.k == "DOI" %}<a href="https://doi.org/{{ cf_v | strip }}">{{ cf_v | strip }}</a>{% else %}{{ cf_v | strip_html | strip }}{% endif %}</span>
+</span>{% endif -%}

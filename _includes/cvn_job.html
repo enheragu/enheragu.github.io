@@ -7,6 +7,9 @@
   for a contract, "employment:<key>/<contract start>".
 {%- endcomment -%}
 {%- assign cj = site.data.employment[include.key] -%}{%- assign cc = cj.cvn -%}{%- assign ck = include.k -%}
+{%- comment -%} local_only: rendered only by the local dev server, and even there
+   marked data-private so it is never printed into the public PDF. {%- endcomment -%}
+{%- if cc.local_only and jekyll.environment == "production" -%}{%- else -%}
 {%- assign cnk = "employment:" | append: include.key -%}
 {%- if ck -%}{%- assign cnk = cnk | append: "/" | append: ck.start -%}{%- endif -%}
 {%- if ck -%}
@@ -42,4 +45,5 @@
 {%- endcapture -%}
 {%- capture cj_title %}{{ cc.entity }} — {{ cj_pubcat }} ({{ cj_when }}){% endcapture -%}
 {%- assign cj_note = site.data.cvn_local.notes[cnk] -%}{%- assign cj_src = site.data.cvn_local.sources[cnk] | default: cj_src -%}
-{% include cvn_item.html title=cj_title listed=cj_listed check=cj_note source=cj_src fields=cj_fields %}
+{% include cvn_item.html title=cj_title listed=cj_listed check=cj_note source=cj_src fields=cj_fields private=cc.local_only %}
+{%- endif -%}

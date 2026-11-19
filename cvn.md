@@ -41,12 +41,11 @@ custom_css:
         <span class="page-subtitle">Datos del CV con los campos del CVN (FECYT)</span>
         {% include page_nav.html %}
     </div>
-    {%- comment -%} Printed version only (the downloadable "CV in CVN structure" PDF):
-       who, which identifiers, and that it is NOT an official FECYT CVN. {%- endcomment %}
+    {%- comment -%} Printed version only (the downloadable full-data CV PDF, pdf/…_CV_fulldata.pdf).
+       No FECYT branding anywhere: it is our own layout of the CVN sections. {%- endcomment %}
     <div class="cvn-print-head">
         <h1>Enrique Heredia Aguado</h1>
-        <p>Currículum vitae en estructura CVN · actualizado el {{ site.time | date: "%d/%m/%Y" }}</p>
-        <p class="cvn-disclaimer">Documento no oficial: recoge los datos del CV con los apartados y campos del CVN para facilitar su lectura. Se genera automáticamente desde enheragu.github.io; el CVN oficial (firmado) se obtiene del editor de FECYT.</p>
+        <p>Currículum vitae · actualizado el {{ site.time | date: "%d/%m/%Y" }} · generado de enheragu.github.io</p>
     </div>
 
     <div class="cvn-intro">
@@ -61,22 +60,20 @@ custom_css:
     </div>
 
     {%- assign ids = site.data.profile.identifiers %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #57606a; --sec-text: #ffffff;">
         <h2>Datos de identificación</h2>
-        <pre class="cvn-fields">ORCID: {{ ids.orcid }}
-ScopusID: {{ ids.scopus_id }}
-ResearcherID: {{ ids.researcher_id }}</pre>
+        <pre class="cvn-fields">{% include cvn_f.html k="ORCID" v=ids.orcid %}{% include cvn_f.html k="ScopusID" v=ids.scopus_id %}{% include cvn_f.html k="ResearcherID" v=ids.researcher_id %}</pre>
     </section>
 
     {%- comment -%} ===== Employment (a job, or each of its cvn.contracts) ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #d29922;">
         <h2>Situación profesional actual <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- for pair in site.data.employment %}{% assign j = pair[1] %}{% if j.cvn == false %}{% continue %}{% endif %}{% assign jk = pair[0] %}
         {%- if j.cvn.contracts %}{% for k in j.cvn.contracts %}{% if k.ongoing %}{% include cvn_job.html key=jk k=k current=true %}{% endif %}{% endfor %}
         {%- elsif j.ongoing %}{% include cvn_job.html key=jk current=true %}{% endif %}
         {%- endfor %}
     </section>
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #d29922;">
         <h2>Cargos y actividades desempeñados con anterioridad <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- comment -%} newest first: "start~key~contract index" strings, sorted {%- endcomment %}
         {%- assign prev = "" | split: "" %}
@@ -91,7 +88,7 @@ ResearcherID: {{ ids.researcher_id }}</pre>
     </section>
 
     {%- comment -%} ===== Education ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #58a6ff;">
         <h2>Formación académica recibida · Titulación universitaria <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- assign edu_keys = "bsc,msc" | split: "," %}
         {%- for k in edu_keys %}{% assign e = site.data.education[k] %}{% assign c = e.cvn %}
@@ -106,13 +103,22 @@ ResearcherID: {{ ids.researcher_id }}</pre>
         {% include cvn_item.html title=c.title listed=c.listed fields=f %}
         {%- endfor %}
         {%- assign phd = site.data.education.phd.cvn %}
-        <p class="cvn-note cvn-phd">Doctorado en curso desde {{ phd.start | split: "-" | reverse | join: "/" }} ({{ phd.entity }}); entra en el CVN al obtener el título. {% if phd.programme %}Programa: {{ phd.programme }}.{% elsif jekyll.environment != "production" %}Programa: <span class="cvn-pend">PENDIENTE</span>.{% endif %}</p>
+        {%- comment -%} PhD in progress: a regular item for readers ("En curso", not
+           copied: the CVN only takes it as «Doctorados» once defended). {%- endcomment %}
+        {%- capture f -%}
+        {%- include cvn_f.html k="Programa de doctorado" v=phd.programme -%}
+        {%- include cvn_f.html k="Entidad" v=phd.entity -%}
+        {%- include cvn_f.html k="Tipo de entidad" v=phd.entity_type -%}
+        {%- include cvn_f.html k="Fecha de inicio" v=phd.start date=true -%}
+        {%- capture phd_dirs %}{{ site.data.education.phd.directors | replace: " and ", " y " }}{% endcapture %}{% include cvn_f.html k="Dirección de la tesis" v=phd_dirs -%}
+        {%- endcapture %}
+        {% assign note = site.data.cvn_local.notes["education:phd"] %}{% include cvn_item.html title="Doctorado (en curso)" status="En curso" check=note fields=f %}
     </section>
 
     {%- comment -%} ===== Courses received ===== {%- endcomment %}
     {%- assign crs_groups = "false,true" | split: "," %}
     {%- for g in crs_groups %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #bc8cff;">
         <h2>{% if g == "true" %}Cursos y seminarios recibidos de perfeccionamiento, innovación y mejora docente{% else %}Formación especializada, continuada, técnica, profesionalizada, de reciclaje y actualización{% endif %} <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- for cr in site.data.courses %}{% assign tt = cr.teacher_training | default: false | append: "" %}{% if tt != g %}{% continue %}{% endif %}{% assign c = cr.cvn %}{% assign ctitle = c.title | default: cr.title %}
         {%- capture f -%}
@@ -138,14 +144,14 @@ ResearcherID: {{ ids.researcher_id }}</pre>
     {%- endfor %}
 
     {%- comment -%} ===== Teaching ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #bc8cff;">
         <h2>Actividad docente · Formación académica impartida <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- for tch in site.data.teaching %}{% assign c = tch.cvn %}{% assign nk = "teaching:" | append: c.code | append: "/" | append: tch.year %}{% assign ects = tch.ects | append: "" | replace: ".", "," %}
         {%- capture f -%}
         {%- include cvn_f.html k="Tipo de docencia" v="Docencia oficial" -%}
         {%- include cvn_f.html k="Nombre de la asignatura/curso" v=c.course -%}
         {%- include cvn_f.html k="Tipo de programa" v=c.programme_type -%}
-        {%- include cvn_f.html k="Tipo de docencia (modalidad)" v=c.teaching_type -%}
+        {%- include cvn_f.html k="Tipo de docencia" v=c.teaching_type -%}
         {%- include cvn_f.html k="Tipo de asignatura" v=c.subject_type -%}
         {%- include cvn_f.html k="Titulación universitaria" v=c.degree -%}
         {%- include cvn_f.html k="Curso que se imparte" v=c.course_year -%}
@@ -159,13 +165,16 @@ ResearcherID: {{ ids.researcher_id }}</pre>
         {%- include cvn_f.html k="Departamento" v=c.department -%}
         {%- include cvn_f.html k="Idioma de la asignatura" v=c.language -%}
         {%- endcapture %}
-        {%- capture t %}{{ c.course | default: tch.course }} · {{ tch.year }} · {{ ects }} ECTS{% if c.code %} · cód. {{ c.code }}{% endif %}{% endcapture %}
-        {% assign note = site.data.cvn_local.notes[nk] %}{% include cvn_item.html title=t listed=c.listed check=note source=c.source fields=f %}
+        {%- capture t %}{{ c.course | default: tch.course }} · {{ tch.year }} · {{ ects }} ECTS{% endcapture %}
+        {%- comment -%} The UMH subject code only means something at UMH, so the title shows it
+           as a link to the official subject page (not a CVN field: the editor has no URL for teaching). {%- endcomment -%}
+        {%- if c.code %}{% capture t_url %}https://www.umh.es/contenido/Estudios/:asi_g_{{ c.code }}_S1/datos_es.html{% endcapture %}{% capture t_code %}cód. {{ c.code }}{% endcapture %}{% else %}{% assign t_url = nil %}{% assign t_code = nil %}{% endif %}
+        {% assign note = site.data.cvn_local.notes[nk] %}{% include cvn_item.html title=t link=t_url link_text=t_code listed=c.listed check=note source=c.source fields=f %}
         {%- endfor %}
     </section>
 
     {%- comment -%} ===== Projects ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #f85149;">
         <h2>Proyectos de I+D+i financiados en convocatorias competitivas <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         <p class="cvn-note">Fechas = las del proyecto (manual CVN 1.4.3, campos 050.020.010.270 y .410); tu periodo de participación va en «Explicación narrativa de la aportación». Valores admitidos (Anexo I del manual): Tipo de participación = Investigador principal / Miembro de equipo / Colaborador / Coordinador / Otros; Grado de contribución = Investigador/a, Técnico/a, Titulado/a universitario/a en formación, coordinación… u Otros.</p>
         {%- assign n_proj = 0 %}
@@ -192,7 +201,7 @@ ResearcherID: {{ ids.researcher_id }}</pre>
     </section>
 
     {%- comment -%} ===== Publications ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #3fb950;">
         <h2>Publicaciones, documentos científicos y técnicos <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         <p class="cvn-note">Mejor importarlas desde ORCID o Scopus (ver arriba); aquí, los datos para completar tras importar.</p>
         {%- assign pub_kinds = "journal,book_chapter" | split: "," %}
@@ -230,7 +239,7 @@ ResearcherID: {{ ids.researcher_id }}</pre>
     </section>
 
     {%- comment -%} ===== Congresses (dates and city from the travel events) ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #3fb950;">
         <h2>Trabajos presentados en congresos nacionales o internacionales <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- assign conf_kinds = "conference_paper,presentation,poster" | split: "," %}
         {%- for kind in conf_kinds %}{% assign cat = pubs | where: "type_key", kind | first %}
@@ -262,7 +271,7 @@ ResearcherID: {{ ids.researcher_id }}</pre>
     </section>
 
     {%- comment -%} ===== Awards ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #d29922;">
         <h2>Premios, menciones y distinciones <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- assign cat = pubs | where: "type_key", "award" | first %}
         {%- for e in cat.entries %}{% assign c = e.cvn %}
@@ -278,7 +287,7 @@ ResearcherID: {{ ids.researcher_id }}</pre>
 
     {%- comment -%} ===== Stays and their grants ===== {%- endcomment %}
     {%- assign stays = trav.events | where: "kind", "stay" %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #d29922;">
         <h2>Estancias en centros públicos o privados <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- for s in stays %}{% assign c = s.cvn %}{% assign pl = trav.places | where: "id", s.place | first %}
         {%- assign s_from = s.certified.from | default: s.from %}{% assign s_to = s.certified.to | default: s.to %}
@@ -296,7 +305,7 @@ ResearcherID: {{ ids.researcher_id }}</pre>
         {% include cvn_item.html title=t listed=c.listed fields=f %}
         {%- endfor %}
     </section>
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #d29922;">
         <h2>Ayudas y becas obtenidas <button type="button" class="cvn-copy" data-cvn-copy="new">Copiar nuevos</button></h2>
         {%- assign granted_events = trav.events | where_exp: "ev", "ev.grant" %}
         {%- for s in granted_events %}{% assign g = s.grant %}{% assign c = s.cvn %}
@@ -319,7 +328,7 @@ ResearcherID: {{ ids.researcher_id }}</pre>
     </section>
 
     {%- comment -%} ===== Outputs without a direct CVN section ===== {%- endcomment %}
-    <section class="cvn-section">
+    <section class="cvn-section" style="--sec: #3fb950;">
         <h2>Software, datos, código y preprints</h2>
         <p class="cvn-note">Sin apartado CVN directo: revisar en el editor dónde encajan (los preprints no se suelen incluir hasta su publicación).</p>
         {%- assign other_kinds = "software,research_data,analysis_code,preprint" | split: "," %}
@@ -332,7 +341,8 @@ ResearcherID: {{ ids.researcher_id }}</pre>
         {%- if e.venue %}{% include cvn_f.html k="Publicado en" v=e.venue %}{% endif -%}
         {%- if e.doi %}{% include cvn_f.html k="DOI" v=e.doi %}{% endif -%}
         {%- endcapture %}
-        {%- capture t %}{{ cat.category_singular }}: {{ e.title }}{% endcapture %}
+        {%- case kind %}{% when "software" %}{% assign kind_es = "Software" %}{% when "research_data" %}{% assign kind_es = "Datos de investigación" %}{% when "analysis_code" %}{% assign kind_es = "Código de análisis" %}{% else %}{% assign kind_es = "Preprint" %}{% endcase %}
+        {%- capture t %}{{ kind_es }}: {{ e.title }}{% endcapture %}
         {% assign nk = "pubs:" | append: e.key %}{% assign note = site.data.cvn_local.notes[nk] %}{% include cvn_item.html title=t listed=c.listed check=note fields=f %}
         {%- endfor %}{% endfor %}
     </section>
