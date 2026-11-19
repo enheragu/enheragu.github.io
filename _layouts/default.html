@@ -13,7 +13,8 @@
         {% seo title=false %}
 
         <!-- Google Analytics 4 (gtag.js) — Consent Mode: cookies denied by default (ePrivacy/AEPD) -->
-        {% if site.google_analytics %}
+        {% comment %} Production only: a local `jekyll serve` (development) must not count page views. {% endcomment %}
+        {% if site.google_analytics and jekyll.environment == "production" %}
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
@@ -71,7 +72,7 @@
                         "https://www.linkedin.com/in/enheragu",
                         "https://github.com/enheragu",
                         "https://scholar.google.es/citations?user=1J56jsMAAAAJ",
-                        "https://orcid.org/0009-0001-7717-1428",
+                        "https://orcid.org/{{ site.data.profile.identifiers.orcid }}",
                         "https://www.researchgate.net/profile/Enrique-Heredia-Aguado"
                     ]
                 }
@@ -163,7 +164,10 @@
     <script>
     window.ToolsNavConfig = {
       preserveLangParam: false,
-      menuItems: [
+      // Pages first; a small "Downloads" group at the bottom keeps the CV PDF and
+      // the CVN record at hand without adding icons to the page headers.
+      menuSections: [
+        { items: [
         { href: "{{ '/' | relative_url }}", label: { en: "CV", es: "CV" } },
         { href: "{{ '/projects/' | relative_url }}", label: { en: "Research", es: "Investigación" } },
         { href: "{{ '/academic/' | relative_url }}", label: { en: "Academic", es: "Académico" } },
@@ -171,6 +175,13 @@
         // { href: "{{ '/personal/' | relative_url }}", label: { en: "Personal", es: "Personal" } },
         { href: "{{ '/travel/' | relative_url }}", label: { en: "Travel", es: "Viajes" } },
         { href: "{{ '/gallery/' | relative_url }}", label: { en: "Gallery", es: "Galería" } }
+        ] },
+        { title: { en: "Downloads", es: "Descargas" }, items: [
+          { href: "{{ '/pdf/EnriqueHerediaAguado_CV_short.pdf' | relative_url }}", label: { en: "CV · 1 page ⤓", es: "CV · 1 página ⤓" } },
+          { href: "{{ '/pdf/EnriqueHerediaAguado_CV.pdf' | relative_url }}", label: { en: "CV · full ⤓", es: "CV · completo ⤓" } },
+          { href: "{{ '/pdf/EnriqueHerediaAguado_CV_estructuraCVN.pdf' | relative_url }}", label: { en: "CV · CVN structure ⤓", es: "CV · estructura CVN ⤓" } },
+          { href: "{{ '/cvn/' | relative_url }}", label: { en: "CVN record", es: "Datos CVN" } }
+        ] }
       ]
     };
     </script>

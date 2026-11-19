@@ -107,15 +107,23 @@
    list above it, the teaching list would push the panel over that cap, so the
    WHOLE panel scrolled instead of the list. A tighter cap than the 260px
    publication default keeps the slider contained WITHIN the teaching list
-   (like publications), leaving intro + Research static. Tune the height here. */
-.pub-box-scroll.teach-scroll { max-height: 8rem; }
+   (like publications), leaving intro + Research static. Tune the height here.
+   `.sub-scroll` is the generic name of the same capped sub-list (Replication
+   and Transparency: Research Data / Analysis Code, two lines per entry → two
+   entries plus a peek of the next one). */
+.pub-box-scroll.teach-scroll,
+.pub-box-scroll.sub-scroll { max-height: 8rem; }
 
 /* Research stays (same capped list) sit under Teaching, so the Work panel needs
    more than the 400px panel cap or the WHOLE panel scrolls again. Both lists
    are capped (.teach-scroll), so the panel stays bounded; the graph measures
    panel heights, so commits re-space themselves. Phones keep their own
-   !important cap (RESPONSIVE section). */
-#detail-umh { max-height: 520px; }
+   !important cap (RESPONSIVE section). Replication and Transparency has the
+   same shape (intro + two capped lists) and the same need, and so does Awards
+   and Grants (two capped lists). */
+#detail-umh,
+#detail-pub-replication,
+#detail-awards { max-height: 520px; }
 
 /* Research stays rows: the whole row links to the full record in /academic/
    (no [more details] chip); a quiet arrow hints it, as in the /travel/ log.
@@ -526,4 +534,47 @@ section {
     font-size: var(--txt-2xs);
   }
 
+}
+
+/* Hamburger menu, "Downloads" group (the last, titled group of ToolsNavConfig in
+   _layouts/default.html): pinned to the bottom of the panel as small inline
+   chips, with the same look as the header mini-nav pills, so it stays at hand
+   without competing with the page list. CV-only: the other tools don't load
+   this file (their own titled menu groups are untouched). */
+.nav-menu > .nav-menu-group--titled:last-child {
+  margin-top: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border, var(--clr-border));
+}
+.nav-menu > .nav-menu-group--titled:last-child .nav-menu-group-title {
+  flex-basis: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: var(--txt-xs);
+}
+/* The panel is 100vh tall (theme); on mobile browsers that can sit under the
+   address bar, hiding exactly these bottom-pinned chips. Use the visible height
+   where supported (CV-only override). */
+@supports (height: 100dvh) {
+  .nav-menu { height: 100dvh; }
+}
+.nav-menu > .nav-menu-group--titled:last-child .nav-menu-item {
+  font-size: var(--txt-sm);
+  padding: 3px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--border, var(--clr-border));
+  background: var(--bg-tertiary, var(--clr-chart-bg));
+  color: var(--accent, var(--clr-primary));
+}
+.nav-menu > .nav-menu-group--titled:last-child .nav-menu-item:hover {
+  background: var(--border, var(--clr-border));
+  border-color: var(--border, var(--clr-border));
+  color: var(--accent-hover, var(--clr-primary-h));
+}
+.nav-menu > .nav-menu-group--titled:last-child .nav-menu-item.active {
+  border-color: var(--accent, var(--clr-primary));
 }
