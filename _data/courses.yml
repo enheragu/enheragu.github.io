@@ -1,0 +1,145 @@
+# Courses and workshops received, newest first. Single source for:
+#   - CV "Courses and Workshops" panel (_cv_sections/detail_courses.html)
+#   - PDF Teaching section (teacher_training: true -> "Teacher training" line)
+#   - CVN page (cvn.md, /cvn/)
+# Line format (_includes/course_line.html): "<dates>: <title> — <entity>[, <instructor>] (<hours> h)"
+#   start/end: ISO dates (end alone for one-off courses); the shown MM/YYYY dates
+#   are derived from them (date_span.html), and the CVN uses them as they are.
+#   cv: false -> kept for the CVN export only, not shown on the web/PDF.
+#   teacher_training: true -> CVN "Cursos y seminarios recibidos de perfeccionamiento,
+#                     innovación y mejora docente"; otherwise CVN "Formación
+#                     especializada, continuada, técnica…".
+#   cvn: CVN-only fields (never rendered): title (official, if different),
+#        entity (full name), entity_type, city, objectives,
+#        listed (date of the CVN that already includes it; absent = new).
+- title: "Formación Depósito Tesis y Orientación Postdoctoral"
+  entity: "UMH"
+  instructor: "Juan Manuel Pérez García"
+  end: "2026-04-21"
+  hours: 3
+  cv: false               # CVN only
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche (Escuela de Doctorado)"
+    entity_type: "Universidad"
+    city: "Elche"
+- title: "Jornada DivulgaNobel 2025"
+  entity: "UMH"
+  instructor: "M. R. Ponce Molet, M. M. Sánchez López y Á. Sastre Santos (organizadoras)"
+  end: "2025-12-11"
+  hours: 3
+  cv: false               # CVN only
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+    city: "Elche"
+- title: "4.ª Jornadas de Análisis Funcional Aplicado (JAFA)"
+  entity: "Instituto Libertia"
+  start: "2025-09-12"
+  end: "2025-09-13"
+  hours: null
+  cv: false               # CVN only
+  cvn:
+    entity: "Instituto Libertia"
+    entity_type: null
+    city: "Madrid"
+- title: "Diploma de Formación Inicial para la Docencia Universitaria"
+  entity: "UMH"
+  start: "2025-01-10"
+  end: "2025-06-17"
+  hours: 100
+  teacher_training: true
+  cvn:
+    listed: "2026-01-22"
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+    objectives: "El Programa de Formación Inicial para la Docencia Universitaria consta de las siguientes actividades de formación: EL CONTEXTO INSTITUCIONAL EN LA UMH: - Estructura del personal docente e investigador en la UMH. - La actividad docente en la UMH - La actividad investigadora en la UMH LAS COMPETENCIAS DOCENTES DEL PROFESOR DE UNIVERSIDAD: - Planificación de la docencia universitaria - Habilidades de comunicación en la docencia universitaria - Estrategias metodológicas en la enseñanza universitaria - Evaluación de los aprendizajes en la enseñanza universitaria - Estrategias de coordinación de profesorado y técnicas de motivación para el estudiantado - Perspectiva de género en la docencia y la investigación - El talento docente en la UMH MÓDULO PRÁCTICO: - Ejercicios teórico-prácticos de evaluación"
+- title: "Comunicación visual efectiva"
+  entity: "UMH"
+  instructor: "Carlos Manuel Ramos Lahiguera"
+  start: "2025-05-19"
+  end: "2025-05-21"
+  hours: 18
+  cvn:
+    listed: "2026-01-22"
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+- title: "Author training by MDPI"
+  entity: "UMH"
+  end: "2025-01-13"
+  hours: 4
+  cv: false               # in the CVN only, not shown on the web/PDF
+  cvn:
+    listed: "2026-01-22"
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+- title: "Soporte Vital Básico y RCP con DEA"
+  entity: "UMH"
+  end: "2024-11-14"
+  hours: 4
+  cvn:
+    listed: "2026-01-22"
+    title: "SOPORTE VITAL BÁSICO Y REANIMACIÓN CARDIOPULMONAR BÁSICA CON DESFIBRILADOR EXTERNO EN ADULTOS (DEA/DESA). IV EDICIÓN"
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+- title: "La estadística, mi gran aliada durante mi formación doctoral (I Jornada Formativa en Estadística)"
+  entity: "UMH"
+  instructor: "Eva María Navarrete Muñoz y Josep Xavier Barber Vallés"
+  end: "2023-06-15"
+  hours: 3
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche (Escuela de Doctorado)"
+    entity_type: "Universidad"
+- title: "El problema de la medición de la calidad de la actividad científica: métrica e índices"
+  entity: "UMH"
+  instructor: "Enrique Perdiguero Gil"
+  end: "2023-05-18"
+  hours: 1
+  cv: false               # CVN only
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche (Escuela de Doctorado)"
+    entity_type: "Universidad"
+- title: "La búsqueda bibliográfica en ingeniería y tecnología: IEEE Xplore"
+  entity: "UMH"
+  instructor: "Enrique Perdiguero Gil"
+  end: "2023-05-11"
+  hours: 1
+  cv: false               # CVN only
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche (Escuela de Doctorado)"
+    entity_type: "Universidad"
+- title: "Bases de datos bibliográficas multidisciplinares: Web of Science y Scopus"
+  entity: "UMH"
+  instructor: "Enrique Perdiguero Gil"
+  end: "2023-05-04"
+  hours: 1
+  cv: false               # CVN only
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche (Escuela de Doctorado)"
+    entity_type: "Universidad"
+- title: "Jornada DivulgaNobel 2022"
+  entity: "UMH"
+  instructor: "M. R. Ponce Molet, M. M. Sánchez López y Á. Sastre Santos (organizadoras)"
+  end: "2022-11-28"
+  hours: 2.5
+  cv: false               # CVN only
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche (Instituto de Bioingeniería)"
+    entity_type: "Universidad"
+- title: "Docker Containers and Kubernetes"
+  entity: "PUE"
+  end: "2020-08"
+  hours: 30
+  cvn:
+    listed: "2026-01-22"
+    entity: "PUE"
+    entity_type: "Entidad Empresarial"
+- title: "Advanced Programming with C++11/14/17"
+  entity: "UC3M"
+  instructor: "José Daniel García Sánchez"
+  end: "2019-03"
+  hours: 25
+  cvn:
+    listed: "2026-01-22"
+    entity: "Universidad Carlos III de Madrid"
+    entity_type: "Universidad"
+    city: "Madrid"

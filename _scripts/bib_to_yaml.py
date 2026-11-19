@@ -197,7 +197,7 @@ def accent_map(accent, char):
         ("'", 'U'): 'Ú',
         ('"', 'a'): 'ä', ('"', 'e'): 'ë', ('"', 'i'): 'ï',
         ('"', 'o'): 'ö', ('"', 'u'): 'ü',
-        ('~', 'n'): 'ñ', ('~', 'N'): 'Ñ',
+        ('~', 'n'): 'ñ', ('~', 'N'): 'Ñ', ("'", 'n'): 'ń', ("'", 'N'): 'Ń',
         ('c', 's'): 'ş', ('c', 'S'): 'Ş', ('c', 'c'): 'ç', ('c', 'C'): 'Ç',
     }
     return accents.get((accent, char), char)
@@ -320,6 +320,13 @@ def entries_to_yaml(entries):
             for field in ['doi', 'url', 'slides', 'pages', 'volume', 'number', 'version', 'keywords']:
                 if field in fields and fields[field]:
                     lines.append(f"      {field}: {yaml_escape(fields[field])}")
+
+            # CVN-only fields (cvn_xxx -> cvn: {xxx}), read by the /cvn/ page only.
+            cvn = [(k[4:], v) for k, v in fields.items() if k.startswith('cvn_') and v]
+            if cvn:
+                lines.append("      cvn:")
+                for k, v in cvn:
+                    lines.append(f"        {k}: {yaml_escape(v)}")
 
             lines.append("")
 

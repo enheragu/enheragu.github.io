@@ -1,14 +1,17 @@
 content_path: _cv_sections
 
 # `group` starts a new top-level section. `label` names each entry (education
-# entries use `edu:` -> _data/education.yml instead, see index.md/academic.md).
+# entries use `edu:` -> _data/education.yml and jobs `job:` -> _data/employment.yml
+# instead, see index.md/academic.md/print.md).
 #
 # PRINT-ONLY flags (ignored by the web index/academic pages):
 #   print_page: 1|2|3  -> which PDF page-group the entry renders on.
 #                         1 = compact core (About/Education/Experience/Skills),
-#                         2 = Publications + Awards, 3 = Projects + Courses.
+#                         2 = Teaching + Publications + Awards, 3 = Projects + Courses.
 #   print_compact: true -> in the PDF, render only the one-line heading (no panel
 #                          body) — used to summarise secondary work roles.
+#   print_only: true    -> PDF-only entry: the web index skips it (its content is
+#                          already on the web elsewhere, e.g. Teaching in /academic/).
 items:
 - id: detail-presentation
   group: "About me"
@@ -25,7 +28,7 @@ items:
   print_page: 1
 - id: detail-umh
   group: "Work Experience"
-  label: "[Dec. 2022 – present] · Research Engineer & PhD Student · UMH"
+  job: umh_phd
   print_page: 1
 # Folded into detail-umh (2026-11-18): the research stays and the lectureship
 # belong to the PhD period, so they are summarised in that panel (teaching from
@@ -44,16 +47,23 @@ items:
 #   print_page: 1
 #   print_compact: true
 - id: detail-umh-intern
-  label: "[Feb. 2022 – Sep. 2022] · Research Intern · UMH"
+  job: umh_intern
   print_page: 1
   print_compact: true
 - id: detail-gmv
-  label: "[Feb. 2017 – Oct. 2021] · Robotics Engineer · GMV · On Board Autonomy Division"
+  job: gmv
   print_page: 1
 - id: detail-bq
-  label: "[Feb. 2016 – Aug. 2016] · Intern · BQ"
+  job: bq
   print_page: 1
   print_compact: true
+# PDF-only full teaching record (subjects, years, ECTS, total), first thing on
+# page 2: the Work bullet on page 1 summarises it and links here. On the web the
+# same data is in the UMH panel and /academic/ (_data/teaching.yml).
+- id: detail-teaching
+  group: "Teaching"
+  print_page: 2
+  print_only: true
 - id: detail-pub-journals
   group: "Publications"
   label: "Journal Articles"
@@ -84,7 +94,7 @@ items:
   label: "Replication and Transparency"
   print_page: 2
 - id: detail-awards
-  group: "Awards"
+  group: "Awards and Grants"
   print_page: 2
 - id: detail-projects
   group: "Projects"

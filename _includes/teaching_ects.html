@@ -1,0 +1,9 @@
+{%- comment -%}
+  Total ECTS of _data/teaching.yml, rounded to one decimal — usage:
+    {% include teaching_ects.html %}
+  Single source for the PDF Work summary (detail_umh.html) and the PDF
+  Teaching section (detail_teaching.html).
+{%- endcomment -%}
+{%- assign te_total = 0 -%}
+{%- for te in site.data.teaching -%}{%- assign te_total = te_total | plus: te.ects -%}{%- endfor -%}
+{{- te_total | round: 1 -}}

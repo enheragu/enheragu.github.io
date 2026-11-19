@@ -1,0 +1,41 @@
+{%- comment -%}
+  CV date span from ISO dates ("YYYY", "YYYY-MM" or "YYYY-MM-DD"; month
+  precision is shown, days are ignored) — usage:
+    {% include date_span.html from="2022-02" to="2022-09" %}            -> Feb. 2022 – Sep. 2022
+    {% include date_span.html from="2022-12" ongoing=true %}             -> Dec. 2022 – present
+    {% include date_span.html from="2026-03" to="2026-06" compact=true %} -> Mar. – Jun. 2026
+    {% include date_span.html from="2025-01-10" to="2025-06-17" style="num" %} -> 01/2025 – 06/2025
+    {% include date_span.html to="2025-05-21" style="num" %}             -> 05/2025
+  style: "dot" (default: Feb.), "plain" (Feb) or "num" (MM/YYYY).
+  compact: same year on both ends -> the year is written once.
+  present: text for an ongoing span (default "present").
+  Single formatter for the dates of employment.yml, courses.yml, teaching.yml
+  and projects.yml, so the web/PDF text is always derived from the exact dates
+  that the CVN also uses (travel dates keep their own travel_date.html).
+{%- endcomment -%}
+{%- if include.style == "plain" -%}{%- assign ds_m = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," -%}
+{%- else -%}{%- assign ds_m = "Jan.,Feb.,Mar.,Apr.,May,Jun.,Jul.,Aug.,Sep.,Oct.,Nov.,Dec." | split: "," -%}{%- endif -%}
+{%- assign ds_parts = "" | split: "" -%}
+{%- assign ds_years = "" | split: "" -%}
+{%- assign ds_months = "" | split: "" -%}
+{%- assign ds_src = "" | split: "" | push: include.from | push: include.to -%}
+{%- for ds_d in ds_src -%}
+  {%- if ds_d == nil or ds_d == "" -%}{%- continue -%}{%- endif -%}
+  {%- assign ds_p = ds_d | split: "-" -%}
+  {%- assign ds_mt = "" -%}
+  {%- if ds_p[1] -%}
+    {%- if include.style == "num" -%}{%- assign ds_mt = ds_p[1] | append: "/" -%}
+    {%- else -%}{%- assign ds_i = ds_p[1] | plus: 0 | minus: 1 -%}{%- assign ds_mt = ds_m[ds_i] | append: " " -%}{%- endif -%}
+  {%- endif -%}
+  {%- assign ds_txt = ds_mt | append: ds_p[0] -%}
+  {%- assign ds_parts = ds_parts | push: ds_txt -%}
+  {%- assign ds_years = ds_years | push: ds_p[0] -%}
+  {%- assign ds_months = ds_months | push: ds_mt -%}
+{%- endfor -%}
+{%- if ds_parts.size == 2 and ds_parts[0] == ds_parts[1] -%}{%- assign ds_parts = ds_parts | slice: 0 -%}{%- endif -%}
+{%- if include.compact and ds_parts.size == 2 and ds_years[0] == ds_years[1] and ds_months[0] != "" and include.style != "num" -%}
+  {%- assign ds_first = ds_months[0] | strip -%}
+  {%- assign ds_parts = "" | split: "" | push: ds_first | push: ds_parts[1] -%}
+{%- endif -%}
+{%- if include.ongoing -%}{%- assign ds_now = include.present | default: "present" -%}{%- assign ds_parts = ds_parts | push: ds_now -%}{%- endif -%}
+{{- ds_parts | join: " – " -}}

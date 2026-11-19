@@ -64,7 +64,7 @@ var work = cv_eeha
   // .commit({message: C.label("detail-dfki-2025", "[Dec. 2025 · May–Jul. 2026] · Visiting researcher · DFKI Bremen"), detailId: "detail-dfki-2025" })
   .commit({message: C.label("detail-umh-intern", "[Feb. 2022 – Sep. 2022] · Research Intern · UMH"), detailId: "detail-umh-intern" })
   .commit({message: C.label("detail-gmv", "[Feb. 2017 – Oct. 2021] · Robotics Engineer · GMV · On Board Autonomy Division"), detailId: "detail-gmv" })
-  .commit({message: C.label("detail-bq", "[Feb. 2016 – Aug. 2016] · Intern · BQ"), detailId: "detail-bq" });
+  .commit({message: C.label("detail-bq", "[Feb. 2016 – Sep. 2016] · Intern · BQ"), detailId: "detail-bq" });
 work.merge(cv_eeha, {message: "merge work experience", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 cv_eeha.checkout();
 
@@ -90,7 +90,7 @@ cv_eeha.checkout();
 branch_color = SECTION_COLORS.awards;
 var awards = cv_eeha
   .branch({name: "awards", color: branch_color, commitDefaultOptions: {color: branch_color}})
-  .commit({tag: "Awards", message: " ", detailId: "detail-awards" })
+  .commit({tag: "Awards & Grants", message: " ", detailId: "detail-awards" })
   .merge(cv_eeha, {message: "merge awards", messageFont: C.mergeFont, messageColor: C.mergeColor}).delete();
 cv_eeha.checkout();
 

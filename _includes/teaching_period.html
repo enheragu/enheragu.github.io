@@ -1,0 +1,6 @@
+{%- comment -%}
+  Contract period of a _data/teaching.yml entry linked to a job (`job:` key of
+  _data/employment.yml), e.g. "Mar. – Jun. 2026"; empty when there is no job.
+  Usage: {% capture p %}{% include teaching_period.html t=t %}{% endcapture %}
+{%- endcomment -%}
+{%- if include.t.job -%}{%- assign tpj = site.data.employment[include.t.job] -%}{%- include date_span.html from=tpj.start to=tpj.end compact=true -%}{%- endif -%}

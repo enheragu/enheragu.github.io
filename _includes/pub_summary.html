@@ -1,0 +1,17 @@
+{%- comment -%}
+  One-line summary of the publication record, counted from _data/publications.yml
+  (so it updates with the .bib) — usage: {% include pub_summary.html %}
+  Used by the PDF core page (detail_presentation.html), like the teaching summary.
+{%- endcomment -%}
+{%- assign ps_p = site.data.publications -%}
+{%- assign ps_j = ps_p | where: "type_key", "journal" | first -%}
+{%- assign ps_c = ps_p | where: "type_key", "book_chapter" | first -%}
+{%- assign ps_cp = ps_p | where: "type_key", "conference_paper" | first -%}
+{%- assign ps_pr = ps_p | where: "type_key", "preprint" | first -%}
+{%- assign ps_q1 = 0 -%}{%- for e in ps_j.entries -%}{%- if e.cvn.quartile == "Q1" -%}{%- assign ps_q1 = ps_q1 | plus: 1 -%}{%- endif -%}{%- endfor -%}
+{%- assign ps_talks = 0 -%}{%- assign ps_out = 0 -%}
+{%- for cat in ps_p -%}
+  {%- if cat.type_key == "presentation" or cat.type_key == "poster" -%}{%- assign ps_talks = ps_talks | plus: cat.entries.size -%}{%- endif -%}
+  {%- if cat.type_key == "software" or cat.type_key == "research_data" or cat.type_key == "analysis_code" -%}{%- assign ps_out = ps_out | plus: cat.entries.size -%}{%- endif -%}
+{%- endfor -%}
+{{ ps_j.entries.size }} journal articles{% if ps_q1 > 0 %} ({{ ps_q1 }} in JCR Q1){% endif %}, {{ ps_c.entries.size }} book chapters, {{ ps_cp.entries.size }} conference papers and {{ ps_pr.entries.size }} preprints; {{ ps_talks }} conference presentations and posters; {{ ps_out }} software, data and code releases

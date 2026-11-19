@@ -1,1 +1,32 @@
-{% include pub_list.html type_key="award" %}
+{% comment %}
+  Awards and Grants. Same layout as Replication and Transparency: each sub-list
+  has its heading with its count (web only) and its own capped slider
+  (.sub-scroll), so a growing list never pushes the other out of view; on paper
+  (print.css) lists are uncapped and the counts hidden.
+  Awards: the award entries of publications.bib. Grants: the `grant` of the
+  travel events (stays and conference trips) in _data/travels.yml — the same data
+  as the /academic/ stays and the CVN «Ayudas y becas». Year, purpose and official
+  name; the amounts stay in the local CVN data only.
+{% endcomment %}
+{%- assign aw_cat = site.data.publications | where: "type_key", "award" | first %}
+{%- if aw_cat %}
+<h4>Awards<span class="web-only"> ({{ aw_cat.entries | size }})</span></h4>
+<div class="pub-box">
+    <div class="pub-box-scroll sub-scroll">
+        {% include pub_list.html type_key="award" %}
+    </div>
+</div>
+{%- endif %}
+{%- assign aw_grants = site.data.travels.events | where_exp: "ev", "ev.grant" %}
+{%- if aw_grants.size > 0 %}
+<h4>Grants<span class="web-only"> ({{ aw_grants.size }})</span></h4>
+<div class="pub-box">
+    <div class="pub-box-scroll sub-scroll">
+        <ul class="pub-list">
+            {%- for ev in aw_grants %}{% assign g = ev.grant %}{% assign aw_pl = site.data.travels.places | where: "id", ev.place | first %}
+            <li><span class="pub-type-badge">Grant</span>{{ g.granted | slice: 0, 4 }} · {{ g.desc | slice: 0 | upcase }}{{ g.desc | slice: 1, 300 }} (<em>{{ g.name }}</em>), {% if ev.kind == "stay" %}for the research stay at {{ ev.title }}{% else %}to present at the {{ ev.title }} ({{ aw_pl.name }}){% endif %}.</li>
+            {%- endfor %}
+        </ul>
+    </div>
+</div>
+{%- endif %}

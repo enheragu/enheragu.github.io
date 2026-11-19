@@ -2,17 +2,30 @@
   Replication and Transparency: the per-trial data deposits and the training and
   analysis code archived (Zenodo) with each article. Usable applications stay in
   "Software Tools"; this section holds what backs the papers. Each sub-list
-  renders only when its category has entries (the data deposits stay commented
-  out in publications.bib until their articles are published).
+  renders only when its category has entries (a .bib line starting with `%` is
+  skipped by bib_to_yaml.py, to hide an entry).
+  Same layout as the Teaching / Research stays lists of the Work panel: heading
+  with its count, then its own capped slider (.sub-scroll), so one growing list
+  never pushes the other out of view. The commit keeps the section total, like
+  every other publication commit. On paper (print.css only) lists are uncapped
+  and the per-list count is hidden, as PDF headings carry no counts.
 {% endcomment %}
 <p>Per-trial data deposits and the training and analysis code archived with each article, so that every table and figure can be recomputed from the published data.</p>
 {% assign rdata = site.data.publications | where: "type_key", "research_data" | first %}
 {% if rdata %}
-<h4>Research Data</h4>
-{% include pub_list.html type_key="research_data" %}
+<h4>Research Data<span class="web-only"> ({{ rdata.entries | size }})</span></h4>
+<div class="pub-box">
+    <div class="pub-box-scroll sub-scroll">
+        {% include pub_list.html type_key="research_data" %}
+    </div>
+</div>
 {% endif %}
 {% assign rcode = site.data.publications | where: "type_key", "analysis_code" | first %}
 {% if rcode %}
-<h4>Analysis Code</h4>
-{% include pub_list.html type_key="analysis_code" %}
+<h4>Analysis Code<span class="web-only"> ({{ rcode.entries | size }})</span></h4>
+<div class="pub-box">
+    <div class="pub-box-scroll sub-scroll">
+        {% include pub_list.html type_key="analysis_code" %}
+    </div>
+</div>
 {% endif %}

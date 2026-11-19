@@ -2,7 +2,18 @@
 %% Publicaciones de Enrique Heredia Aguado
 %% Para excluir una entrada de la web, añadir: exclude = {true}
 %% El campo 'note' se usa para clasificar: Preprint, Journal, Book Chapter,
-%%   Conference Paper, Presentation, Poster, Software, Research Data, Analysis Code
+%%   Conference Paper, Presentation, Poster, Software, Research Data, Analysis Code,
+%%   Thesis, Award
+%% Campos cvn_* = solo para el CVN (página /cvn/, cvn.md; bib_to_yaml los pasa a publications.yml como `cvn:`); el resto de la web los ignora:
+%%   cvn_impact_source (p.ej. WOS (JCR)), cvn_impact_year (edición JCR),
+%%   cvn_impact_factor, cvn_category, cvn_quartile, cvn_rank (posición/nº
+%%   revistas), cvn_top25 (Revista dentro del 25%: Sí/No), cvn_impact_note
+%%   (fuente y avisos; siempre con URL), cvn_listed (fecha del CVN que ya la
+%%   incluye; sin él = nueva para el CVN), cvn_participation (congresos; los
+%%   datos del congreso van en su evento de travels.yml), cvn_organizer /
+%%   cvn_from / cvn_to / cvn_city (solo congresos sin evento en travels.yml),
+%%   cvn_corresponding (Autor de correspondencia: Sí). Fechas y lugar de los
+%%   congresos salen de los eventos de _data/travels.yml (campo pubs).
 %% ==========================================================================
 
 
@@ -42,11 +53,20 @@
   year = {2025},
   url = {https://www.mdpi.com/2072-4292/17/6/1060},
   doi = {10.3390/rs17061060},
-  note = {Journal}
+  note = {Journal},
+  cvn_impact_source = {WOS (JCR)},
+  cvn_impact_year = {2025},
+  cvn_impact_factor = {4.3},
+  cvn_category = {Science Edition - GEOSCIENCES, MULTIDISCIPLINARY},
+  cvn_quartile = {Q1},
+  cvn_top25 = {Sí},
+  cvn_impact_note = {Folleto MDPI (jul-2026): https://mdpi-res.com/d_attachment/journals/16/flyer.pdf},
+  cvn_corresponding = {Sí},
+  cvn_listed = {2026-01-22}
 }
 
 @article{santo2025ground_segmentation,
-  author = {Santo, Antonio and Heredia-Aguado, Enrique and Viegas, Carlos and Valiente, David and Gil, Arturo},
+  author = {Santo, Antonio and Heredia, Enrique and Viegas, Carlos and Valiente, David and Gil, Arturo},
   title = {Ground Segmentation for LiDAR Point Clouds in Structured and Unstructured Environments Using a Hybrid Neural--Geometric Approach},
   journal = {Technologies},
   volume = {13},
@@ -54,7 +74,15 @@
   year = {2025},
   url = {https://www.mdpi.com/2227-7080/13/4/162},
   doi = {10.3390/technologies13040162},
-  note = {Journal}
+  note = {Journal},
+  cvn_impact_source = {WOS (JCR)},
+  cvn_impact_year = {2025},
+  cvn_impact_factor = {5.2},
+  cvn_category = {Science Edition - ENGINEERING, MULTIDISCIPLINARY},
+  cvn_quartile = {Q1},
+  cvn_top25 = {Sí},
+  cvn_impact_note = {Folleto MDPI (jul-2026): https://mdpi-res.com/d_attachment/journals/150/flyer.pdf},
+  cvn_listed = {2026-01-22}
 }
 
 
@@ -72,7 +100,8 @@
   abstract = {Ensuring accurate assessment of the surrounding environment is crucial for the efficient operation of autonomous mobile robots, especially when faced with the complexities of unfamiliar and natural terrain that lacks a predefined structure. In this context, traversability assessment is presented as a fundamental component of the autonomous navigation. This research introduces a systematic methodology that employs a LiDAR sensor to capture detailed 3D point clouds, thus facilitating the analysis of traversability regions on both conventional roads and natural scenarios. The proposed approach integrates a well-structured sparse encoder-decoder configuration with rotation invariant features. This configuration is meticulously designed to replicate the input data by associating the acquired traversability features to each individual point in the 3D point cloud. Experimental results confirm the robustness and effectiveness of our method, especially in outdoor environments. Notably, our approach outperforms existing methodologies, making a significant contribution to the ongoing progress in the field of autonomous robotic navigation.},
   isbn = {978-3-031-94989-0},
   doi = {10.1007/978-3-031-94989-0_9},
-  note = {Book Chapter}
+  note = {Book Chapter},
+  cvn_listed = {2026-01-22}
 }
 
 @incollection{govindaraj2024building,
@@ -88,21 +117,25 @@
   isbn = {978-3-031-39214-6},
   doi = {10.1007/978-3-031-39214-6_18},
   url = {https://doi.org/10.1007/978-3-031-39214-6_18},
-  note = {Book Chapter}
+  note = {Book Chapter},
+  cvn_listed = {2026-01-22}
 }
 
 
 %% ========================= CONFERENCE PAPERS =============================
 
 @inproceedings{cea2026eheredia,
-  author = {Heredia-Aguado, Enrique and Flores, Mar{\'i}a and Ballesta, M{\'o}nica and Valiente, David and Pay{\'a}, Luis and Gil, Arturo and Cabrera, Juan Jos{\'e}},
+  author = {Heredia-Aguado, Enrique and Flores, Mar{\'i}a and Cabrera, Juan Jos{\'e} and Ballesta, M{\'o}nica and Valiente, David and Paya, Luis and Gil, Arturo},
   title = {Fusi{\'o}n temprana de im{\'a}genes multiespectrales mediante t{\'e}cnicas de reproyecci{\'o}n para tareas de detecci{\'o}n mediante algoritmos profundos: Un estudio comparativo},
   booktitle = {Simposio CEA de Rob{\'o}tica, Bioingenier{\'i}a, Visi{\'o}n Artificial y Autom{\'a}tica Marina},
   volume = {2},
   number = {2},
   year = {2026},
   doi = {10.64117/simposioscea.v2i2.174},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)},
+  cvn_source = {sesión técnica paralela «Visión por Computador» (11/06/2026); no hubo sesiones de póster (rbvm2026.com, copia en web.archive.org)},
+  cvn_authors_source = {orden del artículo publicado (PDF de la revista, https://simposioscea.duckdns.org/index.php/SimposiosCEA/article/view/174) y de la web del ARVC; los metadatos del DOI (Crossref/OJS) ponen a Cabrera el último}
 }
 
 @inproceedings{cea2026flores,
@@ -113,7 +146,9 @@
   number = {2},
   year = {2026},
   doi = {10.64117/simposioscea.v2i2.224},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)},
+  cvn_source = {sesión técnica paralela «Robótica 2» (11/06/2026); no hubo sesiones de póster (rbvm2026.com, copia en web.archive.org)}
 }
 
 @inproceedings{icinco26mmaximo,
@@ -129,29 +164,33 @@
 }
 
 @inproceedings{icinco25eheredia,
-  author = {Heredia-Aguado, Enrique and Alfaro-P{\'e}rez, Marcos and Flores, Mar{\'i}a and Pay{\'a}, Luis and Valiente, David and Gil, Arturo},
+  author = {Heredia-Aguado, Enrique and Alfaro-P{\'e}rez, Marcos and Flores, Mar{\'i}a and Paya, Luis and Valiente, David and Gil, Arturo},
   title = {A Robust Comparative Study of Adaptative Reprojection Fusion Methods for Deep Learning Based Detection Tasks with RGB-Thermal Images},
   booktitle = {Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)},
   year = {2025},
   pages = {313--320},
   publisher = {SciTePress},
   doi = {10.5220/0013761800003982},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)}
 }
 
 @inproceedings{icinco25malfaro,
-  author = {Alfaro, Marcos and Cabrera, Juan and Heredia-Aguado, Enrique and Reinoso, Oscar and Gil, Arturo and Pay{\'a}, Luis},
+  author = {Alfaro, Marcos and Cabrera, Juan Jos{\'e} and Heredia, Enrique and Reinoso, Oscar and Gil, Arturo and Paya, Luis},
   title = {Place Recognition with Omnidirectional Imaging and Confidence-Based Late Fusion},
   booktitle = {Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)},
   year = {2025},
   pages = {117--125},
   publisher = {SciTePress},
   doi = {10.5220/0013743100003982},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)}
 }
 
 @inproceedings{maximo2024localizacion,
-  author = {M{\'a}ximo, Miriam and Ballesta, M{\'o}nica and Heredia-Aguado, Enrique and Valiente, David and Reinoso, Oscar},
+  author = {M{\'a}ximo, Miriam and Ballesta, M{\'o}nica and Valiente, David and Heredia-Aguado, Enrique and Reinoso, Oscar},
   title = {Localizaci{\'o}n topol{\'o}gica Monte Carlo basada en descripci{\'o}n de nubes de puntos LiDAR 3D},
   booktitle = {Actas del Simposio de Rob{\'o}tica, Bioingenier{\'i}a y Visi{\'o}n por Computador},
   pages = {55--60},
@@ -159,65 +198,85 @@
   organization = {Universidad de Extremadura},
   isbn = {978-84-9127-262-5},
   url = {https://hdl.handle.net/11000/32892},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22}
 }
 
 @inproceedings{eheredia2024fusion,
-  author = {Heredia-Aguado, Enrique and Valiente, David and Gil, Arturo and M{\'a}ximo, Miriam and Pay{\'a}, Luis},
+  author = {Heredia-Aguado, Enrique and Valiente, David and Gil, Arturo and M{\'a}ximo, Miriam and Paya, Luis},
   title = {Fusi{\'o}n est{\'a}tica de im{\'a}genes del espectro visible y t{\'e}rmico para una mejor detecci{\'o}n de personas mediante Redes Neuronales Convolucionales: un an{\'a}lisis del rendimiento},
   booktitle = {Actas del Simposio de Rob{\'o}tica, Bioingenier{\'i}a y Visi{\'o}n por Computador},
   pages = {263--268},
   year = {2024},
   isbn = {978-84-9127-262-5},
   url = {https://hdl.handle.net/11000/32893},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)}
 }
 
 @inproceedings{brinkmann2022mantis,
-  author = {Brinkmann, Wiebke and Danter, Leon and Stark, Tobias and Heredia-Aguado, Enrique and Colmenero, Francisco Javier and Alonso, Mercedes},
+  author = {Brinkmann, Wiebke and Danter, Leon C. and Stark, Tobias and Dettmann, Alexander and De Benedetti, Matteo and Govindaraj, Shashank and Sanz Nieto, Irene and But, Alexandru and Colmenero, Francisco Javier and Heredia, Enrique and Alonso, Mercedes},
   title = {Mantis Within a Multi Robot Team for Lunar Exploration and Construction Tasks},
   booktitle = {2022 IEEE Aerospace Conference (AERO)},
   year = {2022},
   publisher = {IEEE},
+  pages = {1--15},
   doi = {10.1109/AERO53065.2022.9843351},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22}
 }
 
 @inproceedings{govindaraj2021building_conf,
-  author = {Govindaraj, Shashank and Brinkmann, Wiebke and Colmenero, Francisco Javier and Heredia-Aguado, Enrique and Alonso, Mercedes and But, Alexandru and Danter, Leon and Lopes, Lu{\'i}s},
-  title = {Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-Robot-Team},
+  author = {Govindaraj, Shashank and Brinkmann, Wiebke and Colmenero Lechuga, Francisco Javier and Sanz Nieto, Irene and But, Alexandru and De Benedetti, Matteo and Danter, Leon Cedric and Alonso, Mercedes and Heredia, Enrique and Lacroix, Simon and Kleszczy{\'n}ski, Dominik and Purnell, Joseph and Picton, Kevin and Aouf, Nabil and Lopes, Luis},
+  title = {Building a lunar infrastructure with the help of a heterogeneous (semi)autonomous multi-robotic team},
   booktitle = {International Astronautical Congress (IAC)},
   year = {2021},
   url = {https://www.researchgate.net/publication/355668710_Building_a_Lunar_Infrastructure_with_the_Help_of_a_Heterogeneous_SemiAutonomous_Multi-Robot-Team},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)},
+  cvn_authors_source = {ficha oficial IAF Digital Library: https://dl.iafastro.directory/event/IAC-2021/paper/63629/}
 }
 
 @inproceedings{govindaraj2020multirobot,
-  author = {Govindaraj, Shashank and Nieto, Irene and But, Alexandru and Brinkmann, Wiebke and Dettmann, Alexander and Danter, Leon and Aouf, Nabil and Sotoodeh Bahraini, Masoud and Zenati, Abdelhafid and Savino, Heitor and Stelmachowski, Jakub and Colmenero, Francisco and Heredia-Aguado, Enrique and Alonso, Mercedes and Purnell, Joe and Picton, Kevin and Lopes, Lu{\'i}s},
+  author = {Govindaraj, Shashank and Sanz Nieto, Irene and But, Alexandru and Brinkmann, Wiebke and Dettmann, Alexander and Danter, Leon C. and Aouf, Nabil and Sotoodeh Bahraini, Masoud and Zenati, Abdelhafid and Savino, Heitor and Stelmachowski, Jakub and Colmenero, Francisco and Heredia, Enrique and Alonso, Mercedes and Purnell, Joe and Picton, Kevin and Lopes, Lu{\'i}s},
   title = {Multi-Robot Cooperation for Lunar Base Assembly And Construction},
   booktitle = {International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)},
   year = {2020},
   url = {https://www.researchgate.net/publication/344860299_Multi-Robot_Cooperation_for_Lunar_Base_Assembly_And_Construction},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)},
+  cvn_organizer = {Lunar and Planetary Institute / USRA; comité ejecutivo: CSA, DLR, ESA, JAXA, JPL},
+  cvn_from = {2020-10-19},
+  cvn_to = {2020-10-23},
+  cvn_city = {Online (virtual)},
+  cvn_source = {https://www.hou.usra.edu/meetings/isairas2020/ (copia en web.archive.org): charla Day 2 Track A «Robotics – Lunar I», abstract #5073}
 }
 
 @inproceedings{ocon2019testing,
-  author = {Ocon, Jorge and Colmenero, Francisco and Dragomir, Iulia and Heredia-Aguado, Enrique and Alonso, Mercedes and Estremera, Joaquin and Marc, R{\'o}bert and Weclewski, Piotr and Keller, Thomas and Woods, Mark and Karachalios, Spyridon},
+  author = {Oc{\'o}n, Jorge and Colmenero, Francisco and Dragomir, Iulia and Heredia, Enrique and Alonso, Mercedes and Estremera, Joaquin and Marc, Robert and Weclewski, Piotr and Keller, Thomas and Woods, Mark and Karachalios, Spyros},
   title = {Testing Autonomous Robots: A Discussion on Performances Obtained During the ERGO Field Tests},
   booktitle = {Symposium on Advanced Space Technologies in Robotics and Automation (ASTRA 2019)},
   year = {2019},
   url = {https://ai.dmi.unibas.ch/papers/ocon-et-al-astra2019.pdf},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)}
 }
 
 @inproceedings{ocon2018ergo,
-  author = {Ocon, Jorge and Colmenero, Francisco and Estremera, Joaquin and Buckley, Karl and Alonso, Mercedes and Heredia-Aguado, Enrique and Garcia, J. and Coles, Andrew and Coles, Amanda and Mart{\'i}nez, M. and Sava{\c{s}}, E. and Pommerening, Florian and Keller, Thomas and Karachalios, Spyridon and Woods, Mark and Dragomir, Iulia and Bensalem, Saddek and Dissaux, Pierre and Schach, A. and Weclewski, Piotr},
+  author = {Oc{\'o}n, Jorge and Colmenero, Francisco Javier and Estremera, Joaquin and Buckley, Karl and Alonso, Mercedes and Heredia, Enrique and Garcia, J. and Coles, Andrew and Coles, Amanda and Mart{\'i}nez, M. and Sava{\c{s}}, E. and Pommerening, Florian and Keller, Thomas and Karachalios, Spyridon and Woods, Mark and Dragomir, Iulia and Bensalem, Saddek and Dissaux, Pierre and Schach, A.},
   title = {The ERGO framework and its use in planetary/orbital scenarios}, 
   booktitle = "Proceedings of the 69th International Astronautical Congress (IAC)", 
   month = {oct},
   year = {2018},
   url = {https://kclpure.kcl.ac.uk/ws/portalfiles/portal/101292706/IAC_2018_ERGO_PaperV1.0.pdf},
-  note = {Conference Paper}
+  note = {Conference Paper},
+  cvn_listed = {2026-01-22},
+  cvn_participation = {Participativo - Ponencia oral (comunicación oral)},
+  cvn_authors_source = {copia de autor del paper IAC-18.D1.6.12x46215 (69th IAC, ©IAF): https://ai.dmi.unibas.ch/papers/ocon-et-al-iac2018.pdf — la ficha de la IAF DL solo lista al ponente}
 }
 
 
@@ -255,7 +314,7 @@
   author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Rujano, Alejandro and Aivar, M. Pilar and Plaza, Victoria},
   title = {Búsqueda visual repetida en contexto natural, ¿eficiencia o aprendizaje?},
   year = {2026},
-  howpublished = {VI Congreso Anual de Estudiantes de Doctorado (UMH)},
+  howpublished = {VI Congreso Anual Internacional de Estudiantes de Doctorado (UMH)},
   note = {Presentation}
 }
 
@@ -263,7 +322,7 @@
   author = {Heredia-Aguado, Enrique and Rujano, Alejandro and Valiente, David and Gil, Arturo},
   title = {T{\'e}cnicas de fusi{\'o}n de im{\'a}genes multiespectrales para una mejor detecci{\'o}n mediante algoritmos de aprendizaje profundo},
   year = {2026},
-  howpublished = {VI Congreso Anual de Estudiantes de Doctorado (UMH)},
+  howpublished = {VI Congreso Anual Internacional de Estudiantes de Doctorado (UMH)},
   doi = {10.13140/RG.2.2.31157.33760},
   note = {Presentation}
 }
@@ -274,7 +333,8 @@
   year = {2025},
   howpublished = {V Congreso Anual Internacional de Estudiantes de Doctorado (UMH)},
   doi = {10.13140/RG.2.2.35237.41443},
-  note = {Presentation}
+  note = {Presentation},
+  cvn_listed = {2026-01-22}
 }
 
 @misc{cepero2025visual_search,
@@ -282,7 +342,8 @@
   title = {Visual Search Strategies: Comparing Screen-Based and Real-World Contexts},
   year = {2025},
   howpublished = {Reuni{\'o}n Cient{\'i}fica sobre Atenci{\'o}n (RECA14)},
-  note = {Presentation}
+  note = {Presentation},
+  cvn_listed = {2026-01-22}
 }
 
 
@@ -290,7 +351,7 @@
 
 
 @misc{cepero2026cip,
-  author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Bernardino, Lucía and Rujano, Alejandro and David Moreno, Jose and Aivar, Pilar and Plaza, Victoria},
+  author = {Cepero Amores, Laura and Heredia-Aguado, Enrique and Bernardino, Lucía and Rujano, Alejandro and Moreno, Jose David and Aivar, Pilar and Plaza, Victoria},
   year = {2026},
   month = {05},
   title = {From Screens to the Real World: How context shapes Visual Search},
@@ -314,7 +375,8 @@
   year = {2024},
   howpublished = {XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)},
   doi = {10.13140/RG.2.2.36031.78242},
-  note = {Poster}
+  note = {Poster},
+  cvn_listed = {2026-01-22}
 }
 
 
@@ -438,7 +500,7 @@
 
 @misc{heredia2026premio_aemcco,
   author = {Rodr{\'i}guez Rujano, Jos{\'e} Alejandro and Heredia-Aguado, Enrique},
-  title  = {Premio AEMCCO de Divulgaci{\'o}n y Transferencia en Metodolog{\'i}a: "Herramientas estad{\'i}sticas y psicom{\'e}tricas"},
+  title  = {Premio AEMCCO de Divulgaci{\'o}n y Transferencia en Metodolog{\'i}a: "Herramientas estad{\'i}sticas y psicom{\'e}tricas para investigadores en psicolog{\'i}a y en ingenier{\'i}a"},
   year   = {2026},
   howpublished = {Asociaci{\'o}n Espa{\~n}ola de Metodolog{\'i}a de las Ciencias del Comportamiento (AEMCCO), XIX Congreso de Metodolog{\'i}a de las Ciencias Sociales y de la Salud, Almer{\'i}a},
   url    = {https://aemcco.org/listado_noimg.php?Seccion=Premios%20AEMCCO},

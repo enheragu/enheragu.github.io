@@ -1,7 +1,6 @@
+{% comment %} Data: _data/courses.yml (newest first; cv: false entries are CVN-only). {% endcomment %}
 <ul>
-    <li>01/2025 – 06/2025: Diploma de Formación Inicial para la Docencia Universitaria — UMH (100 h)</li>
-    <li>05/2025: Comunicación visual efectiva — UMH (18 h)</li>
-    <li>11/2024: Soporte Vital Básico y RCP con DEA — UMH (4 h)</li>
-    <li>08/2020: Docker Containers and Kubernetes — PUE (30 h)</li>
-    <li>03/2019: Advanced Programming with C++11/14/17 — UC3M, José Daniel García Sánchez (25 h)</li>
+    {%- for c in site.data.courses %}{% if c.cv == false %}{% continue %}{% endif %}
+    <li>{% include course_line.html c=c %}</li>
+    {%- endfor %}
 </ul>

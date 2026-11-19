@@ -99,7 +99,7 @@ branches:
     label: "[04/2021] · PROACT"
     images:
     - name: 04_2021_proact_01.jpg
-      text: "Photo of part of PROACT team after the successful remote field test campagin due to COVID-19 restrictions."
+      text: "Photo of part of PROACT team after the successful remote field test campaign due to COVID-19 restrictions."
       author: " "
       camera: "Screenshot :)"
       date: "[04/2021]"
@@ -146,7 +146,7 @@ branches:
       camera: Phone
       date: "[07/2020]"
     - name: 07_2020_ade_gmv_00.jpg
-      text: GMVs Foxizirc Robot prepared for Nuclear Scenario Tests.
+      text: GMV's Foxizirc Robot prepared for Nuclear Scenario Tests.
       author: Enrique Heredia
       camera: Phone
       date: "[07/2020]"

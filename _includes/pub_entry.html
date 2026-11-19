@@ -11,7 +11,8 @@
     | replace: 'Enrique Heredia', '<span class="pub-self">Enrique Heredia</span>'
     | replace: '@@EHA@@', '<span class="pub-self">Enrique Heredia-Aguado</span>' %}
 <cite><small>{{ authors_marked }}. </small></cite>
-<strong>({{ include.pub.year }}). {{ include.pub.title }}</strong>.
+{% assign pe_last = include.pub.title | slice: -1 -%}
+<strong>({{ include.pub.year }}). {{ include.pub.title }}</strong>{% unless pe_last == "?" or pe_last == "!" %}.{% endunless %}
 {% if include.pub.thesis_type %} {{ include.pub.thesis_type }},{% endif %}
 {% if include.pub.venue %} {% if include.venue_prefix %}{{ include.venue_prefix }} {% endif %}<em>{{ include.pub.venue }}</em>.{% endif %}
 {% if include.pub.publisher %} {{ include.pub.publisher }}.{% endif %}

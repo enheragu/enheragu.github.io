@@ -1,12 +1,22 @@
 content_path: _projects
 
 # Single source of truth for every project entry.
-#   name + dates            -> derived "[dates] · name" label, used by:
+#   name + from/to/ongoing  -> derived "[dates] · name" label (date_span.html, plain months), used by:
 #                                * projects.md   -> visually-hidden heading (a11y / Ctrl+F) + window.cvLabels
 #                                * js/projects.js -> canvas commit text (via cvLabels; JS fallback is name-only)
-#   name + dates + desc/link -> _cv_sections/detail_projects.html (CV summary list, grouped by `group`)
+#   name + dates + title/desc/link -> _cv_sections/detail_projects.html (CV summary list, grouped by `group`)
 #   panel: false            -> summary-only entry (no /projects/ graph node nor _projects/*.html panel)
-# The rich /projects/ panels live in _projects/*.html and are NOT generated from this file.
+#   title / code            -> official title and funder's reference: CV summary,
+#                              first line of the _projects/*.html panel, /cvn/ page
+#   from/to/ongoing         -> MY period in the project ("YYYY" or "YYYY-MM"):
+#                              shown on the web, and on /cvn/ as the narrative of my
+#                              contribution; the project's official dates are cvn.start/end
+#   cvn:                    -> CVN-only data with its source (/cvn/ page): funder,
+#                              programme, entity, city, pi, researchers,
+#                              participation, contribution, start/end, amount,
+#                              source, listed (date of the CVN that already
+#                              has it); open questions: local _data/cvn_local.yml
+# The rest of the rich /projects/ panels lives in _projects/*.html.
 
 groups:
 - id: UMH
@@ -20,20 +30,53 @@ items:
 - id: detail-LIDESIA_LSA
   group: UMH
   name: "Consolidar SeCyT-UNC"
-  desc: '"Enfoque Integral de la Inteligencia Artificial Aplicada, orientado a Problemas Emergentes". Research stay at LIDeSIA, Universidad Nacional de Córdoba (Sep. – Oct. 2026), in its line on Argentine Sign Language (LSA) recognition and translation: extension of the LSA-Med dataset with real-depth RGB-D recordings and study of 3D depth fusion for sign recognition.'
+  title: "Enfoque Integral de la Inteligencia Artificial Aplicada, orientado a Problemas Emergentes"
+  desc: 'Research stay at LIDeSIA, Universidad Nacional de Córdoba (Sep. – Oct. 2026), in its line on Argentine Sign Language (LSA) recognition and translation: extension of the LSA-Med dataset with real-depth RGB-D recordings and study of 3D depth fusion for sign recognition.'
   link: "https://fcefyn.unc.edu.ar/facultad/secretarias/investigacion-y-desarrollo/laboratorios/laboratorio-de-investigacion-y-desarrollo-de-software-e-inteligencia-artificial-lidesia/"
   link_text: "LIDeSIA"
   panel: false
 - id: detail-PROMETEO2025
   group: UMH
   name: "PROMETEO 2025"
-  dates: "Sep 2025 – present"
-  desc: '"Aprendizaje profundo para navegación autónoma, interpretación del entorno e interacción social con robots móviles". Generalitat Valenciana.'
+  from: "2025-09"
+  ongoing: true
+  title: "Aprendizaje profundo para navegación autónoma, interpretación del entorno e interacción social con robots móviles"
+  desc: 'Generalitat Valenciana.'
+  code: "CIPROM/2024/8"
+  cvn:
+    funder: "Generalitat Valenciana, Dirección General de Ciencia e Investigación"
+    programme: "PROMETEO 2025 para grupos de investigación de excelencia (CIPROM 2024)"
+    entity: "Universidad Miguel Hernández de Elche"
+    city: "Elche, Comunitat Valenciana, España"
+    pi: "Luis Payá Castelló"
+    researchers: 7
+    participation: null
+    contribution: null
+    start: "2025-09-01"
+    end: "2029-08-31"
+    amount: "600.000,00 €"
+    source: "https://sede.gva.es/descarregues/2025/07/118032-Resolucion_concesion_PROMETEO_2025_castellano_con_anexos_firmado.pdf · https://portalinvestigacion.umh.es/proyectos/1473837/detalle"
 - id: detail-FIND
   group: UMH
   name: "FIND"
-  dates: "2025 – present"
-  desc: '"¡Perdido y encontrado! Por qué nos cuesta encontrar ciertos objetos y cómo optimizar nuestras estrategias de búsqueda". AEI/FEDER. Collaboration with Universidad Autónoma de Madrid.'
+  from: "2025"
+  ongoing: true
+  title: "¡Perdido y encontrado! Por qué nos cuesta encontrar ciertos objetos y cómo optimizar nuestras estrategias de búsqueda"
+  desc: 'AEI/FEDER. Collaboration with Universidad Autónoma de Madrid.'
+  code: "PID2024-155632NB-I00"
+  cvn:
+    funder: "MICIU/AEI y FEDER, UE"
+    programme: "Proyectos de Generación de Conocimiento 2024"
+    entity: "Universidad Autónoma de Madrid"
+    city: "Madrid, España"
+    pi: "María Victoria Plaza Rodríguez; María Pilar Aivar Rodríguez"
+    researchers: null
+    participation: "Colaborador"
+    contribution: null
+    start: "2025-09-01"
+    end: "2029-08-31"
+    amount: "125.000,00 €"
+    source: "https://www.aei.gob.es/sites/default/files/convocatory_info/file/2025-12/PID2024-RC-Texto+Anexos-firmado.pdf · https://www.uam.es/uam/media/doc/1607057121691/5.1-proyectos-de-generacion-de-conocimiento-2024.pdf"
 - id: detail-ROBDEKON2
   group: UMH
   name: "ROBDEKON II"
@@ -44,69 +87,259 @@ items:
 - id: detail-AViRobots
   group: UMH
   name: "AViRobots"
-  dates: "Jan 2025 – Oct 2025"
-  desc: '"Development of an intelligent surveillance and security infrastructure system based on mobile robots".'
+  from: "2025-01"
+  to: "2025-10"
+  title: "Desarrollo de un sistema inteligente de vigilancia y seguridad de infraestructuras basado en robots móviles"
+  code: "INNVA1/2023/61"
+  cvn:
+    listed: "2026-01-22"
+    funder: "Agència Valenciana de la Innovació (AVI)"
+    programme: "Programa de Valorización y Transferencia de Resultados de Investigación a las Empresas (INNVA1), 2023–2025"
+    entity: "Universidad Miguel Hernández de Elche"
+    city: "Elche, Comunitat Valenciana, España"
+    pi: "Arturo Gil Aparicio; Luis Payá Castelló"
+    researchers: 7
+    participation: null
+    contribution: null
+    start: "2023-01-01"
+    end: "2025-12-31"
+    amount: "200.040,66 €"
+    source: "https://innoavi.es/wp-content/uploads/2023/08/230801_concesion_INNVA1.pdf · https://portalinvestigacion.umh.es/proyectos/1475302/detalle"
+- id: detail-HYREBOT
+  group: UMH
+  name: "HyReBot"
+  from: "2025-01"
+  to: "2025-02"
+  title: "Robots híbridos y reconstrucción multisensorial para aplicaciones en estructuras reticulares"
+  desc: 'MCIN/AEI.'
+  link: "https://arvc.umh.es/proyectos/HYREBOT/index.php?type=proy&dest=inicio&lang=es&vista=normal&idp=HYREBOT"
+  link_text: "ARVC"
+  panel: false
+  code: "PID2020-116418RB-I00"
+  cvn:
+    funder: "Agencia Estatal de Investigación (MCIN/AEI/10.13039/501100011033)"
+    programme: "Proyectos de I+D+i, convocatoria 2020, modalidad «Retos Investigación» (Programa Estatal de I+D+i Orientada a los Retos de la Sociedad)"
+    entity: "Universidad Miguel Hernández de Elche"
+    city: "Elche, Comunitat Valenciana, España"
+    pi: "Óscar Reinoso García; Luis Payá Castelló"
+    researchers: 8
+    participation: null
+    contribution: null
+    start: "2021-09-01"
+    end: "2025-02-28"
+    amount: "140.965,00 €"
+    source: "https://www.aei.gob.es/sites/default/files/convocatory_info/assistants/2025-10/Resolucion_de_concesion_PID2020_fda.pdf · https://portalinvestigacion.umh.es/proyectos/1473226/detalle · https://arvc.umh.es/proyectos/HYREBOT/index.php?type=proy&dest=inicio&lang=es&vista=normal&idp=HYREBOT"
 - id: detail-ROBOT_VIGILANTE
   group: UMH
   name: "Robot_Vigilante"
-  dates: "Sep 2024 – present"
-  desc: '"Robótica móvil para la vigilancia automática de recintos e identificación de situaciones de riesgo en condiciones desafiantes mediante técnicas de aprendizaje profundo". AEI/MICIU + FEDER.'
+  from: "2024-09"
+  ongoing: true
+  title: "Robótica móvil para la vigilancia automática de recintos e identificación de situaciones de riesgo en condiciones desafiantes mediante técnicas de aprendizaje profundo"
+  desc: 'AEI/MICIU + FEDER.'
+  code: "PID2023-149575OB-I00"
+  cvn:
+    funder: "MICIU/AEI y FEDER, UE"
+    programme: "Proyectos de Generación de Conocimiento 2023"
+    entity: "Universidad Miguel Hernández de Elche"
+    city: "Elche, Comunitat Valenciana, España"
+    pi: "Luis Payá Castelló; Arturo Gil Aparicio"
+    researchers: 6
+    participation: null
+    contribution: null
+    start: "2024-09-01"
+    end: "2027-12-31"
+    amount: "202.375,00 €"
+    source: "https://www.aei.gob.es/sites/default/files/convocatory_info/file/2024-12/PID2023-RC-Texto+Anexo-firmado.pdf · https://portalinvestigacion.umh.es/proyectos/1473643/detalle"
 - id: detail-ACTVIS
   group: UMH
   name: "ACTVIS"
-  dates: "2022 – 2025"
-  desc: '"Visión Activa: qué nos enseñan los movimientos oculares sobre las estrategias de búsqueda visual". Collaboration with Universidad Autónoma de Madrid.'
+  from: "2024-06"
+  to: "2025-08"
+  title: "Visión Activa: qué nos enseñan los movimientos oculares sobre las estrategias de búsqueda visual"
+  desc: 'Collaboration with Universidad Autónoma de Madrid.'
+  code: "PID2021-125162NB-I00"
+  cvn:
+    participation: "Colaborador"
+    funder: "AEI y FEDER"
+    programme: "Proyectos de Generación de Conocimiento 2021"
+    entity: "Universidad Autónoma de Madrid"
+    pi: "María Pilar Aivar Rodríguez"
+    start: "2022-09-01"
+    end: "2025-08-31"
+    amount: "95.348,00 €"
+    source: "https://www.aei.gob.es/sites/default/files/convocatory_info/2022-11/report_PID2021-RC-COMPLETO_fda.pdf · https://www.uam.es/uam/media/doc/1606968324854/publicidad-pid2021.pdf"
 - id: detail-TED2021
   group: UMH
   name: "TED2021"
-  dates: "Dec 2022 – Nov 2024"
-  desc: '"Desarrollo de tecnologías móviles inteligentes para tareas de seguridad y vigilancia de entornos de interior y exterior". MICIU/AEI + NextGenerationEU/PRTR.'
+  from: "2022-12"
+  to: "2025-06"
+  title: "Desarrollo de tecnologías móviles inteligentes para tareas de seguridad y vigilancia de entornos de interior y exterior"
+  desc: 'MICIU/AEI + NextGenerationEU/PRTR.'
+  code: "TED2021-130901B-I00"
+  cvn:
+    listed: "2026-01-22"
+    funder: "MICIU/AEI y Unión Europea NextGenerationEU/PRTR"
+    programme: "Proyectos Estratégicos Orientados a la Transición Ecológica y a la Transición Digital 2021"
+    entity: "Universidad Miguel Hernández de Elche"
+    city: "Elche, Comunitat Valenciana, España"
+    pi: "Luis Payá Castelló; Arturo Gil Aparicio"
+    researchers: 8
+    participation: null
+    contribution: null
+    start: "2022-12-01"
+    end: "2025-06-30"
+    amount: "110.630,00 €"
+    source: "https://www.aei.gob.es/sites/default/files/convocatory_info/2022-12/RC_TED2021_def_COMPLETA_fda.pdf · https://portalinvestigacion.umh.es/proyectos/1476419/detalle"
 - id: detail-PROMETEO
   group: UMH
   name: "PROMETEO"
-  dates: "Nov 2022 – Dec 2024"
-  desc: '"Towards Further Integration of Intelligent Robots in Society: Navigate, Recognize and Manipulate". Generalitat Valenciana.'
+  from: "2022-11"
+  to: "2024-12"
+  title: "Hacia una Mayor Integración de Robots Inteligentes en la Sociedad: Navegar, Reconocer y Manipular"
+  desc: 'Generalitat Valenciana.'
+  code: "PROMETEO/2021/075"
+  cvn:
+    listed: "2026-01-22"
+    funder: "Generalitat Valenciana, Dirección General de Ciencia e Investigación"
+    programme: "PROMETEO 2021 para grupos de investigación de excelencia"
+    entity: "Universidad Miguel Hernández de Elche"
+    city: "Elche, Comunitat Valenciana, España"
+    pi: "Óscar Reinoso García"
+    researchers: 6
+    participation: null
+    contribution: null
+    start: "2021-01-01"
+    end: "2024-12-31"
+    amount: "588.353,01 €"
+    source: "https://ceice.gva.es/documents/161863198/172623257/Resoluci%C3%B3n+prometeo+2021+castellano+con+anexos_firmado.pdf · https://portalinvestigacion.umh.es/proyectos/1475468/detalle"
 - id: detail-MOSAR
   group: GMV
   name: "MOSAR"
-  dates: "Mar 2019 – Oct 2021"
-  desc: '"MOdular Spacecraft Assembly and Reconfiguration". Focused on orbital operations, this project focused on in-orbit reconfiguration and servicing capabilities. A set of spacecraft modules and a walking manipulator was deployed to autonomously reconfigure functionality, geometry, power and data transfer among spacecraft modules. H2020 SRC PERASPERA OG9.'
+  from: "2019-03"
+  to: "2021-06"
+  title: "MOdular Spacecraft Assembly and Reconfiguration"
+  desc: 'In-orbit reconfiguration and servicing for orbital operations: a set of spacecraft modules and a walking manipulator that autonomously reconfigure the functionality, geometry, power and data transfer among the modules. H2020 SRC PERASPERA OG9.'
   link: "https://cordis.europa.eu/project/id/821996"
+  code: "821996"
+  cvn:
+    listed: "2026-01-22"
+    funder: "Comisión Europea"
+    programme: "H2020-SPACE-2018-2020, topic SPACE-12-TEC-2018 (RIA), SRC PERASPERA OG9"
+    entity: "GMV Aerospace and Defence, S.A."
+    city: "Tres Cantos, Madrid, España"
+    pi: null
+    researchers: 20
+    participation: "Miembro de equipo"
+    contribution: "Investigador/a"
+    start: "2019-03-01"
+    end: "2021-06-30"
+    amount: "3.999.962,49 €"
+    source: "https://cordis.europa.eu/project/id/821996 (coordinador: Space Applications Services NV)"
 - id: detail-PROACT
   group: GMV
   name: "PROACT"
-  dates: "Feb 2019 – Oct 2021"
-  desc: '"Planetary RObots Deployed for Assembly and Construction Tasks". Focused on collaboration in planetary robotics, this project focused on extending OG2 autonomy capabilities to a multi-agent system. Using this approach, a fleet of robots could autonomously execute a representative set of operations to build an ISRU plant. H2020 SRC PERASPERA OG11.'
+  from: "2019-02"
+  to: "2021-04"
+  title: "Planetary RObots Deployed for Assembly and Construction Tasks"
+  desc: 'Collaborative planetary robotics: extension of the OG2 autonomy capabilities to a multi-agent system, so that a fleet of robots can autonomously execute a representative set of operations to build an ISRU plant. H2020 SRC PERASPERA OG11.'
   link: "https://cordis.europa.eu/project/id/821903"
+  code: "821903"
+  cvn:
+    listed: "2026-01-22"
+    funder: "Comisión Europea"
+    programme: "H2020-SPACE-2018-2020, topic SPACE-12-TEC-2018 (RIA), SRC PERASPERA OG11"
+    entity: "GMV Aerospace and Defence, S.A."
+    city: "Tres Cantos, Madrid, España"
+    pi: null
+    researchers: 20
+    participation: "Miembro de equipo"
+    contribution: "Investigador/a"
+    start: "2019-02-01"
+    end: "2021-04-30"
+    amount: "3.100.000,00 €"
+    source: "https://cordis.europa.eu/project/id/821903 · «Enrique Heredia – GMV» figura en 6 entregables públicos (D5.6, D5.3, D5.1, D4.3, D7.7, D7.9): https://cordis.europa.eu/project/id/821903/results"
 - id: detail-ADE
   group: GMV
   name: "ADE"
-  dates: "Feb 2019 – Oct 2021"
-  desc: '"Autonomous DEcision making in very long traverses". Focused on planetary exploration robots, this project focused on enhancing the Autonomy framework with space hardware specifically targeting the accomplishments of long traverses in full autonomy. H2020 SRC PERASPERA OG10.'
+  from: "2019-02"
+  to: "2021-04"
+  title: "Autonomous DEcision making in very long traverses"
+  desc: 'Planetary exploration robots: enhancement of the autonomy framework with space hardware, targeting very long traverses in full autonomy. H2020 SRC PERASPERA OG10.'
   link: "https://cordis.europa.eu/project/id/821988"
+  code: "821988"
+  cvn:
+    listed: "2026-01-22"
+    funder: "Comisión Europea"
+    programme: "H2020-SPACE-2018-2020, topic SPACE-12-TEC-2018 (RIA), SRC PERASPERA OG10"
+    entity: "GMV Aerospace and Defence, S.A."
+    city: "Tres Cantos, Madrid, España"
+    pi: null
+    researchers: 20
+    participation: "Miembro de equipo"
+    contribution: "Investigador/a"
+    start: "2019-02-01"
+    end: "2021-04-30"
+    amount: "3.000.001,25 €"
+    source: "https://cordis.europa.eu/project/id/821988 (coordinador: GMV Aerospace and Defence)"
 - id: detail-ERGO
   group: GMV
   name: "ERGO"
-  dates: "Jan 2018 – Jan 2019"
-  desc: '"European Robotic goal-oriented autonomous COntroller". Focused on delivering an advanced and flexible space autonomous framework with adaptable levels of autonomy. The framework includes mission planning, execution and monitoring along with path planning and trajectory control for both mobile robot base and robotic arms among other functionalities. H2020 SRC PERASPERA OG2.'
+  from: "2018-01"
+  to: "2019-01"
+  title: "European Robotic goal-oriented autonomous COntroller"
+  desc: 'An advanced and flexible autonomy framework for space with adaptable levels of autonomy, including mission planning, execution and monitoring, together with path planning and trajectory control for both mobile robot bases and robotic arms, among other functionalities. H2020 SRC PERASPERA OG2.'
   link: "https://cordis.europa.eu/project/id/730086"
+  code: "730086"
+  cvn:
+    listed: "2026-01-22"
+    funder: "Comisión Europea"
+    programme: "H2020-COMPET-2016, topic COMPET-4-2016 (RIA), SRC PERASPERA OG2"
+    entity: "GMV Aerospace and Defence, S.A."
+    city: "Tres Cantos, Madrid, España"
+    pi: null
+    researchers: 20
+    participation: "Miembro de equipo"
+    contribution: "Investigador/a"
+    start: "2016-11-01"
+    end: "2019-01-31"
+    amount: "3.774.610,00 €"
+    source: "https://cordis.europa.eu/project/id/730086 (coordinador: GMV Aerospace and Defence)"
 - id: detail-GOTCHA
   group: GMV
   name: "GOTCHA"
-  dates: "Feb 2017 – May 2018"
-  desc: '"GOAC TRL-increase Convenience-enhancements, Hardening and Application-extension". Aiming to develop a robotic autonomous controller for the space domain integrating an action-based planner. Its purpose is to enhance the autonomy capabilities on board space systems offering goal-based commanding and telemetry monitoring. ESA/GSTP.'
+  from: "2017-02"
+  to: "2018-05"
+  title: "GOAC TRL-increase Convenience-enhancements, Hardening and Application-extension"
+  desc: 'A robotic autonomous controller for the space domain integrating an action-based planner, aimed at enhancing on-board autonomy with goal-based commanding and telemetry monitoring. ESA/GSTP.'
   link: "https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Shaping_the_Future/Autonomous_software_makes_planning_easy"
   link_text: "ESA post"
+  code: "G627-062MM"
+  cvn:
+    listed: "2026-01-22"
+    funder: "European Space Agency (ESA)"
+    programme: "GSTP Element 2"
+    entity: "GMV Aerospace and Defence, S.A."
+    city: "Tres Cantos, Madrid, España"
+    pi: null
+    researchers: 8
+    participation: "Miembro de equipo"
+    contribution: null
+    start: "2017-02-01"
+    end: "2018-05-30"
+    amount: null
+    source: "https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Shaping_the_Future/Autonomous_software_makes_planning_easy"
 - id: detail-RHA
   group: UPM
   name: "RHA (RoboHealth ARM)"
-  dates: "Feb 2017 – Feb 2018"
+  from: "2017-02"
+  to: "2018-02"
   desc: '"Diseño y construcción de un brazo robótico para el apoyo a la interactividad de personas enfermas" (B.Sc. thesis). Part of the ROBOHEALTH national coordinated project (UPM · UC3M): "Entornos inteligentes para paciente conviviendo con robots". Ministerio de Economía y Competitividad (RETOS · DPI2013-47944-C4-2-R).'
   link: "https://blogs.upm.es/miguelhernando/national-projects/"
 - id: detail-HIDALGO
   group: UPM
   name: "HIDALGO"
-  dates: "Sep 2015 – Sep 2016"
+  from: "2015-09"
+  to: "2016-09"
   desc: "Spanish humanoid robot project led by Miguel Hernando at UPM, born from the HackLab UPM-BQ maker lab, aiming to build the lightest, lowest-cost humanoid possible."
   link: "https://blogs.upm.es/hidalgo/about-us/"
   link_text: "project blog"

@@ -5,24 +5,29 @@
 
 <h3 class="web-only">Research:</h3>
 <ul>
-    <li>Multi-modal sensor fusion (RGB + Thermal + LIDAR) for deep learning-based object detection.</li>
+    <li>Multi-modal sensor fusion (RGB + Thermal + LiDAR) for deep learning-based object detection.</li>
     <li>Multispectral camera design, calibration and integration with ROS/ROS2.</li>
     <li>Research methodology and experimental design for better replicability.</li>
-    {%- comment -%} PDF only: teaching folded in as plain bullets (no chip), one per
-    role (courses + span, or the contract period when set), and the research stays
-    as one more bullet. The web shows the full, styled lists below instead. {%- endcomment -%}
+    {%- comment -%} PDF only: teaching summarised in ONE bullet (total ECTS + one
+    clause per role: courses + span, or the contract period of its `job:`) that points
+    to the PDF Teaching section (detail_teaching.html, full table); the research
+    stays as one more bullet. The web shows the full, styled lists below instead. {%- endcomment -%}
     {%- assign t_roles = site.data.teaching | group_by: "role" -%}
+    {%- assign t_oldest_all = site.data.teaching | last -%}
+    {%- assign t_newest_all = site.data.teaching | first %}
+    <li class="print-only">Teaching at UMH, {% include teaching_ects.html %} ECTS ({{ t_oldest_all.year | split: "–" | first }}–{{ t_newest_all.year | split: "–" | last }}):
     {%- for t_g in t_roles -%}
     {%- assign t_courses = t_g.items | map: "course" | uniq | join: " and " -%}
     {%- assign t_oldest = t_g.items | last -%}
     {%- assign t_newest = t_g.items | first -%}
-    {%- if t_g.items.size == 1 and t_newest.period -%}
-      {%- assign t_span = t_newest.period -%}
+    {%- capture t_per -%}{% include teaching_period.html t=t_newest %}{%- endcapture -%}
+    {%- if t_per != "" -%}
+      {%- assign t_span = t_per -%}
     {%- else -%}
       {%- capture t_span -%}{{ t_oldest.year | split: "–" | first }}–{{ t_newest.year | split: "–" | last }}{%- endcapture -%}
-    {%- endif %}
-    <li class="print-only">{{ t_g.name }} in {{ t_courses }} ({{ t_span }}).</li>
-    {%- endfor %}
+    {%- endif -%}
+    {%- if forloop.first %} {% else %}; {% endif %}{{ t_g.name }} in {{ t_courses }} ({{ t_span }})
+    {%- endfor -%}. <a href="#detail-teaching">[details]</a></li>
     <li class="print-only">{% include stay_list.html format="inline" %}</li>
 </ul>
 
@@ -35,7 +40,7 @@ above. Reuses the publication list/chip styles (.pub-box-scroll / .pub-list /
     <div class="pub-box-scroll teach-scroll">
         <ul class="pub-list">
             {% for t in site.data.teaching %}
-            <li><span class="pub-type-badge">{{ t.role }}</span><strong>{{ t.course }}</strong><span class="teach-meta"> · {{ t.programme }} · {{ t.year }} · {{ t.ects }} ECTS</span></li>
+            <li><span class="pub-type-badge">{{ t.role }}</span><strong>{{ t.course }}</strong><span class="teach-meta"> · {{ t.programme }} · {{ t.year }} · {{ t.ects }} ECTS{% if t.type %} ({{ t.type }}){% endif %}</span></li>
             {% endfor %}
         </ul>
     </div>

@@ -1,0 +1,6 @@
+{%- comment -%}
+  One course line from _data/courses.yml — usage: {% include course_line.html c=course %}
+  "<dates>: <title> — <entity>[, <instructor>] (<hours> h)". Shared by the
+  Courses panel and the PDF Teaching section (teacher training).
+{%- endcomment -%}
+{%- include date_span.html from=include.c.start to=include.c.end style="num" -%}: {{ include.c.title }} — {{ include.c.entity }}{% if include.c.instructor %}, {{ include.c.instructor }}{% endif %} ({{ include.c.hours }} h)

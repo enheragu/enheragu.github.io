@@ -22,13 +22,13 @@ custom_js:
     </div>
     <script>
     window.cvLabels = {
-      {% for item in site.data.projects.items %}{% unless item.panel == false %}"{{ item.id }}": {{ "[" | append: item.dates | append: "] · " | append: item.name | jsonify }},
+      {% for item in site.data.projects.items %}{% unless item.panel == false %}{% capture pd %}{% include date_span.html from=item.from to=item.to ongoing=item.ongoing %}{% endcapture %}"{{ item.id }}": {{ "[" | append: pd | append: "] · " | append: item.name | jsonify }},
       {% endunless %}{% endfor %}
     };
     </script>
     {% for item in site.data.projects.items %}{% unless item.panel == false %}
     <div id="{{ item.id }}" class="gitgraph-detail">
-        <h3 class="visually-hidden">[{{ item.dates }}] · {{ item.name }}</h3>
+        <h3 class="visually-hidden">[{% include date_span.html from=item.from to=item.to ongoing=item.ongoing %}] · {{ item.name }}</h3>
         {% include_relative {{ site.data.projects.content_path }}/{{item.id | downcase | replace: '-', '_'}}.html %}
     </div>
     {% endunless %}{% endfor %}

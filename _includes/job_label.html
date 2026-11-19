@@ -1,0 +1,9 @@
+{%- comment -%}
+  "[dates] · role · org" of an _data/employment.yml entry — usage:
+    {% include job_label.html key="umh_phd" %}
+  Dates derived from start/end/ongoing by date_span.html (start: the first
+  of cvn.contracts when the job has several).
+{%- endcomment -%}
+{%- assign jl = site.data.employment[include.key] -%}
+{%- assign jl_start = jl.start | default: jl.cvn.contracts.first.start -%}
+[{% include date_span.html from=jl_start to=jl.end ongoing=jl.ongoing %}] · {{ jl.role }} · {{ jl.org }}

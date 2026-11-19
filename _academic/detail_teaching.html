@@ -7,7 +7,7 @@ role from the same data. {% endcomment %}
     <div class="pub-box-scroll">
         <ul class="pub-list">
             {% for t in site.data.teaching %}
-            <li><span class="pub-type-badge">{{ t.role }}</span><strong>{{ t.course }}</strong><span class="teach-meta"> · {{ t.programme }} · {{ t.year }} · {{ t.ects }} ECTS</span>{% if t.note %}<br><span class="teach-meta">{{ t.note }}</span>{% endif %}</li>
+            <li><span class="pub-type-badge">{{ t.role }}</span><strong>{{ t.course }}</strong><span class="teach-meta"> · {{ t.programme }} · {{ t.year }} · {{ t.ects }} ECTS{% if t.type %} ({{ t.type }}){% endif %}</span>{% if t.note %}{% capture t_per %}{% include teaching_period.html t=t %}{% endcapture %}<br><span class="teach-meta">{% if t_per != "" %}{{ t_per }} · {% endif %}{{ t.note }}</span>{% endif %}</li>
             {% endfor %}
         </ul>
     </div>

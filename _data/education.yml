@@ -5,21 +5,47 @@
 #                                           (their inline fallback is degree-only)
 #   _cv_sections/* & _academic/* panels  -> thesis (via thesis_key) + directors + PhD thesis_desc
 # Thesis title/year/link stay single-sourced in _data/publications.yml (keyed by thesis_key).
+# cvn: CVN-only fields (never rendered; shown on the /cvn/ page, cvn.md), FECYT values:
+#   level (Titulación universitaria / Titulación de posgrado / Doctorado),
+#   title (official name), entity, entity_type, centre, date (Fecha de titulación),
+#   programme (doctoral programme), listed (date of the CVN that includes it).
+#   null = still to fill in.
 phd:
   degree: "PhD in Industrial & Telecom Technologies"
   institution: "UMH"
-  dates: "Dec. 2022 – present"
+  dates: "Nov. 2022 – present"
   directors: "Arturo Gil Aparicio and David Valiente García"
   thesis_desc: "Thesis on multispectral image fusion (thermal and RGB) and its methodological study through deep learning, extended to multisensor integration including LiDAR."
+  cvn:
+    level: "Doctorado"        # in progress: goes to the CVN when defended
+    programme: "Programa de Doctorado en Tecnologías Industriales y de Telecomunicación (TECNIT)"
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+    start: "2022-11-02"           # enrolment in the doctoral programme
 msc:
   degree: "M.Sc. Robotics"
   institution: "UMH"
   dates: "Oct. 2021 – Sep. 2022"
   directors: "Arturo Gil Aparicio and David Valiente García"
   thesis_key: "heredia2022tfm"
+  cvn:
+    listed: "2026-01-22"
+    level: "Titulación de posgrado"
+    title: "Máster Universitario en Robótica"
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+    centre: "Escuela Politécnica Superior de Elche"
+    date: "2022-09-15"
 bsc:
   degree: "B.Sc. Electronics & Automation Eng."
   institution: "UPM"
   dates: "Sep. 2012 – Feb. 2018"
-  directors: "Miguel Hernando Gutierrez and Alberto Brunete González"
+  directors: "Miguel Hernando Gutiérrez and Alberto Brunete González"
   thesis_key: "heredia2018tfg"
+  cvn:
+    listed: "2026-01-22"
+    level: "Grado Universitario"
+    title: "Grado en Ingeniería Electrónica Industrial y Automática"
+    entity: "Universidad Politécnica de Madrid"
+    entity_type: "Universidad"
+    date: "2018-02-28"

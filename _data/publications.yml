@@ -16,13 +16,23 @@
       url: "https://www.mdpi.com/2072-4292/17/6/1060"
       volume: "17"
       number: "6"
+      cvn:
+        impact_source: "WOS (JCR)"
+        impact_year: "2025"
+        impact_factor: "4.3"
+        category: "Science Edition - GEOSCIENCES, MULTIDISCIPLINARY"
+        quartile: "Q1"
+        top25: "Sí"
+        impact_note: "Folleto MDPI (jul-2026): https://mdpi-res.com/d_attachment/journals/16/flyer.pdf"
+        corresponding: "Sí"
+        listed: "2026-01-22"
 
     - key: "santo2025ground_segmentation"
       title: "Ground Segmentation for LiDAR Point Clouds in Structured and Unstructured Environments Using a Hybrid Neural–Geometric Approach"
       year: 2025
       authors:
         - "Antonio Santo"
-        - "Enrique Heredia-Aguado"
+        - "Enrique Heredia"
         - "Carlos Viegas"
         - "David Valiente"
         - "Arturo Gil"
@@ -31,6 +41,15 @@
       url: "https://www.mdpi.com/2227-7080/13/4/162"
       volume: "13"
       number: "4"
+      cvn:
+        impact_source: "WOS (JCR)"
+        impact_year: "2025"
+        impact_factor: "5.2"
+        category: "Science Edition - ENGINEERING, MULTIDISCIPLINARY"
+        quartile: "Q1"
+        top25: "Sí"
+        impact_note: "Folleto MDPI (jul-2026): https://mdpi-res.com/d_attachment/journals/150/flyer.pdf"
+        listed: "2026-01-22"
 
 - category: "Book Chapters"
   category_singular: "Book Chapter"
@@ -49,6 +68,8 @@
       publisher: "Springer Nature Switzerland"
       doi: "10.1007/978-3-031-94989-0_9"
       pages: "199–218"
+      cvn:
+        listed: "2026-01-22"
 
     - key: "govindaraj2024building"
       title: "Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-robot-Team"
@@ -74,6 +95,8 @@
       doi: "10.1007/978-3-031-39214-6_18"
       url: "https://doi.org/10.1007/978-3-031-39214-6_18"
       pages: "395–431"
+      cvn:
+        listed: "2026-01-22"
 
 - category: "Conference Papers"
   category_singular: "Conference Paper"
@@ -85,15 +108,19 @@
       authors:
         - "Enrique Heredia-Aguado"
         - "María Flores"
+        - "Juan José Cabrera"
         - "Mónica Ballesta"
         - "David Valiente"
-        - "Luis Payá"
+        - "Luis Paya"
         - "Arturo Gil"
-        - "Juan José Cabrera"
       venue: "Simposio CEA de Robótica, Bioingeniería, Visión Artificial y Automática Marina"
       doi: "10.64117/simposioscea.v2i2.174"
       volume: "2"
       number: "2"
+      cvn:
+        participation: "Participativo - Ponencia oral (comunicación oral)"
+        source: "sesión técnica paralela «Visión por Computador» (11/06/2026); no hubo sesiones de póster (rbvm2026.com, copia en web.archive.org)"
+        authors_source: "orden del artículo publicado (PDF de la revista, https://simposioscea.duckdns.org/index.php/SimposiosCEA/article/view/174) y de la web del ARVC; los metadatos del DOI (Crossref/OJS) ponen a Cabrera el último"
 
     - key: "cea2026flores"
       title: "Localización global mediante descriptores basados en un diccionario semántico-visual"
@@ -109,6 +136,9 @@
       doi: "10.64117/simposioscea.v2i2.224"
       volume: "2"
       number: "2"
+      cvn:
+        participation: "Participativo - Ponencia oral (comunicación oral)"
+        source: "sesión técnica paralela «Robótica 2» (11/06/2026); no hubo sesiones de póster (rbvm2026.com, copia en web.archive.org)"
 
     - key: "icinco26mmaximo"
       title: "Deep Global Point Cloud Registration for Long-Term Robot Localization"
@@ -133,28 +163,34 @@
         - "Enrique Heredia-Aguado"
         - "Marcos Alfaro-Pérez"
         - "María Flores"
-        - "Luis Payá"
+        - "Luis Paya"
         - "David Valiente"
         - "Arturo Gil"
       venue: "Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
       publisher: "SciTePress"
       doi: "10.5220/0013761800003982"
       pages: "313–320"
+      cvn:
+        listed: "2026-01-22"
+        participation: "Participativo - Ponencia oral (comunicación oral)"
 
     - key: "icinco25malfaro"
       title: "Place Recognition with Omnidirectional Imaging and Confidence-Based Late Fusion"
       year: 2025
       authors:
         - "Marcos Alfaro"
-        - "Juan Cabrera"
-        - "Enrique Heredia-Aguado"
+        - "Juan José Cabrera"
+        - "Enrique Heredia"
         - "Oscar Reinoso"
         - "Arturo Gil"
-        - "Luis Payá"
+        - "Luis Paya"
       venue: "Proceedings of the 22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
       publisher: "SciTePress"
       doi: "10.5220/0013743100003982"
       pages: "117–125"
+      cvn:
+        listed: "2026-01-22"
+        participation: "Participativo - Ponencia oral (comunicación oral)"
 
     - key: "maximo2024localizacion"
       title: "Localización topológica Monte Carlo basada en descripción de nubes de puntos LiDAR 3D"
@@ -162,12 +198,14 @@
       authors:
         - "Miriam Máximo"
         - "Mónica Ballesta"
-        - "Enrique Heredia-Aguado"
         - "David Valiente"
+        - "Enrique Heredia-Aguado"
         - "Oscar Reinoso"
       venue: "Actas del Simposio de Robótica, Bioingeniería y Visión por Computador"
       url: "https://hdl.handle.net/11000/32892"
       pages: "55–60"
+      cvn:
+        listed: "2026-01-22"
 
     - key: "eheredia2024fusion"
       title: "Fusión estática de imágenes del espectro visible y térmico para una mejor detección de personas mediante Redes Neuronales Convolucionales: un análisis del rendimiento"
@@ -177,92 +215,125 @@
         - "David Valiente"
         - "Arturo Gil"
         - "Miriam Máximo"
-        - "Luis Payá"
+        - "Luis Paya"
       venue: "Actas del Simposio de Robótica, Bioingeniería y Visión por Computador"
       url: "https://hdl.handle.net/11000/32893"
       pages: "263–268"
+      cvn:
+        listed: "2026-01-22"
+        participation: "Participativo - Ponencia oral (comunicación oral)"
 
     - key: "brinkmann2022mantis"
       title: "Mantis Within a Multi Robot Team for Lunar Exploration and Construction Tasks"
       year: 2022
       authors:
         - "Wiebke Brinkmann"
-        - "Leon Danter"
+        - "Leon C. Danter"
         - "Tobias Stark"
-        - "Enrique Heredia-Aguado"
+        - "Alexander Dettmann"
+        - "Matteo De Benedetti"
+        - "Shashank Govindaraj"
+        - "Irene Sanz Nieto"
+        - "Alexandru But"
         - "Francisco Javier Colmenero"
+        - "Enrique Heredia"
         - "Mercedes Alonso"
       venue: "2022 IEEE Aerospace Conference (AERO)"
       publisher: "IEEE"
       doi: "10.1109/AERO53065.2022.9843351"
+      pages: "1–15"
+      cvn:
+        listed: "2026-01-22"
 
     - key: "govindaraj2021building_conf"
-      title: "Building a Lunar Infrastructure with the Help of a Heterogeneous (Semi)Autonomous Multi-Robot-Team"
+      title: "Building a lunar infrastructure with the help of a heterogeneous (semi)autonomous multi-robotic team"
       year: 2021
       authors:
         - "Shashank Govindaraj"
         - "Wiebke Brinkmann"
-        - "Francisco Javier Colmenero"
-        - "Enrique Heredia-Aguado"
-        - "Mercedes Alonso"
+        - "Francisco Javier Colmenero Lechuga"
+        - "Irene Sanz Nieto"
         - "Alexandru But"
-        - "Leon Danter"
-        - "Luís Lopes"
+        - "Matteo De Benedetti"
+        - "Leon Cedric Danter"
+        - "Mercedes Alonso"
+        - "Enrique Heredia"
+        - "Simon Lacroix"
+        - "Dominik Kleszczyński"
+        - "Joseph Purnell"
+        - "Kevin Picton"
+        - "Nabil Aouf"
+        - "Luis Lopes"
       venue: "International Astronautical Congress (IAC)"
       url: "https://www.researchgate.net/publication/355668710_Building_a_Lunar_Infrastructure_with_the_Help_of_a_Heterogeneous_SemiAutonomous_Multi-Robot-Team"
+      cvn:
+        listed: "2026-01-22"
+        participation: "Participativo - Ponencia oral (comunicación oral)"
+        authors_source: "ficha oficial IAF Digital Library: https://dl.iafastro.directory/event/IAC-2021/paper/63629/"
 
     - key: "govindaraj2020multirobot"
       title: "Multi-Robot Cooperation for Lunar Base Assembly And Construction"
       year: 2020
       authors:
         - "Shashank Govindaraj"
-        - "Irene Nieto"
+        - "Irene Sanz Nieto"
         - "Alexandru But"
         - "Wiebke Brinkmann"
         - "Alexander Dettmann"
-        - "Leon Danter"
+        - "Leon C. Danter"
         - "Nabil Aouf"
         - "Masoud Sotoodeh Bahraini"
         - "Abdelhafid Zenati"
         - "Heitor Savino"
         - "Jakub Stelmachowski"
         - "Francisco Colmenero"
-        - "Enrique Heredia-Aguado"
+        - "Enrique Heredia"
         - "Mercedes Alonso"
         - "Joe Purnell"
         - "Kevin Picton"
         - "Luís Lopes"
       venue: "International Symposium on Artificial Intelligence, Robotics and Automation in Space (i-SAIRAS)"
       url: "https://www.researchgate.net/publication/344860299_Multi-Robot_Cooperation_for_Lunar_Base_Assembly_And_Construction"
+      cvn:
+        listed: "2026-01-22"
+        participation: "Participativo - Ponencia oral (comunicación oral)"
+        organizer: "Lunar and Planetary Institute / USRA; comité ejecutivo: CSA, DLR, ESA, JAXA, JPL"
+        from: "2020-10-19"
+        to: "2020-10-23"
+        city: "Online (virtual)"
+        source: "https://www.hou.usra.edu/meetings/isairas2020/ (copia en web.archive.org): charla Day 2 Track A «Robotics – Lunar I», abstract #5073"
 
     - key: "ocon2019testing"
       title: "Testing Autonomous Robots: A Discussion on Performances Obtained During the ERGO Field Tests"
       year: 2019
       authors:
-        - "Jorge Ocon"
+        - "Jorge Ocón"
         - "Francisco Colmenero"
         - "Iulia Dragomir"
-        - "Enrique Heredia-Aguado"
+        - "Enrique Heredia"
         - "Mercedes Alonso"
         - "Joaquin Estremera"
-        - "Róbert Marc"
+        - "Robert Marc"
         - "Piotr Weclewski"
         - "Thomas Keller"
         - "Mark Woods"
-        - "Spyridon Karachalios"
+        - "Spyros Karachalios"
       venue: "Symposium on Advanced Space Technologies in Robotics and Automation (ASTRA 2019)"
       url: "https://ai.dmi.unibas.ch/papers/ocon-et-al-astra2019.pdf"
+      cvn:
+        listed: "2026-01-22"
+        participation: "Participativo - Ponencia oral (comunicación oral)"
 
     - key: "ocon2018ergo"
       title: "The ERGO framework and its use in planetary/orbital scenarios"
       year: 2018
       authors:
-        - "Jorge Ocon"
-        - "Francisco Colmenero"
+        - "Jorge Ocón"
+        - "Francisco Javier Colmenero"
         - "Joaquin Estremera"
         - "Karl Buckley"
         - "Mercedes Alonso"
-        - "Enrique Heredia-Aguado"
+        - "Enrique Heredia"
         - "J. Garcia"
         - "Andrew Coles"
         - "Amanda Coles"
@@ -276,9 +347,12 @@
         - "Saddek Bensalem"
         - "Pierre Dissaux"
         - "A. Schach"
-        - "Piotr Weclewski"
       venue: "Proceedings of the 69th International Astronautical Congress (IAC)"
       url: "https://kclpure.kcl.ac.uk/ws/portalfiles/portal/101292706/IAC_2018_ERGO_PaperV1.0.pdf"
+      cvn:
+        listed: "2026-01-22"
+        participation: "Participativo - Ponencia oral (comunicación oral)"
+        authors_source: "copia de autor del paper IAC-18.D1.6.12x46215 (69th IAC, ©IAF): https://ai.dmi.unibas.ch/papers/ocon-et-al-iac2018.pdf — la ficha de la IAF DL solo lista al ponente"
 
 - category: "Preprints"
   category_singular: "Preprint"
@@ -384,7 +458,7 @@
         - "Alejandro Rujano"
         - "M. Pilar Aivar"
         - "Victoria Plaza"
-      venue: "VI Congreso Anual de Estudiantes de Doctorado (UMH)"
+      venue: "VI Congreso Anual Internacional de Estudiantes de Doctorado (UMH)"
 
     - key: "heredia2026fusion_multispectral"
       title: "Técnicas de fusión de imágenes multiespectrales para una mejor detección mediante algoritmos de aprendizaje profundo"
@@ -394,7 +468,7 @@
         - "Alejandro Rujano"
         - "David Valiente"
         - "Arturo Gil"
-      venue: "VI Congreso Anual de Estudiantes de Doctorado (UMH)"
+      venue: "VI Congreso Anual Internacional de Estudiantes de Doctorado (UMH)"
       doi: "10.13140/RG.2.2.31157.33760"
 
     - key: "heredia2025collab_interdisciplinar"
@@ -408,6 +482,8 @@
         - "M. Pilar Aivar"
       venue: "V Congreso Anual Internacional de Estudiantes de Doctorado (UMH)"
       doi: "10.13140/RG.2.2.35237.41443"
+      cvn:
+        listed: "2026-01-22"
 
     - key: "cepero2025visual_search"
       title: "Visual Search Strategies: Comparing Screen-Based and Real-World Contexts"
@@ -418,6 +494,8 @@
         - "Victoria Plaza"
         - "M. Pilar Aivar"
       venue: "Reunión Científica sobre Atención (RECA14)"
+      cvn:
+        listed: "2026-01-22"
 
 - category: "Posters"
   category_singular: "Poster"
@@ -462,6 +540,8 @@
         - "M. Pilar Aivar"
       venue: "XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)"
       doi: "10.13140/RG.2.2.36031.78242"
+      cvn:
+        listed: "2026-01-22"
 
 - category: "Software Tools"
   category_singular: "Software Tool"
@@ -558,7 +638,7 @@
   type_key: "award"
   entries:
     - key: "heredia2026premio_aemcco"
-      title: "Premio AEMCCO de Divulgación y Transferencia en Metodología: \"Herramientas estadísticas y psicométricas\""
+      title: "Premio AEMCCO de Divulgación y Transferencia en Metodología: \"Herramientas estadísticas y psicométricas para investigadores en psicología y en ingeniería\""
       year: 2026
       authors:
         - "José Alejandro Rodríguez Rujano"

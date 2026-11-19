@@ -21,7 +21,7 @@ custom_js:
             <a href="https://scholar.google.es/citations?user=1J56jsMAAAAJ&hl=es" target="_blank" rel="noopener noreferrer" title="Google Scholar">
                 <svg viewBox="0 0 24 24"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg>
             </a>
-            <a href="https://orcid.org/0009-0001-7717-1428" target="_blank" rel="noopener noreferrer" title="ORCID">
+            <a href="https://orcid.org/{{ site.data.profile.identifiers.orcid }}" target="_blank" rel="noopener noreferrer" title="ORCID">
                 <svg viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-3.956-3.722h-2.363z"/></svg>
             </a>
             <a href="https://portalinvestigacion.umh.es/investigadores/2213077/detalle" target="_blank" rel="noopener noreferrer" title="UMH Research Portal">
@@ -50,14 +50,15 @@ custom_js:
     };
     window.cvLabels = {
       {% for item in site.data.cv_sections.items %}{% if item.edu %}{% assign e = site.data.education[item.edu] %}"{{ item.id }}": {{ "[" | append: e.dates | append: "] · " | append: e.degree | append: " · " | append: e.institution | jsonify }},
+      {% elsif item.job %}{% capture jl_str %}{% include job_label.html key=item.job %}{% endcapture %}"{{ item.id }}": {{ jl_str | jsonify }},
       {% elsif item.label %}"{{ item.id }}": {{ item.label | jsonify }},
       {% endif %}{% endfor %}
     };
     </script>
-    {% for item in site.data.cv_sections.items %}
+    {% for item in site.data.cv_sections.items %}{% if item.print_only %}{% continue %}{% endif %}
     {% if item.group %}<h2 class="visually-hidden">{{ item.group }}</h2>{% endif %}
     <div id="{{ item.id }}" class="gitgraph-detail{% if item.collapsed %} collapsed{% endif %}"{% if item.collapsed %} data-collapsible="true"{% endif %}>
-        {% if item.edu %}{% assign e = site.data.education[item.edu] %}<h3 class="visually-hidden">[{{ e.dates }}] · {{ e.degree }} · {{ e.institution }}</h3>{% elsif item.label %}<h3 class="visually-hidden">{{ item.label }}</h3>{% endif %}
+        {% if item.edu %}{% assign e = site.data.education[item.edu] %}<h3 class="visually-hidden">[{{ e.dates }}] · {{ e.degree }} · {{ e.institution }}</h3>{% elsif item.job %}<h3 class="visually-hidden">{% include job_label.html key=item.job %}</h3>{% elsif item.label %}<h3 class="visually-hidden">{{ item.label }}</h3>{% endif %}
         {% include_relative {{ site.data.cv_sections.content_path }}/{{item.id  | replace: '-', '_'}}.html %}
     </div>
     {% endfor %}

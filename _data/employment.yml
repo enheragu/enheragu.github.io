@@ -1,0 +1,86 @@
+# Single source of truth for every job/contract. Consumed by:
+#   _includes/job_label.html -> "[dates] · role · org" label for index.md,
+#                               print.md and the canvas (window.cvLabels); items
+#                               in cv_sections.yml carry `job: <key>` (same
+#                               pattern as `edu:` -> education.yml)
+#   cvn.md (/cvn/)           -> CVN "Situación profesional actual" (ongoing)
+#                               and "Cargos y actividades desempeñados con anterioridad"
+#   teaching.yml (`job:`)    -> contract period of a teaching entry
+# Fields: role, org (display), start/end ("YYYY-MM" or "YYYY-MM-DD"; the shown
+#   dates are derived from them by _includes/date_span.html), ongoing: true.
+#   A job made of several contracts lists them in cvn.contracts (category, start,
+#   end, funding, dedication, ongoing); its start is the first contract's.
+#   Resolution references (they name people) live in the local cvn_local.yml `sources:`.
+# cvn: CVN-only fields, as the FECYT editor expects them: entity, entity_type,
+#   department, category (Categoría profesional), listed (date of the CVN that
+#   already includes it; absent = new). null = still to fill in.
+#   `cvn: false` = not listed in the CVN.
+# Private fields (e.g. contract type) and open questions are NOT stored here
+# (this repo is public): they live in the local, git-ignored _data/cvn_local.yml.
+# Entries without a cv_sections item (umh_lecturer) only feed the CVN and teaching.yml.
+umh_phd:
+  role: "Research Engineer & PhD Student"
+  org: "UMH"
+  ongoing: true                 # the web label starts at the first contract below
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+    department: "Grupo de Automatización y Robótica, Instituto de Investigación en Ingeniería de Elche"
+    # One CVN item per contract, oldest first (BOUMH resolutions, referenced in
+    # the local _data/cvn_local.yml; extensions are not published, so unknown ends stay null). The ongoing one is the CVN
+    # «Situación profesional actual»; the others go to «Cargos … anterioridad».
+    contracts:
+    - category: "Investigador/a en formación (contrato predoctoral)"
+      start: "2022-12-01"
+      end: null
+      funding: "PROMETEO/2021/075"
+    - category: "Titulado Superior I"
+      start: "2025-01-01"
+      end: "2025-02-28"
+      funding: "PID2020-116418RB-I00 (HyReBot)"
+    - category: "Titulado Superior I"
+      start: "2025-03-01"
+      end: null
+      funding: "TED2021-130901B-I00"
+    - category: "Titulado Superior I"
+      start: "2025-07-01"
+      end: null
+      funding: "INNVA1/2023/61 (AViRobots)"
+    - category: "Titulado Superior I"
+      start: "2025-10-16"
+      ongoing: true
+      funding: "PID2023-149575OB-I00 (Robot_Vigilante)"
+umh_lecturer:
+  role: "Substitute Lecturer"
+  org: "UMH"
+  start: "2026-03"
+  end: "2026-06"
+  cvn:
+    entity: "Universidad Miguel Hernández de Elche"
+    entity_type: "Universidad"
+umh_intern:
+  role: "Research Intern"
+  org: "UMH"
+  start: "2022-02"              # approximate dates (Enrique)
+  end: "2022-09"
+  cvn: false                    # not listed in the CVN (Enrique, 2026-11-19)
+gmv:
+  role: "Robotics Engineer"
+  org: "GMV · On Board Autonomy Division"
+  start: "2017-02"
+  end: "2021-10"
+  cvn:
+    listed: "2026-01-22"
+    entity: "GMV Aerospace and Defence, S.A."
+    entity_type: "Entidad Empresarial"
+    category: "Titulado Superior I"
+bq:
+  role: "Intern"
+  org: "BQ"
+  start: "2016-02"
+  end: "2016-09"                # CVN dates (Enrique, 2026-11-19); the web said Aug. 2016
+  cvn:
+    listed: "2026-01-22"
+    entity: "BQ Educación - Mundo Reader S.L."
+    entity_type: "Entidad Empresarial"
+    category: "Prácticas Universitarias"

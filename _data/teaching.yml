@@ -1,35 +1,152 @@
 # Teaching record — one entry per course·year, newest first. Single source for:
 #   - /academic/ Teaching panel (_academic/detail_teaching.html): full list.
 #   - CV Work panel (_cv_sections/detail_umh.html): one summary line per role.
+#   - PDF Teaching section (_cv_sections/detail_teaching.html): table + total ECTS.
+#   - CVN page (cvn.md, /cvn/): "Formación académica impartida".
 # Fields: role (chip + summary group), course, programme, year, ects.
-#   period: optional contract span, shown instead of the academic years in the
-#           summary (e.g. a short lectureship inside one course year).
+#   type:   kind of teaching (e.g. "lab sessions"); the PDF says it once if all
+#           entries share it.
+#   job:    key of _data/employment.yml when the entry comes with its own
+#           contract (e.g. the lectureship): its period is shown instead of the
+#           academic years in the summary (_includes/teaching_period.html).
 #   note:   optional extra line under the entry in /academic/ (HTML allowed).
+#   cvn:    CVN-only fields (never rendered on the web/PDF), values as the FECYT
+#           editor expects them (Spanish). null = still to fill in.
+#             course / degree: official names · programme_type: Tipo de programa
+#             subject_type: Obligatoria/Optativa/Troncal… · teaching_type: Tipo de
+#             docencia · course_year: Curso que se imparte · start/end: ISO dates
+#             centre / department / language: Facultad, Departamento, Idioma
+#             listed: date of the CVN that already includes it (absent = new)
+#             code: UMH subject code · source: official page backing the data
+#             open questions: local _data/cvn_local.yml, key "teaching:<code>/<year>"
+# Only TAUGHT courses go here: assigned-but-not-yet-taught ones stay commented
+# out until the term ends (they would inflate the ECTS total).
 # To grow it, just add an entry here; it reuses the publication list/chip styles.
-- role: "Teaching Assistant"
-  course: "Computer Vision"
-  programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
-  year: "2026–2027"
-  ects: "3"
+
+# Assigned for 2026–27 (Feb. – Jun. 2027, same slot as previous editions), not
+# taught yet: uncomment when the term ends (Enrique, 2026-11-19).
+# - role: "Teaching Assistant"
+#   course: "Computer Vision"
+#   programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
+#   year: "2026–2027"
+#   ects: "3"
+#   type: "lab sessions"
+#   cvn:
+#     course: "Visión por Computador"
+#     code: "1782"
+#     degree: "Grado en Ingeniería Electrónica y Automática Industrial"
+#     programme_type: "Ingeniería"
+#     subject_type: "Optativa"
+#     teaching_type: "Prácticas de Laboratorio"
+#     course_year: 4
+#     start: null
+#     end: null
+#     centre: "Escuela Politécnica Superior de Elche"
+#     department: "Ingeniería de Sistemas y Automática"
+#     language: "Español"
 - role: "Lecturer"
   course: "General Electronics"
-  programme: "B.Sc. Electronics &amp; Automation Eng. (2nd yr) + Mechanics Eng. (2nd yr)"
+  programme: "B.Sc. Electronics &amp; Automation Eng. (2nd yr)"
   year: "2025–2026"
-  ects: "7.2"
-  period: "Mar. – Jun. 2026"
-  note: 'Temporary faculty appointment (<i>Profesor Asociado</i>), Mar. – Jun. 2026, in the Dept. of Communications Engineering (Electronics area). <a href="https://portalinvestigacion.umh.es/unidades/41873/detalle" target="_blank" rel="noopener noreferrer">[Dept.]</a>'
+  ects: "3.6"
+  type: "lab sessions"
+  job: umh_lecturer
+  note: 'Temporary substitute lecturer, part-time (<i>Profesor Sustituto</i>), in the Dept. of Communications Engineering (Electronics area). <a href="https://portalinvestigacion.umh.es/unidades/41873/detalle" target="_blank" rel="noopener noreferrer">[Dept.]</a>'
+  cvn:
+    course: "Electrónica General"
+    code: "1779"
+    degree: "Grado en Ingeniería Electrónica y Automática Industrial"
+    programme_type: "Ingeniería"
+    subject_type: "Obligatoria"
+    teaching_type: "Prácticas de Laboratorio"
+    course_year: 2
+    start: null               # first day you taught (Mar. 2026; contract: employment.yml umh_lecturer)
+    end: null                 # end of classes: 29/05/2026 per the UMH calendar (BOUMH 05/05/2025)
+    centre: "Escuela Politécnica Superior de Elche"
+    department: "Ingeniería de Comunicaciones"
+    language: "Español"
+    source: "https://www.umh.es/contenido/Estudios/:asi_g_1779_S1_CAnt/datos_es.html (2025–26: Heredia Aguado en Práctica)"
+- role: "Lecturer"
+  course: "General Electronics"
+  programme: "B.Sc. Mechanical Eng. (2nd yr)"
+  year: "2025–2026"
+  ects: "3.6"
+  type: "lab sessions"
+  job: umh_lecturer
+  cvn:
+    course: "Electrónica General"
+    code: "1793"
+    degree: "Grado en Ingeniería Mecánica"
+    programme_type: "Ingeniería"
+    subject_type: "Obligatoria"
+    teaching_type: "Prácticas de Laboratorio"
+    course_year: 2
+    start: null               # first day you taught (Mar. 2026; contract: employment.yml umh_lecturer)
+    end: null                 # end of classes: 29/05/2026 per the UMH calendar (BOUMH 05/05/2025)
+    centre: "Escuela Politécnica Superior de Elche"
+    department: "Ingeniería de Comunicaciones"
+    language: "Español"
+    source: "https://www.umh.es/contenido/Estudios/:asi_g_1793_S1_CAnt/datos_es.html (2025–26: Heredia Aguado en Práctica)"
 - role: "Teaching Assistant"
   course: "Robotics"
   programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
   year: "2024–2025"
   ects: "2.1"
+  type: "lab sessions"
+  cvn:
+    course: "Robótica"
+    code: "1770"
+    degree: "Grado en Ingeniería Electrónica y Automática Industrial"
+    programme_type: "Ingeniería"
+    subject_type: "Obligatoria"
+    teaching_type: "Prácticas de Laboratorio"
+    course_year: 4
+    listed: "2026-01-22"
+    start: "2024-09-10"
+    end: "2025-01-30"
+    source: "https://www.umh.es/contenido/Estudios/:asi_g_1770_S1_CSig/datos_es.html (obligatoria, 4º, 1er semestre)"
+    centre: "Escuela Politécnica Superior de Elche"
+    department: "Ingeniería de Sistemas y Automática"
+    language: "Español"
 - role: "Teaching Assistant"
   course: "Computer Vision"
   programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
   year: "2023–2024"
   ects: "3"
+  type: "lab sessions"
+  cvn:
+    course: "Visión por Computador"
+    code: "1782"
+    degree: "Grado en Ingeniería Electrónica y Automática Industrial"
+    programme_type: "Ingeniería"
+    subject_type: "Optativa"
+    teaching_type: "Prácticas de Laboratorio"
+    course_year: 4
+    listed: "2026-01-22"
+    start: "2024-02-01"
+    end: "2024-06-30"
+    source: "https://www.umh.es/contenido/Estudios/:asi_g_1782_S1/datos_es.html (optativa, 4º, 2º semestre; fichas de ese curso ya no publicadas)"
+    centre: "Escuela Politécnica Superior de Elche"
+    department: "Ingeniería de Sistemas y Automática"
+    language: "Español"
 - role: "Teaching Assistant"
   course: "Computer Vision"
   programme: "B.Sc. Electronics &amp; Automation Eng. (4th yr)"
   year: "2022–2023"
   ects: "3"
+  type: "lab sessions"
+  cvn:
+    course: "Visión por Computador"
+    code: "1782"
+    degree: "Grado en Ingeniería Electrónica y Automática Industrial"
+    programme_type: "Ingeniería"
+    subject_type: "Optativa"
+    teaching_type: "Prácticas de Laboratorio"
+    course_year: 4
+    listed: "2026-01-22"
+    start: "2023-02-01"
+    end: "2023-06-30"
+    source: "https://www.umh.es/contenido/Estudios/:asi_g_1782_S1/datos_es.html (optativa, 4º, 2º semestre; fichas de ese curso ya no publicadas)"
+    centre: "Escuela Politécnica Superior de Elche"
+    department: "Ingeniería de Sistemas y Automática"
+    language: "Español"

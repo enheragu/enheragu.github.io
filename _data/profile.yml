@@ -1,0 +1,10 @@
+# Public research identifiers — single source for the web (ORCID link in the
+# About panel, JSON-LD sameAs in _layouts/default.html) and the /cvn/ page.
+# EVERYTHING in _data/ IS PUBLIC (this repo is public, and some files are dumped
+# into page JSON, e.g. travels.yml on /travel/). Personal data — birth date,
+# address, phones, personal e-mail — is deliberately NOT stored here: it lives
+# only in the FECYT CVN editor, where it rarely changes.
+identifiers:
+  orcid: "0009-0001-7717-1428"
+  scopus_id: "59710158600"
+  researcher_id: "PHN-5366-2026"

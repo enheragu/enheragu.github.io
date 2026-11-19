@@ -16,6 +16,8 @@
 #         trip:    shared id when one journey visits several places, in date
 #                  order (arcs chain home -> stop -> stop; km counted once).
 #         online:  held/attended remotely -> no arc, no km.
+#         cvn:     (conferences) CVN-only data shared by all the works of the
+#                  event: organizer, scope, proceedings (ISBN/ISSN), source.
 #         Links reuse existing data by id, nothing is duplicated:
 #           pubs:    keys of publications.yml (generated from publications.bib)
 #           gallery: campaign id in galleries.yml  -> photos + "Photos" link
@@ -29,9 +31,20 @@
 #           topic:       "Hosted by <host>, on <topic>." -> globe card + /academic/
 #           institution: full name, own sentence -> /academic/
 #           work:        what I did, own sentence -> /academic/
-#           funding:     "Funded by a <funding>."  -> /academic/
-#           cv_dates:    certified stay period as display text, when it differs
-#                        from the travel dates (e.g. arrival the day before)
+#           certified:   {from, to} certified stay period, only when it differs
+#                        from the travel dates (e.g. arrival the day before);
+#                        shown in the CV and used by the CVN
+#           grant:       funding of the stay (or of a conference trip: CVN only).
+#                        desc -> "Funded by a <desc> (<name>)." in /academic/
+#                        (stays); the rest is the CVN "Ayudas y becas" item:
+#                        name (official), entity (that grants it), purpose,
+#                        granted (definitive resolution date), end (amount: local cvn_local.yml),
+#                        listed, source (call + resolution). null = to fill in.
+#           cvn:         CVN-only fields of the stay (/cvn/ page): entity,
+#                        entity_type, centre, objective (Objetivos de la
+#                        estancia), tasks (Tareas contrastables), type (Tipo
+#                        Estancia), listed (date of the CVN that already
+#                        includes it; absent = new). null = still to fill in.
 
 modes:
 - id: been
@@ -160,6 +173,10 @@ events:
   title: "23rd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
   project: detail-PROMETEO2025
   pubs: [icinco26mmaximo]
+  cvn:
+    organizer: "INSTICC (Institute for Systems and Technologies of Information, Control and Communication); organización local: ESEO"
+    proceedings: "Proceedings of the 23rd ICINCO, Vol. 1, SciTePress, ISBN 978-989-758-870-9, ISSN 2184-2809"
+    source: "https://www.scitepress.org/ProceedingsDetails.aspx?ID=to43JEz0wWg=&t=1 · https://icinco.scitevents.org/?y=2026"
 - kind: stay
   place: cordoba-ar
   from: "2026-09-17"
@@ -169,20 +186,37 @@ events:
   host: "Laura Díaz Dávila"
   topic: "Argentine Sign Language (LSA) recognition and translation (SeCyT-UNC Consolidar project)"
   work: "Extension of the LSA-Med dataset with new RGB-D recordings (real depth from an iPhone camera), with a reusable capture protocol and tool; study of 3D depth fusion for sign recognition (ongoing joint work)"
-  funding: "travel grant of the UMH TECNIT doctoral programme (<em>Ayudas y bolsas de viaje para la difusión de resultados de investigación 2026</em>)"
+  grant:
+    desc: "travel grant of the UMH TECNIT doctoral programme"
+    name: "Ayudas y bolsas de viaje para la formación y la difusión de resultados de investigación en el marco del Programa de Doctorado en Tecnologías Industriales y de Telecomunicación"
+    entity: "Universidad Miguel Hernández de Elche"
+    purpose: null
+    granted: "2026-05-18"
+    end: null
   links:
   - label: "LIDeSIA"
     url: "https://fcefyn.unc.edu.ar/facultad/secretarias/investigacion-y-desarrollo/laboratorios/laboratorio-de-investigacion-y-desarrollo-de-software-e-inteligencia-artificial-lidesia/"
   cv: detail-umh
   project: detail-LIDESIA_LSA
+  cvn:
+    entity: "Universidad Nacional de Córdoba"
+    entity_type: "Universidad"
+    centre: "LIDeSIA, Facultad de Ciencias Exactas, Físicas y Naturales"
+    objective: "Invitado/a"
+    tasks: null
+    type: "Investigación"
   gallery: phd-cordoba-2026
 - kind: conference
   place: almeria
-  from: "2026-07-08"    # talk + award days (slides); full congress span pending
+  from: "2026-07-07"    # full congress span (official site + attendance certificates)
   to: "2026-07-09"
   title: "XIX Congreso de Metodología de las Ciencias Sociales y de la Salud (AEMCCO)"
   pubs: [heredia2026azar_redes, cepero2026ojodato, rujano2026sesgos, heredia2026premio_aemcco]
   gallery: phd-aemcco-2026
+  cvn:
+    organizer: "Universidad de Almería y AEMCCO (Asociación Española de Metodología de las Ciencias del Comportamiento)"
+    scope: "Nacional"
+    source: "https://aemcco.org/list_congresos.php?Seccion=Congreso+Nacional (sección «Congreso Nacional») · web oficial aemccoalmeria2026.es (copia en web.archive.org)"
 - kind: conference
   place: bilbao
   attended: false
@@ -191,6 +225,10 @@ events:
   title: "Simposio CEA de Robótica, Bioingeniería, Visión Artificial y Automática Marina"
   project: detail-PROMETEO2025
   pubs: [cea2026eheredia, cea2026flores]
+  cvn:
+    organizer: "Comité Español de Automática (CEA), con el grupo ViSens y el Dpto. de Ingeniería de Sistemas y Automática de la Escuela de Ingeniería de Bilbao (UPV/EHU)"
+    proceedings: "Simposios del Comité Español de Automática (CEA), ISSN 3081-5002, vol. 2, núm. 2 (2026)"
+    source: "http://138.100.76.10/index.php/SimposiosCEA/article/view/174 · web oficial rbvm2026.com (copia en web.archive.org)"
 - kind: stay
   place: bremen
   from: "2026-05-28"
@@ -200,12 +238,25 @@ events:
   host: "Ajish Babu"
   topic: "sensor integration (multispectral camera), calibration and data acquisition in the ROBDEKON II project"
   work: "Follow-up stay, continuation of the same work"
-  funding: "UMH international mobility grant (<em>Ayuda UMH para la movilidad internacional 2026</em>)"
+  grant:
+    desc: "UMH international mobility grant"
+    name: "Ayudas para la movilidad internacional del PDI y PI"
+    entity: "Universidad Miguel Hernández de Elche"
+    purpose: null
+    granted: "2026-03-03"
+    end: null
   links:
   - label: "DFKI"
     url: "https://robotik.dfki-bremen.de/en/research/projects/robdekon-ii"
   cv: detail-umh
   project: detail-ROBDEKON2
+  cvn:
+    entity: "German Research Center for Artificial Intelligence (DFKI)"
+    entity_type: "Centros de Innovación y Tecnología"
+    centre: "Robotics Innovation Center (RIC)"
+    objective: "Invitado/a"
+    tasks: "Integración de sensores en robot, calibración de cámaras y toma de datos bajo el proyecto ROBDEKON II"
+    type: "Investigación"
   gallery: phd-bremen-2026
 - kind: conference
   place: palma
@@ -214,6 +265,9 @@ events:
   to: "2026-05-29"
   title: "11th Iberian Congress of Perception (CIP 2026)"
   pubs: [cepero2026cip]
+  cvn:
+    organizer: "Human Evolution and Cognition Group (EvoCog), Universitat de les Illes Balears"
+    source: "web oficial cip2026.com (copia en web.archive.org): «an international conference»"
 - kind: conference
   place: st-pete-beach
   attended: false
@@ -221,6 +275,9 @@ events:
   to: "2026-05-19"
   title: "Vision Sciences Society Annual Meeting (VSS 2026)"
   pubs: [aivar2026vss]
+  cvn:
+    organizer: "Vision Sciences Society"
+    source: "https://www.visionsciences.org/poster-sessions/?id=734 (copia en web.archive.org): póster 36.431"
 - kind: conference
   place: elche
   online: true
@@ -228,21 +285,42 @@ events:
   to: "2026-02-06"
   title: "VI Congreso Anual Internacional de Estudiantes de Doctorado (CAIED, UMH)"
   pubs: [heredia2026fusion_multispectral, cepero2026busqueda_visual]
+  cvn:
+    organizer: "Universidad Miguel Hernández de Elche (UMH)"
+    proceedings: "Libro de abstracts del VI CAIED, Editorial UMH, ISBN 979-13-87966-23-2"
+    source: "https://editorial.umh.es/2026/10/02/annual-international-congress-of-doctoral-students-2026/"
 - kind: stay
   place: bremen
   from: "2025-11-30"    # arrived the Sunday before; the whole of December
   to: "2025-12-31"
-  cv_dates: "Dec. 2025"
+  certified:
+    from: "2025-12-01"
+    to: "2025-12-31"
   title: "DFKI Bremen"
   institution: "Robotics Innovation Center (RIC) of DFKI (<em>Deutsches Forschungszentrum für Künstliche Intelligenz</em>)"
   host: "Ajish Babu"
   topic: "sensor integration (multispectral camera), calibration and data acquisition in the ROBDEKON II project"
-  funding: "Banco Santander predoctoral mobility grant"
+  grant:
+    desc: "Santander–UMH research-stay grant for doctoral students"
+    name: "Ayudas Santander-UMH para estancias de investigación nacionales e internacionales para estudiantado de doctorado de la UMH 2025"
+    entity: "Universidad Miguel Hernández de Elche"
+    purpose: "Predoctoral"
+    granted: "2025-11-13"
+    end: "2025-12-31"
+    listed: "2026-01-22"
   links:
   - label: "DFKI"
     url: "https://robotik.dfki-bremen.de/en/research/projects/robdekon-ii"
   cv: detail-umh
   project: detail-ROBDEKON2
+  cvn:
+    listed: "2026-01-22"
+    entity: "German Research Center for Artificial Intelligence (DFKI)"
+    entity_type: "Centros de Innovación y Tecnología"
+    centre: "Robotics Innovation Center (RIC)"
+    objective: "Invitado/a"
+    tasks: "Integración de sensores en robot, calibración de cámaras y toma de datos bajo el proyecto ROBDEKON II"
+    type: "Investigación"
   gallery: phd-bremen-2025
 - kind: conference
   place: marbella
@@ -252,6 +330,10 @@ events:
   title: "22nd International Conference on Informatics in Control, Automation and Robotics (ICINCO)"
   project: detail-PROMETEO2025
   pubs: [icinco25eheredia, icinco25malfaro]
+  cvn:
+    organizer: "INSTICC (Institute for Systems and Technologies of Information, Control and Communication)"
+    proceedings: "Proceedings of the 22nd ICINCO, Vol. 1, SciTePress, ISBN 978-989-758-770-2, ISSN 2184-2809"
+    source: "https://www.scitepress.org/ProceedingsDetails.aspx?ID=Qcz5pAE+nwo=&t=1"
 - kind: conference
   place: madrid
   attended: false
@@ -259,6 +341,9 @@ events:
   to: "2025-04-04"
   title: "Reunión Científica sobre Atención (RECA14)"
   pubs: [cepero2025visual_search]
+  cvn:
+    organizer: "Universidad Nebrija"
+    source: "https://recatencion.wixsite.com/reca14"
 - kind: conference
   place: elche
   online: true
@@ -266,6 +351,10 @@ events:
   to: "2025-02-07"
   title: "V Congreso Anual Internacional de Estudiantes de Doctorado (CAIED, UMH)"
   pubs: [heredia2025collab_interdisciplinar]
+  cvn:
+    organizer: "Universidad Miguel Hernández de Elche (UMH)"
+    proceedings: "Libro de abstracts del V CAIED, Editorial UMH, ISBN 979-13-87966-07-2"
+    source: "https://editorial.umh.es/2026/03/04/annual-international-congress-of-doctoral-students-2025/"
 - kind: conference
   place: almeria
   attended: false
@@ -273,12 +362,27 @@ events:
   to: "2024-10-25"
   title: "XIV Congress of the Spanish Society for Experimental Psychology (SEPEX24)"
   pubs: [cepero2024poster_visual_search]
+  cvn:
+    organizer: "Universidad de Almería (comité organizador) y SEPEX (Sociedad Española de Psicología Experimental)"
+    proceedings: "SEPEX XIV Conference. Book of abstracts, Editorial Universidad de Almería (2025), ISBN 978-84-1351-353-9, p. 192"
+    source: "web oficial sepex24.com (copia en web.archive.org): póster P3.14"
 - kind: conference
   place: badajoz
   from: "2024-05-29"    # Escuela de Ingenierías Industriales (UEx)
   to: "2024-05-31"
   title: "Simposio CEA de Robótica, Bioingeniería y Visión por Computador"
+  grant:
+    desc: "travel grant of the UMH TECNIT doctoral programme"
+    name: "Ayudas y bolsas de viaje para la formación y la difusión de resultados de investigación del Programa de Doctorado en Tecnologías Industriales y de Telecomunicación (TECNIT), curso 2023/2024"
+    entity: "Universidad Miguel Hernández de Elche"
+    purpose: null
+    granted: "2024-10-17"
+    end: "2024-12-31"
   pubs: [eheredia2024fusion, maximo2024localizacion]
+  cvn:
+    organizer: "Universidad de Extremadura"
+    proceedings: "Actas del Simposio de Robótica, Bioingeniería y Visión por Computador, Servicio de Publicaciones de la Universidad de Extremadura (2024), e-ISBN 978-84-9127-262-5"
+    source: "https://eventos.unex.es/107983/detail/simposio-de-robotica-biongenieria-y-vision-por-computador-2024.html"
 - kind: conference
   place: big-sky
   attended: false
@@ -287,6 +391,10 @@ events:
   title: "2022 IEEE Aerospace Conference (AERO)"
   project: detail-PROACT
   pubs: [brinkmann2022mantis]
+  cvn:
+    organizer: "IEEE (con AIAA y PHM Society como copatrocinadores técnicos)"
+    proceedings: "2022 IEEE Aerospace Conference (AERO), IEEE, pp. 1–15; edición impresa ISBN 978-1-6654-3761-5, vol. 1, pp. 654–668"
+    source: "https://api.crossref.org/works/10.1109/AERO53065.2022.9843351 · https://ieee-aess.org/files/ieeeaess/2021-12/cfp_2022.pdf"
 - kind: conference
   place: dubai
   attended: false
@@ -295,6 +403,10 @@ events:
   title: "72nd International Astronautical Congress (IAC)"
   project: detail-PROACT
   pubs: [govindaraj2021building_conf]
+  cvn:
+    organizer: "International Astronautical Federation (IAF); anfitrión: Mohammed Bin Rashid Space Centre"
+    proceedings: "IAF Space Exploration Symposium 2021 (72nd IAC), ISBN 978-1-7138-4296-5, vol. 1, pp. 248–262; ponencia IAC-21,A3,2B,9,x63629"
+    source: "https://iafastro.directory/iac/paper/id/63629/summary/"
 - kind: fieldtest
   place: bremen
   from: "2020-10-04"    # Bremen weeks: out on Sunday, back on Friday
@@ -326,6 +438,10 @@ events:
   title: "Symposium on Advanced Space Technologies in Robotics and Automation (ASTRA 2019)"
   project: detail-ERGO
   pubs: [ocon2019testing]
+  cvn:
+    organizer: "Automation and Robotics (A&R) section, European Space Agency (ESA)"
+    proceedings: "Actas de ASTRA 2019 (ESA), sesión 3c «Robotics Frameworks 1»"
+    source: "https://atpi.eventsair.com/QuickEventWebsitePortal/astra-2019/website"
 - kind: fieldtest
   place: gara-medouar
   trip: ergo-morocco-2018
@@ -357,6 +473,10 @@ events:
   title: "69th International Astronautical Congress (IAC)"
   project: detail-ERGO
   pubs: [ocon2018ergo]
+  cvn:
+    organizer: "International Astronautical Federation (IAF)"
+    proceedings: "69th IAC 2018, ISBN 978-1-5108-8165-5, vol. 16, pp. 11905–11917; ponencia IAC-18,D1,6,12,x46215"
+    source: "https://iafastro.directory/iac/paper/id/46215/summary/"
 - kind: fieldtest
   place: madrid
   from: "2018-09-17"    # the whole week (photo on the 18th)
