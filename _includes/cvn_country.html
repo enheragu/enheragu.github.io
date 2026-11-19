@@ -1,0 +1,16 @@
+{%- comment -%}
+  Country name in Spanish for the /cvn/ page (CVN fields are in Spanish; the
+  travel data keeps English names for the web) — usage:
+    {% include cvn_country.html c=place.country %}
+  Unknown names pass through unchanged: add a line here for a new country.
+{%- endcomment -%}
+{%- case include.c -%}
+{%- when "Spain" -%}España
+{%- when "France" -%}Francia
+{%- when "Germany" -%}Alemania
+{%- when "Morocco" -%}Marruecos
+{%- when "Netherlands" -%}Países Bajos
+{%- when "United Arab Emirates" -%}Emiratos Árabes Unidos
+{%- when "United States" -%}Estados Unidos
+{%- else -%}{{ include.c }}
+{%- endcase -%}

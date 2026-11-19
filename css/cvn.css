@@ -1,0 +1,73 @@
+/* /cvn/ page (cvn.md): the CV data laid out with the Spanish CVN field labels.
+   A working page for updating the FECYT editor, so it stays plain: one column,
+   copyable field blocks, theme tokens only. */
+.cvn-page { max-width: 60rem; margin: 0 auto; padding: 0 1rem 3rem; }
+.cvn-intro, .cvn-note { color: var(--text-secondary); font-size: var(--txt-sm); }
+.cvn-intro ol { padding-left: 1.2rem; }
+.cvn-intro li { margin: 0.3rem 0; }
+.cvn-legend { margin-top: 0.6rem; }
+
+.cvn-section { margin-top: 2rem; }
+.cvn-section h2 {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;
+  font-size: var(--txt-md); border-bottom: 1px solid var(--border); padding-bottom: 0.3rem;
+}
+.cvn-item { margin: 1rem 0 0; }
+.cvn-item h3 { font-size: var(--txt-sm); font-weight: var(--txt-w-semibold); margin: 0 0 0.3rem; }
+
+/* Status tag: "Nuevo" in the accent colour, "En CVN" muted. */
+.cvn-tag {
+  display: inline-block; padding: 0 0.35rem; margin-right: 0.3rem;
+  border: 1px solid var(--accent); border-radius: var(--radius);
+  font-family: var(--font-mono); font-size: var(--txt-xs); color: var(--accent);
+  text-transform: uppercase;
+}
+.cvn-item:not(.is-new) .cvn-tag, .cvn-tag-in { border-color: var(--border); color: var(--text-muted); }
+
+.cvn-fields-wrap { position: relative; }
+.cvn-fields {
+  margin: 0; padding: 0.6rem 0.8rem; overflow-x: auto; white-space: pre-wrap;
+  background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius);
+  font-family: var(--font-mono); font-size: var(--txt-xs); line-height: 1.5; color: var(--text-primary);
+}
+.cvn-pend { color: var(--yellow); font-style: italic; }
+.cvn-check { margin: 0.2rem 0 0.4rem; font-size: var(--txt-sm); color: var(--yellow); }
+.cvn-src { margin: 0.25rem 0 0; font-size: var(--txt-xs); color: var(--text-muted); overflow-wrap: anywhere; }
+
+.cvn-copy {
+  font-family: var(--font-mono); font-size: var(--txt-xs); cursor: pointer;
+  padding: 0.1rem 0.5rem; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg-secondary); color: var(--text-secondary);
+}
+.cvn-copy:hover, .cvn-copy:focus-visible { color: var(--accent); border-color: var(--accent); }
+.cvn-fields-wrap .cvn-copy { position: absolute; top: 0.35rem; right: 0.35rem; }
+@media screen { .cvn-fields-wrap .cvn-fields { padding-right: 5.5rem; } }   /* room for the Copiar button */
+
+/* ===== Printed version: the downloadable "CV in CVN structure" PDF ===========
+   (_scripts/build_cv_pdf.py prints this page; Ctrl+P gives the same). Only the
+   data: no site chrome, working markers, copy buttons, sources, PENDIENTE,
+   «Revisar» notes or private fields ([data-private]). Not an official CVN look:
+   no FECYT branding, and the header says it is unofficial. */
+.cvn-print-head { display: none; }
+@media print {
+  body > *:not(.cvn-page),
+  .cvn-page > .page-header, .cvn-intro, .cvn-copy, .cvn-tag, .cvn-src, .cvn-check,
+  .cvn-pend, .cvn-note:not(.cvn-phd), [data-private] { display: none !important; }
+  body { background: #fff; color: #111; }
+  .cvn-page { max-width: none; padding: 0; font-size: 9.5pt; }
+  .cvn-print-head { display: block; margin-bottom: 4mm; border-bottom: 1.5pt solid #111; padding-bottom: 2mm; }
+  .cvn-print-head h1 { font-size: 17pt; margin: 0 0 1mm; text-align: left; }
+  .cvn-print-head p { margin: 0.5mm 0; font-size: 9pt; color: #333; }
+  .cvn-print-head .cvn-disclaimer { font-size: 8pt; color: #555; }
+  .cvn-section { margin: 5mm 0 0; padding: 0; max-width: none; counter-reset: cvn-item; }
+  .cvn-section h2 { font-size: 11.5pt; color: #111; border-bottom: 0.75pt solid #999; break-after: avoid; }
+  .cvn-item { margin: 2.5mm 0 0; break-inside: avoid; }
+  .cvn-item h3 { font-size: 9.5pt; margin: 0 0 0.6mm; break-after: avoid; }
+  .cvn-item h3::before { counter-increment: cvn-item; content: counter(cvn-item) ". "; }
+  .cvn-fields {
+    background: none; border: none; padding: 0 0 0 5mm; margin: 0;
+    font-family: inherit; font-size: 8.8pt; line-height: 1.35; color: #222; white-space: pre-wrap;
+  }
+  .cvn-fields .k { font-weight: 600; color: #444; }
+  .cvn-section > .cvn-fields { padding-left: 0; }
+}

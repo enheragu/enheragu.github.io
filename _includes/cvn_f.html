@@ -1,0 +1,21 @@
+{%- comment -%}
+  One "Campo: valor" line of the /cvn/ page — the text the FECYT CVN editor
+  recognises when pasted into a section's Importar box ("CICYT o personalizado").
+  Usage: {% include cvn_f.html k="Campo" v=value %}
+    date=true          ISO date -> DD/MM/YYYY (MM/YYYY, YYYY when partial)
+    range=true v2=end  "start - end" (both required)
+  The label is wrapped in <span class="k"> (bold in the printed version; the
+  copied text is unchanged). A missing value shows as PENDIENTE (local dev server only; the published
+  page just omits the line) and is left out of the copied text.
+{%- endcomment -%}
+{%- assign cf_v = include.v -%}
+{%- assign cf_miss = false -%}
+{%- if cf_v == nil or cf_v == "" -%}{%- assign cf_miss = true -%}{%- endif -%}
+{%- if include.range and include.v2 == nil -%}{%- assign cf_miss = true -%}{%- endif -%}
+{%- if include.date and cf_miss == false -%}
+  {%- assign cf_v = cf_v | split: "-" | reverse | join: "/" -%}
+  {%- if include.range -%}{%- assign cf_e = include.v2 | split: "-" | reverse | join: "/" -%}{%- assign cf_v = cf_v | append: " - " | append: cf_e -%}{%- endif -%}
+{%- endif -%}
+{%- if cf_miss -%}{%- if jekyll.environment != "production" -%}<span class="cvn-pend" data-skip>{{ include.k }}: PENDIENTE
+</span>{%- endif -%}{%- else -%}<span class="k">{{ include.k }}</span>: {% if include.k == "DOI" %}<a href="https://doi.org/{{ cf_v | strip }}">{{ cf_v | strip }}</a>{% else %}{{ cf_v | strip_html | strip }}{% endif %}
+{% endif -%}

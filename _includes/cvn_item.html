@@ -1,0 +1,18 @@
+{%- comment -%}
+  One item of the /cvn/ page — usage:
+    {% capture f %}{% include cvn_f.html k="Campo" v=c.field %}{% endcapture %}
+    {% include cvn_item.html title=t listed=c.listed check=c.check source=c.source fields=f %}
+  listed (date of the CVN that already has it) -> "En CVN", else "Nuevo" (the
+  items the section's "Copiar nuevos" button collects).
+{%- endcomment -%}
+<article class="cvn-item{% unless include.listed %} is-new{% endunless %}">
+    <h3><span class="cvn-tag">{% if include.listed %}En CVN{% else %}Nuevo{% endif %}</span> {{ include.title | strip_html }}</h3>
+    {%- assign ci_check = include.check | strip -%}{%- assign ci_src = include.source | strip %}
+    {%- if ci_check != "" %}
+    <p class="cvn-check">Revisar: {{ ci_check }}</p>
+    {%- endif %}
+    <div class="cvn-fields-wrap"><pre class="cvn-fields">{{ include.fields }}</pre><button type="button" class="cvn-copy" data-cvn-copy="item">Copiar</button></div>
+    {%- if ci_src != "" %}
+    <p class="cvn-src">Fuente: {{ ci_src }}</p>
+    {%- endif %}
+</article>

@@ -1,0 +1,45 @@
+{%- comment -%}
+  One CVN employment item for the /cvn/ page — usage:
+    {% include cvn_job.html key=jk current=true %}         a job of _data/employment.yml
+    {% include cvn_job.html key=jk k=contract current=false %}  one of its cvn.contracts
+  current=true -> «Situación profesional actual» fields (start only, contract type).
+  Local notes / private fields: _data/cvn_local.yml, key "employment:<key>" or,
+  for a contract, "employment:<key>/<contract start>".
+{%- endcomment -%}
+{%- assign cj = site.data.employment[include.key] -%}{%- assign cc = cj.cvn -%}{%- assign ck = include.k -%}
+{%- assign cnk = "employment:" | append: include.key -%}
+{%- if ck -%}{%- assign cnk = cnk | append: "/" | append: ck.start -%}{%- endif -%}
+{%- if ck -%}
+  {%- assign cj_cat = ck.category -%}{%- assign cj_start = ck.start -%}{%- assign cj_end = ck.end -%}
+  {%- assign cj_ded = ck.dedication -%}{%- assign cj_src = ck.source -%}{%- assign cj_listed = ck.listed -%}
+{%- else -%}
+  {%- assign cj_cat = cc.category | default: cj.role -%}{%- assign cj_start = cj.start -%}{%- assign cj_end = cj.end -%}
+  {%- assign cj_ded = cc.dedication -%}{%- assign cj_src = cc.source -%}{%- assign cj_listed = cc.listed -%}
+{%- endif -%}
+{%- assign cj_priv = site.data.cvn_local.private[cnk] -%}
+{%- assign cj_contract = cj_priv.contract | default: cc.contract -%}
+{%- comment -%} Private fields (local cvn_local.yml) override the public ones and are
+   wrapped in data-private: shown locally, never printed or published. The title
+   only uses public data (the job's role when the category is private). {%- endcomment -%}
+{%- assign cj_pubcat = cj_cat -%}
+{%- if cj_priv.category -%}{%- assign cj_cat = cj_priv.category -%}{%- endif -%}
+{%- capture cj_fields -%}
+{%- include cvn_f.html k="Entidad empleadora" v=cc.entity -%}
+{%- include cvn_f.html k="Tipo de entidad" v=cc.entity_type -%}
+{%- if cj_priv.department %}<span data-private>{% include cvn_f.html k="Departamento" v=cj_priv.department %}</span>{% elsif cc.department %}{% include cvn_f.html k="Departamento" v=cc.department %}{% endif -%}
+{%- if cj_priv.category %}<span data-private>{% include cvn_f.html k="Categoría profesional" v=cj_cat %}</span>{% else %}{% include cvn_f.html k="Categoría profesional" v=cj_cat %}{% endif -%}
+{%- if include.current -%}{%- include cvn_f.html k="Fecha de inicio" v=cj_start date=true -%}
+{%- elsif cj_end -%}{%- include cvn_f.html k="Fecha de inicio-fin" v=cj_start v2=cj_end date=true range=true -%}
+{%- else -%}{%- include cvn_f.html k="Fecha de inicio" v=cj_start date=true -%}{%- include cvn_f.html k="Fecha de finalización" v=cj_end date=true -%}{%- endif -%}
+{%- if cj_priv.dedication %}<span data-private>{% include cvn_f.html k="Régimen de dedicación" v=cj_priv.dedication %}</span>{% elsif cj_ded %}{% include cvn_f.html k="Régimen de dedicación" v=cj_ded %}{% endif -%}
+{%- if ck.funding %}{% capture cj_fn %}Contrato con cargo al proyecto {{ ck.funding }}{% endcapture %}{% include cvn_f.html k="Funciones desempeñadas" v=cj_fn %}{% endif -%}
+{%- if include.current %}<span data-private>{% include cvn_f.html k="Modalidad de contrato" v=cj_contract %}</span>{% endif -%}
+{%- comment -%} data-private: never printed (css/cvn.css @media print; build_cv_pdf.py checks it) {%- endcomment -%}
+{%- endcapture -%}
+{%- capture cj_when -%}
+  {%- if cj_end or include.current -%}{% include date_span.html from=cj_start to=cj_end ongoing=include.current style="num" present="actualidad" %}
+  {%- else -%}desde {% include date_span.html from=cj_start style="num" %}{%- endif -%}
+{%- endcapture -%}
+{%- capture cj_title %}{{ cc.entity }} — {{ cj_pubcat }} ({{ cj_when }}){% endcapture -%}
+{%- assign cj_note = site.data.cvn_local.notes[cnk] -%}{%- assign cj_src = site.data.cvn_local.sources[cnk] | default: cj_src -%}
+{% include cvn_item.html title=cj_title listed=cj_listed check=cj_note source=cj_src fields=cj_fields %}
