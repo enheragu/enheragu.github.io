@@ -21,7 +21,7 @@ REPO="$(git rev-parse --show-toplevel)"
 cd "$REPO"
 
 # --- Only act when something that affects the PDF is staged ------------------
-relevant='^(print\.md|css/print\.css|_layouts/print\.html|_data/.*\.ya?ml|_cv_sections/|_projects/|_includes/|publications\.bib|_scripts/(build_cv_pdf|build_cv_header|build_cv_footer)\.py|_scripts/cv_graph_(header|footer)\.html)'
+relevant='^(print\.md|css/print\.css|cvn\.md|css/cvn\.css|_layouts/print\.html|_data/.*\.ya?ml|_cv_sections/|_projects/|_includes/|_data/publications\.bib|_scripts/(build_cv_pdf|build_cv_header|build_cv_footer)\.py|_scripts/cv_graph_(header|footer)\.html)'
 staged="$(git diff --cached --name-only --diff-filter=ACMR || true)"
 if [ "${PRECOMMIT_FORCE:-0}" != "1" ]; then
     if ! grep -Eq "$relevant" <<<"$staged"; then
@@ -79,7 +79,12 @@ trap cleanup EXIT
 if [ -z "$CV_URL" ]; then
     echo "[pre-commit] No dev server found -> building the site to a temp dir..."
     TMP="$(mktemp -d)"
-    jekyll build -q --baseurl '' -d "$TMP/_site"
+    # Same config as the dev server: _config.local.yml (git-ignored, local only)
+    # disables remote_theme, whose gem is not installed locally — without it the
+    # build fails and, with `set -e`, so would the commit.
+    JEKYLL_CFG="_config.yml"
+    [ -f _config.local.yml ] && JEKYLL_CFG="_config.yml,_config.local.yml"
+    jekyll build -q --config "$JEKYLL_CFG" --baseurl '' -d "$TMP/_site"
     PORT="$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1",0)); print(s.getsockname()[1]); s.close()')"
     ( cd "$TMP/_site" && python3 -m http.server "$PORT" >/dev/null 2>&1 ) &
     SRV=$!
@@ -91,8 +96,8 @@ if [ -z "$CV_URL" ]; then
 fi
 
 # --- Generate the PDF --------------------------------------------------------
-"$VENV_PY" _scripts/build_cv_pdf.py --url "$CV_URL"
-add+=("pdf/EnriqueHerediaAguado_CV.pdf")
+"$VENV_PY" _scripts/build_cv_pdf.py --url "$CV_URL"     # full CV + one-page CV (_short) + CV in CVN structure
+add+=("pdf/EnriqueHerediaAguado_CV.pdf" "pdf/EnriqueHerediaAguado_CV_short.pdf" "pdf/EnriqueHerediaAguado_CV_estructuraCVN.pdf")
 
 # --- Stage the regenerated outputs into this commit --------------------------
 if [ "${#add[@]}" -gt 0 ]; then

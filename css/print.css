@@ -142,14 +142,48 @@ h2.print-section > span {
    the fuller About + chips stay on the web). */
 #detail-presentation p:nth-of-type(n+3),
 #detail-presentation .cv-facts { display: none; }
+/* One-line publication record under the About intro (detail_presentation.html). */
+.print-pubsum { margin-top: 0.8mm; }
+/* Only in the one-page PDF (build_cv_pdf.py shows it in its short render). */
+.print-short-only { display: none; }
 
 /* Skills: two columns in the PDF to save vertical space (the web stays single
    column). Keep each item whole. */
 #detail-skills ul { column-count: 2; column-gap: 8mm; }
 #detail-skills li { break-inside: avoid; }
 
-/* Condensed one-line Teaching summary (print only; the web shows the full list). */
-.teach-print { margin: 0.6mm 0 0; }
+/* Teaching section (PDF only, _cv_sections/detail_teaching.html): one row per
+   course·year, right-aligned ECTS and a total row, so subjects, years and
+   credits read at a glance. Rules in --line, header/total in the branch ink. */
+.teach-table {
+  width: 100%;
+  margin: 1mm 0;
+  border-collapse: collapse;
+  font-size: 8.8pt;
+  break-inside: avoid;
+}
+.teach-table th,
+.teach-table td {
+  padding: 0.5mm 2mm 0.5mm 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 0.5pt solid var(--line);
+}
+.teach-table th {
+  color: var(--branch-ink, var(--muted));
+  font-weight: 600;
+  border-bottom-color: var(--branch, var(--line));
+}
+.teach-table .num { text-align: right; padding-right: 0; white-space: nowrap; }
+.teach-table .teach-year { font-family: var(--mono); font-size: 8pt; white-space: nowrap; }
+.teach-table tfoot td {
+  font-weight: 600;
+  color: var(--branch-ink, var(--ink));
+  border-top: 0.5pt solid var(--branch, var(--line));
+  border-bottom: none;
+}
+#detail-teaching .teach-meta { font-size: 8.5pt; }
+#detail-teaching .teach-training { margin-top: 1mm; }
 
 /* Inline subheading label (e.g. "Languages:") — keep the section colour like the
    block h3 subheadings, even though it sits inline. */
@@ -193,8 +227,13 @@ h3.print-entry + h3.print-entry::before { top: 1.5mm; }
    PDF-only density tweaks so each group keeps its page; the web content is never
    trimmed for the PDF. Page 1 = compact core, at its limit. */
 .print-page-1 .pbranch { padding-top: 1.6mm; }
+/* …and slightly tighter leading, so the one-line publication record
+   (.print-pubsum) fits: the core page is also the one-page CV. */
+.print-page-1 .print-panel { line-height: 1.24; }
 /* Page 3 = Projects + Courses: a dense summary list, slightly tighter leading. */
-.print-page-3 .print-panel { line-height: 1.2; }
+.print-page-3 .print-panel { line-height: 1.16; }
+.print-page-3 .print-panel li { margin-bottom: 0.1mm; }
+.print-page-3 .pbranch { padding-top: 1.6mm; }   /* same as page 1: keeps Projects + Courses on one page */
 
 /* Branch colour per section is set INLINE on each .pbranch by print.md (via
    --branch), mirroring SECTION_COLORS in js/index.js. It must be inline, not a

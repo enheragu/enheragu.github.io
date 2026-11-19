@@ -16,7 +16,7 @@ sitemap: false
     <p class="print-subtitle">Robotics, Computer Vision and AI · PhD Student</p>
     <p class="print-contact">
         <a class="obf-mail" data-u="e.heredia" data-d="umh.es" data-show href="#"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>e.heredia [at] umh.es</a> ·
-        <a href="https://enheragu.github.io"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7.93 9h-3.02a15.7 15.7 0 0 0-1.2-5.3A8.02 8.02 0 0 1 19.93 11zM12 4.04c.83 1.2 1.62 3.05 1.9 6.96h-3.8c.28-3.91 1.07-5.76 1.9-6.96zM4.07 13h3.02c.14 1.93.55 3.73 1.2 5.3A8.02 8.02 0 0 1 4.07 13zm3.02-2H4.07a8.02 8.02 0 0 1 4.22-5.3 15.7 15.7 0 0 0-1.2 5.3zM12 19.96c-.83-1.2-1.62-3.05-1.9-6.96h3.8c-.28 3.91-1.07 5.76-1.9 6.96zm3.71-1.66c.65-1.57 1.06-3.37 1.2-5.3h3.02a8.02 8.02 0 0 1-4.22 5.3z"/></svg>enheragu.github.io</a>
+        <a href="https://enheragu.github.io"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7.93 9h-3.02a15.7 15.7 0 0 0-1.2-5.3A8.02 8.02 0 0 1 19.93 11zM12 4.04c.83 1.2 1.62 3.05 1.9 6.96h-3.8c.28-3.91 1.07-5.76 1.9-6.96zM4.07 13h3.02c.14 1.93.55 3.73 1.2 5.3A8.02 8.02 0 0 1 4.07 13zm3.02-2H4.07a8.02 8.02 0 0 1 4.22-5.3 15.7 15.7 0 0 0-1.2 5.3zM12 19.96c-.83-1.2-1.62-3.05-1.9-6.96h3.8c-.28 3.91-1.07 5.76-1.9 6.96zm3.71-1.66c.65-1.57 1.06-3.37 1.2-5.3h3.02a8.02 8.02 0 0 1-4.22 5.3z"/></svg>enheragu.github.io</a><span class="print-short-only"> · <a href="https://enheragu.github.io/pdf/EnriqueHerediaAguado_CV.pdf">full CV (PDF)</a></span>
     </p>
     </div>
 </header>
@@ -53,8 +53,9 @@ sitemap: false
       {%- when "Education" -%}{%- assign bcolor = "#58a6ff" -%}{%- assign bink = "#0a5cc0" -%}{%- assign btext = "#1f2328" -%}
       {%- when "Work Experience" -%}{%- assign bcolor = "#d29922" -%}{%- assign bink = "#8a5a00" -%}{%- assign btext = "#1f2328" -%}
       {%- when "Publications" -%}{%- assign bcolor = "#3fb950" -%}{%- assign bink = "#15803d" -%}{%- assign btext = "#1f2328" -%}
-      {%- when "Awards" -%}{%- assign bcolor = "#d29922" -%}{%- assign bink = "#8a5a00" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Awards and Grants" -%}{%- assign bcolor = "#d29922" -%}{%- assign bink = "#8a5a00" -%}{%- assign btext = "#1f2328" -%}
       {%- when "Projects" -%}{%- assign bcolor = "#f85149" -%}{%- assign bink = "#bf1b2c" -%}{%- assign btext = "#1f2328" -%}
+      {%- when "Teaching" -%}{%- assign bcolor = "#bc8cff" -%}{%- assign bink = "#6639c6" -%}{%- assign btext = "#1f2328" -%}
       {%- when "Courses and Workshops" -%}{%- assign bcolor = "#bc8cff" -%}{%- assign bink = "#6639c6" -%}{%- assign btext = "#1f2328" -%}
       {%- when "Skills" -%}{%- assign bcolor = "#58a6ff" -%}{%- assign bink = "#0a5cc0" -%}{%- assign btext = "#1f2328" -%}
       {%- else -%}{%- assign bcolor = "#57606a" -%}{%- assign bink = "#57606a" -%}{%- assign btext = "#ffffff" -%}
@@ -64,8 +65,8 @@ sitemap: false
       <div class="pbranch-body">
     {%- assign pbranch_open = true -%}
   {%- endif -%}
-      {%- if item.edu or item.label -%}
-        {%- if item.edu -%}{%- assign e = site.data.education[item.edu] -%}{%- capture label_str -%}[{{ e.dates }}] · {{ e.degree }} · {{ e.institution }}{%- endcapture -%}{%- else -%}{%- assign label_str = item.label -%}{%- endif -%}
+      {%- if item.edu or item.job or item.label -%}
+        {%- if item.edu -%}{%- assign e = site.data.education[item.edu] -%}{%- capture label_str -%}[{{ e.dates }}] · {{ e.degree }} · {{ e.institution }}{%- endcapture -%}{%- elsif item.job -%}{%- capture label_str -%}{% include job_label.html key=item.job %}{%- endcapture -%}{%- else -%}{%- assign label_str = item.label -%}{%- endif -%}
         {%- if label_str contains "]" -%}
           {%- assign hdate = label_str | split: "]" | first | append: "]" -%}
           {%- assign hrest = label_str | remove_first: hdate | remove_first: " · " -%}
