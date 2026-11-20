@@ -45,7 +45,7 @@ custom_css:
        No FECYT branding anywhere: it is our own layout of the CVN sections. {%- endcomment %}
     <div class="cvn-print-head">
         <h1>Enrique Heredia Aguado</h1>
-        <p>Currículum vitae · actualizado el {{ site.time | date: "%d/%m/%Y" }} · generado de enheragu.github.io</p>
+        <p>Currículum vitae · actualizado el {{ site.time | date: "%d/%m/%Y" }} · generado de <a href="https://enheragu.github.io/">enheragu.github.io</a></p>
     </div>
 
     <div class="cvn-intro">
@@ -62,7 +62,14 @@ custom_css:
     {%- assign ids = site.data.profile.identifiers %}
     <section class="cvn-section" style="--sec: #57606a; --sec-text: #ffffff;">
         <h2>Datos de identificación</h2>
-        <pre class="cvn-fields">{% include cvn_f.html k="ORCID" v=ids.orcid %}{% include cvn_f.html k="ScopusID" v=ids.scopus_id %}{% include cvn_f.html k="ResearcherID" v=ids.researcher_id %}</pre>
+        {%- comment -%} ORCID (linked), then the curated public profiles, shown/printed but not
+           copied to the FECYT editor (skip). ScopusID/ResearcherID hidden while those profiles
+           are not curated (Enrique, 2026-11-20; the IDs stay in _data/profile.yml):
+           {% include cvn_f.html k="ScopusID" v=ids.scopus_id %}{% include cvn_f.html k="ResearcherID" v=ids.researcher_id %}
+        {%- endcomment %}
+        {%- assign prof = site.data.profile.profiles %}
+        {%- capture id_orcid %}https://orcid.org/{{ ids.orcid }}{% endcapture %}
+        <pre class="cvn-fields">{% include cvn_f.html k="ORCID" v=ids.orcid url=id_orcid %}{% include cvn_f.html k="ResearchGate" v="researchgate.net" url=prof.researchgate skip=true %}{% include cvn_f.html k="Google Scholar" v="scholar.google.es" url=prof.google_scholar skip=true %}{% include cvn_f.html k="Portal de investigación UMH" v="portalinvestigacion.umh.es" url=prof.umh_portal skip=true %}</pre>
     </section>
 
     {%- comment -%} ===== Employment (a job, or each of its cvn.contracts) ===== {%- endcomment %}

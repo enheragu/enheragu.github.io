@@ -9,7 +9,8 @@
 # Fields: role, org (display), start/end ("YYYY-MM" or "YYYY-MM-DD"; the shown
 #   dates are derived from them by _includes/date_span.html), ongoing: true.
 #   A job made of several contracts lists them in cvn.contracts (category, start,
-#   end, funding, dedication, ongoing); its start is the first contract's.
+#   end, funding, dedication, department, ongoing); its start is the first contract's.
+#   A contract's department overrides the job's cvn.department.
 #   Resolution references (they name people) live in the local cvn_local.yml `sources:`.
 # cvn: CVN-only fields, as the FECYT editor expects them: entity, entity_type,
 #   department, category (Categoría profesional), listed (date of the CVN that
@@ -28,12 +29,14 @@ umh_phd:
     entity_type: "Universidad"
     department: "Grupo de Automatización y Robótica, Instituto de Investigación en Ingeniería de Elche"
     # One CVN item per contract, oldest first (BOUMH resolutions, referenced in
-    # the local _data/cvn_local.yml; extensions are not published, so unknown ends stay null). The ongoing one is the CVN
-    # «Situación profesional actual»; the others go to «Cargos … anterioridad».
+    # the local _data/cvn_local.yml). Start/end dates = alta/baja in the Social
+    # Security work-history report (vida laboral, 19/11/2026); extensions are not
+    # published in the BOUMH. The ongoing one is the CVN «Situación profesional
+    # actual»; the others go to «Cargos … anterioridad».
     contracts:
     - category: "Investigador/a en formación (contrato predoctoral)"
       start: "2022-12-01"
-      end: null
+      end: "2024-12-31"
       funding: "PROMETEO/2021/075"
     - category: "Titulado Superior I"
       start: "2025-01-01"
@@ -41,11 +44,11 @@ umh_phd:
       funding: "PID2020-116418RB-I00 (HyReBot)"
     - category: "Titulado Superior I"
       start: "2025-03-01"
-      end: null
+      end: "2025-06-30"
       funding: "TED2021-130901B-I00"
     - category: "Titulado Superior I"
       start: "2025-07-01"
-      end: null
+      end: "2025-10-15"
       funding: "INNVA1/2023/61 (AViRobots)"
     - category: "Titulado Superior I"
       start: "2025-10-16"
@@ -54,8 +57,8 @@ umh_phd:
 umh_lecturer:
   role: "Substitute Lecturer"
   org: "UMH"
-  start: "2026-03"
-  end: "2026-06"
+  start: "2026-03-03"           # alta/baja in the vida laboral (19/11/2026)
+  end: "2026-07-05"
   cvn:
     local_only: true            # public CV: only the teaching (Enrique); the CVN item shows locally only
     entity: "Universidad Miguel Hernández de Elche"
@@ -69,20 +72,33 @@ umh_intern:
 gmv:
   role: "Robotics Engineer"
   org: "GMV · On Board Autonomy Division"
-  start: "2017-02"
+  start: "2017-02"              # web/short CV: one GMV line from the internship on (Enrique, 2026-11-20)
   end: "2021-10"
   cvn:
-    listed: "2026-01-22"
     entity: "GMV Aerospace and Defence, S.A."
     entity_type: "Entidad Empresarial"
-    category: "Titulado Superior I"
+    # Full-data CV / CVN: the curricular internship and the employment contract are
+    # separate items (Enrique, 2026-11-20). Internship = UPM «Prácticas en Empresa III»
+    # (2016–17); Social Security: internship alta 07/07–31/08/2017, contract 01/09/2017–03/10/2021.
+    # Departments (Enrique, 2026-11-20): GMV's own (English) unit names, kept as
+    # proper names; only "Space Segment" is published on gmv.com (2018 news).
+    contracts:
+    - category: "Prácticas Universitarias"
+      start: "2017-02"
+      end: "2017-08-31"
+      department: "Space Segment, Avionics and On-Board Software (AVOS)"
+    - category: "Titulado Superior I"
+      start: "2017-09-01"
+      end: "2021-10-03"
+      department: "Space Segment, Robotics and On-Board Autonomy (ROA), On-Board Autonomy (OBA)"   # largest → smallest unit
 bq:
   role: "Intern"
   org: "BQ"
-  start: "2016-02"
-  end: "2016-09"                # CVN dates (Enrique, 2026-11-19); the web said Aug. 2016
+  start: "2016-02-03"           # alta/baja in the vida laboral (Enrique, 2026-11-20; the CVN of Jan-2026 says 02–09/2016)
+  end: "2016-08-31"
   cvn:
     listed: "2026-01-22"
     entity: "BQ Educación - Mundo Reader S.L."
     entity_type: "Entidad Empresarial"
+    department: "Robótica Educativa"   # BQ's own (Spanish) name, as in CIO «bq lleva la robótica a las aulas» (undated); Enrique, 2026-11-20
     category: "Prácticas Universitarias"

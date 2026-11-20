@@ -59,6 +59,7 @@
   .cvn-print-head { display: block; margin: 0 0 5mm; padding: 0 0 2.5mm; border-bottom: 1.5pt solid #1f2328; }
   .cvn-print-head h1 { font-size: 18pt; margin: 0 0 1mm; text-align: left; color: #1f2328; }
   .cvn-print-head p { margin: 0; font-size: 9pt; color: #57606a; }
+  .cvn-print-head a { color: #0969da; text-decoration: none; }
 
   .cvn-section { margin: 5mm 0 0; padding: 0; max-width: none; counter-reset: cvn-item; }
   .cvn-section h2 {

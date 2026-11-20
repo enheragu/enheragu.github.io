@@ -23,10 +23,13 @@ Output (committed with the site): pdf/EnriqueHerediaAguado_CV.pdf
 import argparse
 import base64
 import os
+import re
+import subprocess
 import sys
 import tempfile
 
 import pypdf
+from pypdf.annotations import Link
 from playwright.sync_api import sync_playwright
 
 DEFAULT_URL = "http://127.0.0.1:4000/print.html"
@@ -196,6 +199,38 @@ def main():
         print(f"PDF written: {args.cvn_out} ({os.path.getsize(args.cvn_out) // 1024} KB)")
 
 
+FOOTER_LINK_TEXT = "enheragu.github.io"   # the main site, not /cvn/ (an internal tool; Enrique, 2026-11-20)
+FOOTER_LINK_URL = "https://enheragu.github.io/"
+
+
+def link_footer(pdf_path, text, url):
+    """Make `text` clickable on every page. Chromium's header/footer templates
+    produce no link annotations, so the word is located with `pdftotext -bbox`
+    (poppler) and a Link annotation is added over it. Skipped with a warning if
+    pdftotext is missing or the word is not found."""
+    try:
+        bbox = subprocess.run(["pdftotext", "-bbox", pdf_path, "-"], check=True,
+                              capture_output=True, text=True).stdout
+    except (OSError, subprocess.CalledProcessError) as e:
+        print(f"[warn] footer link skipped ({e})")
+        return
+    words = []  # every occurrence (page 1 also has it in its own header, already linked: harmless)
+    for i, chunk in enumerate(bbox.split("<page ")[1:]):
+        h = float(re.search(r'height="([\d.]+)"', chunk).group(1))
+        for m in re.finditer(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">([^<]*)</word>', chunk):
+            if m.group(5) == text:
+                x0, y0, x1, y1 = map(float, m.groups()[:4])
+                words.append((i, (x0 - 1, h - y1 - 1, x1 + 1, h - y0 + 1)))
+    if not words:
+        print(f"[warn] footer link skipped ('{text}' not found)")
+        return
+    w = pypdf.PdfWriter(clone_from=pypdf.PdfReader(pdf_path))
+    for i, rect in words:
+        w.add_annotation(page_number=i, annotation=Link(rect=rect, url=url, border=[0, 0, 0]))
+    with open(pdf_path, "wb") as fh:
+        w.write(fh)
+
+
 def build_cvn_pdf(browser, args, project_dir):
     """Full-data CV (_fulldata): the /cvn/ page printed with its own @media print
     layout (css/cvn.css): our own layout of the CVN sections, no FECYT branding. The dev server also serves the LOCAL
@@ -209,13 +244,14 @@ def build_cvn_pdf(browser, args, project_dir):
     page.evaluate("document.title = 'Enrique Heredia Aguado - CV (datos completos)'")
     footer = ('<div style="width:100%; font-size:7pt; color:#666; padding:0 13mm; display:flex; '
               'justify-content:space-between; font-family:Helvetica, Arial, sans-serif;">'
-              '<span>Documento generado desde enheragu.github.io/cvn/</span>'
+              f'<span>Documento generado desde {FOOTER_LINK_TEXT}</span>'
               '<span><span class="pageNumber"></span>/<span class="totalPages"></span></span></div>')
     tmp = args.cvn_out + ".tmp"
     page.pdf(path=tmp, format="A4", print_background=True, display_header_footer=True,
              header_template="<span></span>", footer_template=footer,
              margin={"top": "14mm", "bottom": "16mm", "left": "15mm", "right": "15mm"})
     page.close()
+    link_footer(tmp, FOOTER_LINK_TEXT, FOOTER_LINK_URL)
     # Safety: nothing private or work-in-progress may reach the public PDF.
     text = " ".join(pg.extract_text() or "" for pg in pypdf.PdfReader(tmp).pages)
     forbidden = ["PENDIENTE", "Revisar:"]

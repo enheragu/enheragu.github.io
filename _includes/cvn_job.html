@@ -15,9 +15,11 @@
 {%- if ck -%}
   {%- assign cj_cat = ck.category -%}{%- assign cj_start = ck.start -%}{%- assign cj_end = ck.end -%}
   {%- assign cj_ded = ck.dedication -%}{%- assign cj_src = ck.source -%}{%- assign cj_listed = ck.listed -%}
+  {%- assign cj_dep = ck.department | default: cc.department -%}
 {%- else -%}
   {%- assign cj_cat = cc.category | default: cj.role -%}{%- assign cj_start = cj.start -%}{%- assign cj_end = cj.end -%}
   {%- assign cj_ded = cc.dedication -%}{%- assign cj_src = cc.source -%}{%- assign cj_listed = cc.listed -%}
+  {%- assign cj_dep = cc.department -%}
 {%- endif -%}
 {%- assign cj_priv = site.data.cvn_local.private[cnk] -%}
 {%- assign cj_contract = cj_priv.contract | default: cc.contract -%}
@@ -29,7 +31,7 @@
 {%- capture cj_fields -%}
 {%- include cvn_f.html k="Entidad empleadora" v=cc.entity -%}
 {%- include cvn_f.html k="Tipo de entidad" v=cc.entity_type -%}
-{%- if cj_priv.department %}<span data-private>{% include cvn_f.html k="Departamento" v=cj_priv.department %}</span>{% elsif cc.department %}{% include cvn_f.html k="Departamento" v=cc.department %}{% endif -%}
+{%- if cj_priv.department %}<span data-private>{% include cvn_f.html k="Departamento" v=cj_priv.department %}</span>{% elsif cj_dep %}{% include cvn_f.html k="Departamento" v=cj_dep %}{% endif -%}
 {%- if cj_priv.category %}<span data-private>{% include cvn_f.html k="Categoría profesional" v=cj_cat %}</span>{% else %}{% include cvn_f.html k="Categoría profesional" v=cj_cat %}{% endif -%}
 {%- if include.current -%}{%- include cvn_f.html k="Fecha de inicio" v=cj_start date=true -%}
 {%- elsif cj_end -%}{%- include cvn_f.html k="Fecha de inicio-fin" v=cj_start v2=cj_end date=true range=true -%}
