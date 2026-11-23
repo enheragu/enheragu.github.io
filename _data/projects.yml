@@ -6,6 +6,12 @@ content_path: _projects
 #                                * js/projects.js -> canvas commit text (via cvLabels; JS fallback is name-only)
 #   name + dates + title/desc/link -> _cv_sections/detail_projects.html (CV summary list, grouped by `group`)
 #   panel: false            -> summary-only entry (no /projects/ graph node nor _projects/*.html panel)
+#   cv: false               -> contract-only participation (a contract charged to the project,
+#                              no publication or other output of mine): kept for the merits
+#                              (/cvn/ and the full-data PDF, where the contract is the evidence),
+#                              left out of the web and the CV PDFs to keep them clean
+#                              (Enrique, 2026-11-23). The projects that stay on the web must
+#                              still cover every month of the contracts (no visible gaps).
 #   title / code            -> official title and funder's reference: CV summary,
 #                              first line of the _projects/*.html panel, /cvn/ page
 #   from/to/ongoing         -> MY period in the project ("YYYY" or "YYYY-MM"):
@@ -87,6 +93,7 @@ items:
 - id: detail-AViRobots
   group: UMH
   name: "AViRobots"
+  cv: false                     # contract only (07–10/2025): /cvn/ + full-data PDF; Robot_Vigilante covers those months
   from: "2025-01"
   to: "2025-10"
   title: "Desarrollo de un sistema inteligente de vigilancia y seguridad de infraestructuras basado en robots móviles"
@@ -108,6 +115,7 @@ items:
 - id: detail-HYREBOT
   group: UMH
   name: "HyReBot"
+  cv: false                     # contract only (01–02/2025): /cvn/ + full-data PDF; TED2021/Robot_Vigilante/ACTVIS cover those months
   from: "2025-01"
   to: "2025-02"
   title: "Robots híbridos y reconstrucción multisensorial para aplicaciones en estructuras reticulares"

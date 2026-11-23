@@ -4,7 +4,7 @@ Some relevant projects I have been involved in over the last years:
 {% for group in site.data.projects.groups %}
 <h3>{{ group.heading }}</h3>
 <ul>
-    {% for p in site.data.projects.items %}{% if p.group == group.id %}
+    {% for p in site.data.projects.items %}{% if p.cv == false %}{% continue %}{% endif %}{% if p.group == group.id %}
     <li><strong>{{ p.name }}</strong>{% if p.from %} ({% include date_span.html from=p.from to=p.to ongoing=p.ongoing %}){% endif %}{% if p.title %}: "{{ p.title }}".{% if p.desc %} {{ p.desc }}{% endif %}{% elsif p.desc %}: {{ p.desc }}{% else %}.{% endif %}{% if p.link %} <a class="link-badge" href="{{ p.link }}" target="_blank" rel="noopener noreferrer">[{{ p.link_text | default: 'link' }}]</a>{% endif %}</li>
     {% endif %}{% endfor %}
 </ul>

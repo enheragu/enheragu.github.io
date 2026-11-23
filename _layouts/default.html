@@ -165,7 +165,7 @@
     window.ToolsNavConfig = {
       preserveLangParam: false,
       // Pages first; a small "Downloads" group at the bottom keeps the CV PDF and
-      // the CVN record at hand without adding icons to the page headers.
+      // the CVN import data at hand without adding icons to the page headers.
       menuSections: [
         { items: [
         { href: "{{ '/' | relative_url }}", label: { en: "CV", es: "CV" } },
@@ -176,11 +176,11 @@
         { href: "{{ '/travel/' | relative_url }}", label: { en: "Travel", es: "Viajes" } },
         { href: "{{ '/gallery/' | relative_url }}", label: { en: "Gallery", es: "Galería" } }
         ] },
-        { title: { en: "Downloads", es: "Descargas" }, items: [
-          { href: "{{ '/pdf/EnriqueHerediaAguado_CV_short.pdf' | relative_url }}", label: { en: "CV · 1 page ⤓", es: "CV · 1 página ⤓" } },
-          { href: "{{ '/pdf/EnriqueHerediaAguado_CV.pdf' | relative_url }}", label: { en: "CV · full ⤓", es: "CV · completo ⤓" } },
-          { href: "{{ '/pdf/EnriqueHerediaAguado_CV_fulldata.pdf' | relative_url }}", label: { en: "CV · full data ⤓", es: "CV · datos completos ⤓" } },
-          { href: "{{ '/cvn/' | relative_url }}", label: { en: "CVN record", es: "Datos CVN" } }
+        { title: { en: "CV downloads", es: "Descargas del CV" }, items: [
+          { href: "{{ '/pdf/EnriqueHerediaAguado_CV_short.pdf' | relative_url }}", label: { en: "1 page ⤓", es: "1 página ⤓" } },
+          { href: "{{ '/pdf/EnriqueHerediaAguado_CV.pdf' | relative_url }}", label: { en: "Full ⤓", es: "Completo ⤓" } },
+          { href: "{{ '/pdf/EnriqueHerediaAguado_CV_fulldata.pdf' | relative_url }}", label: { en: "Full data ⤓", es: "Datos completos ⤓" } },
+          { href: "{{ '/cvn/' | relative_url }}", label: { en: "CVN import", es: "Importar al CVN" } }
         ] }
       ]
     };

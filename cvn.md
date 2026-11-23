@@ -1,6 +1,6 @@
 ---
-title: CVN record
-description: Curriculum data in the field layout of the Spanish CVN (FECYT), generated from the same data as this CV.
+title: CVN import data
+description: Curriculum data with the fields of the Spanish CVN (FECYT), ready to import into its editor; generated from the same data as this CV.
 layout: default
 permalink: /cvn/
 noindex: true
@@ -37,8 +37,8 @@ custom_css:
 <section class="cvn-page">
     <div class="page-header">
         <div class="page-brand-muted">{{ site.title }}</div>
-        <h1>CVN record</h1>
-        <span class="page-subtitle">Datos del CV con los campos del CVN (FECYT)</span>
+        <h1>CVN import data</h1>
+        <span class="page-subtitle">Datos del CV con los campos del CVN, para importarlos en el editor de FECYT</span>
         {% include page_nav.html %}
     </div>
     {%- comment -%} Printed version only (the downloadable full-data CV PDF, pdf/…_CV_fulldata.pdf).
@@ -200,7 +200,10 @@ custom_css:
         {%- include cvn_f.html k="Grado de contribución" v=c.contribution -%}
         {%- include cvn_f.html k="Fecha de inicio-fin" v=c.start v2=c.end date=true range=true -%}
         {%- include cvn_f.html k="Cuantía total" v=c.amount -%}
-        {%- if p.from %}{% capture narr %}Participación en el proyecto: {% include date_span.html from=p.from to=p.to ongoing=p.ongoing style="num" present="actualidad" %}.{% endcapture %}{% include cvn_f.html k="Explicación narrativa de la aportación" v=narr %}{% endif -%}
+        {%- comment -%} The narrative also names every contract charged to the project (the cvn.contracts
+           of _data/employment.yml whose funding starts with its code): the documentary evidence. {%- endcomment -%}
+        {%- capture pk %}{% for j in site.data.employment %}{% for k in j[1].cvn.contracts %}{% assign kf = k.funding | split: " " | first %}{% if p.code and kf == p.code %} Contrato con cargo al proyecto: {{ k.start | split: "-" | reverse | join: "/" }} – {% if k.end %}{{ k.end | split: "-" | reverse | join: "/" }}{% else %}actualidad{% endif %}.{% endif %}{% endfor %}{% endfor %}{% endcapture %}
+        {%- if p.from %}{% capture narr %}Participación en el proyecto: {% include date_span.html from=p.from to=p.to ongoing=p.ongoing style="num" present="actualidad" %}.{{ pk }}{% endcapture %}{% include cvn_f.html k="Explicación narrativa de la aportación" v=narr %}{% endif -%}
         {%- endcapture %}
         {% assign nk = "projects:" | append: p.id %}{% assign note = site.data.cvn_local.notes[nk] %}{% include cvn_item.html title=pname listed=c.listed check=note source=c.source fields=f %}
         {%- endfor %}

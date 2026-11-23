@@ -22,7 +22,8 @@ var umh = career
   .commit({tag: "UMH (2022–present)", message: " "})
   .commit({message: C.label("detail-PROMETEO2025", "PROMETEO 2025"), detailId: "detail-PROMETEO2025"})
   .commit({message: C.label("detail-FIND", "FIND"), detailId: "detail-FIND"})
-  .commit({message: C.label("detail-AViRobots", "AViRobots"), detailId: "detail-AViRobots"})
+  // AViRobots: `cv: false` in projects.yml (contract only) -> full-data PDF and /cvn/ only.
+  // .commit({message: C.label("detail-AViRobots", "AViRobots"), detailId: "detail-AViRobots"})
   .commit({message: C.label("detail-ROBOT_VIGILANTE", "Robot_Vigilante"), detailId: "detail-ROBOT_VIGILANTE"})
   .commit({message: C.label("detail-ACTVIS", "ACTVIS"), detailId: "detail-ACTVIS"})
   .commit({message: C.label("detail-TED2021", "TED2021"), detailId: "detail-TED2021"})
